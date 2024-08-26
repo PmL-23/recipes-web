@@ -1,0 +1,129 @@
+* {
+    /* margin: 0; 
+    padding: 0;  parece no ser necesario*/
+    box-sizing: border-box;/*para que quede encajado en 3*/
+    font-family: "Montserrat", sans-serif;
+}
+
+/*para que no desborde de la parte de abajo*/
+.slider-wrapper { /*este es el contenedor del slider*/
+    overflow: hidden; /* oculta el contenido que excede el contenedor */
+    max-width: 1200px;
+    margin: 0 auto 55px;
+    display: flex;/*habilita flexbox para alinear los elementos*/
+    justify-content: center;
+    align-items: center;
+    transition-property: transform; /* permite la transicion suave al mover los slides */
+}
+/* el contorno de las recetas */
+.recetas .receta-item {
+    color: #a9117b;
+    user-select: none;/* evita que el texto sea seleccionado */
+    width: 500px; 
+    padding: 20px; 
+    display: flex; /* usa flexbox para alinear el contenido dentro de las recetas */
+    flex-direction: column; /* mantiene el texto abajo */
+    align-items: center;
+    justify-content: space-between; /* mantiene los elementos en la parte inferior */
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 3px solid rgba(255, 255, 255, 0.5);
+}
+
+/* la imagen dentro del contorno de la srecetas recetas */
+.recetas .receta-item .receta-imagen {
+    width: 300px; 
+    height: 200px; 
+    margin-bottom: 15px; 
+    border-radius: 0; 
+    border: none; 
+    padding: 0; 
+}
+
+/* nombre de la receta dentro de las recetas */
+.recetas .receta-item  {
+    font-size: 0.9rem; 
+    margin-bottom: 8px;
+}
+
+/* origen de las recetas */
+.recetas .receta-item .origen-receta {
+    font-size: 0.8rem; 
+    margin: 8px 0; 
+    color: #a9117b;
+    font-weight: 500;
+}
+
+/* boton q solicita la receta */
+.recetas .receta-item .pedir-receta {
+    font-size: 1rem; 
+    padding: 8px 25px; 
+    color: #030728;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    background: #fff;
+    border: 1px solid transparent;
+    transition: 0.2s ease;
+}
+
+.recetas .receta-item .pedir-receta:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid #fff;
+    color: #fff;
+}
+
+/* ajustes para pantallas chicas */
+@media (max-width: 768px) {
+    .slider-wrapper {
+        margin: 0 10px 40px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .slider-wrapper .swiper-slide-button {
+        display: none;/*lo saco ya que lo hacen deslizando con el dedo*/
+    }
+
+    .recetas .receta-item {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .recetas .receta-item .receta-imagen {
+        width: 200px; 
+        height: 150px; 
+        margin-bottom: 15px;
+    }
+
+    .recetas .receta-item  {
+        font-size: 0.8rem; 
+    }
+
+    .recetas .receta-item .origen-receta {
+        font-size: 0.7rem; 
+    }
+
+    .recetas .receta-item .pedir-receta {
+        margin-left: 0; 
+    }
+}
+
+/* color para el boton de sigueinte y atras */
+div .swiper-slide-button.swiper-button-next,  .swiper-slide-button.swiper-button-prev{
+    color: #a9117b;
+}
+
+/* color de lo de abajo */
+.swiper-pagination-bullet.swiper-pagination-bullet-active.swiper-pagination-bullet-active-main {
+    background-color: #a9117b !important;
+}
+/* ajustes de imagen, habian errores raros */
+@media (max-width: 1306px) {
+    .recetas .receta-item .receta-imagen {
+        width: 250px; 
+        height: 167px; 
+    }
+}
+
+

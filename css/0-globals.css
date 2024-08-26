@@ -1,0 +1,20 @@
+/* aca defino el color primario para reutilizar */
+:root {
+    --color_principal: #a9117b;
+    /*aca se pueden agregar colores para reutilizar, serian como variables globales*/
+}
+
+/* es de buena practica ajustar la altura de linea y el tamaño de texto para todo el html */
+html {
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%;
+}
+
+/* configura el estilo general del cuerpo del documento, debido a que por defecto se aplican margenes y padding 
+    que en futuro codigo podrian interferirs */
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #e7afd6;
+}
