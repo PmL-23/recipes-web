@@ -1,0 +1,35 @@
+/* estilo para el contenedor del buscador */
+.buscador {
+    display: flex; /* usamos felbox para luego aliniar los elementos hijos al medio*/
+    justify-content: center; 
+    margin-top: 80px; /* espacio entre el encabezado y el buscador */
+    padding-bottom: 2px;
+}
+
+/* estilo para el formulario dentro del contenedor del buscador */
+.buscador form {
+    display: flex; /* usamos felbox para luego aliniar los elementos hijos al medio*/
+    align-items: center; 
+    border: 2px solid var(--color_principal); /* borde de 2px con color similar al encabezado */
+    border-radius: 25px; /* bordes redondeados para un diseño mas suave */
+    padding: 10px 20px; /* espacio interno para separar el contenido del borde */
+    max-width: 600px; /* ancho maximo del formulario para mantenerlo a una escala adecuada */
+    width: 100%; /* hace que el formulario ocupe todo el ancho disponible dentro de su contenedor */
+}
+
+/* estilo para el campo de entrada de texto en el formulario */
+.buscador input[type="text"] {
+    border: none; /* elimina el borde predeterminado del campo de entrada */
+    outline: none; /* elimina el contorno predeterminado del campoo de entrada al estar enfcado */
+    width: 100%; /* hace q el campo de entrada ocupe todo el ancho disponible dentro del formulario */
+    padding: 10px; /* espacio interno dentro del campo de entrada */
+    font-size: 16px; /* tamaniio de fuente para el texto dentro del campo de entrada */
+    border-radius: 25px; /* bordes redondeados para q sea limdo*/
+}
+
+/* estilo para el svg dentro del formulario, la lupa de buscar */
+.buscador svg {
+    margin-right: 10px; /* le doy un margen para separar el svg del campo de entrada */
+    width: 24px; /* ajusta el ancho*/
+    height: 24px; /* ajusta la altura*/
+}

@@ -1,0 +1,77 @@
+/* estilos para el contenedor de los paises */
+.paises-contenedor {
+    display: flex;
+    gap: 15px;
+    padding: 10px 0;
+    box-sizing: border-box;
+    overflow-x: hidden; 
+}
+
+/* responcive para este rango ya que Argentina se cortaba a la mitad, medio random*/
+@media (min-width: 1030px) and (max-width: 1118px) {
+    .paises-contenedor {
+        flex-wrap: nowrap;/*hace que los elementos hijos (los enlaces de los paises) se queden en una linea horizontal*/
+        overflow-x: auto;/*para que quepa en la pantalla el contenido dentro del contenedor*/
+        white-space: nowrap;/*para que el contenido que este adentro se mantenga horizontal*/
+        padding: 10px 0;
+        justify-content: flex-start; /* se aliniea a la izquiera(para q luego se pueda dezplazar)*/
+        scrollbar-width: none;/*oculta la barra d desplazamiento*/
+    }
+    .paises-contenedor::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+/* lo mismo que antes solo que no quedaba bien porque estaba a la izquierda y no centrado */
+@media (min-width: 1150px) and (max-width: 1314px) {
+    .paises-contenedor {
+        justify-content: center;
+        padding: 10px 20px;
+    }
+}
+
+/* ajustes */
+@media (max-width: 1149px) {
+    .paises-contenedor {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        white-space: nowrap;
+        padding: 10px 0;
+        scrollbar-width: none;
+    }
+    .paises-contenedor::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+/* ajustes */
+@media (min-width: 1314px) {
+    .paises-contenedor {
+        justify-content: center;
+        padding: 10px 20px;
+    }
+}
+
+/* estilo para el contenedor de las imagenes */
+.pais {
+    display: inline-block;/*se alinean en fila los elementos para que esten en forma horizontal*/
+    margin: 0 10px;
+    text-align: center;
+}
+
+/* estilo para las imagenes de los paises */
+.pais img {
+    max-width: 80px; 
+    height: auto;
+}
+
+/* estilo para los nombres */
+.pais-nombre {
+    color: black;
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+a.pais:hover {
+    font-weight: bold;
+}
