@@ -17,7 +17,7 @@
 }
 /* el contorno de las recetas */
 .recetas .receta-item {
-    color: #a9117b;
+    color: black;
     user-select: none;/* evita que el texto sea seleccionado */
     width: 500px; 
     padding: 20px; 
@@ -28,6 +28,11 @@
     border-radius: 10px;
     background: rgba(255, 255, 255, 0.2);
     border: 3px solid rgba(255, 255, 255, 0.5);
+}
+
+.recetas > div {
+    background-color: #8fcda1 !important;
+    color: #000000 !important;
 }
 
 /* la imagen dentro del contorno de la srecetas recetas */
@@ -50,7 +55,7 @@
 .recetas .receta-item .origen-receta {
     font-size: 0.8rem; 
     margin: 8px 0; 
-    color: #a9117b;
+    color: #26533c;
     font-weight: 500;
 }
 
@@ -111,12 +116,12 @@
 
 /* color para el boton de sigueinte y atras */
 div .swiper-slide-button.swiper-button-next,  .swiper-slide-button.swiper-button-prev{
-    color: #a9117b;
+    color: #26533c;
 }
 
 /* color de lo de abajo */
 .swiper-pagination-bullet.swiper-pagination-bullet-active.swiper-pagination-bullet-active-main {
-    background-color: #a9117b !important;
+    background-color: #26533c !important;
 }
 /* ajustes de imagen, habian errores raros */
 @media (max-width: 1306px) {
