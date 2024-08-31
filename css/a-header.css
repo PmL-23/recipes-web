@@ -3,7 +3,9 @@
     background-color: var(--color_principal);
     position: fixed; /*con esto se logra que quede fijo el header*/
     width: 100%; /*ocupamos todo el ancho, no es lo mismo que hacer con todo los px*/
-    height: 60px; /* altura inicial del header, luego se cambia en pantallas chicas */
+    padding-bottom: 0.5rem;
+    padding-top: 0.5rem;
+    height: auto; /* altura inicial del header, luego se cambia en pantallas chicas */
     box-sizing: border-box; /* buenas practicas para incluir el tamaños de alto y ancho*/
     top: 0;/* con esto ponemos el header en el borde izquiero de arribas*/
     left: 0;/* con esto ponemos el header en el borde izquiero de arribas*/

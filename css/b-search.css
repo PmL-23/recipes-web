@@ -2,7 +2,7 @@
 .buscador {
     display: flex; /* usamos felbox para luego aliniar los elementos hijos al medio*/
     justify-content: center; 
-    margin-top: 80px; /* espacio entre el encabezado y el buscador */
+    margin-top: 7rem; /* espacio entre el encabezado y el buscador */
     padding-bottom: 2px;
 }
 
