@@ -30,6 +30,15 @@ const swiper = new Swiper('.slider-wrapper', { /* instanciamos un objeto Swiper 
   }
 });
 
+document.getElementById('toggleFiltro').onclick = function() {
+  var filtro = document.getElementById('filtro');
+  if (filtro.style.display === 'none' || filtro.style.display === '') {
+      filtro.style.display = 'block'; // Muestra el filtro
+  } else {
+      filtro.style.display = 'none'; // Oculta el filtro
+  }
+};
+
 // PARA LAS RECETAS
 //para que al dar click se vaya al documento correcto
 function redirigirConId(idBoton) {

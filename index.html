@@ -5,10 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recetario</title>
-<<<<<<< HEAD
-=======
     <link rel="icon" type="favicon/x-icon" href="./images/logo.png">
->>>>>>> c40dd7d (cambios hechos en reunion)
     <link rel="stylesheet" href="css/0-globals.css">
     <link rel="stylesheet" href="css/a-header.css">
     <link rel="stylesheet" href="css/b-search.css">
@@ -21,6 +18,10 @@
         <!-- fuentes -->
         <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        <!-- Link SwiperJS script -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+    <!-- Link custom script -->
+    <script src="script.js" defer></script>
        
 </head>
 
@@ -28,11 +29,7 @@
     <!-- header -->
     <header class="header">
         <div class="contenedor contenido-header">
-<<<<<<< HEAD
-            <h1>Recetas <span>de America</span></h1>
-=======
             <img src="./images/logo.png" alt="logo" width="75">
->>>>>>> c40dd7d (cambios hechos en reunion)
             <nav class="navegacion-principal">
                 <a class="h-amarillo" href="#">Publicaciones</a>
                 <a class="h-amarillo" href="#">Recetas</a>
@@ -47,19 +44,35 @@
     <!-- BUSCADOR -->
     <div class="buscador">
         <form action="#" method="GET">
-<<<<<<< HEAD
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a9117b" stroke-width="2"
-=======
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#26533c" stroke-width="2"
->>>>>>> c40dd7d (cambios hechos en reunion)
                 stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="11" cy="11" r="6" /> <!-- El círculo de la lupa -->
                 <line x1="16" y1="16" x2="21" y2="21" /> <!-- Mango de la lupa -->
             </svg>
-            <input type="text" placeholder="Busca recetas, ingredientes, personas y mas">
-
+            <input type="text" placeholder="Busca recetas, ingredientes, personas y más" class="form-control d-inline-block" style="width: 80%;">
+            <button type="button" id="toggleFiltro" class="btn btn-primary">Filtrar</button>
         </form>
+
+        <div class="filtro" id="filtro">
+            <h5>Filtros de Búsqueda</h5>
+            <form>
+                <div class="form-group">
+                    <label for="ingrediente">Ingrediente</label>
+                    <input type="text" class="form-control" id="ingrediente" placeholder="Ej. Tomate">
+                </div>
+                <div class="form-group">
+                    <label for="categoria">Categoría</label>
+                    <select class="form-control" id="categoria" multiple>
+                        <option value="ensalada">Ensalada</option>
+                        <option value="sopa">Sopa</option>
+                        <option value="postre">Postre</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-success">Buscar</button>
+            </form>
+        </div>
     </div>
+</div>
     <!-- paises -->
     <div class="paises-contenedor">
         <a class="pais" href="#">
@@ -174,142 +187,19 @@
             <div class="swiper-slide-button swiper-button-next"></div><!-- boton siguiente -->
         </div>
     </div>
-<!-- Link SwiperJS script -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <!-- Link custom script -->
-    <script src="script.js"></script>
-
-
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
-        autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
-        illo quia magni molestias?</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
-        autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
-        illo quia magni molestias?</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
-        autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
-        illo quia magni molestias?</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
-        autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
-        illo quia magni molestias?</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
-        autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
-        illo quia magni molestias?</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
-        autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
-        illo quia magni molestias?</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
-        autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
-        illo quia magni molestias?</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
-        autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
-        illo quia magni molestias?</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
-        autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
-        illo quia magni molestias?</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
-        autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
-        illo quia magni molestias?</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
-        autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
-        illo quia magni molestias?</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
-        autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
-        illo quia magni molestias?</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
-        autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
-        illo quia magni molestias?</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
-        autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
-        illo quia magni molestias?</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
-        autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
-        illo quia magni molestias?</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
-        autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
-        illo quia magni molestias?</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
-        autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
-        illo quia magni molestias?</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
-        autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
-        illo quia magni molestias?</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
-        autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
-        illo quia magni molestias?</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
-        autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
-        illo quia magni molestias?</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
-        autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
-        illo quia magni molestias?</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
-        autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
-        illo quia magni molestias?</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
-        autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
-        illo quia magni molestias?</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
-        autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
-        illo quia magni molestias?</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
-        autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
-        illo quia magni molestias?</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
-        autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
-        illo quia magni molestias?</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
-        autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
-        illo quia magni molestias?</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
-        autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
-        illo quia magni molestias?</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
-        autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
-        illo quia magni molestias?</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
-        autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
-        illo quia magni molestias?</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
-        autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
-        illo quia magni molestias?</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
-        autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
-        illo quia magni molestias?</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
-        autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
-        illo quia magni molestias?</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
-        autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
-        illo quia magni molestias?</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
-        autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
-        illo quia magni molestias?</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
-        autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
-        illo quia magni molestias?</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
-        autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
-        illo quia magni molestias?</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
-        autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
-        illo quia magni molestias?</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
-        autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
-        illo quia magni molestias?</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
-        autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
-        illo quia magni molestias?</p>
-    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
-        autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
-        illo quia magni molestias?</p>
 
 
 
-
-
-
-
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
+        autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
+        illo quia magni molestias?</p>
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
+        autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
+        illo quia magni molestias?</p>
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
+        autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
+        illo quia magni molestias?</p>
+    
 
 </body>
 
