@@ -1,0 +1,15 @@
+
+.DivSinLogIn{
+    margin-top: 400px !important;
+}
+#IDDivSinLogIn{
+    display: none;
+}
+
+.DivConLogIn{
+    margin-top: 40% !important;
+}
+
+#IDDivConLogIn{
+    display: flex;
+}
