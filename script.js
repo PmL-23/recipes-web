@@ -30,14 +30,16 @@ const swiper = new Swiper('.slider-wrapper', { /* instanciamos un objeto Swiper 
   }
 });
 
-document.getElementById('toggleFiltro').onclick = function() {
-  var filtro = document.getElementById('filtro');
-  if (filtro.style.display === 'none' || filtro.style.display === '') {
-      filtro.style.display = 'block'; // Muestra el filtro
+document.getElementById('toggleFiltro').addEventListener('click', function() {
+  var filtroDiv = document.getElementById('filtro');
+  if (filtroDiv.style.display === 'none' || filtroDiv.style.display === '') {
+      filtroDiv.style.display = 'block';
   } else {
-      filtro.style.display = 'none'; // Oculta el filtro
+      filtroDiv.style.display = 'none';
   }
-};
+});
+
+
 
 // PARA LAS RECETAS
 //para que al dar click se vaya al documento correcto
