@@ -1,0 +1,27 @@
+.receta {
+    background-color: #f8f9fa; /* Color de fondo ligero */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.etiquetas .badge {
+    margin: 5px;
+}
+
+.acciones {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.star {
+    font-size: 24px;
+    cursor: pointer;
+    color: lightgray; /* Color por defecto */
+}
+
+.star:hover {
+    color: gold; /* Color al pasar el mouse */
+}
