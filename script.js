@@ -84,3 +84,37 @@ redirigirConIdPaises("paisPeru");
 redirigirConIdPaises("paisParaguay");
 redirigirConIdPaises("paisUruguay");
 redirigirConIdPaises("paisVenezuela");
+
+/* Seccion de recetas */
+document.querySelectorAll('.star').forEach(star => {
+  star.addEventListener('click', () => {
+      const rating = star.getAttribute('data-value');
+      document.querySelectorAll('.star').forEach(s => {
+          s.style.color = s.getAttribute('data-value') <= rating ? 'gold' : 'lightgray';
+      });
+  });
+});
+
+// Manejo de comentarios
+const btnEnviarComentario = document.getElementById('btnEnviarComentario');
+const comentarioText = document.getElementById('comentarioText');
+const listaComentarios = document.getElementById('listaComentarios');
+const btnComentar = document.getElementById('btnComentar');
+
+// Redirigir al textarea de comentarios
+btnComentar.addEventListener('click', () => {
+  const seccionComentarios = document.getElementById('seccionComentarios');
+  seccionComentarios.scrollIntoView({ behavior: 'smooth' });
+});
+
+// Enviar comentario
+btnEnviarComentario.addEventListener('click', () => {
+  const comentario = comentarioText.value.trim();
+  if (comentario) {
+      const nuevoComentario = document.createElement('li');
+      nuevoComentario.className = 'list-group-item';
+      nuevoComentario.textContent = comentario;
+      listaComentarios.appendChild(nuevoComentario);
+      comentarioText.value = ''; // Limpiar el textarea
+  }
+});
