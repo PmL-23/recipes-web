@@ -389,7 +389,7 @@ function eliminarItemDeTabla(arrayDeItems, index) {
     // Eliminar el item del array usando el índice segun la tabla
     const seccionActual = location.hash;
 
-    if (seccionActual == "#admin-categorias") {
+    if (seccionActual == "#admin-categorias" || seccionActual == "" || seccionActual == "#") {
         
         categorias.splice(index, 1);
 
