@@ -1,16 +1,15 @@
-const swiper = new Swiper('.slider-wrapper', { /* instanciamos un objeto Swiper aplicandolo al html 
-                                                                        con clase slider-wrapper (el control deslizante)*/
-  loop: true,/* esto permite que el slider se pueda desplazar todo loq ue quiera */
-  grabCursor: true,/* pone la manito */
-  spaceBetween: 30,/*espacio */
-  // configura los puntos de abajo, en dodne se ven cuantos slides hay
+const swiper = new Swiper('.slider-wrapper', {
+  loop: true,
+  grabCursor: true,
+  spaceBetween: 30,
+
   pagination: {
-    el: '.swiper-pagination', /* especifica el elemento html que se usa, osea la clase */
-    clickable: true,/* se puede hacer click en los puntitos para avanzar o retroceder */
-    dynamicBullets: true /* hace responcivo los puntitos */
+    el: '.swiper-pagination', 
+    clickable: true,
+    dynamicBullets: true 
   },
 
-  // configura las flechas de navegacion
+
   navigation: {
     nextEl: '.swiper-button-next', /* para adelante */
     prevEl: '.swiper-button-prev', /* para atrass */
@@ -85,36 +84,3 @@ redirigirConIdPaises("paisParaguay");
 redirigirConIdPaises("paisUruguay");
 redirigirConIdPaises("paisVenezuela");
 
-/* Seccion de recetas */
-document.querySelectorAll('.star').forEach(star => {
-  star.addEventListener('click', () => {
-      const rating = star.getAttribute('data-value');
-      document.querySelectorAll('.star').forEach(s => {
-          s.style.color = s.getAttribute('data-value') <= rating ? 'gold' : 'lightgray';
-      });
-  });
-});
-
-// Manejo de comentarios
-const btnEnviarComentario = document.getElementById('btnEnviarComentario');
-const comentarioText = document.getElementById('comentarioText');
-const listaComentarios = document.getElementById('listaComentarios');
-const btnComentar = document.getElementById('btnComentar');
-
-// Redirigir al textarea de comentarios
-btnComentar.addEventListener('click', () => {
-  const seccionComentarios = document.getElementById('seccionComentarios');
-  seccionComentarios.scrollIntoView({ behavior: 'smooth' });
-});
-
-// Enviar comentario
-btnEnviarComentario.addEventListener('click', () => {
-  const comentario = comentarioText.value.trim();
-  if (comentario) {
-      const nuevoComentario = document.createElement('li');
-      nuevoComentario.className = 'list-group-item';
-      nuevoComentario.textContent = comentario;
-      listaComentarios.appendChild(nuevoComentario);
-      comentarioText.value = ''; // Limpiar el textarea
-  }
-});
