@@ -7,6 +7,10 @@
     overflow-x: hidden; 
 }
 
+.paises-contenedor a {
+    text-decoration: none;
+}
+
 /* responcive para este rango ya que Argentina se cortaba a la mitad, medio random*/
 @media (min-width: 1030px) and (max-width: 1118px) {
     .paises-contenedor {
