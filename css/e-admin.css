@@ -1,0 +1,71 @@
+/* .admin-container{
+    margin-top: 7rem !important;
+} */
+body{
+    background-color: #e9e9e9 !important;
+}
+
+.header{
+    position: relative !important;
+}
+
+.container{
+    margin-top: 2.5rem !important;
+}
+
+.admin-container > nav{
+    font-weight: 500 !important;
+}
+
+.panel-body{
+    overflow-y: auto !important;
+    max-height: 680px !important;
+}
+
+.panel-body > div{
+    max-height: 680px !important;
+}
+
+.panel-default{
+    background-color: #fff;
+}
+
+.custom-bg{
+    background-color: #26533c !important;
+    border-color: #26533c !important;
+    color: #fff !important;
+}
+
+.btn-custom-bg{
+    background-color: #26533c !important;
+    border-color: #26533c !important;
+    color: #fff !important;
+}
+
+.btn-custom-bg:hover{
+    background-color: #204432 !important;
+}
+
+.btn-add-item{
+    background-color: #26533c !important;
+    color: #fff !important;
+    font-weight: bold !important;
+    /* border: 1px solid #fff !important; */
+}
+
+.btn-add-item:hover{
+    background-color: #fff !important;
+    color: #26533c !important;
+    font-weight: bold !important;
+    border: 1px solid #26533c !important;
+}
+
+.list-group .item-activo{
+    background-color: #78d3a4 !important;
+}
+
+.img-thumbnail{
+    max-height: 4rem !important;
+    max-width: 4rem !important;
+}
+

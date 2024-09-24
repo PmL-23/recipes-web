@@ -69,6 +69,10 @@ a {
     gap: 10px; /* espacio entre los elementos*/
 }
 
+.navegacion-principal a{
+    text-decoration: none; /*ocultar subrayado de links*/
+}
+
 /* estilo base para el boton 1 de iniciar sesion */
 .boton1 {
     display: inline-block;/**/
