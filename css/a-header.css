@@ -1,7 +1,7 @@
 /* estilo para el header fijo en la parte superior de la pagina */
 .header {
     background-color: var(--color_principal);
-    position: fixed; /*con esto se logra que quede fijo el header*/
+    position: relative; /*con esto se logra que quede fijo el header*/
     width: 100%; /*ocupamos todo el ancho, no es lo mismo que hacer con todo los px*/
     padding-bottom: 0.5rem;
     padding-top: 0.5rem;
