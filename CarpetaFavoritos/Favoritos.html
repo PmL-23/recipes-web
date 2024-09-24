@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recetas de America - Favoritos</title>
 
-    <link rel="stylesheet" href="/CopiaGit/recipes-web-master/css/0-globals.css">
-    <link rel="stylesheet" href="/CopiaGit/recipes-web-master/css/a-header.css">
-    <link rel="stylesheet" href="/CopiaGit/recipes-web-master/css/b-search.css">
-    <link rel="stylesheet" href="/CopiaGit/recipes-web-master/css/c-countries.css">
-    <link rel="stylesheet" href="/CopiaGit/recipes-web-master/css/d-slider.css">
-    <link rel="stylesheet" href="/CopiaGit/recipes-web-master/css/e-BarraLateral.css">
-    <link rel="stylesheet" href="/CopiaGit/recipes-web-master/CarpetaPerfil/EstilosPerfil.css">
-    <link rel="stylesheet" href="/CopiaGit/recipes-web-master/CarpetaFavoritos/EstilosFavoritos.css">
+    <link rel="stylesheet" href="../css/0-globals.css">
+    <link rel="stylesheet" href="../css/a-header.css">
+    <link rel="stylesheet" href="../css/b-search.css">
+    <link rel="stylesheet" href="../css/c-countries.css">
+    <link rel="stylesheet" href="../css/d-slider.css">
+    <link rel="stylesheet" href="../css/e-BarraLateral.css">
+    <link rel="stylesheet" href="../CarpetaPerfil/EstilosPerfil.css">
+    <link rel="stylesheet" href="../CarpetaFavoritos/EstilosFavoritos.css">
 
-    <link rel="icon" type="favicon/x-icon" href="./images/logo.png">
+    <link rel="icon" type="favicon/x-icon" href="../images/logo.png">
     <link rel="stylesheet" href="/css/0-globals.css">
     <link rel="stylesheet" href="/css/a-header.css">
     <link rel="stylesheet" href="/css/b-search.css">
@@ -39,13 +39,17 @@
     <!-- header -->
     <header class="header">
         <div class="contenedor contenido-header">
-            <img src="/images/logo.png" alt="logo" width="75">
+            <img src="../images/logo.png" alt="logo" width="75">
             <nav class="navegacion-principal">
-                <a class="boton1" href="/index.html">Inicio</a>
+                <a class="boton1" href="../index.html">Inicio</a>
                 <a class="boton1" href="#">Explorar</a>
                 
                 <!--barra lateral-->
-                <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">-</button>
+                <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+                    </svg>
+                </button>
 
                 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
                     <div class="offcanvas-header">
@@ -69,7 +73,7 @@
                         <ul class="navbar-nav justify-content-end flex-grow-1 pe-0 ">
                             
                             <li class="nav-item">
-                            <a class="nav-link mt-5 " href="/CarpetaPerfil/Perfil.html">Perfil</a>
+                            <a class="nav-link mt-5 " href="../CarpetaPerfil/Perfil.html">Perfil</a>
                             </li>
                             <hr>
                             <li class="nav-item mt-2">
@@ -105,7 +109,7 @@ posible filtro para mostrar recetas?-->
             <div class=" col-10 BoxPublicacion p-0">
                 <div class="card" >
                     <div class=" DivEncabezadoPublicacion ">
-                        <img class="d-inline " alt="Texto si no ve imagen" src="/images/panchos_lp.jpeg"width="25" height="25">
+                        <img class="d-inline " alt="Texto si no ve imagen" src="../images/panchos_lp.jpeg"width="25" height="25">
                         <p class="d-inline" id="IDNombreCompletoDeUsuarioEnPublicacion">Nombre & Apellido de Usuario</p>
                         <p class="d-inline text-secondary" id="IDNombreDeUsuarioEnPublicacion">@NombreDeUsuario</p>
                     </div>
@@ -118,10 +122,10 @@ posible filtro para mostrar recetas?-->
                         </div>
                         <div class="carousel-inner"> <!---buscar manera para que el tamaño de una imagen no perjudique la UX-->
                             <div class="carousel-item active">
-                                <img src="/images/bondiola_lp.jpg" class="d-block w-100" alt="...">
+                                <img src="../images/bondiola_lp.jpg" class="d-block w-100" alt="...">
                             </div>
                             <div class="carousel-item">
-                                <img src="/images/sorrentinos_lp.jpg" class="d-block w-100 " alt="...">
+                                <img src="../images/sorrentinos_lp.jpg" class="d-block w-100 " alt="...">
                             </div>
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -178,7 +182,7 @@ posible filtro para mostrar recetas?-->
                     <div class=" col-10 BoxPublicacion p-0">
                         <div class="card" >
                             <div class=" DivEncabezadoPublicacion ">
-                                <img class="d-inline " alt="Texto si no ve imagen" src="/images/milanesas_lp.jpg"width="25" height="25">
+                                <img class="d-inline " alt="Texto si no ve imagen" src="../images/milanesas_lp.jpg"width="25" height="25">
                                 <p class="d-inline" id="IDNombreCompletoDeUsuarioEnPublicacion">Nombre & Apellido de Usuario</p>
                                 <p class="d-inline text-secondary" id="IDNombreDeUsuarioEnPublicacion">@NombreDeUsuario</p>
                             </div>
@@ -191,10 +195,10 @@ posible filtro para mostrar recetas?-->
                                 </div>
                                 <div class="carousel-inner"> <!---buscar manera para que el tamaño de una imagen no perjudique la UX-->
                                     <div class="carousel-item active">
-                                        <img src="/images/pizza_lp.jpg" class="d-block w-100" alt="...">
+                                        <img src="../images/pizza_lp.jpg" class="d-block w-100" alt="...">
                                     </div>
                                     <div class="carousel-item">
-                                        <img src="/images/sorrentinos_lp.jpg" class="d-block w-100 " alt="...">
+                                        <img src="../images/sorrentinos_lp.jpg" class="d-block w-100 " alt="...">
                                     </div>
                                 </div>
                                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators1" data-bs-slide="prev">
@@ -241,12 +245,6 @@ posible filtro para mostrar recetas?-->
                     <div class="col-1 "></div>
             
                 </div>
-
-
-
-
-
-
 
 
 </body>
