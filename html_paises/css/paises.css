@@ -1,0 +1,170 @@
+/* barra de navegacion */
+.menu-barra ul {
+    list-style: none; /* quita los puntos de la lista */
+    padding: 0; 
+    margin: 0; 
+    display: flex; /* utiliza flexbox para el diseño */
+    background-color: #f4f4f4; /* color de fondo del menu */
+    justify-content: space-around; /* distribuye los elementos */
+}
+
+.titulo-clickable {
+    cursor: pointer; /*le pone cursor para la marca*/
+}
+
+.menu-barra ul li {
+    margin: 0 10px; /* espacio entre los items del menu */
+}
+
+.menu-barra ul li a {
+    text-decoration: none; /* quita el subrayado de los enlaces */
+    font-size: 1.2rem; 
+    padding: 10px; 
+    color: #333; 
+}
+
+.menu-barra ul li a:hover {
+    background-color: #ddd; /* color de fondo al pasar el raton */
+    border-radius: 5px; 
+}
+
+/* para ocultar y luego filtrar por desayuno, almuerzo, merienda o cena */
+.ocultar {
+    display: none; /* oculta el elemento */
+}
+
+/* titulo */
+h2 {
+    color: #1e4530; /* color del titulo */
+}
+
+/* cambia el color de fondo y borde de todos los botones btn-primary */
+.btn-primary {
+    background-color: #26533c !important; /* color de fondo de los botones */
+    border-color: #26533c !important; /* color del borde de los botones */
+}
+
+/* cambia el color de fondo cuando el boton es pulsado o al pasar el raton */
+.btn-primary:hover,
+.btn-primary:active {
+    background-color: #1e4530 !important; /* color de fondo al pasar el raton */
+    border-color: #1e4530 !important; /* color del borde al pasar el raton */
+}
+
+/* estilo para el nav con fondo blanco */
+nav.menu-barra ul {
+    background-color: #ffffff !important; /* fondo blanco para el ul */
+    border-bottom: 2px solid #1e4530; 
+    padding: 0; 
+    margin: 0; 
+    list-style-type: none; /* quita los estilos de lista */
+}
+
+/* estilo para los enlaces dentro del ul */
+nav.menu-barra ul li a {
+    color: #1e4530; /* color del texto */
+    background-color: #ffffff; 
+    border-right: 2px solid #1e4530; /* linea verde a la derecha de cada enlace */
+    padding: 1px 15px; 
+    display: block; /* hace que los enlaces ocupen toda la altura del li */
+    text-decoration: none; /* quita el subrayado de los enlaces */
+    font-weight: bold;
+}
+
+/* estilo para hover sobre los enlaces */
+nav.menu-barra ul li a:hover {
+    background-color: #ffffff; 
+    border-radius: 0;
+    font-weight: 800; 
+}
+
+.menu-toggle {
+    display: none; /* oculta el icono del menu por defecto */
+    font-size: 30px; 
+    cursor: pointer; /* cambia el cursor a mano */
+}
+
+@media (max-width: 768px) {
+    nav.menu-barra ul {
+        display: none; /* oculta el menu por defecto en pantallas pequeñas */
+        flex-direction: column; /* cambia a columna en pantallas pequeñas */
+        background-color: #fff; 
+        border-bottom: 0; /* quita la linea de abajo */
+        border-right: #fff; 
+    }
+
+    nav.menu-barra ul li a:hover {
+        background-color: #26533c; /* fondo verde al pasar el raton */
+        color: #fff; /* color del texto blanco al pasar el raton */
+    }
+
+    .menu-toggle {
+        display: block; /* muestra el icono hamburguesa en pantallas pequeñas */
+        text-align: center; /* centra el icono */
+        margin-bottom: 10px; 
+    }
+
+    nav.menu-barra ul.menu-list.active {
+        display: flex; /* muestra el menu al hacer clic */
+    }
+}
+.modal {
+    display: none; /* Ocultar el modal por defecto */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Habilitar desplazamiento si es necesario */
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro con opacidad */
+}
+
+.modal-contenido {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Ancho del modal */
+    max-width: 600px; /* Ancho máximo del modal */
+}
+
+.cerrar {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.cerrar:hover,
+.cerrar:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+/* Clase para mostrar el modal */
+.mostrar {
+    display: block; /* Muestra el modal */
+}
+
+/* Clase para ocultar el modal */
+.ocultar-modal {
+    display: none; /* Oculta el modal */
+}
+.no-scroll {
+    overflow: hidden; /* Desactiva el desplazamiento */
+}
+
+
+.card-body {
+    display: flex; /* Usamos flexbox */
+    flex-direction: column; /* Colocamos los elementos en columna */
+    justify-content: space-between; /* Espaciamos el contenido para que se coloque entre los extremos */
+    height: 100%; /* Hacemos que el body de la tarjeta use todo el alto disponible */
+}
+
+.verReceta {
+    margin-top: auto; /* Empuja el botón hacia el fondo del contenedor */
+    padding: 5px 8px; /* Menor padding para que el botón sea más compacto */
+    align-self: flex-start; /* Alinea el botón a la izquierda */
+}
