@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/0-globals.css">
+    <link rel="stylesheet" href="/css/a-header.css">
+    <link rel="stylesheet" href="../html_paises/css/paises.css">
+    <script src="../html_paises/js/ordenarRecetas.js" defer></script>
+    <!-- fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <title>Platos con Carne</title>
+</head>
+
+<body>
+    <!-- header -->
+    <header class="header">
+        <div class="contenedor contenido-header">
+            <h1 class="titulo-clickable" id="tituloRecetas" href="#">Recetas <span>de America</span></h1>
+            <nav class="navegacion-principal">
+                <a class="h-amarillo" href="#">Publicaciones</a>
+                <a class="h-amarillo" href="#">Recetas</a>
+                <a class="h-amarillo" href="#">Paises</a>
+                <a class="h-amarillo" href="#">Nosotros</a>
+                <a class="boton1" href="#">Iniciar Sesion</a>
+                <a class="boton2" href="html_inicio_sesion/registrarse.html">Registrarse</a>
+            </nav>
+        </div>
+    </header>
+
+    <h2 class="text-center pt-7 fw-bold">Nuestros platos con Carne</h2>
+
+    <!-- Barra de navegación secundaria -->
+    <div class="oculto">
+        <nav class=" menu-barra pt-4">
+            <div class="menu-toggle" id="menuToggle">☰</div>
+            <ul class="menu-list">
+                <li><a id="todos" href="#todos">Todos</a></li>
+                <li><a id="desayuno" href="#desayuno">Desayuno</a></li>
+                <li><a id="almuerzo" href="#almuerzo">Almuerzo</a></li>
+                <li><a id="merienda" href="#merienda">Merienda</a></li>
+                <li><a id="cena" href="#cena">Cena</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Sección de cenas -->
+    <div class="container mt-5">
+        <div class="row">
+
+            <!-- Almuerzo -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion  almuerzo">
+                <div class="card h-100">
+                    <img src="../html_paises/img/imgArg/milanesaNapo.jpg" class="card-img-top"
+                        alt="milanesa napolitana">
+                    <div class="card-body">
+                        <h5 class="card-title">Milanesa a la Napolitana</h5>
+                        <p class="card-text">Deliciosa milanesa empanada, cubierta con salsa de tomate y queso fundido,
+                            un plato típico argentino.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalMilanesa">Ver receta</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Almuerzo -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion almuerzo">
+                <div class="card h-100">
+                    <img src="../html_paises/img/imgArg/locro.jpg" class="card-img-top" alt="locro">
+                    <div class="card-body">
+                        <h5 class="card-title">Locro</h5>
+                        <p class="card-text">Guiso tradicional argentino a base de maíz, carne, y vegetales, ideal para
+                            días festivos en Argentina.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalLocro">Ver receta</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Desayuno -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion desayuno">
+                <div class="card h-100">
+                    <img src="../html_paises/img/imgBolivia/salteñas.jpg" class="card-img-top" alt="empanadas salteñas">
+                    <div class="card-body">
+                        <h5 class="card-title">Salteñas</h5>
+                        <p class="card-text">Empanadas jugosas rellenas de carne o pollo, acompañadas de papa y huevo
+                            duro.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalSalteñas">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Desayuno -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion desayuno">
+                <div class="card h-100">
+                    <img src="../html_paises/img/imgBolivia/tucumanas.jpg" class="card-img-top"
+                        alt="empanadas tucumanas">
+                    <div class="card-body">
+                        <h5 class="card-title">Tucumanas</h5>
+                        <p class="card-text">Empanadas fritas típicas de Bolivia, rellenas de carne, papa, zanahoria y
+                            huevo duro, con un toque de picante.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalTucumanas">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Almuerzo -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion almuerzo">
+                <div class="card h-100">
+                    <img src="../html_paises/img/imgBrasil/Churrasco.jpg" class="card-img-top" alt="churrasco">
+                    <div class="card-body">
+                        <h5 class="card-title">Churrasco</h5>
+                        <p class="card-text">Carne asada a la parrilla, una tradición en el sur de Brasil.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalChurrasco">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Almuerzo -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion almuerzo">
+                <div class="card h-100">
+                    <img src="../html_paises/img/imgBrasil/Escondidinho.jpg" class="card-img-top" alt="escondidinho">
+                    <div class="card-body">
+                        <h5 class="card-title">Escondidinho</h5>
+                        <p class="card-text">Plato gratinado con capas de carne y puré de yuca.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalEscondidinho">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Almuerzo -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion  almuerzo">
+                <div class="card h-100">
+                    <img src="../html_paises/img/imgChile/Pastel de Choclo.jpg" class="card-img-top"
+                        alt="pastel de choclo">
+                    <div class="card-body">
+                        <h5 class="card-title">Pastel de Choclo</h5>
+                        <p class="card-text">Guiso a base de carne y una capa de puré de maíz.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalPastelDeChoclo">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Almuerzo -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion almuerzo">
+                <div class="card h-100">
+                    <img src="../html_paises/img/imgChile/Charquicán.jpeg" class="card-img-top" alt="charquican">
+                    <div class="card-body">
+                        <h5 class="card-title">Charquicán</h5>
+                        <p class="card-text">Guiso de carne con verduras y puré, muy reconfortante.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalCharquican">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Cena -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion cena">
+                <div class="card h-100">
+                    <img src="../html_paises/img/imgChile/Asado.jpg" class="card-img-top" alt="asado">
+                    <div class="card-body">
+                        <h5 class="card-title">Asado</h5>
+                        <p class="card-text">Carne asada a la parrilla, tradicional en reuniones familiares.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalAsado">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Almuerzo -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion almuerzo">
+                <div class="card h-100">
+                    <img src="../html_paises/img/imgColombia/Posta Negra.jpg" class="card-img-top" alt="posta negra">
+                    <div class="card-body">
+                        <h5 class="card-title">Posta Negra</h5>
+                        <p class="card-text">Carne de res cocida en salsa de cerveza y especias, típica de la región
+                            caribe.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalPostaNegra">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Almuerzo -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion almuerzo">
+                <div class="card h-100">
+                    <img src="../html_paises/img/imgEcuador/Seco de Chivo.png" class="card-img-top" alt="seco de chivo">
+                    <div class="card-body">
+                        <h5 class="card-title">Seco de Chivo</h5>
+                        <p class="card-text">Guiso de carne de chivo con cerveza, especias y plátano.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalSecoDeChivo">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Almuerzo -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion almuerzo">
+                <div class="card h-100">
+                    <img src="../html_paises/img/imgParaguay/Soyo.jpg" class="card-img-top" alt="soyo">
+                    <div class="card-body">
+                        <h5 class="card-title">Soyo</h5>
+                        <p class="card-text">Guiso de carne molida con verduras, típico paraguayo.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalSoyo">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Almuerzo -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion almuerzo">
+                <div class="card h-100">
+                    <img src="../html_paises/img/imgPeru/Pachamanca.jpg" class="card-img-top" alt="pachamanca">
+                    <div class="card-body">
+                        <h5 class="card-title">Pachamanca</h5>
+                        <p class="card-text">Carne y vegetales cocidos en tierra, un plato andino tradicional.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalPachamanca">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Almuerzo -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion almuerzo">
+                <div class="card h-100">
+                    <img src="../html_paises/img/imgUruguay/Milanesa con Papas Fritas.jpg" class="card-img-top"
+                        alt="milanesa con papas fritas">
+                    <div class="card-body">
+                        <h5 class="card-title">Milanesa con Papas Fritas</h5>
+                        <p class="card-text">Milanesa de carne con crocantes papas fritas, un plato popular y delicioso.
+                        </p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalMilanesaConPapasFritas">Ver
+                            Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Almuerzo -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion almuerzo">
+                <div class="card h-100">
+                    <img src="../html_paises/img/imgVenezuela/Asado Negro.jpg" class="card-img-top" alt="asado negro">
+                    <div class="card-body">
+                        <h5 class="card-title">Asado Negro</h5>
+                        <p class="card-text">Carne de res cocida a fuego lento, con una deliciosa salsa oscura.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalAsadoNegro">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <!-- Modal para mostrar la receta de Milanesa a la Napolitana -->
+    <div id="modalMilanesa" class="modal">
+        <div class="modal-contenido">
+            <span class="cerrar">&times;</span>
+            <h2>Milanesa a la Napolitana</h2>
+            <p>Deliciosa milanesa empanada, cubierta con salsa de tomate y queso fundido, un plato típico argentino.</p>
+            <h3>Ingredientes:</h3>
+            <ul id="ingredientesMilanesa">
+                <li>1 kg de carne de res</li>
+                <li>2 huevos</li>
+                <li>Pan rallado al gusto</li>
+                <li>Salsa de tomate</li>
+                <li>Queso mozzarella</li>
+                <!-- Agrega más ingredientes aquí -->
+            </ul>
+            <h3>Pasos:</h3>
+            <ol id="pasosMilanesa">
+                <li>Empanar la carne en huevo y pan rallado.</li>
+                <li>Freír en aceite caliente hasta dorar.</li>
+                <li>Agregar salsa de tomate y queso por encima, y gratinar.</li>
+                <!-- Agrega más pasos aquí -->
+            </ol>
+        </div>
+    </div>
+
+    <!-- Modal para mostrar la receta de Locro -->
+    <div id="modalLocro" class="modal">
+        <div class="modal-contenido">
+            <span class="cerrar">&times;</span>
+            <h2>Locro</h2>
+            <p>Guiso tradicional argentino a base de maíz, carne, y vegetales, ideal para días festivos en Argentina.
+            </p>
+            <h3>Ingredientes:</h3>
+            <ul id="ingredientesLocro">
+                <li>1 taza de maíz</li>
+                <li>500g de carne (cerdo, res)</li>
+                <li>1 cebolla</li>
+                <li>2 zanahorias</li>
+                <li>Caldo de carne al gusto</li>
+                <!-- Agrega más ingredientes aquí -->
+            </ul>
+            <h3>Pasos:</h3>
+            <ol id="pasosLocro">
+                <li>Cocinar el maíz en agua hasta que esté tierno.</li>
+                <li>Añadir la carne y los vegetales, y cocinar a fuego lento.</li>
+                <li>Agregar caldo y dejar cocinar hasta que espese.</li>
+                <!-- Agrega más pasos aquí -->
+            </ol>
+        </div>
+    </div>
+    <!-- Modal para Salteñas -->
+    <div id="modalSalteñas" class="modal">
+        <div class="modal-contenido">
+            <span class="cerrar">&times;</span>
+            <h2 id="nombreReceta">Salteñas</h2>
+            <p id="descripcionReceta">Empanadas jugosas rellenas de carne o pollo, acompañadas de papa y huevo duro.</p>
+            <h3>Ingredientes:</h3>
+            <ul id="ingredientesReceta">
+                <li>500g de carne de res o pollo</li>
+                <li>1 taza de cebolla picada</li>
+                <li>2 cucharadas de aceite</li>
+                <li>1/2 taza de papa cocida y picada</li>
+                <li>1/2 taza de huevo duro picado</li>
+                <li>Sal y pimienta al gusto</li>
+                <li>1 paquete de masa para empanadas</li>
+                <!-- Agrega más ingredientes aquí -->
+            </ul>
+            <h3>Pasos:</h3>
+            <ol id="pasosReceta">
+                <li>En una sartén, calentar el aceite y añadir la cebolla hasta que esté dorada.</li>
+                <li>Agregar la carne y cocinar hasta que esté bien hecha.</li>
+                <li>Incorporar la papa y el huevo duro. Sazonar con sal y pimienta.</li>
+                <li>Dejar enfriar la mezcla y rellenar las masas de empanadas.</li>
+                <li>Hornear a 180°C durante 20 minutos o hasta doradas.</li>
+                <!-- Agrega más pasos aquí -->
+            </ol>
+        </div>
+    </div>
+    <!-- Modal Tucumanas -->
+    <div id="modalTucumanas" class="modal">
+        <div class="modal-contenido">
+            <span class="cerrar">&times;</span>
+            <h2 id="nombreReceta">Tucumanas</h2>
+            <p id="descripcionReceta">Empanadas fritas típicas de Bolivia, rellenas de carne, papa, zanahoria y huevo
+                duro, con un toque de picante.</p>
+            <h3>Ingredientes:</h3>
+            <ul id="ingredientesReceta">
+                <li>500g de carne picada</li>
+                <li>2 papas cocidas y picadas</li>
+                <li>1 zanahoria rallada</li>
+                <li>4 huevos duros picados</li>
+                <li>Sal y ají al gusto</li>
+                <li>1 paquete de masa para empanadas</li>
+            </ul>
+            <h3>Pasos:</h3>
+            <ol id="pasosReceta">
+                <li>Mezclar todos los ingredientes del relleno.</li>
+                <li>Rellenar las empanadas y freírlas hasta doradas.</li>
+            </ol>
+        </div>
+    </div>
+    <!-- Modal para Churrasco -->
+    <div id="modalChurrasco" class="modal">
+        <div class="modal-contenido">
+            <span class="cerrar">&times;</span>
+            <h2 id="nombreRecetaChurrasco">Churrasco</h2>
+            <p id="descripcionRecetaChurrasco">Carne asada a la parrilla, una tradición en el sur de Brasil.</p>
+            <h3>Ingredientes:</h3>
+            <ul id="ingredientesRecetaChurrasco">
+                <li>1kg de carne de res (picanha o costilla)</li>
+                <li>Sal gruesa al gusto</li>
+                <li>Pimienta al gusto</li>
+                <li>Opcional: ajo en polvo y hierbas</li>
+            </ul>
+            <h3>Pasos:</h3>
+            <ol id="pasosRecetaChurrasco">
+                <li>Precalentar la parrilla a temperatura alta.</li>
+                <li>Condimentar la carne con sal y pimienta.</li>
+                <li>Colocar la carne en la parrilla y cocinar por 10-15 minutos de cada lado.</li>
+                <li>Retirar del fuego, dejar reposar unos minutos y servir.</li>
+            </ol>
+        </div>
+    </div>
+    <!-- Modal Escondidinho -->
+    <div id="modalEscondidinho" class="modal">
+        <div class="modal-contenido">
+            <span class="cerrar">&times;</span>
+            <h2 id="nombreRecetaEscondidinho">Escondidinho</h2>
+            <p id="descripcionRecetaEscondidinho">Plato gratinado con capas de carne y puré de yuca.</p>
+            <h3>Ingredientes:</h3>
+            <ul id="ingredientesRecetaEscondidinho">
+                <li>500g de carne de res o pollo</li>
+                <li>1 kg de yuca cocida y triturada</li>
+                <li>1 taza de queso rallado</li>
+                <li>1 cebolla picada</li>
+                <li>2 cucharadas de aceite</li>
+                <li>Sal y pimienta al gusto</li>
+            </ul>
+            <h3>Pasos:</h3>
+            <ol id="pasosRecetaEscondidinho">
+                <li>Calentar el aceite en una sartén y añadir la cebolla hasta que esté dorada.</li>
+                <li>Agregar la carne y cocinar hasta que esté bien hecha.</li>
+                <li>En un molde, colocar una capa de puré de yuca, luego la carne y cubrir con más puré.</li>
+                <li>Espolvorear con queso rallado y llevar al horno a gratinar por 20 minutos.</li>
+            </ol>
+        </div>
+    </div>
+    <!-- Modal para Pastel de Choclo -->
+    <div id="modalPastelDeChoclo" class="modal">
+        <div class="modal-contenido">
+            <span class="cerrar">&times;</span>
+            <h2 id="nombreRecetaPastelDeChoclo">Pastel de Choclo</h2>
+            <p id="descripcionRecetaPastelDeChoclo">Guiso a base de carne y una capa de puré de maíz.</p>
+            <h3>Ingredientes:</h3>
+            <ul id="ingredientesRecetaPastelDeChoclo">
+                <li>500g de carne molida</li>
+                <li>2 tazas de maíz</li>
+                <li>1 cebolla</li>
+                <li>2 huevos</li>
+                <li>Sal y pimienta al gusto</li>
+                <li>1 taza de aceitunas</li>
+            </ul>
+            <h3>Pasos:</h3>
+            <ol id="pasosRecetaPastelDeChoclo">
+                <li>Sofreír la cebolla y agregar la carne.</li>
+                <li>Preparar un puré con el maíz y los huevos.</li>
+                <li>Colocar la carne en un molde y cubrir con el puré.</li>
+                <li>Hornear durante 30 minutos a 180°C.</li>
+            </ol>
+        </div>
+    </div>
+    <!-- Modal para Charquicán -->
+    <div id="modalCharquican" class="modal">
+        <div class="modal-contenido">
+            <span class="cerrar">&times;</span>
+            <h2 id="nombreReceta">Charquicán</h2>
+            <p id="descripcionReceta">Guiso de carne con verduras y puré, muy reconfortante.</p>
+            <h3>Ingredientes:</h3>
+            <ul id="ingredientesReceta">
+                <li>500g de carne de res</li>
+                <li>1 taza de zapallo picado</li>
+                <li>1 taza de papa picada</li>
+                <li>1/2 taza de cebolla picada</li>
+                <li>2 cucharadas de aceite</li>
+                <li>Sal y pimienta al gusto</li>
+            </ul>
+            <h3>Pasos:</h3>
+            <ol id="pasosReceta">
+                <li>En una olla, calentar el aceite y añadir la cebolla hasta dorar.</li>
+                <li>Agregar la carne y cocinar hasta que esté dorada.</li>
+                <li>Incorporar las verduras y suficiente agua para cubrir.</li>
+                <li>Cocinar a fuego lento hasta que las verduras estén tiernas.</li>
+                <li>Aplastar las verduras y mezclar todo para formar un puré.</li>
+            </ol>
+        </div>
+    </div>
+    <!-- Modal para Asado -->
+    <div id="modalAsado" class="modal">
+        <div class="modal-contenido">
+            <span class="cerrar">&times;</span>
+            <h2 class="nombreReceta">Asado</h2>
+            <p class="descripcionReceta">Carne asada a la parrilla, tradicional en reuniones familiares.</p>
+            <h3>Ingredientes:</h3>
+            <ul class="ingredientesReceta">
+                <li>1 kg de carne de res (preferiblemente costillar o lomo)</li>
+                <li>Sal gruesa</li>
+                <li>Pimienta</li>
+                <li>Carbón o leña para la parrilla</li>
+            </ul>
+            <h3>Pasos:</h3>
+            <ol class="pasosReceta">
+                <li>Encender la parrilla con carbón o leña.</li>
+                <li>Sazonar la carne con sal y pimienta.</li>
+                <li>Colocar la carne sobre la parrilla y asar al gusto.</li>
+                <li>Servir caliente acompañado de ensaladas o papas.</li>
+            </ol>
+        </div>
+    </div>
+    <!-- Modal Posta Negra -->
+    <div id="modalPostaNegra" class="modal">
+        <div class="modal-contenido">
+            <span class="cerrar">&times;</span>
+            <h2 id="nombreReceta">Posta Negra</h2>
+            <p id="descripcionReceta">Carne de res cocida en salsa de cerveza y especias, típica de la región caribe.
+            </p>
+            <h3>Ingredientes:</h3>
+            <ul id="ingredientesReceta">
+                <li>1 kg de carne de res</li>
+                <li>1 botella de cerveza oscura</li>
+                <li>1 cebolla</li>
+                <li>2 dientes de ajo</li>
+                <li>Especias (comino, pimienta, etc.)</li>
+                <li>Sal al gusto</li>
+            </ul>
+            <h3>Pasos:</h3>
+            <ol id="pasosReceta">
+                <li>Marinar la carne con la cerveza y especias por al menos 2 horas.</li>
+                <li>Cocinar en una olla a fuego lento hasta que esté tierna.</li>
+                <li>Servir con arroz y ensalada.</li>
+            </ol>
+        </div>
+    </div>
+    <!-- Modal Seco de Chivo -->
+    <div id="modalSecoDeChivo" class="modal">
+        <div class="modal-contenido">
+            <span class="cerrar">&times;</span>
+            <h2 id="nombreReceta">Seco de Chivo</h2>
+            <p id="descripcionReceta">Guiso de carne de chivo con cerveza, especias y plátano.</p>
+            <h3>Ingredientes:</h3>
+            <ul id="ingredientesReceta">
+                <li>1 kg de carne de chivo</li>
+                <li>1 botella de cerveza</li>
+                <li>Especias al gusto</li>
+                <li>1 plátano maduro</li>
+            </ul>
+            <h3>Pasos:</h3>
+            <ol id="pasosReceta">
+                <li>Marinar la carne con especias.</li>
+                <li>Cocinar con cerveza hasta que esté tierna.</li>
+                <li>Agregar plátano y servir.</li>
+            </ol>
+        </div>
+    </div>
+    <!-- Modal Soyo -->
+    <div id="modalSoyo" class="modal">
+        <div class="modal-contenido">
+            <span class="cerrar">&times;</span>
+            <h2 id="nombreReceta">Soyo</h2>
+            <p id="descripcionReceta">Guiso de carne molida con verduras, típico paraguayo.</p>
+            <h3>Ingredientes:</h3>
+            <ul id="ingredientesReceta">
+                <li>500 g de carne molida</li>
+                <li>1 cebolla picada</li>
+                <li>1 pimiento picado</li>
+                <li>Verduras al gusto (zanahoria, arvejas, etc.)</li>
+                <li>Sal y pimienta al gusto</li>
+            </ul>
+            <h3>Pasos:</h3>
+            <ol id="pasosReceta">
+                <li>Sofreír la cebolla y pimiento hasta dorar.</li>
+                <li>Añadir la carne y cocinar hasta dorar.</li>
+                <li>Agregar las verduras y cocinar hasta que estén tiernas.</li>
+            </ol>
+        </div>
+    </div>
+    <!-- Modal Pachamanca -->
+    <div id="modalPachamanca" class="modal">
+        <div class="modal-contenido">
+            <span class="cerrar">&times;</span>
+            <h2 id="nombreReceta">Pachamanca</h2>
+            <p id="descripcionReceta">Carne y vegetales cocidos en tierra, un plato andino tradicional.</p>
+            <h3>Ingredientes:</h3>
+            <ul id="ingredientesReceta">
+                <li>1 kg de carne (pollo, cordero o cerdo)</li>
+                <li>4 papas</li>
+                <li>2 choclos</li>
+                <li>Hierbas andinas (huacatay, perejil)</li>
+                <li>Sal al gusto</li>
+            </ul>
+            <h3>Pasos:</h3>
+            <ol id="pasosReceta">
+                <li>Marinar la carne con hierbas y sal.</li>
+                <li>Hacer un hoyo en la tierra y calentar piedras.</li>
+                <li>Colocar la carne y los vegetales en el hoyo, cubrir y cocinar.</li>
+                <li>Servir caliente.</li>
+            </ol>
+        </div>
+    </div>
+    <!-- Modal Milanesa con Papas Fritas -->
+    <div class="modal" id="modalMilanesaConPapasFritas">
+        <div class="modal-contenido">
+            <span class="cerrar">&times;</span>
+            <h2 id="nombreReceta">Milanesa con Papas Fritas</h2>
+            <p id="descripcionReceta">Milanesa de carne con crocantes papas fritas, un plato popular y delicioso.</p>
+            <h3>Ingredientes:</h3>
+            <ul id="ingredientesReceta">
+                <li>2 filetes de carne</li>
+                <li>2 huevos</li>
+                <li>Pan rallado</li>
+                <li>Papas</li>
+            </ul>
+            <h3>Pasos:</h3>
+            <ol id="pasosReceta">
+                <li>Empanar los filetes de carne con huevo y pan rallado.</li>
+                <li>Freír hasta que estén dorados.</li>
+                <li>Cortar las papas y freírlas hasta que estén crujientes.</li>
+            </ol>
+        </div>
+    </div>
+    <!-- Modal Asado Negro -->
+    <div class="modal" id="modalAsadoNegro">
+        <div class="modal-contenido">
+            <span class="cerrar">&times;</span>
+            <h2 id="nombreReceta">Asado Negro</h2>
+            <p id="descripcionReceta">Carne de res cocida a fuego lento, con una deliciosa salsa oscura.</p>
+            <h3>Ingredientes:</h3>
+            <ul id="ingredientesReceta">
+                <li>Carne de res</li>
+                <li>Cebolla</li>
+                <li>Papelón (panela de azúcar)</li>
+                <li>Vino tinto</li>
+            </ul>
+            <h3>Pasos:</h3>
+            <ol id="pasosReceta">
+                <li>Dorar la carne en una olla.</li>
+                <li>Agregar cebolla, papelón y vino tinto.</li>
+                <li>Cocinar a fuego lento hasta que la carne esté tierna.</li>
+                <li>Servir con la salsa oscura por encima.</li>
+            </ol>
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+    <footer class="footer bg-dark text-white py-4">
+        <div class="container text-center">
+            <p class="mb-2">&copy; 2024 Recetas de America. Todos los derechos reservados.</p>
+            <nav class="d-flex justify-content-center">
+                <a class="nav-link text-white" href="#">Términos y condiciones</a>
+                <a class="nav-link text-white" href="#">Política de privacidad</a>
+                <a class="nav-link text-white" href="#">Contacto</a>
+            </nav>
+            <div class="social-links mt-3">
+                <a href="#" class="text-white mx-2">Facebook</a>
+                <a href="#" class="text-white mx-2">Twitter</a>
+                <a href="#" class="text-white mx-2">Instagram</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
