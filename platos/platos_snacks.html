@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/0-globals.css">
+    <link rel="stylesheet" href="/css/a-header.css">
+    <link rel="stylesheet" href="../html_paises/css/paises.css">
+    <script src="../html_paises/js/ordenarRecetas.js" defer></script>
+    <!-- fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <title>Snacks</title>
+</head>
+
+<body>
+    <!-- header -->
+    <header class="header">
+        <div class="contenedor contenido-header">
+            <h1 class="titulo-clickable" id="tituloRecetas" href="#">Recetas <span>de America</span></h1>
+            <nav class="navegacion-principal">
+                <a class="h-amarillo" href="#">Publicaciones</a>
+                <a class="h-amarillo" href="#">Recetas</a>
+                <a class="h-amarillo" href="#">Paises</a>
+                <a class="h-amarillo" href="#">Nosotros</a>
+                <a class="boton1" href="#">Iniciar Sesion</a>
+                <a class="boton2" href="html_inicio_sesion/registrarse.html">Registrarse</a>
+            </nav>
+        </div>
+    </header>
+
+    <h2 class="text-center pt-7 fw-bold">Nuestros Snacks</h2>
+
+    <!-- Barra de navegación secundaria -->
+    <div class="oculto">
+        <nav class=" menu-barra pt-4">
+            <div class="menu-toggle" id="menuToggle">☰</div>
+            <ul class="menu-list">
+                <li><a id="todos" href="#todos">Todos</a></li>
+                <li><a id="desayuno" href="#desayuno">Desayuno</a></li>
+                <li><a id="almuerzo" href="#almuerzo">Almuerzo</a></li>
+                <li><a id="merienda" href="#merienda">Merienda</a></li>
+                <li><a id="cena" href="#cena">Cena</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Sección de snacks -->
+    <div class="container mt-5">
+        <div class="row">
+
+            <!-- Merienda Argentina -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion merienda">
+                <div class="card h-100">
+                    <img src="../html_paises/img/imgArg/masitas.jpg" class="card-img-top" alt="masitas">
+                    <div class="card-body">
+                        <h5 class="card-title">Masitas</h5>
+                        <p class="card-text">Variedad de dulces y bocados pequeños de harina, azucar y manteca.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalMasitas">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Desayuno -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion desayuno">
+                <div class="card h-100">
+                    <img src="../html_paises/img/imgBolivia/sonso.jpg" class="card-img-top" alt="sonso">
+                    <div class="card-body">
+                        <h5 class="card-title">Sonso</h5>
+                        <p class="card-text">Palitos de yuca mezclados con queso, perfectos para el desayuno.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalSonso">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Desayuno -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion desayuno">
+                <div class="card h-100">
+                    <img src="../html_paises/img/imgBrasil/Tapioca.jpg" class="card-img-top" alt="tapioca">
+                    <div class="card-body">
+                        <h5 class="card-title">Tapioca</h5>
+                        <p class="card-text">Tortillas de harina de yuca, típicas del noreste de Brasil, rellenas con
+                            queso o dulce de coco.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalTapioca">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Merienda -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion merienda">
+                <div class="card h-100">
+                    <img src="../html_paises/img/imgChile/Galletas de Avena.jpg" class="card-img-top"
+                        alt="galletas de avena">
+                    <div class="card-body">
+                        <h5 class="card-title">Galletas de Avena</h5>
+                        <p class="card-text">Galletas saludables de avena, perfectas para merendar.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalGalletasAvena">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Desayuno -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion desayuno">
+                <div class="card h-100">
+                    <img src="../html_paises/img/imgColombia/Tamal.jpg" class="card-img-top" alt="tamal">
+                    <div class="card-body">
+                        <h5 class="card-title">Tamal</h5>
+                        <p class="card-text">Masa de maíz rellena de carne, verduras y especias, envuelta en hoja de
+                            plátano.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalTamal">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Desayuno -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion desayuno">
+                <div class="card h-100">
+                    <img src="../html_paises/img/imgEcuador/Bolón de Verde.jpg" class="card-img-top"
+                        alt="bolon de verde">
+                    <div class="card-body">
+                        <h5 class="card-title">Bolón de Verde</h5>
+                        <p class="card-text">Bolas de plátano verde rellenas con queso o chicharrón.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalBolonDeVerde">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Desayuno -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion desayuno">
+                <div class="card h-100">
+                    <img src="../html_paises/img/imgParaguay/Chipa.jpg" class="card-img-top" alt="chipa">
+                    <div class="card-body">
+                        <h5 class="card-title">Chipa</h5>
+                        <p class="card-text">Panecillo de almidón de mandioca, queso y huevo.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalChipa">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Desayuno -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion desayuno">
+                <div class="card h-100">
+                    <img src="../html_paises/img/imgPeru/Tacu Tacu.jpg" class="card-img-top" alt="tacu tacu">
+                    <div class="card-body">
+                        <h5 class="card-title">Tacu Tacu</h5>
+                        <p class="card-text">Arroz y frijoles mezclados, servidos con huevo frito.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalTacuTacu">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Desayuno -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion desayuno">
+                <div class="card h-100">
+                    <img src="../html_paises/img/imgUruguay/Refuerzo de jamon y queso.jpg" class="card-img-top"
+                        alt="refuerzo de jamon y queso">
+                    <div class="card-body">
+                        <h5 class="card-title">Refuerzo de jamon y queso</h5>
+                        <p class="card-text">Un sandwich de jamon y queso que por costumbre se le llama refuerzo.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalRefuerzoJamonQueso">Ver
+                            Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Desayuno -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion desayuno">
+                <div class="card h-100">
+                    <img src="../html_paises/img/imgVenezuela/Arepas.jpg" class="card-img-top" alt="arepas">
+                    <div class="card-body">
+                        <h5 class="card-title">Arepas</h5>
+                        <p class="card-text">Deliciosas arepas de maíz, rellenas de queso, carne o pollo.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalArepas">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Modal para Masitas -->
+    <div id="modalMasitas" class="modal">
+        <div class="modal-contenido">
+            <span class="cerrar">&times;</span>
+            <h2>Masitas</h2>
+            <p>Variedad de dulces y bocados pequeños de harina, azúcar y manteca.</p>
+            <h3>Ingredientes:</h3>
+            <ul>
+                <li>500g de harina</li>
+                <li>200g de manteca</li>
+                <li>100g de azúcar</li>
+                <li>1 huevo</li>
+            </ul>
+            <h3>Pasos:</h3>
+            <ol>
+                <li>Mezclar la harina, manteca, azúcar y huevo hasta formar una masa.</li>
+                <li>Formar pequeñas bolitas y colocar en una bandeja.</li>
+                <li>Cocinar en el horno a 180°C durante 15 minutos.</li>
+            </ol>
+        </div>
+    </div>
+    <!-- Modal Sonso -->
+    <div id="modalSonso" class="modal">
+        <div class="modal-contenido">
+            <span class="cerrar">&times;</span>
+            <h2 id="nombreReceta">Sonso</h2>
+            <p id="descripcionReceta">Palitos de yuca mezclados con queso, perfectos para el desayuno.</p>
+            <h3>Ingredientes:</h3>
+            <ul id="ingredientesReceta">
+                <li>500g de yuca</li>
+                <li>200g de queso rallado</li>
+                <li>1 huevo</li>
+                <li>Sal al gusto</li>
+                <li>Aceite para freír</li>
+            </ul>
+            <h3>Pasos:</h3>
+            <ol id="pasosReceta">
+                <li>Cocinar la yuca hasta que esté tierna.</li>
+                <li>Machacar la yuca y mezclar con el queso y el huevo.</li>
+                <li>Formar palitos y freír en aceite caliente.</li>
+            </ol>
+        </div>
+    </div>
+    <!-- Modal para Tapioca -->
+    <div id="modalTapioca" class="modal">
+        <div class="modal-contenido">
+            <span class="cerrar">&times;</span>
+            <h2 id="nombreReceta">Tapioca</h2>
+            <p id="descripcionReceta">Tortillas de harina de yuca, típicas del noreste de Brasil, rellenas con queso o
+                dulce de coco.</p>
+            <h3>Ingredientes:</h3>
+            <ul id="ingredientesReceta">
+                <li>1 taza de harina de yuca</li>
+                <li>Agua</li>
+                <li>Sal al gusto</li>
+                <li>Relleno de queso o dulce de coco</li>
+            </ul>
+            <h3>Pasos:</h3>
+            <ol id="pasosReceta">
+                <li>Mezclar la harina con agua y sal hasta obtener una masa.</li>
+                <li>Calentar una sartén y añadir la masa para formar la tortilla.</li>
+                <li>Rellenar con el queso o dulce de coco y doblar.</li>
+                <li>Cocinar por algunos minutos hasta dorar.</li>
+            </ol>
+        </div>
+    </div>
+    <!-- Modal para Galletas de Avena -->
+    <div id="modalGalletasAvena" class="modal">
+        <div class="modal-contenido">
+            <span class="cerrar">&times;</span>
+            <h2 class="nombreReceta">Galletas de Avena</h2>
+            <p class="descripcionReceta">Galletas saludables de avena, perfectas para merendar.</p>
+            <h3>Ingredientes:</h3>
+            <ul class="ingredientesReceta">
+                <li>150g de avena</li>
+                <li>100g de azúcar moreno</li>
+                <li>1 huevo</li>
+                <li>100g de harina</li>
+                <li>50g de mantequilla</li>
+            </ul>
+            <h3>Pasos:</h3>
+            <ol class="pasosReceta">
+                <li>Mezclar todos los ingredientes en un bol.</li>
+                <li>Formar bolitas con la masa y aplastarlas.</li>
+                <li>Hornear a 180°C durante 12 minutos.</li>
+            </ol>
+        </div>
+    </div>
+    <!-- Modal Tamal -->
+    <div id="modalTamal" class="modal">
+        <div class="modal-contenido">
+            <span class="cerrar">&times;</span>
+            <h2 id="nombreReceta">Tamal</h2>
+            <p id="descripcionReceta">Masa de maíz rellena de carne, verduras y especias, envuelta en hoja de plátano.
+            </p>
+            <h3>Ingredientes:</h3>
+            <ul id="ingredientesReceta">
+                <li>500g de masa de maíz</li>
+                <li>300g de carne de cerdo o pollo</li>
+                <li>1/2 taza de verduras al gusto</li>
+                <li>Hojas de plátano</li>
+                <li>Sal y especias al gusto</li>
+            </ul>
+            <h3>Pasos:</h3>
+            <ol id="pasosReceta">
+                <li>Hervir la carne con especias y desmenuzar.</li>
+                <li>Mezclar la masa con el caldo de la carne y formar tamales.</li>
+                <li>Rellenar con la carne y verduras, envolver en hojas de plátano.</li>
+                <li>Cocinar al vapor por 1 hora.</li>
+            </ol>
+        </div>
+    </div>
+    <!-- Modal Bolón de Verde -->
+    <div id="modalBolonDeVerde" class="modal">
+        <div class="modal-contenido">
+            <span class="cerrar">&times;</span>
+            <h2 id="nombreReceta">Bolón de Verde</h2>
+            <p id="descripcionReceta">Bolas de plátano verde rellenas con queso o chicharrón.</p>
+            <h3>Ingredientes:</h3>
+            <ul id="ingredientesReceta">
+                <li>4 plátanos verdes</li>
+                <li>200 g de queso fresco</li>
+                <li>200 g de chicharrón (opcional)</li>
+                <li>Sal al gusto</li>
+                <li>Aceite para freír</li>
+            </ul>
+            <h3>Pasos:</h3>
+            <ol id="pasosReceta">
+                <li>Hervir los plátanos en agua con sal hasta que estén suaves.</li>
+                <li>Escurrir, pelar y hacer puré los plátanos.</li>
+                <li>Mezclar el puré con el queso y chicharrón.</li>
+                <li>Formar bolas y freír en aceite caliente hasta dorar.</li>
+            </ol>
+        </div>
+    </div>
+    <!-- Modal Chipa -->
+    <div id="modalChipa" class="modal">
+        <div class="modal-contenido">
+            <span class="cerrar">&times;</span>
+            <h2 id="nombreReceta">Chipa</h2>
+            <p id="descripcionReceta">Panecillo de almidón de mandioca, queso y huevo.</p>
+            <h3>Ingredientes:</h3>
+            <ul id="ingredientesReceta">
+                <li>2 tazas de almidón de mandioca</li>
+                <li>1 taza de queso rallado</li>
+                <li>2 huevos</li>
+                <li>1/2 taza de leche</li>
+                <li>1/4 de taza de aceite</li>
+                <li>Sal al gusto</li>
+            </ul>
+            <h3>Pasos:</h3>
+            <ol id="pasosReceta">
+                <li>Mezclar todos los ingredientes hasta obtener una masa homogénea.</li>
+                <li>Formar bolitas y colocarlas en una bandeja para hornear.</li>
+                <li>Hornear a 180°C durante 25 minutos o hasta dorar.</li>
+            </ol>
+        </div>
+    </div>
+    <!-- Modal Tacu Tacu -->
+    <div id="modalTacuTacu" class="modal">
+        <div class="modal-contenido">
+            <span class="cerrar">&times;</span>
+            <h2 id="nombreReceta">Tacu Tacu</h2>
+            <p id="descripcionReceta">Arroz y frijoles mezclados, servidos con huevo frito.</p>
+            <h3>Ingredientes:</h3>
+            <ul id="ingredientesReceta">
+                <li>1 taza de arroz</li>
+                <li>1 taza de frijoles cocidos</li>
+                <li>1 huevo frito</li>
+                <li>Sal y pimienta al gusto</li>
+                <li>Aceite para freír</li>
+            </ul>
+            <h3>Pasos:</h3>
+            <ol id="pasosReceta">
+                <li>Mezclar el arroz con los frijoles.</li>
+                <li>Formar una masa y freír hasta dorar.</li>
+                <li>Servir con un huevo frito encima.</li>
+            </ol>
+        </div>
+    </div>
+    <!-- Modal Refuerzo de Jamon y Queso -->
+    <div class="modal" id="modalRefuerzoJamonQueso">
+        <div class="modal-contenido">
+            <span class="cerrar">&times;</span>
+            <h2 id="nombreReceta">Refuerzo de Jamon y Queso</h2>
+            <p id="descripcionReceta">Un sandwich de jamón y queso que por costumbre se le llama refuerzo.</p>
+            <h3>Ingredientes:</h3>
+            <ul id="ingredientesReceta">
+                <li>Pan</li>
+                <li>Jamón</li>
+                <li>Queso</li>
+                <li>Manteca</li>
+            </ul>
+            <h3>Pasos:</h3>
+            <ol id="pasosReceta">
+                <li>Untar el pan con manteca.</li>
+                <li>Colocar jamón y queso entre las rebanadas.</li>
+                <li>Tostar ligeramente el sandwich.</li>
+            </ol>
+        </div>
+    </div>
+    <!-- Modal Arepas -->
+    <div class="modal" id="modalArepas">
+        <div class="modal-contenido">
+            <span class="cerrar">&times;</span>
+            <h2 id="nombreReceta">Arepas</h2>
+            <p id="descripcionReceta">Deliciosas arepas de maíz, rellenas de queso, carne o pollo.</p>
+            <h3>Ingredientes:</h3>
+            <ul id="ingredientesReceta">
+                <li>Harina de maíz</li>
+                <li>Agua</li>
+                <li>Sal</li>
+                <li>Queso, carne o pollo para el relleno</li>
+            </ul>
+            <h3>Pasos:</h3>
+            <ol id="pasosReceta">
+                <li>Mezclar la harina de maíz con agua y sal para formar una masa.</li>
+                <li>Formar bolas y aplastarlas en forma de arepas.</li>
+                <li>Cocinar en una sartén hasta que estén doradas por ambos lados.</li>
+                <li>Rellenar con queso, carne o pollo.</li>
+            </ol>
+        </div>
+    </div>
+
+   <!-- Footer -->
+   <footer class="footer bg-dark text-white py-4">
+    <div class="container text-center">
+        <p class="mb-2">&copy; 2024 Recetas de America. Todos los derechos reservados.</p>
+        <nav class="d-flex justify-content-center">
+            <a class="nav-link text-white" href="#">Términos y condiciones</a>
+            <a class="nav-link text-white" href="#">Política de privacidad</a>
+            <a class="nav-link text-white" href="#">Contacto</a>
+        </nav>
+        <div class="social-links mt-3">
+            <a href="#" class="text-white mx-2">Facebook</a>
+            <a href="#" class="text-white mx-2">Twitter</a>
+            <a href="#" class="text-white mx-2">Instagram</a>
+        </div>
+    </div>
+</footer>
+</body>
+
+</html>
