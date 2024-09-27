@@ -192,73 +192,119 @@
     </div>
 
 
-<!-- primer Slider -->
+    <!-- primer Slider -->
 
-<div id="carouselExampleIndicators" class="carousel slide">
-    <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+    <div id="carouselExampleIndicators" class="carousel slide">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+        </div>
+        <div class="carousel-inner">
+
+            <div class="carousel-item active d-item"> <!-- solo en esta linea tiene que estar el active-->
+                <img src="img/aprender.jpg" class="d-block w-100 d-img" alt="Bienvenida">
+                <div class="carousel-caption top-0 mt-4">
+                    <p class="mt-5 fs-3 text-uppercase">Tu mejor sitio de Recetas!</p>
+                    <h1 class="display-1 fw-bolder text-capitalize">¡Bienvenido!</h1>
+                    <button class="btn btn-primary px-4 py-2 fs-5 mt-5">Ver Recetas</button>
+                </div>
+            </div>
+
+            <div class="carousel-item d-item">
+                <img src="img/saludables.jpg" class="d-block w-100 d-img" alt="saludables">
+                <div class="carousel-caption top-0 mt-4">
+                    <p class="mt-5 fs-3 text-uppercase">Descubre nuestrar recetas mas saludables</p>
+                    <h1 class="display-1 fw-bolder text-capitalize">¡Nos importa tu salud!</h1>
+                    <button class="btn btn-primary px-4 py-2 fs-5 mt-5">Ver</button>
+                </div>
+            </div>
+
+            <div class="carousel-item d-item">
+                <img src="img/amasar.jpg" class="d-block w-100 d-img" alt="masas">
+                <div class="carousel-caption top-0 mt-4">
+                    <p class="mt-5 fs-3 text-uppercase">Se un experto con las masas</p>
+                    <h1 class="display-1 fw-bolder text-capitalize">¡Aprende a Amasar!</h1>
+                    <button class="btn btn-primary px-4 py-2 fs-5 mt-5">Ver</button>
+                </div>
+            </div>
+
+            <div class="carousel-item d-item">
+                <img src="img/comidasyhoras.jpg" class="d-block w-100 d-img" alt="masas">
+                <div class="carousel-caption top-0 mt-4">
+                    <p class="mt-5 fs-3 text-uppercase">Hay recetas para cada momento de tu dia</p>
+                    <h1 class="display-1 fw-bolder text-capitalize">¡Elige tu momento!</h1>
+                    <button class="btn btn-primary px-4 py-2 fs-5 mt-5">Ver</button>
+                </div>
+            </div>
+
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+
     </div>
-    <div class="carousel-inner">
 
-        <div class="carousel-item active d-item"> <!-- solo en esta linea tiene que estar el active-->
-            <img src="img/aprender.jpg" class="d-block w-100 d-img" alt="Bienvenida">
-            <div class="carousel-caption top-0 mt-4">
-                <p class="mt-5 fs-3 text-uppercase">Tu mejor sitio de Recetas!</p>
-                <h1 class="display-1 fw-bolder text-capitalize">¡Bienvenido!</h1>
-                <button class="btn btn-primary px-4 py-2 fs-5 mt-5">Ver Recetas</button>
-            </div>
-        </div>
-        
-        <div class="carousel-item d-item">
-            <img src="img/saludables.jpg" class="d-block w-100 d-img" alt="saludables">
-            <div class="carousel-caption top-0 mt-4">
-                <p class="mt-5 fs-3 text-uppercase">Descubre nuestrar recetas mas saludables</p>
-                <h1 class="display-1 fw-bolder text-capitalize">¡Nos importa tu salud!</h1>
-                <button class="btn btn-primary px-4 py-2 fs-5 mt-5">Ver</button>
-            </div>
-        </div>
-        
-        <div class="carousel-item d-item">
-            <img src="img/amasar.jpg" class="d-block w-100 d-img" alt="masas">
-            <div class="carousel-caption top-0 mt-4">
-                <p class="mt-5 fs-3 text-uppercase">Se un experto con las masas</p>
-                <h1 class="display-1 fw-bolder text-capitalize">¡Aprende a Amasar!</h1>
-                <button class="btn btn-primary px-4 py-2 fs-5 mt-5">Ver</button>
-            </div>
-        </div>
-        
-        <div class="carousel-item d-item">
-            <img src="img/comidasyhoras.jpg" class="d-block w-100 d-img" alt="masas">
-            <div class="carousel-caption top-0 mt-4">
-                <p class="mt-5 fs-3 text-uppercase">Hay recetas para cada momento de tu dia</p>
-                <h1 class="display-1 fw-bolder text-capitalize">¡Elige tu momento!</h1>
-                <button class="btn btn-primary px-4 py-2 fs-5 mt-5">Ver</button>
-            </div>
-        </div>
-        
-    </div>
+<div class="pt-7"></div>
 
+<!-- paises -->
+<div class="paises-contenedor">
+    <a class="pais" href="#">
+        <img src="comidas/comida2.webp" alt="Snacks" id="paisArgentina">
+        <p class="pais-nombre">Snacks</p>
+    </a>
+    <a class="pais" href="#">
+        <img src="comidas/comida3.webp" alt="Cenas" id="paisBolivia">
+        <p class="pais-nombre">Cenas</p>
+    </a>
+    <a class="pais" href="#">
+        <img src="comidas/comida6.webp" alt="Desayunos" id="paisChile">
+        <p class="pais-nombre">Desayunos</p>
+    </a>
+    <a class="pais" href="#">
+        <img src="comidas/comida7.webp" alt="Pastas" id="paisColombia">
+        <p class="pais-nombre">Pastas</p>
+    </a>
+    <a class="pais" href="#">
+        <img src="comidas/comida8.webp" alt="Atun" id="paisEcuador">
+        <p class="pais-nombre">Atun</p>
+    </a>
+    <a class="pais" href="#">
+        <img src="comidas/comida9.webp" alt="Postres" id="paisParaguay">
+        <p class="pais-nombre">Postres</p>
+    </a>
+    <a class="pais" href="#">
+        <img src="comidas/comida10.webp" alt="Carne molida" id="paisPeru">
+        <p class="pais-nombre">Carne molida</p>
+    </a>
+    <a class="pais" href="#">
+        <img src="comidas/comida11.webp" alt="Pollo" id="paisUruguay">
+        <p class="pais-nombre">Pollo</p>
+    </a>
+    <a class="pais" href="#">
+        <img class="pais" src="comidas/comida12.webp" alt="Vegetarianas" id="paisVenezuela">
+        <p class="pais-nombre">Vegetarianas</p>
+    </a>
+    <a class="pais" href="#">
+        <img class="pais" src="comidas/comida14.webp" alt="Helados" id="paisVenezuela">
+        <p class="pais-nombre">Helados</p>
+    </a>
+    <a class="pais" href="#">
+        <img class="pais" src="comidas/comida4.webp" alt="Almuerzo" id="paisVenezuela">
+        <p class="pais-nombre">Almuerzo</p>
+    </a>
 </div>
 
-<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-    data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-</button>
-<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-    data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-</button>
-</div>
-
-    
-    <div class="pt-7"></div> <!-- espacio-->
     <!-- slider -->
-
+    <div class="pt-7"></div>
     <div class="swiper"> <!--Contenedor principal-->
         <!-- el slider es el contenedor completo en donde se desplazan los elementos (control deslizante)-->
         <div class="slider-wrapper">
@@ -343,7 +389,7 @@
 
 
 
-    
+
 
 
 
