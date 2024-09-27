@@ -1,134 +1,114 @@
-* {
-    /* margin: 0; 
-    padding: 0;  parece no ser necesario*/
-    box-sizing: border-box;/*para que quede encajado en 3*/
-    font-family: "Montserrat", sans-serif;
+/* d-slider.css */
+
+.carousel {
+    width: 100%;
+    height: 350px;
+    max-width: 800px;
+    margin: 50px auto; 
 }
 
-/*para que no desborde de la parte de abajo*/
-.slider-wrapper { /*este es el contenedor del slider*/
-    overflow: hidden; /* oculta el contenido que excede el contenedor */
-    max-width: 1200px;
-    margin: 0 auto 55px;
-    display: flex;/*habilita flexbox para alinear los elementos*/
-    justify-content: center;
-    align-items: center;
-    transition-property: transform; /* permite la transicion suave al mover los slides */
+.carousel-item {
+    display: flex;
+    justify-content: center; 
+    height: 100%;
 }
-/* el contorno de las recetas */
-.recetas .receta-item {
-    color: black;
-    user-select: none;/* evita que el texto sea seleccionado */
-    width: 500px; 
-    padding: 20px; 
-    display: flex; /* usa flexbox para alinear el contenido dentro de las recetas */
-    flex-direction: column; /* mantiene el texto abajo */
+
+.receta-item {
+    width: 800px; 
+    height: 800px; 
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between; /* mantiene los elementos en la parte inferior */
+    justify-content: flex-start; 
     border-radius: 10px;
     background: rgba(255, 255, 255, 0.2);
     border: 3px solid rgba(255, 255, 255, 0.5);
+    margin: 0;
+    position: relative; 
 }
 
-.recetas > div {
-    background-color: #8fcda1 !important;
-    color: #000000 !important;
-}
-
-/* la imagen dentro del contorno de la srecetas recetas */
-.recetas .receta-item .receta-imagen {
-    width: 300px; 
-    height: 200px; 
-    margin-bottom: 15px; 
-    border-radius: 0; 
-    border: none; 
-    padding: 0; 
-}
-
-/* nombre de la receta dentro de las recetas */
-.recetas .receta-item  {
-    font-size: 0.9rem; 
-    margin-bottom: 8px;
-}
-
-/* origen de las recetas */
-.recetas .receta-item .origen-receta {
-    font-size: 0.8rem; 
-    margin: 8px 0; 
-    color: #26533c;
-    font-weight: 500;
-}
-
-/* boton q solicita la receta */
-.recetas .receta-item .pedir-receta {
-    font-size: 1rem; 
-    padding: 8px 25px; 
-    color: #030728;
-    border-radius: 6px;
-    font-weight: 500;
-    cursor: pointer;
-    background: #fff;
-    border: 1px solid transparent;
-    transition: 0.2s ease;
-}
-
-.recetas .receta-item .pedir-receta:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid #fff;
+.card_landing {
+    background-size: cover;
+    height: 350px;
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    padding: 10px;
     color: #fff;
 }
 
-/* ajustes para pantallas chicas */
-@media (max-width: 768px) {
-    .slider-wrapper {
-        margin: 0 10px 40px;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .slider-wrapper .swiper-slide-button {
-        display: none;/*lo saco ya que lo hacen deslizando con el dedo*/
-    }
-
-    .recetas .receta-item {
-        width: 100%;
-        padding: 20px;
-    }
-
-    .recetas .receta-item .receta-imagen {
-        width: 200px; 
-        height: 150px; 
-        margin-bottom: 15px;
-    }
-
-    .recetas .receta-item  {
-        font-size: 0.8rem; 
-    }
-
-    .recetas .receta-item .origen-receta {
-        font-size: 0.7rem; 
-    }
-
-    .recetas .receta-item .pedir-receta {
-        margin-left: 0; 
-    }
+.card_info {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    transform: translateX(100%); 
+    transition: transform 0.3s;
+    z-index: 1;
 }
 
-/* color para el boton de sigueinte y atras */
-div .swiper-slide-button.swiper-button-next,  .swiper-slide-button.swiper-button-prev{
-    color: #26533c;
+.receta-item:hover .card_info {
+    transform: translateX(0%);
 }
 
-/* color de lo de abajo */
-.swiper-pagination-bullet.swiper-pagination-bullet-active.swiper-pagination-bullet-active-main {
-    background-color: #26533c !important;
-}
-/* ajustes de imagen, habian errores raros */
-@media (max-width: 1306px) {
-    .recetas .receta-item .receta-imagen {
-        width: 250px; 
-        height: 167px; 
-    }
+.card_info .head {
+    margin-bottom: 10px;
 }
 
+.card_info .head .title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #bc8811;
+}
 
+.card_info .head .description {
+    display: flex;
+    gap: 10px;
+}
+
+.card_info .head .description .item {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.card_info .head .description .item i {
+    color: #bc8811;
+    font-size: 15px;
+}
+
+.card_info .head .description .item p {
+    font-size: 13px;
+}
+
+.card_info .content {
+    margin-top: 15px;
+}
+
+.card_info .content .list {
+    padding: 10px 0;
+}
+
+.card_info .content .list li {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.card_info .action .btn {
+    padding: 10px;
+    color: #ffffff;
+    text-decoration: none;
+    background: #bc8811;
+    text-align: center;
+    display: block;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.carousel-control-prev, .carousel-control-next {
+    color: #ff3030; 
+    z-index: 10; 
+}
