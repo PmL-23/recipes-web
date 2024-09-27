@@ -1,0 +1,77 @@
+.titulo-clickable {
+    cursor: pointer;
+}
+
+div#saludoDia, div#mensajeRecetas{
+    color: #259094 !important;
+}
+
+.oculto {
+    display: none;
+}
+
+.card-body {
+    display: flex; /* Usamos flexbox */
+    flex-direction: column; /* Colocamos los elementos en columna */
+    justify-content: space-between; /* Espaciamos el contenido para que se coloque entre los extremos */
+    height: 100%; /* Hacemos que el body de la tarjeta use todo el alto disponible */
+}
+
+.verReceta {
+    margin-top: auto; /* Empuja el botón hacia el fondo del contenedor */
+    padding: 5px 8px; /* Menor padding para que el botón sea más compacto */
+    align-self: flex-start; /* Alinea el botón a la izquierda */
+}
+/* cambia el color de fondo y borde de todos los botones btn-primary */
+.btn-primary {
+    background-color: #259094 !important; /* color de fondo de los botones */
+    border-color: #259094 !important; /* color del borde de los botones */
+}
+
+/* cambia el color de fondo cuando el boton es pulsado o al pasar el raton */
+.btn-primary:hover,
+.btn-primary:active {
+    background-color: #27573e !important; /* color de fondo al pasar el raton */
+    border-color: #27573e !important; /* color del borde al pasar el raton */
+}
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed; /* Fijo en la pantalla */
+    z-index: 1000; /* Asegúrate de que esté por encima de otros elementos */
+    left: 0;
+    top: 0;
+    width: 100%; /* Ancho completo */
+    height: 100%; /* Alto completo */
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+}
+
+.modal.mostrar {
+    display: block; /* Mostrar el modal */
+}
+
+.modal-contenido {
+    background-color: #fff; /* Fondo blanco para el contenido */
+    margin: 15% auto; /* Centrar el modal */
+    padding: 20px;
+    border: 1px solid #888; /* Borde opcional */
+    width: 80%; /* Ancho del contenido */
+    max-width: 500px; /* Ancho máximo */
+}
+
+.cerrar {
+    color: #aaa; /* Color del botón de cerrar */
+    float: right; /* A la derecha */
+    font-size: 28px; /* Tamaño del botón */
+    font-weight: bold; /* Negrita */
+}
+
+.cerrar:hover,
+.cerrar:focus {
+    color: black; /* Color en hover */
+    text-decoration: none; /* Sin subrayado */
+    cursor: pointer; /* Manita */
+}
+
+.no-scroll {
+    overflow: hidden; /* Desactiva el scroll del body */
+}
