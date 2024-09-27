@@ -1,0 +1,130 @@
+/* d-slider.css */
+
+/* Reseteo de estilos generales */
+* {
+    box-sizing: border-box; /* para que quede encajado en 3 */
+    font-family: "Montserrat", sans-serif;
+}
+
+/* Contenedor del slider */
+.slider-wrapper {
+    max-width: 1200px; /* ancho máximo */
+    margin: 0 auto 55px; /* centra el slider y espacio abajo */
+    overflow: hidden; /* oculta el contenido que excede el contenedor */
+    display: flex; /* habilita flexbox para alinear los elementos */
+    justify-content: center; /* centra el contenido horizontalmente */
+    align-items: center; /* centra el contenido verticalmente */
+    transition-property: transform; /* permite la transición suave al mover los slides */
+}
+
+/* Estilos generales para los slides */
+.swiper-slide {
+    display: flex; /* habilita flexbox para alinear el contenido */
+    justify-content: center; /* centra el contenido horizontalmente */
+    align-items: center; /* centra el contenido verticalmente */
+}
+
+/* Contenedor de cada receta */
+.receta-item {
+    color: #a9117b; /* color del texto */
+    user-select: none; /* evita que el texto sea seleccionado */
+    width: 500px; /* ancho de la receta */
+    padding: 20px; /* padding interno */
+    display: flex; /* usa flexbox para alinear el contenido dentro de las recetas */
+    flex-direction: column; /* mantiene el texto abajo */
+    align-items: center; /* alinea los elementos al centro */
+    justify-content: space-between; /* mantiene los elementos en la parte inferior */
+    border-radius: 10px; /* esquinas redondeadas */
+    background: rgba(255, 255, 255, 0.2); /* fondo semi-transparente */
+    border: 3px solid var(--color_principal); /* borde */
+    margin: 10px; /* margen entre recetas */
+}
+
+/* Imagen de la receta */
+.receta-imagen {
+    width: 100%; /* toma el ancho completo del contenedor */
+    height: auto; /* altura automática para mantener la proporción */
+    border-radius: 5px; /* esquinas redondeadas */
+    margin-bottom: 10px; /* espacio inferior */
+}
+
+/* Nombre de la receta */
+.receta-nombre {
+    font-size: 1.2rem; /* tamaño de fuente */
+    font-weight: bold; /* negrita */
+    color: #a9117b; /* color del texto */
+    text-align: center; /* alinea al centro */
+    margin-bottom: 5px; /* espacio inferior */
+}
+
+/* Origen de la receta */
+.origen-receta {
+    font-size: 0.9rem; /* tamaño de fuente */
+    color: #555; /* color gris */
+    text-align: center; /* alinea al centro */
+    margin-bottom: 15px; /* espacio inferior */
+}
+
+/* Botón para pedir la receta */
+.pedir-receta {
+    font-size: 1rem; /* tamaño de fuente */
+    padding: 10px 20px; /* padding */
+    color: #030728; /* color del texto */
+    border-radius: 6px; /* esquinas redondeadas */
+    cursor: pointer; /* cambia el cursor */
+    background: #fff; /* fondo blanco */
+    border: 1px solid transparent; /* sin borde */
+    transition: background-color 0.3s, border 0.3s; /* transición de color */
+}
+
+.pedir-receta:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* color al pasar el ratón */
+    border: 1px solid #fff; /* borde blanco al pasar el ratón */
+    color: #fff; /* color del texto al pasar el ratón */
+}
+
+/* Estilos para el slider */
+.swiper-button-next,
+.swiper-button-prev {
+    color: #11a94e; /* color de los botones de navegación */
+}
+
+/* Estilos para los puntos de paginación */
+.swiper-pagination-bullet {
+    background: #26533c; /* color de los puntos */
+}
+
+/* Media queries para adaptar el diseño a pantallas más pequeñas */
+@media (max-width: 768px) {
+    .slider-wrapper {
+        margin: 0 10px 40px; /* margen lateral y abajo */
+        justify-content: center; /* centra el contenido */
+        align-items: center; /* centra verticalmente */
+    }
+
+    .receta-item {
+        width: 100%; /* ancho completo en pantallas pequeñas */
+        padding: 20px; /* padding interno */
+    }
+
+    .receta-imagen {
+        width: 200px; /* ancho específico para imágenes */
+        height: 150px; /* altura específica para imágenes */
+    }
+
+    .receta-nombre {
+        font-size: 0.8rem; /* tamaño de fuente ajustado */
+    }
+
+    .origen-receta {
+        font-size: 0.7rem; /* tamaño de fuente ajustado */
+    }
+}
+
+/* Ajustes de imagen en pantallas entre 768px y 1306px */
+@media (max-width: 1306px) {
+    .receta-imagen {
+        width: 250px; /* ancho específico */
+        height: 167px; /* altura específica */
+    }
+}
