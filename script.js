@@ -73,3 +73,23 @@ redirigirConIdPaises("paisParaguay");
 redirigirConIdPaises("paisUruguay");
 redirigirConIdPaises("paisVenezuela");
 
+function redirigirConIdPlatos(idBoton) {
+  const boton = document.getElementById(idBoton);
+  
+  if (boton) {
+    boton.addEventListener("click", function() {
+      //vs  a la página con  nombre corresponde al id del botón, que se pone en el html
+      window.location.href = "platos/platos_" + idBoton.replace('platos', '').toLowerCase() + ".html";
+    });
+  }
+}
+redirigirConIdPlatos("snacks");
+redirigirConIdPlatos("cenas");
+redirigirConIdPlatos("pastas");
+redirigirConIdPlatos("pescado");
+redirigirConIdPlatos("postres");
+redirigirConIdPlatos("desayunos");
+redirigirConIdPlatos("carne");
+redirigirConIdPlatos("pollo");
+redirigirConIdPlatos("vegetariano");
+redirigirConIdPlatos("almuerzos");
