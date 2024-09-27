@@ -1,3 +1,19 @@
+document.addEventListener("DOMContentLoaded", function() {
+  const recetas = document.querySelectorAll('.receta-item');
+
+  recetas.forEach(receta => {
+      const cardInfo = receta.querySelector('.card_info');
+
+      receta.addEventListener('mouseenter', function() {
+          cardInfo.style.transform = 'translateX(0)'; // Mostrar al hacer hover
+      });
+
+      receta.addEventListener('mouseleave', function() {
+          cardInfo.style.transform = 'translateX(100%)'; // Ocultar al salir
+      });
+  });
+});
+
 
 
 
@@ -57,3 +73,23 @@ redirigirConIdPaises("paisParaguay");
 redirigirConIdPaises("paisUruguay");
 redirigirConIdPaises("paisVenezuela");
 
+function redirigirConIdPlatos(idBoton) {
+  const boton = document.getElementById(idBoton);
+  
+  if (boton) {
+    boton.addEventListener("click", function() {
+      //vs  a la página con  nombre corresponde al id del botón, que se pone en el html
+      window.location.href = "platos/platos_" + idBoton.replace('platos', '').toLowerCase() + ".html";
+    });
+  }
+}
+redirigirConIdPlatos("snacks");
+redirigirConIdPlatos("cenas");
+redirigirConIdPlatos("pastas");
+redirigirConIdPlatos("pescado");
+redirigirConIdPlatos("postres");
+redirigirConIdPlatos("desayunos");
+redirigirConIdPlatos("carne");
+redirigirConIdPlatos("pollo");
+redirigirConIdPlatos("vegetariano");
+redirigirConIdPlatos("almuerzos");
