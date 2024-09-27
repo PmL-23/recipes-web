@@ -5,14 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recetas</title>
-    <link rel="icon" type="favicon/x-icon" href="./images/logo.png">
-    <link rel="stylesheet" href="css/0-globals.css">
-    <link rel="stylesheet" href="css/a-header.css">
+    <link rel="icon" type="favicon/x-icon" href="/images/logo.png">
+    <link rel="stylesheet" href="/css/0-globals.css">
+    <link rel="stylesheet" href="/css/a-header.css">
     <link rel="stylesheet" href="css/recetas.css">
+    <link rel="stylesheet" href="/css/recetas-banner.css">
     <link rel="stylesheet" href="./carrousel.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
     <script src="recetas.js" defer></script>
 </head>
 
@@ -20,7 +21,7 @@
     <!-- header -->
     <header class="header">
         <div class="contenedor contenido-header">
-            <img src="./images/logo.png" alt="logo" width="75">
+            <img src="/images/logo.png" alt="logo" width="75">
             <nav class="navegacion-principal">
                 <a class="h-amarillo" href="#">Publicaciones</a>
                 <a class="h-amarillo" href="#">Recetas</a>
@@ -32,23 +33,55 @@
         </div>
     </header>
 
-    <div class="container my-5">
-        <div class="receta-imagen">
-            <img src="images/pizza_lp.jpg" alt="Receta" class="img-fluid">
+
+
+    
+<div class="contenido-principal container my-5 ps-5">
+    <div class="container">
+        <div class="row align-items-start">
+            <div class="contenedor-img d-flex col-md-6 col-sm-12">
+                <img src="" alt="Receta" class="portada rounded img-fluid" id="portada-receta">
+            </div>
+            <div class="content-info col-md-6 col-sm-12">
+                <div  class="my-5">
+                    <h2>Nombre de la Receta</h2>
+                    <p>Descripción</p>
+                    <p class="categoria-style d-inline-flex mb-3 fw-semibold border border-success-subtle rounded-5">Categoría</p>
+                    
+
+                    <p class="estilosCategorias"></p>
+                </div>
+            </div>
         </div>
-        <div class="text-center my-3">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Flag_of_Argentina.svg" alt="Bandera Argentina" width="50" class="me-2">
-            <h2>Nombre de la Receta</h2>
-        </div>
-        
+    </div>
+</div>
+    
+<div class="contenedor-detalles container text-center w-75">
+    <div class="row align-items-start">
+            <div class="col-4">
+                <div class="align-items-center box-icons">
+                    <img src="" alt="Bandera" width="35" class="bandera" id="bandera-receta">
+                    <h5>Argentina</h5>    
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="align-items-center box-icons">
+                    <img src="/svg/bar-chart-line-fill.svg" width="25px" class="icono-item" alt="Dificultad icon">
+                    <h5>Dificultad</h5>
+                    <p class="dificultad">Media</p>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="align-items-center box-icons">
+                    <img src="/svg/alarm.svg" width="25px" class="icono-item" alt="Dificultad icon">
+                    <h5>Tiempo</h5>
+                    <p class="tiempo">30 min</div>
+                </div>
+            </div>
+    </div>
+</div>
+
         <hr style="border: 1px solid var(--color_principal);">
-
-        <div class="receta-detalles my-4">
-            <h5>Dificultad:</h5>
-            <div class="dificultad">Media</div>
-
-            <h5>Tiempo de elaboración:</h5>
-            <div class="tiempo">30 minutos</div>
 
             <h5>Ingredientes:</h5>
             <ul>
