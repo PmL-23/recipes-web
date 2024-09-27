@@ -1,19 +1,3 @@
-document.addEventListener("DOMContentLoaded", function() {
-  const recetas = document.querySelectorAll('.receta-item');
-
-  recetas.forEach(receta => {
-      const cardInfo = receta.querySelector('.card_info');
-
-      receta.addEventListener('mouseenter', function() {
-          cardInfo.style.transform = 'translateX(0)'; // Mostrar al hacer hover
-      });
-
-      receta.addEventListener('mouseleave', function() {
-          cardInfo.style.transform = 'translateX(100%)'; // Ocultar al salir
-      });
-  });
-});
-
 
 
 
