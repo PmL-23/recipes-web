@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", function() {
     const recetas = document.querySelectorAll('.receta-item');
   
@@ -84,4 +85,25 @@ let comentarios = [];
         document.getElementById('btnComentar').addEventListener('click', () => {
             document.getElementById('comentarioText').focus();
         });
-        
+
+const cargar = function ()
+{
+    cargarBandera();
+    cargarPortada();
+};
+
+const cargarPortada = function ()
+{
+    const imgPortada = document.getElementById("portada-receta");
+    imgPortada.src = "/images/pizza_lp.jpg";
+}
+
+const cargarBandera = function ()
+{
+    const imgBandera= document.getElementById("bandera-receta");
+    imgBandera.src= "/svg/argentina.svg";
+};
+
+
+
+window.onload= cargar;

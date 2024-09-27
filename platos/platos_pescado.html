@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/0-globals.css">
+    <link rel="stylesheet" href="/css/a-header.css">
+    <link rel="stylesheet" href="../html_paises/css/paises.css">
+    <script src="../html_paises/js/ordenarRecetas.js" defer></script>
+    <!-- fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <title>Pescado</title>
+</head>
+
+<body>
+    <!-- header -->
+    <header class="header">
+        <div class="contenedor contenido-header">
+            <h1 class="titulo-clickable" id="tituloRecetas" href="#">Recetas <span>de America</span></h1>
+            <nav class="navegacion-principal">
+                <a class="h-amarillo" href="#">Publicaciones</a>
+                <a class="h-amarillo" href="#">Recetas</a>
+                <a class="h-amarillo" href="#">Paises</a>
+                <a class="h-amarillo" href="#">Nosotros</a>
+                <a class="boton1" href="#">Iniciar Sesion</a>
+                <a class="boton2" href="html_inicio_sesion/registrarse.html">Registrarse</a>
+            </nav>
+        </div>
+    </header>
+
+    <h2 class="text-center pt-7 fw-bold">Nuestras recetas con Pescado</h2>
+
+    <!-- Barra de navegación secundaria -->
+    <div class="oculto">
+        <nav class=" menu-barra pt-4">
+            <div class="menu-toggle" id="menuToggle">☰</div>
+            <ul class="menu-list">
+                <li><a id="todos" href="#todos">Todos</a></li>
+                <li><a id="desayuno" href="#desayuno">Desayuno</a></li>
+                <li><a id="almuerzo" href="#almuerzo">Almuerzo</a></li>
+                <li><a id="merienda" href="#merienda">Merienda</a></li>
+                <li><a id="cena" href="#cena">Cena</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Sección de pastas -->
+    <div class="container mt-5">
+        <div class="row">
+
+            <!-- Desayuno -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion desayuno">
+                <div class="card h-100">
+                    <img src="../html_paises/img/imgPeru/Pan con Atún y Cebolla.png" class="card-img-top"
+                        alt="pan con atun y cebolla">
+                    <div class="card-body">
+                        <h5 class="card-title">Pan con Atún y Cebolla</h5>
+                        <p class="card-text">Un pan fresco relleno de una mezcla sabrosa de atún y cebolla.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalPanConAtunYcebolla">Ver
+                            Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Almuerzo -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion  almuerzo">
+                <div class="card h-100">
+                    <img src="../html_paises/img/imgBrasil/Moqueca.jpg" class="card-img-top" alt="moqueca">
+                    <div class="card-body">
+                        <h5 class="card-title">Moqueca</h5>
+                        <p class="card-text">Un guiso de pescado y mariscos cocinado en leche de coco, típico del
+                            noreste brasileño.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalMoqueca">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Cena -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion cena">
+                <div class="card h-100">
+                    <img src="../html_paises/img/imgChile/Ceviche.jpg" class="card-img-top" alt="ceviche">
+                    <div class="card-body">
+                        <h5 class="card-title">Ceviche</h5>
+                        <p class="card-text">Pescado marinado en limón, fresco y delicioso.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalCeviche">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Cena -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion cena">
+                <div class="card h-100">
+                    <img src="../html_paises/img/imgChile/Pescado al Horno.jpg" class="card-img-top"
+                        alt="pescado al horno">
+                    <div class="card-body">
+                        <h5 class="card-title">Pescado al Horno</h5>
+                        <p class="card-text">Pescado fresco horneado con hierbas, ligero y sabroso.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalPescadoAlHorno">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Cena -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion cena">
+                <div class="card h-100">
+                    <img src="../html_paises/img/imgColombia/Pescado a la Plancha.jpg" class="card-img-top"
+                        alt="pescado a la plancha">
+                    <div class="card-body">
+                        <h5 class="card-title">Pescado a la Plancha</h5>
+                        <p class="card-text">Pescado fresco a la plancha, servido con vegetales al vapor.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalPescadoAlaPlancha">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Cena -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion cena">
+                <div class="card h-100">
+                    <img src="../html_paises/img/imgColombia/Pescado a la Plancha.jpg" class="card-img-top"
+                        alt="pescado a la plancha">
+                    <div class="card-body">
+                        <h5 class="card-title">Pescado a la Plancha</h5>
+                        <p class="card-text">Pescado fresco a la plancha, servido con vegetales al vapor.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalPescadoAlaPlancha">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Almuerzo -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion almuerzo">
+                <div class="card h-100">
+                    <img src="../html_paises/img/imgEcuador/Encebollado.jpg" class="card-img-top" alt="encebollado">
+                    <div class="card-body">
+                        <h5 class="card-title">Encebollado</h5>
+                        <p class="card-text">Sopa de pescado con yuca, cebolla y cilantro, muy nutritiva.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalEncebollado">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Cena -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion cena">
+                <div class="card h-100">
+                    <img src="../html_paises/img/imgEcuador/Pescado Frito.jpg" class="card-img-top" alt="pescado frito">
+                    <div class="card-body">
+                        <h5 class="card-title">Pescado Frito</h5>
+                        <p class="card-text">Pescado frito servido con ensalada y plátano frito.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalPescadoFrito">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Cena -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion cena">
+                <div class="card h-100">
+                    <img src="../html_paises/img/imgEcuador/Sopa de Pescado.jpg" class="card-img-top"
+                        alt="sopa de pescado">
+                    <div class="card-body">
+                        <h5 class="card-title">Sopa de Pescado</h5>
+                        <p class="card-text">Sopa a base de pescado, yuca y verduras, ligera y nutritiva.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalSopaDePescado">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Almuerzo -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion almuerzo">
+                <div class="card h-100">
+                    <img src="../html_paises/img/imgParaguay/Pira Caldo.jpg" class="card-img-top" alt="pira caldo">
+                    <div class="card-body">
+                        <h5 class="card-title">Pira Caldo</h5>
+                        <p class="card-text">Sopa de pescado, cocido en un caldo con verduras ideal para el almuerzo.
+                        </p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalPiraCaldo">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Cena -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion cena">
+                <div class="card h-100">
+                    <img src="../html_paises/img/imgUruguay/Pescado a la Parrilla.jpg" class="card-img-top"
+                        alt="pescado a la parrilla">
+                    <div class="card-body">
+                        <h5 class="card-title">Pescado a la Parrilla</h5>
+                        <p class="card-text">Pescado fresco asado a la parrilla, generalmente servido con ensalada.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalPescadoParrilla">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Cena -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion cena">
+                <div class="card h-100">
+                    <img src="../html_paises/img/imgVenezuela/Pastel de chucho.jpg" class="card-img-top"
+                        alt="pastel de chucho">
+                    <div class="card-body">
+                        <h5 class="card-title">Pastel de Chucho</h5>
+                        <p class="card-text">Pastel de plátano maduro con capas de pescado salado y salsa bechamel.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalPastelDeChucho">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        </div>
+
+    </div>
+
+    <!-- Modal Pan con Atún y Cebolla -->
+    <div id="modalPanConAtunYcebolla" class="modal">
+        <div class="modal-contenido">
+            <span class="cerrar">&times;</span>
+            <h2 id="nombreReceta">Pan con Atún y Cebolla</h2>
+            <p id="descripcionReceta">Un pan fresco relleno de una mezcla sabrosa de atún y cebolla.</p>
+            <h3>Ingredientes:</h3>
+            <ul id="ingredientesReceta">
+                <li>1 pan fresco</li>
+                <li>1 lata de atún</li>
+                <li>1 cebolla picada</li>
+                <li>Mayonesa al gusto</li>
+                <li>Sal y pimienta al gusto</li>
+            </ul>
+            <h3>Pasos:</h3>
+            <ol id="pasosReceta">
+                <li>Mezclar el atún con cebolla y mayonesa.</li>
+                <li>Agregar sal y pimienta al gusto.</li>
+                <li>Rellenar el pan con la mezcla.</li>
+                <li>Servir frío o a temperatura ambiente.</li>
+            </ol>
+        </div>
+    </div>
+    <!-- Modal para Moqueca -->
+    <div id="modalMoqueca" class="modal">
+        <div class="modal-contenido">
+            <span class="cerrar">&times;</span>
+            <h2 id="nombreRecetaMoqueca">Moqueca</h2>
+            <p id="descripcionRecetaMoqueca">Un guiso de pescado y mariscos cocinado en leche de coco, típico del
+                noreste brasileño.</p>
+            <h3>Ingredientes:</h3>
+            <ul id="ingredientesRecetaMoqueca">
+                <li>500g de pescado blanco</li>
+                <li>300g de camarones</li>
+                <li>1 cebolla picada</li>
+                <li>2 tomates picados</li>
+                <li>1 lata de leche de coco</li>
+                <li>2 cucharadas de aceite de oliva</li>
+                <li>Sal y pimienta al gusto</li>
+            </ul>
+            <h3>Pasos:</h3>
+            <ol id="pasosRecetaMoqueca">
+                <li>Calentar el aceite en una olla y añadir la cebolla hasta que esté transparente.</li>
+                <li>Agregar los tomates y cocinar hasta que estén suaves.</li>
+                <li>Incorporar el pescado y los camarones, sazonar con sal y pimienta.</li>
+                <li>Verter la leche de coco y dejar cocinar a fuego lento por 20 minutos.</li>
+            </ol>
+        </div>
+    </div>
+    <!-- Modal para Ceviche -->
+    <div id="modalCeviche" class="modal">
+        <div class="modal-contenido">
+            <span class="cerrar">&times;</span>
+            <h2 class="nombreReceta">Ceviche</h2>
+            <p class="descripcionReceta">Pescado marinado en limón, fresco y delicioso.</p>
+            <h3>Ingredientes:</h3>
+            <ul class="ingredientesReceta">
+                <li>500g de pescado fresco (preferiblemente corvina)</li>
+                <li>Jugo de 5 limones</li>
+                <li>1 cebolla morada en rodajas finas</li>
+                <li>Cilantro picado</li>
+                <li>Sal y pimienta al gusto</li>
+            </ul>
+            <h3>Pasos:</h3>
+            <ol class="pasosReceta">
+                <li>Cortar el pescado en cubos pequeños.</li>
+                <li>Marinar el pescado en el jugo de limón por 10 minutos.</li>
+                <li>Añadir la cebolla y cilantro.</li>
+                <li>Servir frío acompañado de tostadas o maíz.</li>
+            </ol>
+        </div>
+    </div>
+    <!-- Modal para Pescado al Horno -->
+    <div id="modalPescadoAlHorno" class="modal">
+        <div class="modal-contenido">
+            <span class="cerrar">&times;</span>
+            <h2 class="nombreReceta">Pescado al Horno</h2>
+            <p class="descripcionReceta">Pescado fresco horneado con hierbas, ligero y sabroso.</p>
+            <h3>Ingredientes:</h3>
+            <ul class="ingredientesReceta">
+                <li>1 pescado entero limpio (preferiblemente merluza)</li>
+                <li>Hierbas frescas (perejil, orégano, albahaca)</li>
+                <li>Jugo de limón</li>
+                <li>Sal y pimienta</li>
+            </ul>
+            <h3>Pasos:</h3>
+            <ol class="pasosReceta">
+                <li>Precalentar el horno a 200°C.</li>
+                <li>Sazonar el pescado con hierbas, limón, sal y pimienta.</li>
+                <li>Hornear por 25 minutos o hasta que esté cocido.</li>
+                <li>Servir con una guarnición de vegetales.</li>
+            </ol>
+        </div>
+    </div>
+    <!-- Modal Pescado a la Plancha -->
+    <div id="modalPescadoAlaPlancha" class="modal">
+        <div class="modal-contenido">
+            <span class="cerrar">&times;</span>
+            <h2 id="nombreReceta">Pescado a la Plancha</h2>
+            <p id="descripcionReceta">Pescado fresco a la plancha, servido con vegetales al vapor.</p>
+            <h3>Ingredientes:</h3>
+            <ul id="ingredientesReceta">
+                <li>2 filetes de pescado</li>
+                <li>1 cucharada de aceite de oliva</li>
+                <li>Sal y pimienta al gusto</li>
+                <li>Vegetales al vapor</li>
+            </ul>
+            <h3>Pasos:</h3>
+            <ol id="pasosReceta">
+                <li>Calentar el aceite en una sartén.</li>
+                <li>Agregar el pescado y sazonar.</li>
+                <li>Cocinar por 4-5 minutos de cada lado.</li>
+                <li>Servir con vegetales al vapor.</li>
+            </ol>
+        </div>
+    </div>
+    <!-- Modal Pescado a la Plancha -->
+    <div id="modalPescadoAlaPlancha" class="modal">
+        <div class="modal-contenido">
+            <span class="cerrar">&times;</span>
+            <h2 id="nombreReceta">Pescado a la Plancha</h2>
+            <p id="descripcionReceta">Pescado fresco a la plancha, servido con vegetales al vapor.</p>
+            <h3>Ingredientes:</h3>
+            <ul id="ingredientesReceta">
+                <li>2 filetes de pescado</li>
+                <li>1 cucharada de aceite de oliva</li>
+                <li>Sal y pimienta al gusto</li>
+                <li>Vegetales al vapor</li>
+            </ul>
+            <h3>Pasos:</h3>
+            <ol id="pasosReceta">
+                <li>Calentar el aceite en una sartén.</li>
+                <li>Agregar el pescado y sazonar.</li>
+                <li>Cocinar por 4-5 minutos de cada lado.</li>
+                <li>Servir con vegetales al vapor.</li>
+            </ol>
+        </div>
+    </div>
+    <!-- Modal Encebollado -->
+    <div id="modalEncebollado" class="modal">
+        <div class="modal-contenido">
+            <span class="cerrar">&times;</span>
+            <h2 id="nombreReceta">Encebollado</h2>
+            <p id="descripcionReceta">Sopa de pescado con yuca, cebolla y cilantro, muy nutritiva.</p>
+            <h3>Ingredientes:</h3>
+            <ul id="ingredientesReceta">
+                <li>500 g de pescado (atún o dorado)</li>
+                <li>200 g de yuca</li>
+                <li>1 cebolla roja</li>
+                <li>Cilantro al gusto</li>
+                <li>Sal y pimienta al gusto</li>
+                <li>Agua</li>
+            </ul>
+            <h3>Pasos:</h3>
+            <ol id="pasosReceta">
+                <li>Cocer el pescado en agua con sal.</li>
+                <li>Agregar la yuca y cocinar hasta que esté suave.</li>
+                <li>Retirar el pescado y desmenuzar.</li>
+                <li>Servir caliente con cebolla y cilantro.</li>
+            </ol>
+        </div>
+    </div>
+    <!-- Modal Pescado Frito -->
+    <div id="modalPescadoFrito" class="modal">
+        <div class="modal-contenido">
+            <span class="cerrar">&times;</span>
+            <h2 id="nombreReceta">Pescado Frito</h2>
+            <p id="descripcionReceta">Pescado frito servido con ensalada y plátano frito.</p>
+            <h3>Ingredientes:</h3>
+            <ul id="ingredientesReceta">
+                <li>1 pescado (tilapia o similar)</li>
+                <li>Harina para empanizar</li>
+                <li>Sal al gusto</li>
+                <li>Aceite para freír</li>
+                <li>Ensalada y plátano frito para acompañar</li>
+            </ul>
+            <h3>Pasos:</h3>
+            <ol id="pasosReceta">
+                <li>Limpiar el pescado y sazonar con sal.</li>
+                <li>Pasar el pescado por harina para empanizar.</li>
+                <li>Freír en aceite caliente hasta que esté dorado.</li>
+                <li>Servir con ensalada y plátano frito.</li>
+            </ol>
+        </div>
+    </div>
+    <!-- Modal Sopa de Pescado -->
+    <div id="modalSopaDePescado" class="modal">
+        <div class="modal-contenido">
+            <span class="cerrar">&times;</span>
+            <h2 id="nombreReceta">Sopa de Pescado</h2>
+            <p id="descripcionReceta">Sopa a base de pescado, yuca y verduras, ligera y nutritiva.</p>
+            <h3>Ingredientes:</h3>
+            <ul id="ingredientesReceta">
+                <li>300 g de filete de pescado</li>
+                <li>1 taza de yuca pelada y cortada en trozos</li>
+                <li>1 zanahoria en rodajas</li>
+                <li>1 cebolla picada</li>
+                <li>2 dientes de ajo picados</li>
+                <li>1 litro de caldo de pescado</li>
+                <li>Sal y pimienta al gusto</li>
+                <li>Cilantro fresco al gusto</li>
+            </ul>
+            <h3>Pasos:</h3>
+            <ol id="pasosReceta">
+                <li>En una olla, calentar un poco de aceite y sofreír la cebolla y el ajo.</li>
+                <li>Agregar el caldo de pescado y llevar a ebullición.</li>
+                <li>Incorporar la yuca y la zanahoria; cocinar hasta que estén tiernas.</li>
+                <li>Agregar el filete de pescado y cocinar por unos minutos.</li>
+                <li>Rectificar la sal y pimienta, y servir caliente, decorando con cilantro fresco.</li>
+            </ol>
+        </div>
+    </div>
+    <!-- Modal Pira Caldo -->
+    <div id="modalPiraCaldo" class="modal">
+        <div class="modal-contenido">
+            <span class="cerrar">&times;</span>
+            <h2 id="nombreReceta">Pira Caldo</h2>
+            <p id="descripcionReceta">Sopa de pescado, cocido en un caldo con verduras ideal para el almuerzo.</p>
+            <h3>Ingredientes:</h3>
+            <ul id="ingredientesReceta">
+                <li>1 kg de pescado (puede ser surubí o otra variedad)</li>
+                <li>Verduras al gusto (zanahoria, cebolla, etc.)</li>
+                <li>Sal y pimienta al gusto</li>
+                <li>Agua</li>
+            </ul>
+            <h3>Pasos:</h3>
+            <ol id="pasosReceta">
+                <li>Cocinar el pescado en agua con las verduras y especias.</li>
+                <li>Servir caliente con arroz o solo.</li>
+            </ol>
+        </div>
+    </div>
+    <!-- Modal Pescado a la Parrilla -->
+    <div class="modal" id="modalPescadoParrilla">
+        <div class="modal-contenido">
+            <span class="cerrar">&times;</span>
+            <h2 id="nombreReceta">Pescado a la Parrilla</h2>
+            <p id="descripcionReceta">Pescado fresco asado a la parrilla, generalmente servido con ensalada.</p>
+            <h3>Ingredientes:</h3>
+            <ul id="ingredientesReceta">
+                <li>2 filetes de pescado fresco</li>
+                <li>Sal y pimienta al gusto</li>
+                <li>Limón</li>
+                <li>Ensalada para acompañar</li>
+            </ul>
+            <h3>Pasos:</h3>
+            <ol id="pasosReceta">
+                <li>Marinar el pescado con sal, pimienta y limón.</li>
+                <li>Asar en la parrilla hasta que esté cocido.</li>
+                <li>Servir con ensalada.</li>
+            </ol>
+        </div>
+    </div>
+    <!-- Modal Pastel de Chucho -->
+    <div class="modal" id="modalPastelDeChucho">
+        <div class="modal-contenido">
+            <span class="cerrar">&times;</span>
+            <h2 id="nombreReceta">Pastel de Chucho</h2>
+            <p id="descripcionReceta">Pastel de plátano maduro con capas de pescado salado y salsa bechamel.</p>
+            <h3>Ingredientes:</h3>
+            <ul id="ingredientesReceta">
+                <li>3 plátanos maduros</li>
+                <li>200 g de pescado salado</li>
+                <li>1 taza de salsa bechamel</li>
+                <li>Queso rallado</li>
+                <li>Sal y pimienta al gusto</li>
+            </ul>
+            <h3>Pasos:</h3>
+            <ol id="pasosReceta">
+                <li>Cocer y triturar los plátanos.</li>
+                <li>Mezclar el pescado desmenuzado con la salsa bechamel.</li>
+                <li>En un molde, alternar capas de puré de plátano y la mezcla de pescado.</li>
+                <li>Hornear a 180°C durante 30 minutos.</li>
+            </ol>
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+    <footer class="footer bg-dark text-white py-4">
+        <div class="container text-center">
+            <p class="mb-2">&copy; 2024 Recetas de America. Todos los derechos reservados.</p>
+            <nav class="d-flex justify-content-center">
+                <a class="nav-link text-white" href="#">Términos y condiciones</a>
+                <a class="nav-link text-white" href="#">Política de privacidad</a>
+                <a class="nav-link text-white" href="#">Contacto</a>
+            </nav>
+            <div class="social-links mt-3">
+                <a href="#" class="text-white mx-2">Facebook</a>
+                <a href="#" class="text-white mx-2">Twitter</a>
+                <a href="#" class="text-white mx-2">Instagram</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
