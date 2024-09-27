@@ -17,3 +17,6 @@ body {
     box-sizing: border-box;
     background-color: #fff;
 }
+.pt-7{
+    padding-top: 7rem;
+}

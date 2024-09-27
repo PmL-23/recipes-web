@@ -75,40 +75,49 @@
     align-items: center;
 }
 
-.card_info .head .description .item i {
-    color: #bc8811;
-    font-size: 15px;
+    .slider-wrapper .swiper-slide-button {
+        display: none;/*lo saco ya que lo hacen deslizando con el dedo*/
+    }
+
+    .recetas .receta-item {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .recetas .receta-item .receta-imagen {
+        width: 200px; 
+        height: 150px; 
+        margin-bottom: 15px;
+    }
+
+    .recetas .receta-item  {
+        font-size: 0.8rem; 
+    }
+
+    .recetas .receta-item .origen-receta {
+        font-size: 0.7rem; 
+    }
+
+    .recetas .receta-item .pedir-receta {
+        margin-left: 0; 
+    }
 }
 
-.card_info .head .description .item p {
-    font-size: 13px;
+/* color para el boton de sigueinte y atras */
+div .swiper-slide-button.swiper-button-next,  .swiper-slide-button.swiper-button-prev{
+    color: #26533c;
 }
 
-.card_info .content {
-    margin-top: 15px;
+/* color de lo de abajo */
+.swiper-pagination-bullet.swiper-pagination-bullet-active.swiper-pagination-bullet-active-main {
+    background-color: #26533c !important;
+}
+/* ajustes de imagen, habian errores raros */
+@media (max-width: 1306px) {
+    .recetas .receta-item .receta-imagen {
+        width: 250px; 
+        height: 167px; 
+    }
 }
 
-.card_info .content .list {
-    padding: 10px 0;
-}
 
-.card_info .content .list li {
-    font-size: 14px;
-    margin-bottom: 5px;
-}
-
-.card_info .action .btn {
-    padding: 10px;
-    color: #ffffff;
-    text-decoration: none;
-    background: #bc8811;
-    text-align: center;
-    display: block;
-    border-radius: 5px;
-    margin-top: 10px;
-}
-
-.carousel-control-prev, .carousel-control-next {
-    color: #ff3030; 
-    z-index: 10; 
-}
