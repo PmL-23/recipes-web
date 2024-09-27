@@ -1,0 +1,109 @@
+/* .principal-info
+{
+    display: flex;
+    gap: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: aqua;
+    margin-top: 80px;
+    margin-bottom: 50px;
+
+
+    .content
+    {
+        flex: 1;
+        padding: 50px;
+        display: flex;
+        flex-direction: column;
+        gap: 15;
+    }
+
+    h1{
+        font-size: 50px;
+        font-weight: 600;
+        line-height:55px;
+    }
+
+    p{
+        line-height: 24px;
+        padding-right: 35px;
+        margin: 10px 0 30px;
+    }
+    
+    .content-img
+    {
+        flex:1;
+    }
+} */
+
+.dificultad, .tiempo {
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: 1.rem; 
+}
+
+.icono-item
+{
+    margin-bottom: 10px;
+}
+
+h5{
+    font-weight: bold;
+    font-size: 1.rem; 
+}
+
+.contenedor-img
+{
+    width: 100%;
+    height: 100%;
+    padding: 30px;
+    margin: auto;
+}
+
+.portada-receta
+{
+    margin: 20px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+.bandera
+{
+    margin-bottom: 0px;
+}
+
+.categoria-style {
+    font-size: 14px;
+    background-color: #26533c !important;
+    border-width: 2px solid;
+    border-color: #183b29;
+    color:#d4ffeb;
+    padding: 8px 16px; /* padding interno */
+    border-radius: 30px;
+}
+
+.categoria-style ::after{
+    background-color: #030303;
+}
+
+.contenido-principal
+{   
+    border-radius: 15px;
+    background-color:#d4ffeb;
+}
+
+.contenedor-detalles
+{
+    width: 100%;
+    height: 100%;
+/*     padding-left: 50px;
+    padding-right: 50px; */
+    margin: auto;
+    border:#26533c solid;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-width: 1px;
+}

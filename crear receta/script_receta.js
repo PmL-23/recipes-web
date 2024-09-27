@@ -99,33 +99,33 @@ const visualizarBandera = function ()
                 
                 if (paisSeleccionado === "arg") 
                 {
-                        imgBandera.src = "/recipes-web-master/svg/argentina.svg";
+                        imgBandera.src = "/svg/argentina.svg";
                 }
                 else if (paisSeleccionado === "bol") 
                 {
-                        imgBandera.src = "/recipes-web-master/svg/bolivia.svg";
+                        imgBandera.src = "/svg/bolivia.svg";
                 }
                 else if (paisSeleccionado === "bra")
                 {
-                        imgBandera.src = "/recipes-web-master/svg/brasil.svg";
+                        imgBandera.src = "/svg/brasil.svg";
                 }
                 else if (paisSeleccionado === "chi") {
-                        imgBandera.src = "/recipes-web-master/svg/chile.svg";
+                        imgBandera.src = "/svg/chile.svg";
                 }
                 else if (paisSeleccionado === "col") {
-                        imgBandera.src = "/recipes-web-master/svg/colombia.svg";
+                        imgBandera.src = "/svg/colombia.svg";
                 }
                 else if (paisSeleccionado === "ecu") {
-                        imgBandera.src = "/recipes-web-master/svg/ecuador.svg";
+                        imgBandera.src = "/svg/ecuador.svg";
                 }
                 else if (paisSeleccionado === "par") {
-                        imgBandera.src = "/recipes-web-master/svg/paraguay.svg";
+                        imgBandera.src = "/svg/paraguay.svg";
                 }
                 else if (paisSeleccionado === "uru") {
-                        imgBandera.src = "/recipes-web-master/svg/uruguay.svg";
+                        imgBandera.src = "/svg/uruguay.svg";
                 }
                 else if (paisSeleccionado === "ven") {
-                        imgBandera.src = "/recipes-web-master/svg/venezuela.svg";
+                        imgBandera.src = "/svg/venezuela.svg";
                 }
 
 });
