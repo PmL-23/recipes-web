@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Recetario</title>
+        <link rel="icon" type="favicon/x-icon" href="./images/logo.png">
+        <link rel="stylesheet" href="../css/0-globals.css">
+        <link rel="stylesheet" href="style_receta.css">
+        <link rel="stylesheet" href="../css/a-header.css">
+
+            <!-- Link Bootstrap-->
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    
+            <!-- fuentes -->
+            <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        
+            <!-- Link custom script -->
+            <script src="script_receta.js" defer></script>
+    </head>
+<body>
+    <!-- header -->
+    <header class="header">
+        <div class="contenedor contenido-header">
+            <img src="../images/logo.png" alt="logo" width="75">
+            <nav class="navegacion-principal">
+                <a class="boton1" href="../index.html">Inicio</a>
+                <a class="boton1" href="#">Explorar</a>
+            
+                </header>
+<form class="needs-validation" action="" method="get" id="frm-receta">    
+    <div class="contenido-principal container w-75 p-5 seccion">
+            <div class="contenedor-img-preview text-center d-flex p-2 justify-content-center">
+                <img src="default-image.png" class="preview border rounded img-fluid" alt="Vista previa de la portada" id="preview-portada">
+            </div>
+            <div>
+                <label for="foto-portada" class="h5 form-label">Foto de portada</label>
+                <input class="form-control form-control-md" id="foto-portada" name="nportada" type="file" accept="image/*" required>
+                <small class="text-danger" id="errorPortada"></small>
+            </div>
+
+            <div>
+                <label class="h5 form-label" for="titulo">TÍtulo</label>
+                <input class="form-control form-control-md" type="text" name="ntitulo" placeholder="Añade el titulo de tu receta" aria-label=".form-control" id="titulo" maxlength="100" required>
+                <small class="text-danger d-none" id="errorTitulo"></small>
+                </div>
+        
+                <div>
+                <label for="descripcion" class="h5 form-label">Descripción</label>
+                <textarea class="form-control textarea-resize" id="descripcion" name="ndescripcion" placeholder="Añade una descripción a tu receta" required></textarea>
+                <div class="text-danger d-none id="errorDescripcion">Por favor, ingrese una descripción</div>
+                </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="select-pais" class="h6 form-label">País</label>
+                    <select class="form-select" aria-label="Select pais" name="npais" id="select-pais" required>
+                        <option selected value="sin">-</option>
+                        <option value="arg">Argentina</option>
+                        <option value="bol">Bolivia</option>
+                        <option value="bra">Brasil</option>
+                        <option value="chi">Chile</option>
+                        <option value="col">Colombia</option>
+                        <option value="ecu">Ecuador</option>
+                        <option value="par">Paraguay</option>
+                        <option value="per">Perú</option>
+                        <option value="uru">Uruguay</option>
+                        <option value="ven">Venezuela</option>
+                    </select>
+                    <div class="text-danger d-none" id="errorPais">Por favor, seleccione una opción</div>
+                    <span class="d-flex align-items-center"></span>
+                        <img class="bandera-select d-none mini-bandera mt-2 float-end" src="" alt="Bandera del país" id="banderita">
+                    </span>
+                </div>
+                <div class="col-md-6">
+                    <label for="categoria" class="h6 form-label">Categoría</label>
+                    <select class="form-select" aria-label="Select pais" name="ncategoria" id="categoria">
+                        <option selected>-</option>
+                    </select>
+                    <div class="text-danger d-none" id="errorCategoria">Por favor, seleccione una opción</div>
+                </div>
+            </div> 
+
+            
+            <div class="row">
+                <div class="col mb-5">
+                    <label for="dificultad" class="h6 form-label">Dificultad de elaboración</label>
+                    <select class="form-select" aria-label="Select dificultad" name="ndificultad" id="dificultad" required>
+                        <option selected disabled>Elegí la dificultad de tu platillo</option>
+                        <option value="facil">Fácil</option>
+                        <option value="media">Media</option>
+                        <option value="dificil">Difícil</option>
+                    </select>
+                    <div class="text-danger d-none" id="errorDificultad">Por favor, seleccione una opción</div>
+                </div>
+                <div class="col-md-3 col-sm-12">
+                    <label for="tiempo-elaboracion" class="h6 form-label">Tiempo de elaboración</label>
+                    <input type="number" class="form-control" name="ntiempoelab" placeholder="Ej: 30, 2..." aria-label="Number tiempo" id="tiempo-elaboracion" required>
+                    <div class="text-danger d-none" id="errorTiempo">Por favor, ingrese un numero</div>
+
+                </div>
+                <div class="col-md-3 col-sm-12">
+                    <label for="tiempo-unidad" class="h6 form-label">Hora/Minutos</label>
+                    <select class="form-select" aria-label="Select unidad" name="ntiempounidad" id="tiempo-unidad" required>
+                        <option selected disabled>-</option>
+                        <option value="min">Minutos</option>
+                        <option value="hora">Hora/s</option>
+                    </select>
+                    <div class="text-danger d-none" id="errorUnidad">Por favor, seleccione una opción</div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <label for="etiqueta" class="h6 form-label">Etiqueta</label>
+                <select class="form-select" aria-label="Select pais" name="netiqueta" id="etiqueta">
+                    <option selected>-</option>
+                </select>
+                <!-- <div class="text-danger d-none" id="errorEtiqueta">Por favor, seleccione una opción</div> -->
+            </div>    
+            </div>
+        </div>
+
+
+
+        <div class="contenido-ingredientes container w-75 p-5  mt-5 seccion">
+            <div id="ingredientes">
+                <label class="h5 form-label">Ingredientes</label>
+                <div class="un_ingrediente d-grid gap-2 d-md-flex justify-content-md-end" id="item-ingrediente">
+                    <input type="text" class="form-control  me-md-2" name="ningrediente" placeholder="Ej: 400gr de harina..." id="primer-ingrediente" required>
+                    <button class="btn border rounded" type="button" id="quitar-ing" disabled>Quitar</button>
+                </div>
+                <div class="text-danger d-none" id="errorIngrediente">Tiene que completar al menos un ingrediente</div>
+            </div>
+            <div class="d-grid gap-2">
+                <button class="btn-sm border rounded" type="button" id="agregar-ing">+ Agregar Ingrediente</button>
+            </div>
+        </div>
+
+    <div class="contenido-pasos container w-75 p-5 mt-5 seccion">
+        <div id="pasos">
+            <label class="h5 form-label">Pasos</label>
+            <ol class="list-group list-group-numbered" id="list-paso">
+                <li class="item-lista list-group-item" id="li-paso">
+                    <div class="un_paso d-grid gap-2 d-md-flex justify-content-md-end" id="item-paso">
+                        <textarea class="form-control me-md-2 input-paso textarea-resize" name="npaso" placeholder="Ej: Mezcla los ingredientes en un bowl..." id="primer-paso" required></textarea>
+                        <button class="btn-sm border rounded p-2 px-3" type="button" id="quitar-paso" disabled>Quitar</button>
+                    </div>
+                            <div class="text-danger d-none" id="errorPaso">Tiene que completar al menos un paso</div>
+                    <div class="elementos-paso d-grid gap-2 d-md-flex justify-content-md-start">
+                        <div class="contenedor-paso-img">
+                            <img src="default-image.png" class="img-paso border rounded img-fluid" alt="Imagen del paso" id="img-paso-id">
+                            <input class="form-control mt-2" type="file" name="nimagenpaso" id="file-paso" accept="image/*">
+                            <button class="btn-sm border rounded ms-2 d-none" type="button" id="quitar-imagen">Quitar Imagen</button>         
+                        </div>
+                    </div>
+                </li>
+            </ol>
+        </div>
+        <div class="d-grid gap-2">
+            <button class="btn-sm border rounded" type="button" id="agregar-paso">+ Agregar Paso</button>
+        </div>
+    </div>
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end m-5">
+        <button class="btn" type="submit" id="btn-publicar">Publicar</button>
+    </div>
+    
+</form>
+</body>
+</html>
