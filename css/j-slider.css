@@ -1,130 +1,108 @@
-/* d-slider.css */
-
-/* Reseteo de estilos generales */
-* {
-    box-sizing: border-box; /* para que quede encajado en 3 */
-    font-family: "Montserrat", sans-serif;
+#custom .carousel {
+    width: 100%;
+    height: 350px;
+    max-width: 800px;
+    margin: 50px auto; 
 }
 
-/* Contenedor del slider */
-.slider-wrapper {
-    max-width: 1200px; /* ancho máximo */
-    margin: 0 auto 55px; /* centra el slider y espacio abajo */
-    overflow: hidden; /* oculta el contenido que excede el contenedor */
-    display: flex; /* habilita flexbox para alinear los elementos */
-    justify-content: center; /* centra el contenido horizontalmente */
-    align-items: center; /* centra el contenido verticalmente */
-    transition-property: transform; /* permite la transición suave al mover los slides */
+
+
+#custom .receta-item {
+    width: 800px; 
+    height: 800px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; 
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 3px solid rgba(255, 255, 255, 0.5);
+    margin: 0;
+    position: relative; 
 }
 
-/* Estilos generales para los slides */
-.swiper-slide {
-    display: flex; /* habilita flexbox para alinear el contenido */
-    justify-content: center; /* centra el contenido horizontalmente */
-    align-items: center; /* centra el contenido verticalmente */
+#custom .card_landing {
+    background-size: cover;
+    height: 350px;
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    padding: 10px;
+    color: #fff;
 }
 
-/* Contenedor de cada receta */
-.receta-item {
-    color: #a9117b; /* color del texto */
-    user-select: none; /* evita que el texto sea seleccionado */
-    width: 500px; /* ancho de la receta */
-    padding: 20px; /* padding interno */
-    display: flex; /* usa flexbox para alinear el contenido dentro de las recetas */
-    flex-direction: column; /* mantiene el texto abajo */
-    align-items: center; /* alinea los elementos al centro */
-    justify-content: space-between; /* mantiene los elementos en la parte inferior */
-    border-radius: 10px; /* esquinas redondeadas */
-    background: rgba(255, 255, 255, 0.2); /* fondo semi-transparente */
-    border: 3px solid var(--color_principal); /* borde */
-    margin: 10px; /* margen entre recetas */
+#custom .card_info {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    transform: translateX(100%); 
+    transition: transform 0.3s;
+    z-index: 1;
 }
 
-/* Imagen de la receta */
-.receta-imagen {
-    width: 100%; /* toma el ancho completo del contenedor */
-    height: auto; /* altura automática para mantener la proporción */
-    border-radius: 5px; /* esquinas redondeadas */
-    margin-bottom: 10px; /* espacio inferior */
+#custom .receta-item:hover .card_info {
+    transform: translateX(0%);
 }
 
-/* Nombre de la receta */
-.receta-nombre {
-    font-size: 1.2rem; /* tamaño de fuente */
-    font-weight: bold; /* negrita */
-    color: #a9117b; /* color del texto */
-    text-align: center; /* alinea al centro */
-    margin-bottom: 5px; /* espacio inferior */
+#custom .card_info .head {
+    margin-bottom: 10px;
 }
 
-/* Origen de la receta */
-.origen-receta {
-    font-size: 0.9rem; /* tamaño de fuente */
-    color: #555; /* color gris */
-    text-align: center; /* alinea al centro */
-    margin-bottom: 15px; /* espacio inferior */
+#custom .card_info .head .title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #bc8811;
 }
 
-/* Botón para pedir la receta */
-.pedir-receta {
-    font-size: 1rem; /* tamaño de fuente */
-    padding: 10px 20px; /* padding */
-    color: #030728; /* color del texto */
-    border-radius: 6px; /* esquinas redondeadas */
-    cursor: pointer; /* cambia el cursor */
-    background: #fff; /* fondo blanco */
-    border: 1px solid transparent; /* sin borde */
-    transition: background-color 0.3s, border 0.3s; /* transición de color */
+#custom .card_info .head .description {
+    display: flex;
+    gap: 10px;
 }
 
-.pedir-receta:hover {
-    background-color: rgba(255, 255, 255, 0.1); /* color al pasar el ratón */
-    border: 1px solid #fff; /* borde blanco al pasar el ratón */
-    color: #fff; /* color del texto al pasar el ratón */
+#custom .card_info .head .description .item {
+    display: flex;
+    gap: 5px;
+    align-items: center;
 }
 
-/* Estilos para el slider */
-.swiper-button-next,
-.swiper-button-prev {
-    color: #11a94e; /* color de los botones de navegación */
+#custom .card_info .head .description .item i {
+    color: #bc8811;
+    font-size: 15px;
 }
 
-/* Estilos para los puntos de paginación */
-.swiper-pagination-bullet {
-    background: #26533c; /* color de los puntos */
+#custom .card_info .head .description .item p {
+    font-size: 13px;
 }
 
-/* Media queries para adaptar el diseño a pantallas más pequeñas */
-@media (max-width: 768px) {
-    .slider-wrapper {
-        margin: 0 10px 40px; /* margen lateral y abajo */
-        justify-content: center; /* centra el contenido */
-        align-items: center; /* centra verticalmente */
-    }
-
-    .receta-item {
-        width: 100%; /* ancho completo en pantallas pequeñas */
-        padding: 20px; /* padding interno */
-    }
-
-    .receta-imagen {
-        width: 200px; /* ancho específico para imágenes */
-        height: 150px; /* altura específica para imágenes */
-    }
-
-    .receta-nombre {
-        font-size: 0.8rem; /* tamaño de fuente ajustado */
-    }
-
-    .origen-receta {
-        font-size: 0.7rem; /* tamaño de fuente ajustado */
-    }
+#custom .card_info .content {
+    margin-top: 15px;
 }
 
-/* Ajustes de imagen en pantallas entre 768px y 1306px */
-@media (max-width: 1306px) {
-    .receta-imagen {
-        width: 250px; /* ancho específico */
-        height: 167px; /* altura específica */
-    }
+#custom .card_info .content .list {
+    padding: 10px 0;
+}
+
+#custom .card_info .content .list li {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+#custom .card_info .action .btn {
+    padding: 10px;
+    color: #ffffff;
+    text-decoration: none;
+    background: #bc8811;
+    text-align: center;
+    display: block;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+#custom .carousel-control-prev, #custom .carousel-control-next {
+    color: #ff3030; 
+    z-index: 10; 
 }
