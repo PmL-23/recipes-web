@@ -12,14 +12,15 @@
     <link rel="stylesheet" href="css/c-countries.css">
     <link rel="stylesheet" href="css/d-slider.css">
     <link rel="stylesheet" href="css/e-BarraLateral.css">
-    
-        <!-- link SwiperJS CSS biblioteca para sliders -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 
-        <!-- fuentes -->
-        <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-        <!-- Link SwiperJS script -->
+    <!-- link SwiperJS CSS biblioteca para sliders -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+    <!-- fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <!-- Link SwiperJS script -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
     <!-- Link custom script -->
     <script src="script.js" defer></script>
@@ -37,109 +38,114 @@
             <nav class="navegacion-principal">
                 <a class="boton1" href="index.html">Inicio</a>
                 <a class="boton1" href="#">Explorar</a>
-                
+
                 <!--barra lateral-->
-                <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
 
                     <!-- Icono de menú lateral -->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-list" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5" />
                     </svg>
 
                 </button>
 
-                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
+                    aria-labelledby="offcanvasRightLabel">
                     <div class="offcanvas-header">
                         <h5 class="offcanvas-title" id="offcanvasRightLabel">Menú Recetas de America</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
-                
-                <div class="offcanvas-body container-fluid">
 
-                    <div class="row DivSinLogIn" id="IDDivSinLogIn">
-                        <a class="boton1 col-6" href="#">Iniciar Sesion</a>
-                        <a class="boton2 col-6" href="#">Registrarse</a>
-                        <ul>
-                            <li class="text-center">
-                                <a class="boton2 text-center" href="#">Recuperar Contraseña</a>
-                            </li>
-                        </ul>
-                        
-                    </div>
+                    <div class="offcanvas-body container-fluid">
 
-                    <div class="row DivConLogIn"id="IDDivConLogIn" > 
-                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-0 ">
-                        
-                        <li class="nav-item">
-                            <a class="nav-link mt-5 " href="CarpetaPerfil/Perfil.html">Perfil</a>
-                        </li>
-                        <hr>
-                        <li class="nav-item mt-2">
-                            <a class="nav-link " href="#">Subir Receta</a>
-                        </li>
-                        <hr>
-                        <li class="nav-item mt-2">
-                            <a class="nav-link " href="CarpetaFavoritos/Favoritos.html">Recetas Favoritas </a>
-                        </li>
-                        <hr>
-                        <li class="nav-item mt-2">
-                            <a class="nav-link" href="admin/#">administración</a>
-                        </li>
-                        
-                        <li class="nav-item mt-5 text-center">
-                            <a class="btn btn-outline-danger" href="#">Cerrar Sesion</a>
-                        </li>
-                    </ul>
+                        <div class="row DivSinLogIn" id="IDDivSinLogIn">
+                            <a class="boton1 col-6" href="#">Iniciar Sesion</a>
+                            <a class="boton2 col-6" href="#">Registrarse</a>
+                            <ul>
+                                <li class="text-center">
+                                    <a class="boton2 text-center" href="#">Recuperar Contraseña</a>
+                                </li>
+                            </ul>
+
+                        </div>
+
+                        <div class="row DivConLogIn" id="IDDivConLogIn">
+                            <ul class="navbar-nav justify-content-end flex-grow-1 pe-0 ">
+
+                                <li class="nav-item">
+                                    <a class="nav-link mt-5 " href="CarpetaPerfil/Perfil.html">Perfil</a>
+                                </li>
+                                <hr>
+                                <li class="nav-item mt-2">
+                                    <a class="nav-link " href="#">Subir Receta</a>
+                                </li>
+                                <hr>
+                                <li class="nav-item mt-2">
+                                    <a class="nav-link " href="CarpetaFavoritos/Favoritos.html">Recetas Favoritas </a>
+                                </li>
+                                <hr>
+                                <li class="nav-item mt-2">
+                                    <a class="nav-link" href="admin/#">administración</a>
+                                </li>
+
+                                <li class="nav-item mt-5 text-center">
+                                    <a class="btn btn-outline-danger" href="#">Cerrar Sesion</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                </div>      
             </nav>
         </div>
     </header>
 
 
     <!-- BUSCADOR -->
-<div class="buscador mt-4">
-    <form action="#" method="GET">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#26533c" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="6" /> <!-- El círculo de la lupa -->
-            <line x1="16" y1="16" x2="21" y2="21" /> <!-- Mango de la lupa -->
-        </svg>
-        <input type="text" placeholder="Busca recetas, ingredientes, personas y más" class="form-control d-inline-block" style="width: 80%;" id="busqueda">
-        <button type="button" id="toggleFiltro" class="btn btn-primary">Filtrar</button>
-    </form>
-
-    <div class="filtro" id="filtro">
-        <h5>Filtros de Búsqueda</h5>
-        <form id="filtroForm">
-            <div class="form-group">
-                <label for="tipoFiltro">Filtrar por:</label>
-                <select class="form-control" id="tipoFiltro">
-                    <option value="publicacion">Publicación</option>
-                    <option value="ingredientes">Ingredientes</option>
-                    <option value="etiquetas">Etiquetas</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="ingrediente">Ingrediente</label>
-                <input type="text" class="form-control" id="ingrediente" placeholder="Ej. Tomate">
-            </div>
-            <div class="form-group">
-                <label for="categoria">Categoría</label>
-                <select class="form-control" id="categoria" multiple>
-                    <option value="ensalada">Ensalada</option>
-                    <option value="sopa">Sopa</option>
-                    <option value="postre">Postre</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="etiqueta">Etiquetas</label>
-                <input type="text" class="form-control" id="etiqueta" placeholder="Ej. Vegetariano">
-            </div>
-            <button type="submit" class="btn btn-success">Buscar</button>
+    <div class="buscador mt-4">
+        <form action="#" method="GET">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#26533c" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="6" /> <!-- El círculo de la lupa -->
+                <line x1="16" y1="16" x2="21" y2="21" /> <!-- Mango de la lupa -->
+            </svg>
+            <input type="text" placeholder="Busca recetas, ingredientes, personas y más"
+                class="form-control d-inline-block" style="width: 80%;" id="busqueda">
+            <button type="button" id="toggleFiltro" class="btn btn-primary">Filtrar</button>
         </form>
+
+        <div class="filtro" id="filtro">
+            <h5>Filtros de Búsqueda</h5>
+            <form id="filtroForm">
+                <div class="form-group">
+                    <label for="tipoFiltro">Filtrar por:</label>
+                    <select class="form-control" id="tipoFiltro">
+                        <option value="publicacion">Publicación</option>
+                        <option value="ingredientes">Ingredientes</option>
+                        <option value="etiquetas">Etiquetas</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="ingrediente">Ingrediente</label>
+                    <input type="text" class="form-control" id="ingrediente" placeholder="Ej. Tomate">
+                </div>
+                <div class="form-group">
+                    <label for="categoria">Categoría</label>
+                    <select class="form-control" id="categoria" multiple>
+                        <option value="ensalada">Ensalada</option>
+                        <option value="sopa">Sopa</option>
+                        <option value="postre">Postre</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="etiqueta">Etiquetas</label>
+                    <input type="text" class="form-control" id="etiqueta" placeholder="Ej. Vegetariano">
+                </div>
+                <button type="submit" class="btn btn-success">Buscar</button>
+            </form>
+        </div>
     </div>
-</div>
 
     <!-- paises -->
     <div class="paises-contenedor">
@@ -184,111 +190,181 @@
             <p class="pais-nombre">Venezuela</p>
         </a>
     </div>
-    
+
+
+    <!-- primer Slider -->
+
+    <div id="carouselExampleIndicators" class="carousel slide">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+        </div>
+        <div class="carousel-inner">
+
+            <div class="carousel-item active d-item"> <!-- solo en esta linea tiene que estar el active-->
+                <img src="img/aprender.jpg" class="d-block w-100 d-img" alt="Bienvenida">
+                <div class="carousel-caption top-0 mt-4">
+                    <p class="mt-5 fs-3 text-uppercase">Tu mejor sitio de Recetas!</p>
+                    <h1 class="display-1 fw-bolder text-capitalize">¡Bienvenido!</h1>
+                    <button class="btn btn-primary px-4 py-2 fs-5 mt-5">Ver Recetas</button>
+                </div>
+            </div>
+
+            <div class="carousel-item d-item">
+                <img src="img/saludables.jpg" class="d-block w-100 d-img" alt="saludables">
+                <div class="carousel-caption top-0 mt-4">
+                    <p class="mt-5 fs-3 text-uppercase">Descubre nuestrar recetas mas saludables</p>
+                    <h1 class="display-1 fw-bolder text-capitalize">¡Nos importa tu salud!</h1>
+                    <button class="btn btn-primary px-4 py-2 fs-5 mt-5">Ver</button>
+                </div>
+            </div>
+
+            <div class="carousel-item d-item">
+                <img src="img/amasar.jpg" class="d-block w-100 d-img" alt="masas">
+                <div class="carousel-caption top-0 mt-4">
+                    <p class="mt-5 fs-3 text-uppercase">Se un experto con las masas</p>
+                    <h1 class="display-1 fw-bolder text-capitalize">¡Aprende a Amasar!</h1>
+                    <button class="btn btn-primary px-4 py-2 fs-5 mt-5">Ver</button>
+                </div>
+            </div>
+
+            <div class="carousel-item d-item">
+                <img src="img/comidasyhoras.jpg" class="d-block w-100 d-img" alt="masas">
+                <div class="carousel-caption top-0 mt-4">
+                    <p class="mt-5 fs-3 text-uppercase">Hay recetas para cada momento de tu dia</p>
+                    <h1 class="display-1 fw-bolder text-capitalize">¡Elige tu momento!</h1>
+                    <button class="btn btn-primary px-4 py-2 fs-5 mt-5">Ver</button>
+                </div>
+            </div>
+
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+
+    </div>
+
+<div class="pt-7"></div>
+
+<!-- paises -->
+<div class="paises-contenedor">
+    <a class="pais" href="#">
+        <img src="comidas/comida2.webp" alt="Snacks" id="paisArgentina">
+        <p class="pais-nombre">Snacks</p>
+    </a>
+    <a class="pais" href="#">
+        <img src="comidas/comida3.webp" alt="Cenas" id="paisBolivia">
+        <p class="pais-nombre">Cenas</p>
+    </a>
+    <a class="pais" href="#">
+        <img src="comidas/comida6.webp" alt="Desayunos" id="paisChile">
+        <p class="pais-nombre">Desayunos</p>
+    </a>
+    <a class="pais" href="#">
+        <img src="comidas/comida7.webp" alt="Pastas" id="paisColombia">
+        <p class="pais-nombre">Pastas</p>
+    </a>
+    <a class="pais" href="#">
+        <img src="comidas/comida8.webp" alt="Atun" id="paisEcuador">
+        <p class="pais-nombre">Atun</p>
+    </a>
+    <a class="pais" href="#">
+        <img src="comidas/comida9.webp" alt="Postres" id="paisParaguay">
+        <p class="pais-nombre">Postres</p>
+    </a>
+    <a class="pais" href="#">
+        <img src="comidas/comida10.webp" alt="Carne molida" id="paisPeru">
+        <p class="pais-nombre">Carne molida</p>
+    </a>
+    <a class="pais" href="#">
+        <img src="comidas/comida11.webp" alt="Pollo" id="paisUruguay">
+        <p class="pais-nombre">Pollo</p>
+    </a>
+    <a class="pais" href="#">
+        <img class="pais" src="comidas/comida12.webp" alt="Vegetarianas" id="paisVenezuela">
+        <p class="pais-nombre">Vegetarianas</p>
+    </a>
+    <a class="pais" href="#">
+        <img class="pais" src="comidas/comida14.webp" alt="Helados" id="paisVenezuela">
+        <p class="pais-nombre">Helados</p>
+    </a>
+    <a class="pais" href="#">
+        <img class="pais" src="comidas/comida4.webp" alt="Almuerzo" id="paisVenezuela">
+        <p class="pais-nombre">Almuerzo</p>
+    </a>
+</div>
+
     <!-- slider -->
 
-    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <div class="receta-item card">
-                    <div class="card_landing" style="background-image: url(images/milanesas_lp.jpg);">
-                        <h6>Milanesas</h6>
-                    </div>
-                    <div class="card_info">
-                        <div class="head">
-                            <p class="title">Milanesas</p>
-                            <div class="description">
-                                <div class="item">
-                                    <i class="fas fa-clock"></i>
-                                    <p>30 min</p>
-                                </div>
-                                <div class="item">
-                                    <i class="fas fa-user"></i>
-                                    <p>4</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="content">
-                            <p class="title">Ingredientes:</p>
-                            <ul class="list">
-                                <li>500g de carne</li>
-                                <li>1 taza de pan rallado</li>
-                                <li>2 huevos</li>
-                                <li>Sal y pimienta al gusto</li>
-                            </ul>
-                        </div>
-                        <div class="action">
-                            <a href="#" class="btn">Quiero la receta!</a>
-                        </div>
-                    </div>
+    <div class="swiper"> <!--Contenedor principal-->
+        <!-- el slider es el contenedor completo en donde se desplazan los elementos (control deslizante)-->
+        <div class="slider-wrapper">
+            <!-- todas las recetas dentro del slider y el deslizador(swiper) -->
+            <div class="recetas swiper-wrapper">
+                <!-- Recetas -->
+                <div class="receta-item swiper-slide"> 
+                    <img src="images/milanesas_lp.jpg" alt="imagen 1" class="receta-imagen">
+                    <h2 class="receta-nombre">Milanesas</h2>
+                    <p class="origen-receta">Producto Argentino</p> 
+                    <button class="pedir-receta" id="botonMilanesas">Quiero la receta!</button>
                 </div>
-            </div>
-            <div class="carousel-item">
-                <div class="receta-item card">
-                    <div class="card_landing" style="background-image: url(images/empanadas_lp.jpg);">
-                        <h6>Empanadas</h6>
-                    </div>
-                    <div class="card_info">
-                        <div class="head">
-                            <p class="title">Empanadas</p>
-                            <div class="description">
-                                <div class="item">
-                                    <i class="fas fa-clock"></i>
-                                    <p>45 min</p>
-                                </div>
-                                <div class="item">
-                                    <i class="fas fa-user"></i>
-                                    <p>6</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="content">
-                            <p class="title">Ingredientes:</p>
-                            <ul class="list">
-                                <li>500g de carne picada</li>
-                                <li>1 cebolla</li>
-                                <li>2 huevos</li>
-                                <li>1 paquete de masa para empanadas</li>
-                            </ul>
-                        </div>
-                        <div class="action">
-                            <a href="#" class="btn">Quiero la receta!</a>
-                        </div>
-                    </div>
+                <!-- Recetas -->
+                <div class="receta-item swiper-slide"> 
+                    <img src="images/empanadas_lp.jpg" alt="imagen 1" class="receta-imagen">
+                    <h2>Empanadas</h2>
+                    <p class="origen-receta">Producto Argentino</p> 
+                    <button class="pedir-receta" id="botonEmpanadas" >Quiero la receta!</button>
                 </div>
-            </div>
-            <div class="carousel-item">
-                <div class="receta-item card">
-                    <div class="card_landing" style="background-image: url(images/nioquis_lp.jpg);">
-                        <h6>Ñoquis</h6>
-                    </div>
-                    <div class="card_info">
-                        <div class="head">
-                            <p class="title">Ñoquis</p>
-                            <div class="description">
-                                <div class="item">
-                                    <i class="fas fa-clock"></i>
-                                    <p>50 min</p>
-                                </div>
-                                <div class="item">
-                                    <i class="fas fa-user"></i>
-                                    <p>6</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="content">
-                            <p class="title">Ingredientes:</p>
-                            <ul class="list">
-                                <li>Harina unos g</li>
-                                <li>3kg de queso para rallar</li>
-                                <li>2 huevos</li>
-                                <li>1 paquete de masa para empanadas</li>
-                            </ul>
-                        </div>
-                        <div class="action">
-                            <a href="#" class="btn">Quiero la receta!</a>
-                        </div>
-                    </div>
+                <!-- Recetas -->
+                <div class="receta-item swiper-slide"> 
+                    <img src="images/asado_lp.webp" alt="imagen 1" class="receta-imagen">
+                    <h2>Asado</h2>
+                    <p class="origen-receta">Producto Argentino</p> 
+                    <button class="pedir-receta" id="botonAsado">Quiero la receta!</button>
+                </div>
+                <!-- Recetas -->
+                <div class="receta-item swiper-slide"> 
+                    <img src="images/sorrentinos_lp.jpg" alt="imagen 1" class="receta-imagen">
+                    <h2>Sorrentinos</h2>
+                    <p class="origen-receta">Producto Argentino</p> 
+                    <button class="pedir-receta" id="botonSorrentinos">Quiero la receta!</button>
+                </div>
+                <!-- Recetas -->
+                <div class="receta-item swiper-slide"> 
+                    <img src="images/nioquis_lp.jpg" alt="imagen 1" class="receta-imagen">
+                    <h2>Ñoquis</h2>
+                    <p class="origen-receta">Producto Argentino</p> 
+                    <button class="pedir-receta" id="botonNioquis">Quiero la receta!</button>
+                </div>
+                <!-- Recetas -->
+                <div class="receta-item swiper-slide"> 
+                    <img src="images/panchos_lp.jpeg" alt="imagen 1" class="receta-imagen">
+                    <h2>Panchos</h2>
+                    <p class="origen-receta">Producto Argentino</p> 
+                    <button class="pedir-receta" id="botonPanchos">Quiero la receta!</button>
+                </div>
+                <!-- Recetas -->
+                <div class="receta-item swiper-slide"> 
+                    <img src="images/bondiola_lp.jpg" alt="imagen 1" class="receta-imagen">
+                    <h2>Bondiola</h2>
+                    <p class="origen-receta">Producto Argentino</p> 
+                    <button class="pedir-receta" id="botonBondiola">Quiero la receta!</button>
+                </div>
+                <!-- Recetas -->
+                <div class="receta-item swiper-slide"> 
+                    <img src="images/pizza_lp.jpg" alt="imagen 1" class="receta-imagen">
+                    <h2>Pizza</h2>
+                    <p class="origen-receta">Producto Argentino</p> 
+                    <button class="pedir-receta" id="botonPizza">Quiero la receta!</button>
                 </div>
             </div>
         </div>
@@ -311,10 +387,33 @@
         autem perspiciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
         illo quia magni molestias?</p>
     <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga reprehenderit dignissimos repudiandae voluptates
-        autem perspiasdasdasciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a aperiam
+        autem perspiasdasdasciatis? Totam, ducimus suscipit voluptatibus necessitatibus voluptas animi libero delectus a
+        aperiam
         illo quia magni molestias?</p>
-    
 
+
+
+
+
+
+
+
+    <!-- Footer -->
+    <footer class="footer bg-dark text-white py-4">
+        <div class="container text-center">
+            <p class="mb-2">&copy; 2024 Recetas de America. Todos los derechos reservados.</p>
+            <nav class="d-flex justify-content-center">
+                <a class="nav-link text-white" href="#">Términos y condiciones</a>
+                <a class="nav-link text-white" href="#">Política de privacidad</a>
+                <a class="nav-link text-white" href="#">Contacto</a>
+            </nav>
+            <div class="social-links mt-3">
+                <a href="#" class="text-white mx-2">Facebook</a>
+                <a href="#" class="text-white mx-2">Twitter</a>
+                <a href="#" class="text-white mx-2">Instagram</a>
+            </div>
+        </div>
+    </footer>
 </body>
 
 </html>
