@@ -1,33 +1,22 @@
-const swiper = new Swiper('.slider-wrapper', {
-  loop: true,
-  grabCursor: true,
-  spaceBetween: 30,
+document.addEventListener("DOMContentLoaded", function() {
+  const recetas = document.querySelectorAll('.receta-item');
 
-  pagination: {
-    el: '.swiper-pagination', 
-    clickable: true,
-    dynamicBullets: true 
-  },
+  recetas.forEach(receta => {
+      const cardInfo = receta.querySelector('.card_info');
 
+      receta.addEventListener('mouseenter', function() {
+          cardInfo.style.transform = 'translateX(0)'; // Mostrar al hacer hover
+      });
 
-  navigation: {
-    nextEl: '.swiper-button-next', /* para adelante */
-    prevEl: '.swiper-button-prev', /* para atrass */
-  },
-
-  // para cada tipo de pantalla
-  breakpoints:{
-      0: {
-          slidesPerView: 1 /*solo 1 receta para celulares o tablets chicas*/
-      },
-      768: {
-          slidesPerView: 2 /*solo 1 receta para tablets o notebooks chicsa*/
-      },
-      1024: {
-          slidesPerView: 3 /*solo 1 receta para pantallas grandes*/
-      },
-  }
+      receta.addEventListener('mouseleave', function() {
+          cardInfo.style.transform = 'translateX(100%)'; // Ocultar al salir
+      });
+  });
 });
+
+
+
+
 
 document.getElementById('toggleFiltro').addEventListener('click', function() {
   var filtroDiv = document.getElementById('filtro');
