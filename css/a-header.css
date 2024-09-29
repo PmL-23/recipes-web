@@ -1,93 +1,59 @@
-/* estilo para el header fijo en la parte superior de la pagina */
-.header {
-    background-color: var(--color_principal);
-    position: relative; /*con esto se logra que quede fijo el header*/
-    width: 100%; /*ocupamos todo el ancho, no es lo mismo que hacer con todo los px*/
-    padding-bottom: 0.5rem;
-    padding-top: 0.5rem;
-    height: auto; /* altura inicial del header, luego se cambia en pantallas chicas */
-    box-sizing: border-box; /* buenas practicas para incluir el tamaños de alto y ancho*/
-    top: 0;/* con esto ponemos el header en el borde izquiero de arribas*/
-    left: 0;/* con esto ponemos el header en el borde izquiero de arribas*/
-    z-index: 1000;/*con esto superponemos que el header este encima de los demas elementos*/
-    display: flex;/* usamos felbox para luego aliniar los elementos hijos al medio*/
-    align-items: center;
-    transition: height 0.3s, padding 0.3s; /* anade transicion suave para cambios */
-}
-
-/* estilo para el contenido dentro del header */
-.contenido-header {
-    max-width: 90%;/*se ajusta a todos los tamanios*/
-    margin: 0 auto; /*lo centramos*/
-    padding: 0 15px; /* padding para el espacio entre los elemenos */
-    /*usamos el modelo flexbox*/
-    display: flex;
-    align-items: center;/*luego de aplicar el modelo flexbox lo ponemos al centro*/
-    justify-content: space-between;/* y distribuimos el espacio entre ellos*/
-    width: 100%; /*ocupamos todo el tamaño sino queda desproporcionado*/
-}
-
-/* estilos para el h1 */
-h1 {
-    color: white;
-    font-family: 'Kalam', cursive; 
-    font-size: 35px; /* tamano inicial del texto, en pantallas mas grandes */
-    white-space: nowrap; /* evito que el texto se divida en varias lineas, por ahora */
-}
-span{
-    font-family: 'Kalam', cursive;
-}
-
-/* estilo para los enlaces */
-a {
-    color: white;
-    text-decoration: none;/*le sacamos el borde*/
-    font-size: 18px;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    white-space: nowrap;
-}
-
-/* estilo para los enlaces menos iniciar sesion y registrarse*/
-.h-amarillo:hover {
-    /*por ahora esta para darle algun efecto, pero no me convence*/
-    color: yellow;
-    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);/*pequeña sombra*/
-}
-
-/* oculta los enlaces con clase h-amarillo en pantallas del tamano de tablet, ya que quedaria todo muy chico y no bien visualmente */
-@media (max-width: 1045px) {
-    .h-amarillo {
-        display: none;/*con este lo sacamos*/
-        /* a futuro estaria bueno que se ponga abajo*/
-    }
-}
-
-/* estilo para la navegacion principal dentro del header */
 .navegacion-principal {
+    background-color: var(--color_principal);
+    position: relative; /* Header siempre en la parte superior */
+    width: 100%;
+    padding: 0.5rem 0; /* Espacio interno del header */
+    height: 90px; /* Altura fija del header */
+    box-sizing: border-box;
+    top: 0;
+    left: 0;
+    z-index: 1000;
     display: flex;
-    align-items: center; 
-    gap: 10px; /* espacio entre los elementos*/
+    align-items: center;
+}
+
+.container-fluid {
+    width: 100%;
+    display: flex;
+    justify-content: space-between; /* Espacio entre logo y items de navegación */
+    align-items: center; /* Centrar verticalmente */
 }
 
 .navegacion-principal a{
     text-decoration: none; /*ocultar subrayado de links*/
 }
 
-/* estilo base para el boton 1 de iniciar sesion */
-.boton1 {
-    display: inline-block;/**/
-    background-color: var(--color_principal);
-    border: 2px solid white; /* anade un borde blanco de 2px */
-    padding: 8px 12px; /* padding interno */
-    border-radius: 30px; /* bordes redondeados */
-    text-align: center;
-    white-space: nowrap;/**par amantener alineado con los demas elementos*/
-    color: white;
-    font-weight: bold;
-    transition: background-color 0.3s, color 0.3s, border 0.3s; /* transicion suave para cambios */
+.nav {
+    margin-bottom: 0; /* Evitar margen adicional */
 }
 
-/* estilo base para el boton 2 */
+.nav-item {
+    display: flex;
+    align-items: center; /* Alinear verticalmente */
+}
+
+.logo {
+    width: 75px; /* Tamaño del logo */
+}
+
+.boton1 {
+    display: inline-block;
+    background-color: var(--color_principal);
+    border: 2px solid white;
+    padding: 8px 12px;
+    border-radius: 30px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s, border 0.3s;
+    margin-left: 10px; /* Espacio entre los botones */
+}
+
+.boton-menu
+{
+    margin-left: 10px; /* Espacio entre los botones */
+}
+
 .boton2 {
     display: inline-block;
     background-color: white;
@@ -121,73 +87,31 @@ a.boton1:hover {
     border: 2px solid var(--color_principal);
 }
 
-/* ajustes para pantallas de tamano de tablet*/
-@media (max-width: 1000px) {
 
-    /*Con esto redujo el tamaño de cada una para una mejor vista en tablet*/
-    .header {
-        height: 65px; 
-    }
-    .contenido-header {
-        padding: 0 10px; 
-    }
-    h1 {
-        font-size: 18px; 
-    }
-    a {
-        font-size: 16px; 
-    }
+
+@media (max-width: 576px) {
     .navegacion-principal {
-        gap: 8px; 
+        height: 90px;
     }
-    .boton1, .boton2 {
-        padding: 6px 10px; 
-        border-radius: 25px;
+    .texto-icon
+    {
+        display: none;
+    }
+    .boton1
+    {
+        border: none;
     }
 }
 
-/* ajustes para pantallas de 600px o menores */
-@media (max-width: 600px) {
-    /* achicamos todo, nada mas */
-    .header {
-        height: 60px; 
-    }
-    .contenido-header {
-        padding: 0 5px; 
-    }
-    h1 {
-        font-size: 16px; 
-        text-align: center; 
-    }
-    a {
-        font-size: 14px; 
-    }
+@media (max-width: 768px) {
     .navegacion-principal {
-        gap: 6px;
+        height: 90px;
     }
-    .boton1, .boton2 {
-        padding: 7px 11px; /* aumenta el padding interno de los botones */
-        font-size: 15px; /* ajusta el tamano del texto dentro de los botones */
-        border-radius: 25px; /* mantiene el radio del borde */
-    }
-}
-
-/* ajustes adicionales para pantallas menores de 480px */
-@media (max-width: 480px) {
-    h1 {
-        font-size: 12px;
-    }
-    h1 span {
-        font-family: 'Kalam', cursive;
-        display: block; /* muestra cada span en una linea separada */
-        text-align: center; /* alinea el texto dentro de cada span al centro */
-    }
-    .header {
-        height: 60px;
-    }
-    .boton1 .boton2 {
-        padding: 8px 12px;
-        font-size: 14px;
-        border-radius: 20px; 
+    .boton1
+    {
+        flex-shrink: 1; /* Permitir que los botones se encojan */
+        white-space: nowrap; /* Evitar que el texto se divida */
+        font-size: 1rem; /* Reducir el tamaño del texto de los botones */
+        padding: 5px; /* Ajustar el padding para más espacio */
     }
 }
