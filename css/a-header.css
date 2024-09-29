@@ -1,9 +1,9 @@
 .navegacion-principal {
     background-color: var(--color_principal);
-    position: relative; /* Header siempre en la parte superior */
+    position: relative; 
     width: 100%;
-    padding: 0.5rem 0; /* Espacio interno del header */
-    height: 90px; /* Altura fija del header */
+    padding: 0.5rem 0; 
+    height: 90px; 
     box-sizing: border-box;
     top: 0;
     left: 0;
@@ -15,25 +15,25 @@
 .container-fluid {
     width: 100%;
     display: flex;
-    justify-content: space-between; /* Espacio entre logo y items de navegación */
-    align-items: center; /* Centrar verticalmente */
+    justify-content: space-between; 
+    align-items: center; 
 }
 
 .navegacion-principal a{
-    text-decoration: none; /*ocultar subrayado de links*/
+    text-decoration: none; 
 }
 
 .nav {
-    margin-bottom: 0; /* Evitar margen adicional */
+    margin-bottom: 0; 
 }
 
 .nav-item {
     display: flex;
-    align-items: center; /* Alinear verticalmente */
+    align-items: center;
 }
 
 .logo {
-    width: 75px; /* Tamaño del logo */
+    width: 75px; 
 }
 
 .boton1 {
@@ -46,12 +46,12 @@
     color: white;
     font-weight: bold;
     transition: background-color 0.3s, color 0.3s, border 0.3s;
-    margin-left: 10px; /* Espacio entre los botones */
+    margin-left: 10px; 
 }
 
 .boton-menu
 {
-    margin-left: 10px; /* Espacio entre los botones */
+    margin-left: 10px; 
 }
 
 .boton2 {
@@ -59,7 +59,7 @@
     background-color: white;
     border: 2px solid var(--color_principal); 
     padding: 8px 12px; 
-    border-radius: 30px; /* bordes redondeados */
+    border-radius: 30px; 
     text-align: center;
     white-space: nowrap;
     color: var(--color_principal);
@@ -109,9 +109,9 @@ a.boton1:hover {
     }
     .boton1
     {
-        flex-shrink: 1; /* Permitir que los botones se encojan */
-        white-space: nowrap; /* Evitar que el texto se divida */
-        font-size: 1rem; /* Reducir el tamaño del texto de los botones */
-        padding: 5px; /* Ajustar el padding para más espacio */
+        flex-shrink: 1; 
+        white-space: nowrap; 
+        font-size: 1rem; 
+        padding: 5px; 
     }
 }
