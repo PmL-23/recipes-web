@@ -99,33 +99,33 @@ const visualizarBandera = function ()
                 
                 if (paisSeleccionado === "arg") 
                 {
-                        imgBandera.src = "/svg/argentina.svg";
+                        imgBandera.src = "../svg/argentina.svg";
                 }
                 else if (paisSeleccionado === "bol") 
                 {
-                        imgBandera.src = "/svg/bolivia.svg";
+                        imgBandera.src = "../svg/bolivia.svg";
                 }
                 else if (paisSeleccionado === "bra")
                 {
-                        imgBandera.src = "/svg/brasil.svg";
+                        imgBandera.src = "../svg/brasil.svg";
                 }
                 else if (paisSeleccionado === "chi") {
-                        imgBandera.src = "/svg/chile.svg";
+                        imgBandera.src = "../svg/chile.svg";
                 }
                 else if (paisSeleccionado === "col") {
-                        imgBandera.src = "/svg/colombia.svg";
+                        imgBandera.src = "../svg/colombia.svg";
                 }
                 else if (paisSeleccionado === "ecu") {
-                        imgBandera.src = "/svg/ecuador.svg";
+                        imgBandera.src = "../svg/ecuador.svg";
                 }
                 else if (paisSeleccionado === "par") {
-                        imgBandera.src = "/svg/paraguay.svg";
+                        imgBandera.src = "../svg/paraguay.svg";
                 }
                 else if (paisSeleccionado === "uru") {
-                        imgBandera.src = "/svg/uruguay.svg";
+                        imgBandera.src = "../svg/uruguay.svg";
                 }
                 else if (paisSeleccionado === "ven") {
-                        imgBandera.src = "/svg/venezuela.svg";
+                        imgBandera.src = "../svg/venezuela.svg";
                 }
 
 });
