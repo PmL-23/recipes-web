@@ -95,13 +95,13 @@ const cargar = function ()
 const cargarPortada = function ()
 {
     const imgPortada = document.getElementById("portada-receta");
-    imgPortada.src = "/images/pizza_lp.jpg";
+    imgPortada.src = "../images/pizza_lp.jpg";
 }
 
 const cargarBandera = function ()
 {
     const imgBandera= document.getElementById("bandera-receta");
-    imgBandera.src= "/svg/argentina.svg";
+    imgBandera.src= "../svg/argentina.svg";
 };
 
 
