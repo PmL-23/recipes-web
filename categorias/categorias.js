@@ -103,7 +103,7 @@ const categorias = [
     },
     {
         id: 18,
-        nombre: "Sanvalentin",
+        nombre: "San Valentin",
         imagen: "./imgs/Ocasiones Especiales/sanvalentin.webp",
         seccion: "ocasiones-especiales",
     },
@@ -199,7 +199,7 @@ document.addEventListener("DOMContentLoaded", function(){
                     if (e.seccion == "saladas") {
                         
                         SaladasContainer.innerHTML += `
-                            <a class="categoria" href="#">
+                            <a class="categoria" href="./categorias/categoria-${e.nombre}.html">
                                 <img src="${e.imagen}" alt="${e.nombre} imagen">
                                 <p>${e.nombre}</p>
                             </a>
@@ -229,7 +229,7 @@ document.addEventListener("DOMContentLoaded", function(){
                     if (e.seccion == "ocasiones-especiales") {
                         
                         OcasEspContainer.innerHTML += `
-                            <a class="categoria" href="#">
+                            <a class="categoria" href="./categorias/categoria-${e.nombre}.html">
                                 <img src="${e.imagen}" alt="${e.nombre} imagen">
                                 <p>${e.nombre}</p>
                             </a>
@@ -259,7 +259,7 @@ document.addEventListener("DOMContentLoaded", function(){
                     if (e.seccion == "dietas-especiales") {
                         
                         DietasEspContainer.innerHTML += `
-                            <a class="categoria" href="#">
+                            <a class="categoria" href="./categorias/categoria-${e.nombre}.html">
                                 <img src="${e.imagen}" alt="${e.nombre} imagen">
                                 <p>${e.nombre}</p>
                             </a>
@@ -289,7 +289,7 @@ document.addEventListener("DOMContentLoaded", function(){
                     if (e.seccion == "bebidas") {
                         
                         BebidasContainer.innerHTML += `
-                            <a class="categoria" href="#">
+                            <a class="categoria" href="./categorias/categoria-${e.nombre}.html">
                                 <img src="${e.imagen}" alt="${e.nombre} imagen">
                                 <p>${e.nombre}</p>
                             </a>
@@ -319,7 +319,7 @@ document.addEventListener("DOMContentLoaded", function(){
                     if (e.seccion == "dulces") {
                         
                         DulcesContainer.innerHTML += `
-                            <a class="categoria" href="#">
+                            <a class="categoria" href="./categorias/categoria-${e.nombre}.html">
                                 <img src="${e.imagen}" alt="${e.nombre} imagen">
                                 <p>${e.nombre}</p>
                             </a>
@@ -343,7 +343,7 @@ function cargarTodasCategorias(){
         let seccion = document.getElementById( e.seccion + "-container");
 
         seccion.innerHTML += `
-            <a class="categoria" href="#">
+            <a class="categoria" href="./categorias/categoria-${e.nombre}.html">
                 <img src="${e.imagen}" alt="${e.nombre} imagen">
                 <p>${e.nombre}</p>
             </a>

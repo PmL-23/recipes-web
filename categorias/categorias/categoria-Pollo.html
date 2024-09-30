@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="favicon/x-icon" href="../images/logo.png">
+    <link rel="icon" type="favicon/x-icon" href="../../images/logo.png">
+    <link rel="stylesheet" href="../../css/0-globals.css">
+    <link rel="stylesheet" href="../../css/a-header.css">
+    <link rel="stylesheet" href="../../css/b-search.css">
+    <link rel="stylesheet" href="../../css/e-BarraLateral.css">
+    <link rel="stylesheet" href="../../html_paises/css/paises.css">
+    <link rel="stylesheet" href="../../css/f-recomendacion.css">
+
+    <!-- Link custom script -->
+    <script src="../script.js" defer></script>
+    <script src="../manejarModal.js" defer></script>
+    <script src="../../html_paises/js/ordenarRecetas.js" defer></script>
+    <!-- fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <!--bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <title>Platos con Pollo</title>
+</head>
+
+<body>
+   <!-- header -->
+    <header class="header">
+        <nav class="navegacion-principal nav">
+            <div class="container-fluid d-flex justify-content-between align-items-center">
+                <a class="navbar-brand" href="/recipes-web/index.html">
+                    <img class="logo" src="../../images/logo.png" alt="logo">
+                </a>
+                <ul class="nav justify-content-end">
+                    <li class="nav-item">
+                        <a class="boton1" href="/recipes-web/index.html">
+                            <i class="bi bi-house-door"></i>
+                            <span class="texto-icon">Inicio</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="boton1 buscador-header" href="../buscador/buscador.html">
+                            <i class="bi bi-search"></i>
+                            <span class="texto-icon">Buscar</span>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="boton1 dropdown-toggle" role="button" data-bs-toggle="dropdown" href="#">
+                            <i class="bi bi-compass"></i>
+                            <span class="texto-icon">Explorar</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Países</a></li>
+                            <li><a class="dropdown-item" href="../categorias/categorias.html">Categorías</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <button class="notificaciones btn btn-outline-light boton-menu" href="#">
+                            <i class="bi bi-bell"></i>
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <!--barra lateral-->
+                        <button class="btn btn-outline-light boton-menu" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                            <!-- Icono de menú lateral -->
+                            <i class="bi bi-list"></i>
+                        </button>
+
+                        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
+                            aria-labelledby="offcanvasRightLabel">
+                            <div class="offcanvas-header">
+                                <h5 class="offcanvas-title" id="offcanvasRightLabel">Menú Recetas de America</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                                    aria-label="Close"></button>
+                            </div>
+
+                            <div class="offcanvas-body container-fluid">
+
+                                <div class="row DivSinLogIn" id="IDDivSinLogIn">
+                                    <a class="boton1 col-6" href="#">Iniciar Sesion</a>
+                                    <a class="boton2 col-6" href="#">Registrarse</a>
+                                    <ul>
+                                        <li class="text-center">
+                                            <a class="boton2 text-center" href="#">Recuperar Contraseña</a>
+                                        </li>
+                                    </ul>
+
+                                </div>
+
+                                <div class="row DivConLogIn" id="IDDivConLogIn">
+                                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-0 ">
+
+                                        <li class="nav-item">
+                                            <a class="nav-link mt-5 " href="../CarpetaPerfil/Perfil.html">Perfil</a>
+                                        </li>
+                                        <hr>
+                                        <li class="nav-item mt-2">
+                                            <a class="nav-link " href="../crear receta/crear_receta.html">Subir
+                                                Receta</a>
+                                        </li>
+                                        <hr>
+                                        <li class="nav-item mt-2">
+                                            <a class="nav-link " href="../CarpetaFavoritos/Favoritos.html">Recetas
+                                                Favoritas </a>
+                                        </li>
+                                        <hr>
+                                        <li class="nav-item mt-2">
+                                            <a class="nav-link" href="../admin/#">Administración</a>
+                                        </li>
+
+                                        <li class="nav-item mt-5 text-center">
+                                            <a class="btn btn-outline-danger" href="#">Cerrar Sesion</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <h2 class="text-center pt-5 fw-bold">Nuestros platos con Pollo</h2>
+
+    <!-- Barra de navegación secundaria -->
+    <div class="oculto">
+        <nav class=" menu-barra pt-4">
+            <div class="menu-toggle" id="menuToggle">☰</div>
+            <ul class="menu-list">
+                <li><a id="todos" href="#todos">Todos</a></li>
+                <li><a id="desayuno" href="#desayuno">Desayuno</a></li>
+                <li><a id="almuerzo" href="#almuerzo">Almuerzo</a></li>
+                <li><a id="merienda" href="#merienda">Merienda</a></li>
+                <li><a id="cena" href="#cena">Cena</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Sección de cenas -->
+    <div class="container mt-5">
+        <div class="row">
+
+            <!-- Almuerzo -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion almuerzo">
+                <div class="card h-100">
+                    <img src="../../html_paises/img/imgArg/empanadas.png" class="card-img-top" alt="empanadas">
+                    <div class="card-body">
+                        <h5 class="card-title">Empanadas</h5>
+                        <p class="card-text">Deliciosas empanadas rellenas con carne, pollo, o verduras, ideales para un
+                            almuerzo rápido.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalEmpanadas">Ver receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Desayuno -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion desayuno">
+                <div class="card h-100">
+                    <img src="../../html_paises/img/imgBolivia/salteñas.jpg" class="card-img-top" alt="empanadas salteñas">
+                    <div class="card-body">
+                        <h5 class="card-title">Salteñas</h5>
+                        <p class="card-text">Empanadas jugosas rellenas de carne o pollo, acompañadas de papa y huevo
+                            duro.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalSalteñas">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Cena -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion cena">
+                <div class="card h-100">
+                    <img src="../../html_paises/img/imgBolivia/chankaPollo.jpg" class="card-img-top" alt="chanka de pollo">
+                    <div class="card-body">
+                        <h5 class="card-title">Chanka de Pollo</h5>
+                        <p class="card-text">Sopa de pollo típica de la región andina de Bolivia, preparada con choclo,
+                            papas, y hierbas aromáticas.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalChankaPollo">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Almuerzo -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion  almuerzo">
+                <div class="card h-100">
+                    <img src="../../html_paises/img/imgBolivia/sajta.jpg" class="card-img-top" alt="sajta de pollo">
+                    <div class="card-body">
+                        <h5 class="card-title">Sajta de Pollo</h5>
+                        <p class="card-text">Un guiso tradicional boliviano a base de pollo, papas y ají amarillo,
+                            servido con arroz o chuño.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalSajta">Ver receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Cena -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion cena">
+                <div class="card h-100">
+                    <img src="../../html_paises/img/imgBrasil/Pollo al Curry.jpg" class="card-img-top"
+                        alt="pollo al curry">
+                    <div class="card-body">
+                        <h5 class="card-title">Pollo al Curry</h5>
+                        <p class="card-text">Pollo cocido en una deliciosa salsa de curry, ideal para una cena
+                            diferente.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalPolloCurry">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Cena -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion cena">
+                <div class="card h-100">
+                    <img src="../../html_paises/img/imgColombia/Pollo Asado.jpg" class="card-img-top" alt="pollo asado">
+                    <div class="card-body">
+                        <h5 class="card-title">Pollo Asado</h5>
+                        <p class="card-text">Pollo marinado y asado al horno, un plato fácil y sabroso.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalPolloAsado">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Cena -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion cena">
+                <div class="card h-100">
+                    <img src="../../html_paises/img/imgColombia/Tacos de Pollo.jpg" class="card-img-top"
+                        alt="tacos de pollo">
+                    <div class="card-body">
+                        <h5 class="card-title">Tacos de Pollo</h5>
+                        <p class="card-text">Tacos rellenos de pollo, ideales para una cena informal.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalTacosDePollo">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Cena -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion cena">
+                <div class="card h-100">
+                    <img src="../../html_paises/img/imgEcuador/Arroz con Pollo.jpg" class="card-img-top"
+                        alt="arroz con pollo">
+                    <div class="card-body">
+                        <h5 class="card-title">Arroz con Pollo</h5>
+                        <p class="card-text">Arroz con pollo, un plato clásico y muy sabroso.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalArrozConPollo">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Cena -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion cena">
+                <div class="card h-100">
+                    <img src="../../html_paises/img/imgParaguay/Pollo al Horno con Mandioca.jpg" class="card-img-top"
+                        alt="pollo al horno con mandioca">
+                    <div class="card-body">
+                        <h5 class="card-title">Pollo al Horno con Mandioca</h5>
+                        <p class="card-text">Pollo al horno acompañado de mandioca hervida o frita.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalPolloAlHornoConMandioca">Ver
+                            Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Almuerzo -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion almuerzo">
+                <div class="card h-100">
+                    <img src="../../html_paises/img/imgPeru/Ají de Gallina.jpg" class="card-img-top" alt="aji de gallina">
+                    <div class="card-body">
+                        <h5 class="card-title">Ají de Gallina</h5>
+                        <p class="card-text">Pollo desmenuzado en salsa de ají amarillo, servido con arroz.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalAjiDeGallina">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Cena -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion cena">
+                <div class="card h-100">
+                    <img src="../../html_paises/img/imgPeru/Pollo a la Brasa.jpg" class="card-img-top"
+                        alt="pollo a la brasa">
+                    <div class="card-body">
+                        <h5 class="card-title">Pollo a la Brasa</h5>
+                        <p class="card-text">Pollo asado marinado en especias, servido con papas fritas y ensalada.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalPolloABrasa">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Cena -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion cena">
+                <div class="card h-100">
+                    <img src="../../html_paises/img/imgPeru/Ceviche de Pollo.jpg" class="card-img-top"
+                        alt="ceviche de pollo">
+                    <div class="card-body">
+                        <h5 class="card-title">Ceviche de Pollo</h5>
+                        <p class="card-text">Trozos de pollo marinados en jugo de limón, cebolla y ají, servidos con
+                            maíz y camote.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalCevichePollo">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Almuerzo -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion almuerzo">
+                <div class="card h-100">
+                    <img src="../../html_paises/img/imgVenezuela/Pollo Guisado.jpg" class="card-img-top"
+                        alt="pollo guisado">
+                    <div class="card-body">
+                        <h5 class="card-title">Pollo Guisado</h5>
+                        <p class="card-text">Pollo cocido a fuego lento con especias y vegetales.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalPolloGuisado">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Almuerzo -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion almuerzo">
+                <div class="card h-100">
+                    <img src="../../html_paises/img/imgVenezuela/Polvorosa de Pollo.jpg" class="card-img-top"
+                        alt="polvorosa de pollo">
+                    <div class="card-body">
+                        <h5 class="card-title">Polvorosa de Pollo</h5>
+                        <p class="card-text">Pastel salado con masa crujiente y un delicioso relleno de pollo y
+                            especias.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalPolvorosa">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer bg-dark text-white py-4">
+        <div class="container text-center">
+            <p class="mb-2">&copy; 2024 Recetas de America. Todos los derechos reservados.</p>
+            <nav class="d-flex justify-content-center">
+                <a class="nav-link text-white" href="#">Términos y condiciones</a>
+                <a class="nav-link text-white" href="#">Política de privacidad</a>
+                <a class="nav-link text-white" href="#">Contacto</a>
+            </nav>
+            <div class="social-links mt-3">
+                <a href="#" class="text-white mx-2">Facebook</a>
+                <a href="#" class="text-white mx-2">Twitter</a>
+                <a href="#" class="text-white mx-2">Instagram</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
