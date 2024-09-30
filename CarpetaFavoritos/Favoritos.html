@@ -29,63 +29,99 @@
         <script src="../CarpetaFavoritos/JSFavoritos.js" defer></script>
 </head>
 <body>
-    <!-- header -->
-    <header class="header">
-        <div class="contenedor contenido-header">
-            <img src="../images/logo.png" alt="logo" width="75">
-            <nav class="navegacion-principal">
-                <a class="boton1" href="../index.html">Inicio</a>
-                <a class="boton1" href="#">Explorar</a>
-                
+<!-- header -->
+<header class="header">
+    <nav class="navegacion-principal nav">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+            <a class="navbar-brand" href="/index.html">
+                <img class="logo" src="/images/logo.png" alt="logo">  
+            </a>
+            <ul class="nav justify-content-end"> 
+                <li class="nav-item">
+                    <a class="boton1" href="../index.html">
+                        <i class="bi bi-house-door"></i>
+                        <span class="texto-icon">Inicio</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="boton1 buscador-header" href="../buscador/buscador.html">
+                        <i class="bi bi-search"></i>
+                        <span class="texto-icon">Buscar</span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="boton1 dropdown-toggle" role="button" data-bs-toggle="dropdown" href="#">
+                        <i class="bi bi-compass"></i>
+                        <span class="texto-icon">Explorar</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Países</a></li>
+                        <li><a class="dropdown-item" href="./categorias/categorias.html">Categorías</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <button class="notificaciones btn btn-outline-light boton-menu" href="#">
+                        <i class="bi bi-bell"></i>
+                    </button>
+                </li>
+                <li class="nav-item">
                 <!--barra lateral-->
-                <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
-                    </svg>
-                </button>
+                    <button class="btn btn-outline-light boton-menu" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                    <!-- Icono de menú lateral -->
+                        <i class="bi bi-list"></i>
+                    </button>
 
-                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-                    <div class="offcanvas-header">
-                        <h5 class="offcanvas-title" id="offcanvasRightLabel">Menú Recetas de America</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                    </div>
-                
-                <div class="offcanvas-body container-fluid">
+                    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
+                        aria-labelledby="offcanvasRightLabel">
+                        <div class="offcanvas-header">
+                            <h5 class="offcanvas-title" id="offcanvasRightLabel">Menú Recetas de America</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        </div>
 
-                    <div class="row DivSinLogIn" id="IDDivSinLogIn"><!-- tiene la clase DivSinLogIn para que la escondamos o no segun el usuario este o no logeado-->
-                        <a class="boton1 col-6" href="#">Iniciar Sesion</a>
-                        <a class="boton2 col-6" href="#">Registrarse</a>
-                        <ul>
-                            <li class="text-center">
-                                <a class="boton2 text-center" href="#">Recuperar Contraseña</a>
-                            </li>
-                        </ul>
-                    </div>
+                        <div class="offcanvas-body container-fluid">
 
-                    <div class="row DivConLogIn"id="IDDivConLogIn" > <!-- tiene la clase DivConLogIn para que la escondamos o no segun el usuario este o no logeado-->
-                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-0 ">
-                            
-                            <li class="nav-item">
-                            <a class="nav-link mt-5 " href="../CarpetaPerfil/Perfil.html">Perfil</a>
-                            </li>
-                            <hr>
-                            <li class="nav-item mt-2">
-                            <a class="nav-link " href="#">Subir Receta</a>
-                            </li>
-                            <hr>
-                            <li class="nav-item mt-2">
-                                <a class="nav-link " href="Favoritos.html">Recetas Favoritas </a>
-                            </li>
-                            
-                            <li class="nav-item mt-5 text-center">
-                                <a class="btn btn-outline-danger" href="#">Cerrar Sesion</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>      
-            </nav>
+                            <div class="row DivSinLogIn" id="IDDivSinLogIn">
+                                <a class="boton1 col-6" href="#">Iniciar Sesion</a>
+                                <a class="boton2 col-6" href="#">Registrarse</a>
+                                <ul>
+                                    <li class="text-center">
+                                        <a class="boton2 text-center" href="#">Recuperar Contraseña</a>
+                                    </li>
+                                </ul>
+
+                            </div>
+
+                            <div class="row DivConLogIn" id="IDDivConLogIn">
+                                <ul class="navbar-nav justify-content-end flex-grow-1 pe-0 ">
+
+                                    <li class="nav-item">
+                                        <a class="nav-link mt-5 " href="CarpetaPerfil/Perfil.html">Perfil</a>
+                                    </li>
+                                    <hr>
+                                    <li class="nav-item mt-2">
+                                        <a class="nav-link " href="crear receta/crear_receta.html">Subir Receta</a>
+                                    </li>
+                                    <hr>
+                                    <li class="nav-item mt-2">
+                                        <a class="nav-link " href="CarpetaFavoritos/Favoritos.html">Recetas Favoritas </a>
+                                    </li>
+                                    <hr>
+                                    <li class="nav-item mt-2">
+                                        <a class="nav-link" href="admin/#">Administración</a>
+                                    </li>
+
+                                    <li class="nav-item mt-5 text-center">
+                                        <a class="btn btn-outline-danger" href="#">Cerrar Sesion</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                </li>
+            </ul>
         </div>
-    </header>
+    </nav>
+</header>
 <!---supongo que como un titulo que indique que estas en las recetas favoritas y depues ya las 
 publicaciones en si.
 posible filtro para mostrar recetas?-->
@@ -149,10 +185,12 @@ posible filtro para mostrar recetas?-->
                     <p class="card-text EstilosEstiquetas">Estiqueta5</p>
                 </li>
                 <li class="list-group-item">
-                    <p class="card-text EstilosIngredientes">Ingrediente</p>
-                    <p class="card-text EstilosIngredientes">Ingrediente</p>
-                    <p class="card-text EstilosIngredientes">Ingrediente</p>
-                    <p class="card-text EstilosIngredientes">Ingrediente</p>
+                    <ul>
+                        <li><p class="card-text">Ingrediente</p></li>
+                        <li><p class="card-text">Ingrediente</p></li>
+                        <li><p class="card-text">Ingrediente</p></li>
+                        <li><p class="card-text">Ingrediente</p></li>
+                    </ul>
                 </li>
             </ul>
             <div class="card-body">
@@ -244,10 +282,12 @@ posible filtro para mostrar recetas?-->
                         <p class="card-text EstilosEstiquetas">Estiqueta5</p>
                     </li>
                     <li class="list-group-item">
-                        <p class="card-text EstilosIngredientes">Ingrediente</p>
-                        <p class="card-text EstilosIngredientes">Ingrediente</p>
-                        <p class="card-text EstilosIngredientes">Ingrediente</p>
-                        <p class="card-text EstilosIngredientes">Ingrediente</p>
+                        <ul>
+                            <li><p class="card-text">Ingrediente</p></li>
+                            <li><p class="card-text">Ingrediente</p></li>
+                            <li><p class="card-text">Ingrediente</p></li>
+                            <li><p class="card-text">Ingrediente</p></li>
+                        </ul>
                     </li>
                 </ul>
                 <div class="card-body">
