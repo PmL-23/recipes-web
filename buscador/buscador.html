@@ -8,7 +8,6 @@
     <link rel="icon" type="favicon/x-icon" href="./images/logo.png">
     <link rel="stylesheet" href="../css/0-globals.css">
     <link rel="stylesheet" href="../css/a-header.css">
-    <link rel="stylesheet" href="../css/b-search.css">
     <link rel="stylesheet" href="../css/e-BarraLateral.css">
     <link rel="stylesheet" href="../css/j-slider.css">
 
@@ -133,7 +132,7 @@
     </header>
     
     <!-- BUSCADOR -->
-    <div class="buscador mt-4">
+    <div class="buscador mt-4 container-fluid">
         <form action="#" method="GET">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#26533c" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
@@ -142,9 +141,11 @@
             </svg>
             <input type="text" placeholder="Busca recetas, ingredientes, personas y más"
                 class="form-control d-inline-block" style="width: 80%;" id="busqueda">
-            <button type="button" id="toggleFiltro" class="btn btn-primary">Filtrar</button>
+                <button type="submit" class="btn btn-success">Buscar</button>
         </form>
-
+    
+    <div>
+        <button type="button" id="toggleFiltro" class="btn btn-outline-success justify-content-md-end">Filtrar</button>
         <div class="filtro" id="filtro">
             <h5>Filtros de Búsqueda</h5>
             <form id="filtroForm">
@@ -172,7 +173,7 @@
                     <label for="etiqueta">Etiquetas</label>
                     <input type="text" class="form-control" id="etiqueta" placeholder="Ej. Vegetariano">
                 </div>
-                <button type="submit" class="btn btn-success">Buscar</button>
             </form>
         </div>
-    </div>
+    </div>    
+</div>
