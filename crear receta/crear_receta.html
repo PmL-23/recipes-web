@@ -6,83 +6,132 @@
         <title>Recetario</title>
         <link rel="icon" type="favicon/x-icon" href="./images/logo.png">
         <link rel="stylesheet" href="../css/0-globals.css">
-        <link rel="stylesheet" href="style_receta.css">
         <link rel="stylesheet" href="../css/a-header.css">
-
-            <!-- Link Bootstrap-->
-            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="../css/e-BarraLateral.css">
+        <link rel="stylesheet" href="../css/j-slider.css">
     
-            <!-- fuentes -->
-            <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-        
-            <!-- Link custom script -->
-            <script src="script_receta.js" defer></script>
+        <link rel="stylesheet" href="crear_receta_style.css">
+        <script src="crear_receta_script.js" defer></script>
+    
+        <!-- link SwiperJS CSS biblioteca para sliders -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    
+        <!-- fuentes -->
+        <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+            rel="stylesheet">
+        <!-- Link SwiperJS script -->
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+        <!-- Link custom script -->
+        <script src="../manejarModal.js" defer></script>
+    
+    
+    
+        <!--bootstrap-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     </head>
+    
 <body>
     <!-- header -->
     <header class="header">
-        <div class="contenedor contenido-header">
-            <img src="../images/logo.png" alt="logo" width="75">
-            <nav class="navegacion-principal">
-                <a class="boton1" href="../index.html">Inicio</a>
-                <a class="boton1" href="#">Explorar</a>
-                
-                <!--barra lateral-->
-                <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
-                    </svg>
-
-                </button>
-
-                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-                    <div class="offcanvas-header">
-                        <h5 class="offcanvas-title" id="offcanvasRightLabel">Menú Recetas de America</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                    </div>
-                
-                <div class="offcanvas-body container-fluid">
-
-                    <div class="row DivSinLogIn" id="IDDivSinLogIn"><!-- tiene la clase DivSinLogIn para que la escondamos o no segun el usuario este o no logeado-->
-                        <a class="boton1 col-6" href="#">Iniciar Sesion</a>
-                        <a class="boton2 col-6" href="#">Registrarse</a>
-                        <ul>
-                            <li class="text-center">
-                                <a class="boton2 text-center" href="#">Recuperar Contraseña</a>
-                            </li>
+        <nav class="navegacion-principal nav">
+            <div class="container-fluid d-flex justify-content-between align-items-center">
+                <a class="navbar-brand" href="#">
+                    <img class="logo" src="../images/logo.png" alt="logo">  
+                </a>
+                <ul class="nav justify-content-end"> 
+                    <li class="nav-item">
+                        <a class="boton1" href="../index.html">
+                            <i class="bi bi-house-door"></i>
+                            <span class="texto-icon">Inicio</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="boton1 buscador-header" href="../buscador/buscador.html">
+                            <i class="bi bi-search"></i>
+                            <span class="texto-icon">Buscar</span>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="boton1 dropdown-toggle" role="button" data-bs-toggle="dropdown" href="#">
+                            <i class="bi bi-compass"></i>
+                            <span class="texto-icon">Explorar</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Países</a></li>
+                            <li><a class="dropdown-item" href="#">Categorías</a></li>
                         </ul>
-                    </div>
+                    </li>
+                    <li class="nav-item">
+                        <button class="notificaciones btn btn-outline-light boton-menu" href="#">
+                            <i class="bi bi-bell"></i>
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                    <!--barra lateral-->
+                        <button class="btn btn-outline-light boton-menu" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                        <!-- Icono de menú lateral -->
+                            <i class="bi bi-list"></i>
+                        </button>
 
-                    <div class="row DivConLogIn"id="IDDivConLogIn" > <!-- tiene la clase DivConLogIn para que la escondamos o no segun el usuario este o no logeado-->
-                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-0 ">
-                            
-                            <li class="nav-item">
-                            <a class="nav-link mt-5 " href="../CarpetaPerfil/Perfil.html">Perfil</a>
-                            </li>
-                            <hr>
-                            <li class="nav-item mt-2">
-                            <a class="nav-link " href="#">Subir Receta</a>
-                            </li>
-                            <hr>
-                            <li class="nav-item mt-2">
-                                <a class="nav-link " href="../CarpetaFavoritos/Favoritos.html">Recetas Faviritas </a>
-                            </li>
-                            
-                            <li class="nav-item mt-5 text-center">
-                                <a class="btn btn-outline-danger" href="#">Cerrar Sesion</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>      
-            </nav>
-        </div>
+                        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
+                            aria-labelledby="offcanvasRightLabel">
+                            <div class="offcanvas-header">
+                                <h5 class="offcanvas-title" id="offcanvasRightLabel">Menú Recetas de America</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                            </div>
+
+                            <div class="offcanvas-body container-fluid">
+
+                                <div class="row DivSinLogIn" id="IDDivSinLogIn">
+                                    <a class="boton1 col-6" href="#">Iniciar Sesion</a>
+                                    <a class="boton2 col-6" href="#">Registrarse</a>
+                                    <ul>
+                                        <li class="text-center">
+                                            <a class="boton2 text-center" href="#">Recuperar Contraseña</a>
+                                        </li>
+                                    </ul>
+
+                                </div>
+
+                                <div class="row DivConLogIn" id="IDDivConLogIn">
+                                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-0 ">
+
+                                        <li class="nav-item">
+                                            <a class="nav-link mt-5 " href="CarpetaPerfil/Perfil.html">Perfil</a>
+                                        </li>
+                                        <hr>
+                                        <li class="nav-item mt-2">
+                                            <a class="nav-link " href="crear receta/crear_receta.html">Subir Receta</a>
+                                        </li>
+                                        <hr>
+                                        <li class="nav-item mt-2">
+                                            <a class="nav-link " href="CarpetaFavoritos/Favoritos.html">Recetas Favoritas </a>
+                                        </li>
+                                        <hr>
+                                        <li class="nav-item mt-2">
+                                            <a class="nav-link" href="admin/#">Administración</a>
+                                        </li>
+
+                                        <li class="nav-item mt-5 text-center">
+                                            <a class="btn btn-outline-danger" href="#">Cerrar Sesion</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
     </header>
     
 
 <form class="needs-validation" action="" method="get" id="frm-receta">    
-    <div class="contenido-principal container w-75 p-5 seccion">
+    <div class="contenido-principal container w-100 w-lg-75 p-5 seccion">
             <div class="contenedor-img-preview text-center d-flex p-2 justify-content-center">
                 <img src="default-image.png" class="preview border rounded img-fluid" alt="Vista previa de la portada" id="preview-portada">
             </div>
@@ -95,13 +144,13 @@
             <div>
                 <label class="h5 form-label" for="titulo">TÍtulo</label>
                 <input class="form-control form-control-md" type="text" name="ntitulo" placeholder="Añade el titulo de tu receta" aria-label=".form-control" id="titulo" maxlength="100" required>
-                <small class="text-danger d-none" id="errorTitulo"></small>
-                </div>
+                <small class="text-danger" id="error-titulo"></small>
+            </div>
         
                 <div>
                 <label for="descripcion" class="h5 form-label">Descripción</label>
                 <textarea class="form-control textarea-resize" id="descripcion" name="ndescripcion" placeholder="Añade una descripción a tu receta" required></textarea>
-                <div class="text-danger d-none id="errorDescripcion">Por favor, ingrese una descripción</div>
+                <small class="text-danger" id="error-descripcion"></small>
                 </div>
 
             <div class="row">
@@ -120,7 +169,7 @@
                         <option value="uru">Uruguay</option>
                         <option value="ven">Venezuela</option>
                     </select>
-                    <div class="text-danger d-none" id="errorPais">Por favor, seleccione una opción</div>
+                    <small class="text-danger" id="error-pais"></small>
                     <span class="d-flex align-items-center"></span>
                         <img class="bandera-select d-none mini-bandera mt-2 float-end" src="" alt="Bandera del país" id="banderita">
                     </span>
@@ -130,7 +179,7 @@
                     <select class="form-select" aria-label="Select pais" name="ncategoria" id="categoria">
                         <option selected>-</option>
                     </select>
-                    <div class="text-danger d-none" id="errorCategoria">Por favor, seleccione una opción</div>
+                    <small class="text-danger" id="error-categoria"></small>
                 </div>
             </div> 
 
@@ -144,51 +193,57 @@
                         <option value="media">Media</option>
                         <option value="dificil">Difícil</option>
                     </select>
-                    <div class="text-danger d-none" id="errorDificultad">Por favor, seleccione una opción</div>
+                    <small class="text-danger" id="error-dificultad"></small>
                 </div>
                 <div class="col-md-3 col-sm-12">
                     <label for="tiempo-elaboracion" class="h6 form-label">Tiempo de elaboración</label>
-                    <input type="number" class="form-control" name="ntiempoelab" placeholder="Ej: 30, 2..." aria-label="Number tiempo" id="tiempo-elaboracion" required>
-                    <div class="text-danger d-none" id="errorTiempo">Por favor, ingrese un numero</div>
+                    <input type="number" class="form-control" name="ntiempoelab" placeholder="Ej: 30, 120..." aria-label="Number tiempo" id="tiempo-elaboracion" min="1" max="999999" required>
+                    <small class="text-danger" id="error-tiempo"></small>
 
                 </div>
                 <div class="col-md-3 col-sm-12">
                     <label for="tiempo-unidad" class="h6 form-label">Hora/Minutos</label>
                     <select class="form-select" aria-label="Select unidad" name="ntiempounidad" id="tiempo-unidad" required>
-                        <option selected disabled>-</option>
-                        <option value="min">Minutos</option>
-                        <option value="hora">Hora/s</option>
+
+                        <!-- Por ahora el rango será de minutos
+                        <option selected disabled>-</option> -->
+                        <option selected value="min">Minutos</option>
+                        <option value disabled="hora">Hora/s</option>
                     </select>
-                    <div class="text-danger d-none" id="errorUnidad">Por favor, seleccione una opción</div>
                 </div>
             </div>
-            <div class="col-md-12">
-                <label for="etiqueta" class="h6 form-label">Etiqueta</label>
-                <select class="form-select" aria-label="Select pais" name="netiqueta" id="etiqueta">
-                    <option selected>-</option>
-                </select>
-                <!-- <div class="text-danger d-none" id="errorEtiqueta">Por favor, seleccione una opción</div> -->
-            </div>    
+                <div class="col-md-12">
+                    <label for="etiqueta" class="h6 form-label">Etiqueta</label>
+                    <input type="text" class="form-control form-control-md" name="netiqueta" id="text-etiqueta" placeholder="Ingrese una etiqueta">
+
+
+
+
+
+    <!--                 <select class="form-select" aria-label="Select pais" name="netiqueta" id="etiqueta">
+                        <option selected>-</option>
+                    </select> --> 
+                </div>    
             </div>
         </div>
 
 
 
-        <div class="contenido-ingredientes container w-75 p-5  mt-5 seccion">
+        <div class="contenido-ingredientes container  w-100 w-lg-75 p-5  mt-5 seccion">
             <div id="ingredientes">
                 <label class="h5 form-label">Ingredientes</label>
                 <div class="un_ingrediente d-grid gap-2 d-md-flex justify-content-md-end" id="item-ingrediente">
                     <input type="text" class="form-control  me-md-2" name="ningrediente" placeholder="Ej: 400gr de harina..." id="primer-ingrediente" required>
                     <button class="btn border rounded" type="button" id="quitar-ing" disabled>Quitar</button>
                 </div>
-                <div class="text-danger d-none" id="errorIngrediente">Tiene que completar al menos un ingrediente</div>
+                <small class="text-danger" id="error-ingrediente"></small>
             </div>
             <div class="d-grid gap-2">
                 <button class="btn-sm border rounded" type="button" id="agregar-ing">+ Agregar Ingrediente</button>
             </div>
         </div>
 
-    <div class="contenido-pasos container w-75 p-5 mt-5 seccion">
+    <div class="contenido-pasos container  w-100 w-lg-75 p-5 mt-5 seccion">
         <div id="pasos">
             <label class="h5 form-label">Pasos</label>
             <ol class="list-group list-group-numbered" id="list-paso">
@@ -197,7 +252,7 @@
                         <textarea class="form-control me-md-2 input-paso textarea-resize" name="npaso" placeholder="Ej: Mezcla los ingredientes en un bowl..." id="primer-paso" required></textarea>
                         <button class="btn-sm border rounded p-2 px-3" type="button" id="quitar-paso" disabled>Quitar</button>
                     </div>
-                            <div class="text-danger d-none" id="errorPaso">Tiene que completar al menos un paso</div>
+                    <small class="text-danger" id="error-paso"></small>
                     <div class="elementos-paso d-grid gap-2 d-md-flex justify-content-md-start">
                         <div class="contenedor-paso-img">
                             <img src="default-image.png" class="img-paso border rounded img-fluid" alt="Imagen del paso" id="img-paso-id">
@@ -213,8 +268,31 @@
         </div>
     </div>
 
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end m-5">
-        <button class="btn" type="submit" id="btn-publicar">Publicar</button>
+    <div  class="d-grid gap-2 d-flex justify-content-end m-5">
+        <div>
+            <button class="btn" type="button" id="btn-cancelar" data-bs-toggle="modal" data-bs-target="#cancelar-publicacion">Cancelar</button>
+        </div>
+        <div>
+            <button class="btn btn-outline-light" type="submit" id="btn-publicar" >Publicar</button>
+        </div>
+    </div>  
+    <!-- Modal -->
+    <div class="modal fade" id="cancelar-publicacion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">¿Estás seguro?</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Se perderan los datos ingresados y serás redirigido al Inicio
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cerrar</button>
+            <a href="../index.html"> <button type="button" class="btn btn-outline-success">Aceptar</button></a>
+            </div>
+        </div>
+        </div>
     </div>
     
 </form>

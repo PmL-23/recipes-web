@@ -1,0 +1,80 @@
+/* estilo para el contenedor del buscador */
+.buscador {
+    display: flex; /* usamos felbox para luego aliniar los elementos hijos al medio*/
+    justify-content: center; 
+    margin-top: 7rem; /* espacio entre el encabezado y el buscador */
+    padding-bottom: 2px;
+    position: relative; /* Para que el menú se posicione correctamente */
+    margin-bottom: 20px; /* Espacio entre el buscador y el menú */
+}
+
+/* estilo para el formulario dentro del contenedor del buscador */
+.buscador form {
+    display: flex; /* usamos felbox para luego aliniar los elementos hijos al medio*/
+    align-items: center; 
+    border: 2px solid var(--color_principal); /* borde de 2px con color similar al encabezado */
+    border-radius: 25px; /* bordes redondeados para un diseño mas suave */
+    padding: 10px 20px; /* espacio interno para separar el contenido del borde */
+    max-width: 600px; /* ancho maximo del formulario para mantenerlo a una escala adecuada */
+    width: 100%; /* hace que el formulario ocupe todo el ancho disponible dentro de su contenedor */
+}
+
+/* estilo para el campo de entrada de texto en el formulario */
+.buscador input[type="text"] {
+    border: none; /* elimina el borde predeterminado del campo de entrada */
+    outline: none; /* elimina el contorno predeterminado del campoo de entrada al estar enfcado */
+    width: 100%; /* hace q el campo de entrada ocupe todo el ancho disponible dentro del formulario */
+    padding: 10px; /* espacio interno dentro del campo de entrada */
+    font-size: 16px; /* tamaniio de fuente para el texto dentro del campo de entrada */
+    border-radius: 25px; /* bordes redondeados para q sea limdo*/
+}
+
+/* estilo para el svg dentro del formulario, la lupa de buscar */
+.buscador svg {
+    margin-right: 10px; /* le doy un margen para separar el svg del campo de entrada */
+    width: 24px; /* ajusta el ancho*/
+    height: 24px; /* ajusta la altura*/
+}
+
+.filtro {
+    display: none; /* Inicialmente oculto */
+    position: absolute; /* Para solaparse sobre el contenido */
+    top: 100%; /* Se despliega justo debajo del buscador */
+    left: 50%; /* Centro horizontalmente */
+    transform: translateX(-50%); /* Ajusta la posición para centrarlo */
+    background-color: #fff; /* Fondo blanco */
+    border: 2px solid var(--color_principal); /* Borde del color principal */
+    border-radius: 12px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    padding: 20px; /* Espacio interno */
+    z-index: 1000; /* Para que esté sobre otros elementos */
+    width: calc(100% - 40px); /* Ancho igual al del buscador menos el padding */
+    max-width: 600px; /* Para mantener el mismo ancho máximo que el buscador */
+    transition: opacity 0.3s ease; /* Transición suave para la aparición */
+}
+
+
+/* Estilo para el encabezado dentro del filtro */
+.filtro h5 {
+    margin-bottom: 15px; /* Espacio entre el título y el formulario */
+    font-size: 1.2rem; /* Tamaño de fuente del título */
+    color: var(--color_principal); /* Color del título */
+}
+
+/* Estilo para los campos de formulario dentro del filtro */
+.filtro .form-group {
+    margin-bottom: 15px; /* Espacio entre los grupos de formulario */
+}
+
+/* Estilo para los botones dentro del filtro */
+.filtro .btn {
+    background-color: var(--color_principal); /* Color de fondo del botón */
+    color: white; /* Color del texto */
+    border-radius: 8px; /* Bordes redondeados en los botones */
+    padding: 10px 15px; /* Espaciado interno */
+    transition: background-color 0.3s ease; /* Transición suave para el hover */
+}
+
+.filtro .btn:hover {
+    background-color: #1d3a2a; /* Color más oscuro en hover */
+}
