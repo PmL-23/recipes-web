@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="favicon/x-icon" href="../images/logo.png">
+    <link rel="icon" type="favicon/x-icon" href="../../images/logo.png">
     <link rel="icon" type="favicon/x-icon" href="../../images/logo.png">
     <link rel="stylesheet" href="../../css/0-globals.css">
     <link rel="stylesheet" href="../../css/a-header.css">
@@ -14,8 +14,8 @@
     <link rel="stylesheet" href="../../css/f-recomendacion.css">
 
     <!-- Link custom script -->
-    <script src="../script.js" defer></script>
-    <script src="../manejarModal.js" defer></script>
+    <script src="../../script.js" defer></script>
+    <script src="../../manejarModal.js" defer></script>
     <script src="../../html_paises/js/ordenarRecetas.js" defer></script>
     <!-- fuentes -->
     <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&display=swap" rel="stylesheet">
@@ -31,101 +31,101 @@
 
 <body>
    <!-- header -->
-    <header class="header">
-        <nav class="navegacion-principal nav">
-            <div class="container-fluid d-flex justify-content-between align-items-center">
-                <a class="navbar-brand" href="/recipes-web/index.html">
-                    <img class="logo" src="../../images/logo.png" alt="logo">
-                </a>
-                <ul class="nav justify-content-end">
-                    <li class="nav-item">
-                        <a class="boton1" href="/recipes-web/index.html">
-                            <i class="bi bi-house-door"></i>
-                            <span class="texto-icon">Inicio</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="boton1 buscador-header" href="../buscador/buscador.html">
-                            <i class="bi bi-search"></i>
-                            <span class="texto-icon">Buscar</span>
-                        </a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="boton1 dropdown-toggle" role="button" data-bs-toggle="dropdown" href="#">
-                            <i class="bi bi-compass"></i>
-                            <span class="texto-icon">Explorar</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Países</a></li>
-                            <li><a class="dropdown-item" href="../categorias/categorias.html">Categorías</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <button class="notificaciones btn btn-outline-light boton-menu" href="#">
-                            <i class="bi bi-bell"></i>
-                        </button>
-                    </li>
-                    <li class="nav-item">
-                        <!--barra lateral-->
-                        <button class="btn btn-outline-light boton-menu" type="button" data-bs-toggle="offcanvas"
-                            data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                            <!-- Icono de menú lateral -->
-                            <i class="bi bi-list"></i>
-                        </button>
+   <header class="header">
+    <nav class="navegacion-principal nav">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+            <a class="navbar-brand" href="../../index.html">
+                <img class="logo" src="../../images/logo.png" alt="logo">
+            </a>
+            <ul class="nav justify-content-end">
+                <li class="nav-item">
+                    <a class="boton1" href="../../index.html">
+                        <i class="bi bi-house-door"></i>
+                        <span class="texto-icon">Inicio</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="boton1 buscador-header" href="../../buscador/buscador.html">
+                        <i class="bi bi-search"></i>
+                        <span class="texto-icon">Buscar</span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="boton1 dropdown-toggle" role="button" data-bs-toggle="dropdown" href="#">
+                        <i class="bi bi-compass"></i>
+                        <span class="texto-icon">Explorar</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Países</a></li>
+                        <li><a class="dropdown-item" href="../../categorias/categorias.html">Categorías</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <button class="notificaciones btn btn-outline-light boton-menu" href="#">
+                        <i class="bi bi-bell"></i>
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <!--barra lateral-->
+                    <button class="btn btn-outline-light boton-menu" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                        <!-- Icono de menú lateral -->
+                        <i class="bi bi-list"></i>
+                    </button>
 
-                        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
-                            aria-labelledby="offcanvasRightLabel">
-                            <div class="offcanvas-header">
-                                <h5 class="offcanvas-title" id="offcanvasRightLabel">Menú Recetas de America</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
-                                    aria-label="Close"></button>
+                    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
+                        aria-labelledby="offcanvasRightLabel">
+                        <div class="offcanvas-header">
+                            <h5 class="offcanvas-title" id="offcanvasRightLabel">Menú Recetas de America</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                                aria-label="Close"></button>
+                        </div>
+
+                        <div class="offcanvas-body container-fluid">
+
+                            <div class="row DivSinLogIn" id="IDDivSinLogIn">
+                                <a class="boton1 col-6" href="#">Iniciar Sesion</a>
+                                <a class="boton2 col-6" href="#">Registrarse</a>
+                                <ul>
+                                    <li class="text-center">
+                                        <a class="boton2 text-center" href="#">Recuperar Contraseña</a>
+                                    </li>
+                                </ul>
+
                             </div>
 
-                            <div class="offcanvas-body container-fluid">
+                            <div class="row DivConLogIn" id="IDDivConLogIn">
+                                <ul class="navbar-nav justify-content-end flex-grow-1 pe-0 ">
 
-                                <div class="row DivSinLogIn" id="IDDivSinLogIn">
-                                    <a class="boton1 col-6" href="#">Iniciar Sesion</a>
-                                    <a class="boton2 col-6" href="#">Registrarse</a>
-                                    <ul>
-                                        <li class="text-center">
-                                            <a class="boton2 text-center" href="#">Recuperar Contraseña</a>
-                                        </li>
-                                    </ul>
+                                    <li class="nav-item">
+                                        <a class="nav-link mt-5 " href="../../CarpetaPerfil/Perfil.html">Perfil</a>
+                                    </li>
+                                    <hr>
+                                    <li class="nav-item mt-2">
+                                        <a class="nav-link " href="../../crear receta/crear_receta.html">Subir
+                                            Receta</a>
+                                    </li>
+                                    <hr>
+                                    <li class="nav-item mt-2">
+                                        <a class="nav-link " href="../../CarpetaFavoritos/Favoritos.html">Recetas
+                                            Favoritas </a>
+                                    </li>
+                                    <hr>
+                                    <li class="nav-item mt-2">
+                                        <a class="nav-link" href="../../admin/#">Administración</a>
+                                    </li>
 
-                                </div>
-
-                                <div class="row DivConLogIn" id="IDDivConLogIn">
-                                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-0 ">
-
-                                        <li class="nav-item">
-                                            <a class="nav-link mt-5 " href="../CarpetaPerfil/Perfil.html">Perfil</a>
-                                        </li>
-                                        <hr>
-                                        <li class="nav-item mt-2">
-                                            <a class="nav-link " href="../crear receta/crear_receta.html">Subir
-                                                Receta</a>
-                                        </li>
-                                        <hr>
-                                        <li class="nav-item mt-2">
-                                            <a class="nav-link " href="../CarpetaFavoritos/Favoritos.html">Recetas
-                                                Favoritas </a>
-                                        </li>
-                                        <hr>
-                                        <li class="nav-item mt-2">
-                                            <a class="nav-link" href="../admin/#">Administración</a>
-                                        </li>
-
-                                        <li class="nav-item mt-5 text-center">
-                                            <a class="btn btn-outline-danger" href="#">Cerrar Sesion</a>
-                                        </li>
-                                    </ul>
-                                </div>
+                                    <li class="nav-item mt-5 text-center">
+                                        <a class="btn btn-outline-danger" href="#">Cerrar Sesion</a>
+                                    </li>
+                                </ul>
                             </div>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header>
+                        </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
 
     <h2 class="text-center pt-5 fw-bold">Nuestros platos con Pollo</h2>
 
