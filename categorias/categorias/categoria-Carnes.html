@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="favicon/x-icon" href="../images/logo.png">
+    <link rel="icon" type="favicon/x-icon" href="../../images/logo.png">
+    <link rel="stylesheet" href="../../css/0-globals.css">
+    <link rel="stylesheet" href="../../css/a-header.css">
+    <link rel="stylesheet" href="../../css/b-search.css">
+    <link rel="stylesheet" href="../../css/e-BarraLateral.css">
+    <link rel="stylesheet" href="../../html_paises/css/paises.css">
+    <link rel="stylesheet" href="../../css/f-recomendacion.css">
+
+    <!-- Link custom script -->
+    <script src="../script.js" defer></script>
+    <script src="../manejarModal.js" defer></script>
+    <script src="../../html_paises/js/ordenarRecetas.js" defer></script>
+    <!-- fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <!--bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <title>Platos con Carne</title>
+</head>
+
+<body>
+    <!-- header -->
+    <header class="header">
+        <nav class="navegacion-principal nav">
+            <div class="container-fluid d-flex justify-content-between align-items-center">
+                <a class="navbar-brand" href="/recipes-web/index.html">
+                    <img class="logo" src="../../images/logo.png" alt="logo">
+                </a>
+                <ul class="nav justify-content-end">
+                    <li class="nav-item">
+                        <a class="boton1" href="/recipes-web/index.html">
+                            <i class="bi bi-house-door"></i>
+                            <span class="texto-icon">Inicio</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="boton1 buscador-header" href="../buscador/buscador.html">
+                            <i class="bi bi-search"></i>
+                            <span class="texto-icon">Buscar</span>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="boton1 dropdown-toggle" role="button" data-bs-toggle="dropdown" href="#">
+                            <i class="bi bi-compass"></i>
+                            <span class="texto-icon">Explorar</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Países</a></li>
+                            <li><a class="dropdown-item" href="../categorias/categorias.html">Categorías</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <button class="notificaciones btn btn-outline-light boton-menu" href="#">
+                            <i class="bi bi-bell"></i>
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <!--barra lateral-->
+                        <button class="btn btn-outline-light boton-menu" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                            <!-- Icono de menú lateral -->
+                            <i class="bi bi-list"></i>
+                        </button>
+
+                        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
+                            aria-labelledby="offcanvasRightLabel">
+                            <div class="offcanvas-header">
+                                <h5 class="offcanvas-title" id="offcanvasRightLabel">Menú Recetas de America</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                                    aria-label="Close"></button>
+                            </div>
+
+                            <div class="offcanvas-body container-fluid">
+
+                                <div class="row DivSinLogIn" id="IDDivSinLogIn">
+                                    <a class="boton1 col-6" href="#">Iniciar Sesion</a>
+                                    <a class="boton2 col-6" href="#">Registrarse</a>
+                                    <ul>
+                                        <li class="text-center">
+                                            <a class="boton2 text-center" href="#">Recuperar Contraseña</a>
+                                        </li>
+                                    </ul>
+
+                                </div>
+
+                                <div class="row DivConLogIn" id="IDDivConLogIn">
+                                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-0 ">
+
+                                        <li class="nav-item">
+                                            <a class="nav-link mt-5 " href="../CarpetaPerfil/Perfil.html">Perfil</a>
+                                        </li>
+                                        <hr>
+                                        <li class="nav-item mt-2">
+                                            <a class="nav-link " href="../crear receta/crear_receta.html">Subir
+                                                Receta</a>
+                                        </li>
+                                        <hr>
+                                        <li class="nav-item mt-2">
+                                            <a class="nav-link " href="../CarpetaFavoritos/Favoritos.html">Recetas
+                                                Favoritas </a>
+                                        </li>
+                                        <hr>
+                                        <li class="nav-item mt-2">
+                                            <a class="nav-link" href="../admin/#">Administración</a>
+                                        </li>
+
+                                        <li class="nav-item mt-5 text-center">
+                                            <a class="btn btn-outline-danger" href="#">Cerrar Sesion</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <h2 class="text-center pt-5 fw-bold">Nuestros platos con Carne</h2>
+
+    <!-- Barra de navegación secundaria -->
+    <div class="oculto">
+        <nav class=" menu-barra pt-4">
+            <div class="menu-toggle" id="menuToggle">☰</div>
+            <ul class="menu-list">
+                <li><a id="todos" href="#todos">Todos</a></li>
+                <li><a id="desayuno" href="#desayuno">Desayuno</a></li>
+                <li><a id="almuerzo" href="#almuerzo">Almuerzo</a></li>
+                <li><a id="merienda" href="#merienda">Merienda</a></li>
+                <li><a id="cena" href="#cena">Cena</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Sección de cenas -->
+    <div class="container mt-5">
+        <div class="row">
+
+            <!-- Almuerzo -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion  almuerzo">
+                <div class="card h-100">
+                    <img src="../../html_paises/img/imgArg/milanesaNapo.jpg" class="card-img-top"
+                        alt="milanesa napolitana">
+                    <div class="card-body">
+                        <h5 class="card-title">Milanesa a la Napolitana</h5>
+                        <p class="card-text">Deliciosa milanesa empanada, cubierta con salsa de tomate y queso fundido,
+                            un plato típico argentino.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalMilanesa">Ver receta</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Almuerzo -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion almuerzo">
+                <div class="card h-100">
+                    <img src="../../html_paises/img/imgArg/locro.jpg" class="card-img-top" alt="locro">
+                    <div class="card-body">
+                        <h5 class="card-title">Locro</h5>
+                        <p class="card-text">Guiso tradicional argentino a base de maíz, carne, y vegetales, ideal para
+                            días festivos en Argentina.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalLocro">Ver receta</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Desayuno -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion desayuno">
+                <div class="card h-100">
+                    <img src="../../html_paises/img/imgBolivia/salteñas.jpg" class="card-img-top" alt="empanadas salteñas">
+                    <div class="card-body">
+                        <h5 class="card-title">Salteñas</h5>
+                        <p class="card-text">Empanadas jugosas rellenas de carne o pollo, acompañadas de papa y huevo
+                            duro.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalSalteñas">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Desayuno -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion desayuno">
+                <div class="card h-100">
+                    <img src="../../html_paises/img/imgBolivia/tucumanas.jpg" class="card-img-top"
+                        alt="empanadas tucumanas">
+                    <div class="card-body">
+                        <h5 class="card-title">Tucumanas</h5>
+                        <p class="card-text">Empanadas fritas típicas de Bolivia, rellenas de carne, papa, zanahoria y
+                            huevo duro, con un toque de picante.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalTucumanas">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Almuerzo -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion almuerzo">
+                <div class="card h-100">
+                    <img src="../../html_paises/img/imgBrasil/Churrasco.jpg" class="card-img-top" alt="churrasco">
+                    <div class="card-body">
+                        <h5 class="card-title">Churrasco</h5>
+                        <p class="card-text">Carne asada a la parrilla, una tradición en el sur de Brasil.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalChurrasco">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Almuerzo -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion almuerzo">
+                <div class="card h-100">
+                    <img src="../../html_paises/img/imgBrasil/Escondidinho.jpg" class="card-img-top" alt="escondidinho">
+                    <div class="card-body">
+                        <h5 class="card-title">Escondidinho</h5>
+                        <p class="card-text">Plato gratinado con capas de carne y puré de yuca.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalEscondidinho">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Almuerzo -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion  almuerzo">
+                <div class="card h-100">
+                    <img src="../../html_paises/img/imgChile/Pastel de Choclo.jpg" class="card-img-top"
+                        alt="pastel de choclo">
+                    <div class="card-body">
+                        <h5 class="card-title">Pastel de Choclo</h5>
+                        <p class="card-text">Guiso a base de carne y una capa de puré de maíz.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalPastelDeChoclo">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Almuerzo -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion almuerzo">
+                <div class="card h-100">
+                    <img src="../../html_paises/img/imgChile/Charquicán.jpeg" class="card-img-top" alt="charquican">
+                    <div class="card-body">
+                        <h5 class="card-title">Charquicán</h5>
+                        <p class="card-text">Guiso de carne con verduras y puré, muy reconfortante.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalCharquican">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Cena -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion cena">
+                <div class="card h-100">
+                    <img src="../../html_paises/img/imgChile/Asado.jpg" class="card-img-top" alt="asado">
+                    <div class="card-body">
+                        <h5 class="card-title">Asado</h5>
+                        <p class="card-text">Carne asada a la parrilla, tradicional en reuniones familiares.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalAsado">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Almuerzo -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion almuerzo">
+                <div class="card h-100">
+                    <img src="../../html_paises/img/imgColombia/Posta Negra.jpg" class="card-img-top" alt="posta negra">
+                    <div class="card-body">
+                        <h5 class="card-title">Posta Negra</h5>
+                        <p class="card-text">Carne de res cocida en salsa de cerveza y especias, típica de la región
+                            caribe.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalPostaNegra">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Almuerzo -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion almuerzo">
+                <div class="card h-100">
+                    <img src="../../html_paises/img/imgUruguay/Milanesa con Papas Fritas.jpg" class="card-img-top"
+                        alt="milanesa con papas fritas">
+                    <div class="card-body">
+                        <h5 class="card-title">Milanesa con Papas Fritas</h5>
+                        <p class="card-text">Milanesa de carne con crocantes papas fritas, un plato popular y delicioso.
+                        </p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalMilanesaConPapasFritas">Ver
+                            Receta</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Almuerzo -->
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion almuerzo">
+                <div class="card h-100">
+                    <img src="../../html_paises/img/imgVenezuela/Asado Negro.jpg" class="card-img-top" alt="asado negro">
+                    <div class="card-body">
+                        <h5 class="card-title">Asado Negro</h5>
+                        <p class="card-text">Carne de res cocida a fuego lento, con una deliciosa salsa oscura.</p>
+                        <a href="#" class="btn btn-primary verReceta" data-modal="modalAsadoNegro">Ver Receta</a>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- Footer -->
+    <footer class="footer bg-dark text-white py-4">
+        <div class="container text-center">
+            <p class="mb-2">&copy; 2024 Recetas de America. Todos los derechos reservados.</p>
+            <nav class="d-flex justify-content-center">
+                <a class="nav-link text-white" href="#">Términos y condiciones</a>
+                <a class="nav-link text-white" href="#">Política de privacidad</a>
+                <a class="nav-link text-white" href="#">Contacto</a>
+            </nav>
+            <div class="social-links mt-3">
+                <a href="#" class="text-white mx-2">Facebook</a>
+                <a href="#" class="text-white mx-2">Twitter</a>
+                <a href="#" class="text-white mx-2">Instagram</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

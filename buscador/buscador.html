@@ -149,7 +149,7 @@
         <div class="filtro" id="filtro">
             <h5>Filtros de Búsqueda</h5>
             <form id="filtroForm">
-                <div class="form-group">
+                <div class="form-group container">
                     <label for="tipoFiltro">Filtrar por:</label>
                     <select class="form-control" id="tipoFiltro">
                         <option value="publicacion">Publicación</option>
@@ -157,11 +157,12 @@
                         <option value="etiquetas">Etiquetas</option>
                     </select>
                 </div>
-                <div class="form-group">
+            <div class="container">
+                <div class="form-group d-none" id="ingrediente-filtro">
                     <label for="ingrediente">Ingrediente</label>
                     <input type="text" class="form-control" id="ingrediente" placeholder="Ej. Tomate">
                 </div>
-                <div class="form-group">
+                <div class="form-group d-none" id="categoria-filtro">
                     <label for="categoria">Categoría</label>
                     <select class="form-control" id="categoria" multiple>
                         <option value="ensalada">Ensalada</option>
@@ -169,11 +170,23 @@
                         <option value="postre">Postre</option>
                     </select>
                 </div>
-                <div class="form-group">
+                <div class="form-group d-none" id="publicacion-filtro">
+                    <label for="publicacion">Publicación</label>
+                    <select class="form-control" id="publicacion" multiple>
+                        <option value="Valoración">Valoración</option>
+                        <option value="Tiempo de elaboración">Tiempo de elaboración</option>
+                    </select>
+                </div>
+                <div class="form-group d-none" id="etiqueta-filtro">
                     <label for="etiqueta">Etiquetas</label>
                     <input type="text" class="form-control" id="etiqueta" placeholder="Ej. Vegetariano">
                 </div>
+            </div>
             </form>
         </div>
     </div>    
+</div>
+
+<div class="container">
+    <h2>Resultado:</h2><span id="text-ingresado"></span>
 </div>
