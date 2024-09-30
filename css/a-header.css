@@ -36,6 +36,8 @@
     width: 75px; 
 }
 
+/* botones menu lateral*/
+
 .boton1 {
     display: inline-block;
     background-color: var(--color_principal);
@@ -87,6 +89,29 @@ a.boton1:hover {
     border: 2px solid var(--color_principal);
 }
 
+.boton-login{
+    display: inline-block;
+    background-color: var(--color_principal);
+    border: 2px solid white;
+    padding: 8px 12px;
+    border-radius: 30px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s, border 0.3s;
+    margin-left: 10px; 
+}
+
+.boton-login:hover{
+    background-color: white;
+    color: var(--color_principal);
+    border: 2px solid var(--color_principal);
+}
+
+.boton-login img{
+    max-width: 1.5rem !important;
+    margin-right: 0.5rem !important;
+}
 
 
 @media (max-width: 576px) {

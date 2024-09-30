@@ -106,3 +106,8 @@
 }
 
 
+.input-readonly {
+    background-color: #69696934 !important; /* Fondo gris claro */
+    color: #6c757d; /* Texto gris */
+    cursor: not-allowed; /* Indica que no es interactivo */
+}
