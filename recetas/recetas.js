@@ -87,3 +87,13 @@ function eliminarComentario(btn) {
     comentario.remove();
 }
 
+document.getElementById('btnCompartir').onclick = function() {
+    var modal = new bootstrap.Modal(document.getElementById('modalCompartir'));
+    modal.show();
+}
+
+window.onclick = function(event) {
+    if (event.target == document.getElementById('modalCompartir')) {
+        document.getElementById('modalCompartir').style.display = 'none';
+    }
+}
