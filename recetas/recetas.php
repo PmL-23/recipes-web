@@ -292,6 +292,6 @@
             <span class="visually-hidden">Next</span>
         </button>
     </div>
-</body>
 
-</html>
+
+<?php include '../includes/footer.php'?>  
