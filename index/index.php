@@ -1,136 +1,5 @@
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recetas de America</title>
-    <link rel="icon" type="favicon/x-icon" href="./images/logo.png">
-    <link rel="stylesheet" href="css/0-globals.css">
-    <link rel="stylesheet" href="css/a-header.css">
-    <link rel="stylesheet" href="css/b-search.css">
-    <link rel="stylesheet" href="css/c-countries.css">
-    <link rel="stylesheet" href="css/d-slider.css">
-    <link rel="stylesheet" href="css/e-BarraLateral.css">
-    <link rel="stylesheet" href="css/j-slider.css">
-    <link rel="stylesheet" href="css/f-recomendacion.css">
-
-    <!-- link SwiperJS CSS biblioteca para sliders -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-
-    <!-- fuentes -->
-    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
-    <!-- Link SwiperJS script -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
-    <!-- Link custom script -->
-    <script src="script.js" defer></script>
-    <script src="manejarModal.js" defer></script>
-    <script src="mostrarSegunFecha.js" defer></script>
-    <!--bootstrap-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-</head>
-
-<body>
-    <!-- header -->
-    <header class="header">
-        <nav class="navegacion-principal nav">
-            <div class="container-fluid d-flex justify-content-between align-items-center">
-                <a class="navbar-brand" href="index.html">
-                    <img class="logo" src="./images/logo.png" alt="logo">  
-                </a>
-                <ul class="nav justify-content-end"> 
-                    <li class="nav-item">
-                        <a class="boton1" href="index.html">
-                            <i class="bi bi-house-door"></i>
-                            <span class="texto-icon">Inicio</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="boton1 buscador-header" href="buscador/buscador.html">
-                            <i class="bi bi-search"></i>
-                            <span class="texto-icon">Buscar</span>
-                        </a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="boton1 dropdown-toggle" role="button" data-bs-toggle="dropdown" href="#">
-                            <i class="bi bi-compass"></i>
-                            <span class="texto-icon">Explorar</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Países</a></li>
-                            <li><a class="dropdown-item" href="./categorias/categorias.html">Categorías</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <button class="notificaciones btn btn-outline-light boton-menu" href="#">
-                            <i class="bi bi-bell"></i>
-                        </button>
-                    </li>
-                    <li class="nav-item">
-                    <!--barra lateral-->
-                        <button class="btn btn-outline-light boton-menu" type="button" data-bs-toggle="offcanvas"
-                        data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                        <!-- Icono de menú lateral -->
-                            <i class="bi bi-list"></i>
-                        </button>
-
-                        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
-                            aria-labelledby="offcanvasRightLabel">
-                            <div class="offcanvas-header">
-                                <h5 class="offcanvas-title" id="offcanvasRightLabel">Menú Recetas de America</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                            </div>
-
-                            <div class="offcanvas-body container">
-
-                                <div class="row DivConLogIn" id="IDDivConLogIn">
-                                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-0 ">
-
-                                        <li class="nav-item justify-content-center">
-                                            <a class="boton-login col-6" href="./html_inicio_sesion/iniciarSesion.html">Iniciar Sesion</a>
-                                        </li>
-
-                                        <li class="nav-item justify-content-center">
-                                            <a class="boton-login col-6" href="./html_inicio_sesion/Registrarse.html">Registrarse</a>
-                                        </li>
-
-                                        <li class="nav-item justify-content-center">
-                                            <a class="boton-login col-6" href="#"><img alt="logo-google" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/480px-Google_%22G%22_logo.svg.png"/>Ingresar con Google</a>
-                                        </li>
-
-                                        <li class="nav-item justify-content-center">
-                                            <a class="nav-link mt-5" href="./CarpetaPerfil/Perfil.html">Perfil</a>
-                                        </li>
-                                        <hr>
-                                        <li class="nav-item justify-content-center mt-2">
-                                            <a class="nav-link " href="./crear receta/crear_receta.html">Subir Receta</a>
-                                        </li>
-                                        <hr>
-                                        <li class="nav-item justify-content-center mt-2">
-                                            <a class="nav-link " href="./CarpetaFavoritos/Favoritos.html">Recetas Favoritas </a>
-                                        </li>
-                                        <hr>
-                                        <li class="nav-item justify-content-center mt-2">
-                                            <a class="nav-link" href="./admin/index.html">Administración</a>
-                                        </li>
-
-                                        <li class="nav-item justify-content-center mt-5 text-center">
-                                            <a class="btn btn-outline-danger" href="#">Cerrar Sesion</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-    
+<?php include '../includes/header.php'?>
+  
     <!-- BUSCADOR -->
     <div class="buscador mt-4">
         <form action="#" method="GET">
@@ -179,43 +48,43 @@
     <!-- paises -->
     <div class="paises-contenedor">
         <a class="pais" href="#">
-            <img src="svg/argentina.svg" alt="Argentina" id="paisArgentina">
+            <img src="../svg/argentina.svg" alt="Argentina" id="paisArgentina">
             <p class="pais-nombre">Argentina</p>
         </a>
         <a class="pais" href="#">
-            <img src="svg/bolivia.svg" alt="Bolivia" id="paisBolivia">
+            <img src="../svg/bolivia.svg" alt="Bolivia" id="paisBolivia">
             <p class="pais-nombre">Bolivia</p>
         </a>
         <a class="pais" href="#">
-            <img src="svg/brasil.svg" alt="Brasil" id="paisBrasil">
+            <img src="../svg/brasil.svg" alt="Brasil" id="paisBrasil">
             <p class="pais-nombre">Brasil</p>
         </a>
         <a class="pais" href="#">
-            <img src="svg/chile.svg" alt="Chile" id="paisChile">
+            <img src="../svg/chile.svg" alt="Chile" id="paisChile">
             <p class="pais-nombre">Chile</p>
         </a>
         <a class="pais" href="#">
-            <img src="svg/colombia.svg" alt="Colombia" id="paisColombia">
+            <img src="../svg/colombia.svg" alt="Colombia" id="paisColombia">
             <p class="pais-nombre">Colombia</p>
         </a>
         <a class="pais" href="#">
-            <img src="svg/ecuador.svg" alt="Ecuador" id="paisEcuador">
+            <img src="../svg/ecuador.svg" alt="Ecuador" id="paisEcuador">
             <p class="pais-nombre">Ecuador</p>
         </a>
         <a class="pais" href="#">
-            <img src="svg/paraguay.svg" alt="Paraguay" id="paisParaguay">
+            <img src="../svg/paraguay.svg" alt="Paraguay" id="paisParaguay">
             <p class="pais-nombre">Paraguay</p>
         </a>
         <a class="pais" href="#">
-            <img src="svg/peru.svg" alt="Perú" id="paisPeru">
+            <img src="../svg/peru.svg" alt="Perú" id="paisPeru">
             <p class="pais-nombre">Perú</p>
         </a>
         <a class="pais" href="#">
-            <img src="svg/uruguay.svg" alt="Uruguay" id="paisUruguay">
+            <img src="../svg/uruguay.svg" alt="Uruguay" id="paisUruguay">
             <p class="pais-nombre">Uruguay</p>
         </a>
         <a class="pais" href="#">
-            <img class="pais" src="svg/venezuela.svg" alt="Venezuela" id="paisVenezuela">
+            <img class="pais" src="../svg/venezuela.svg" alt="Venezuela" id="paisVenezuela">
             <p class="pais-nombre">Venezuela</p>
         </a>
     </div>
@@ -233,7 +102,7 @@
         <div class="carousel-inner">
 
             <div class="carousel-item active d-item"> <!-- solo en esta linea tiene que estar el active-->
-                <img src="img/aprender.jpg" class="d-block w-100 d-img" alt="Bienvenida">
+                <img src="../img/aprender.jpg" class="d-block w-100 d-img" alt="Bienvenida">
                 <div class="carousel-caption top-0 mt-4">
                     <p class="mt-5 fs-3 text-uppercase">Tu mejor sitio de Recetas!</p>
                     <h1 class="display-1 fw-bolder text-capitalize">¡Bienvenido!</h1>
@@ -242,7 +111,7 @@
             </div>
 
             <div class="carousel-item d-item">
-                <img src="img/saludables.jpg" class="d-block w-100 d-img" alt="saludables">
+                <img src="../img/saludables.jpg" class="d-block w-100 d-img" alt="saludables">
                 <div class="carousel-caption top-0 mt-4">
                     <p class="mt-5 fs-3 text-uppercase">Descubre nuestrar recetas mas saludables</p>
                     <h1 class="display-1 fw-bolder text-capitalize">¡Nos importa tu salud!</h1>
@@ -251,7 +120,7 @@
             </div>
 
             <div class="carousel-item d-item">
-                <img src="img/amasar.jpg" class="d-block w-100 d-img" alt="masas">
+                <img src="../img/amasar.jpg" class="d-block w-100 d-img" alt="masas">
                 <div class="carousel-caption top-0 mt-4">
                     <p class="mt-5 fs-3 text-uppercase">Se un experto con las masas</p>
                     <h1 class="display-1 fw-bolder text-capitalize">¡Aprende a Amasar!</h1>
@@ -260,7 +129,7 @@
             </div>
 
             <div class="carousel-item d-item">
-                <img src="img/comidasyhoras.jpg" class="d-block w-100 d-img" alt="masas">
+                <img src="../img/comidasyhoras.jpg" class="d-block w-100 d-img" alt="masas">
                 <div class="carousel-caption top-0 mt-4">
                     <p class="mt-5 fs-3 text-uppercase">Hay recetas para cada momento de tu dia</p>
                     <h1 class="display-1 fw-bolder text-capitalize">¡Elige tu momento!</h1>
@@ -288,61 +157,61 @@
 <div class="paises-contenedor">
     <div id="snacks">
         <a class="pais" href="#">
-            <img src="comidas/comida2.webp" alt="Snacks">
+            <img src="../comidas/comida2.webp" alt="Snacks">
             <p class="pais-nombre">Snacks</p>
         </a>
     </div>
     <div id="cenas">
         <a class="pais" href="#">
-            <img src="comidas/comida3.webp" alt="Cenas">
+            <img src="../comidas/comida3.webp" alt="Cenas">
             <p class="pais-nombre">Cenas</p>
         </a>
     </div>
     <div id="pastas">
         <a class="pais" href="#">
-            <img src="comidas/comida7.webp" alt="Pastas">
+            <img src="../comidas/comida7.webp" alt="Pastas">
             <p class="pais-nombre">Pastas</p>
         </a>
     </div>
     <div id="pescado">
         <a class="pais" href="#">
-            <img src="comidas/comida8.webp" alt="Pescado">
+            <img src="../comidas/comida8.webp" alt="Pescado">
             <p class="pais-nombre">Pescado</p>
         </a>
     </div>
     <div id="postres">
         <a class="pais" href="#">
-            <img src="comidas/comida9.webp" alt="Postres">
+            <img src="../comidas/comida9.webp" alt="Postres">
             <p class="pais-nombre">Postres</p>
         </a>
     </div>
     <div id="desayunos">
         <a class="pais" href="#">
-            <img src="comidas/comida6.webp" alt="Desayunos">
+            <img src="../comidas/comida6.webp" alt="Desayunos">
             <p class="pais-nombre">Desayunos</p>
         </a>
     </div>
     <div id="carne">
         <a class="pais" href="#">
-            <img src="comidas/comida10.webp" alt="Carne molida">
+            <img src="../comidas/comida10.webp" alt="Carne molida">
             <p class="pais-nombre">Carne molida</p>
         </a>
     </div>
     <div id="pollo">
         <a class="pais" href="#">
-            <img src="comidas/comida11.webp" alt="Pollo">
+            <img src="../comidas/comida11.webp" alt="Pollo">
             <p class="pais-nombre">Pollo</p>
         </a>
     </div>
     <div id="vegetariano">
         <a class="pais" href="#">
-            <img class="pais" src="comidas/comida12.webp" alt="Vegetarianas">
+            <img class="pais" src="../comidas/comida12.webp" alt="Vegetarianas">
             <p class="pais-nombre">Vegetarianas</p>
         </a>
     </div>
     <div id="almuerzos">
         <a class="pais" href="#">
-            <img class="pais" src="comidas/comida4.webp" alt="Almuerzo" id="almuerzos">
+            <img class="pais" src="../comidas/comida4.webp" alt="Almuerzo" id="almuerzos">
             <p class="pais-nombre">Almuerzo</p>
         </a>
     </div>
@@ -355,7 +224,7 @@
             <div class="carousel-inner">
                 <div class="carousel-item active">
                     <div class="receta-item card">
-                        <div class="card_landing" style="background-image: url(images/milanesas_lp.jpg);">
+                        <div class="card_landing" style="background-image: url(../images/milanesas_lp.jpg);">
                             <h6>Milanesas</h6>
                         </div>
                         <div class="card_info">
@@ -382,14 +251,14 @@
                                 </ul>
                             </div>
                             <div class="action">
-                                <a href="./recetas/recetas.html" class="btn">Quiero la receta!</a>
+                                <a href="../recetas/recetas.html" class="btn">Quiero la receta!</a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="carousel-item">
                     <div class="receta-item card">
-                        <div class="card_landing" style="background-image: url(images/empanadas_lp.jpg);">
+                        <div class="card_landing" style="background-image: url(../images/empanadas_lp.jpg);">
                             <h6>Empanadas</h6>
                         </div>
                         <div class="card_info">
@@ -416,14 +285,14 @@
                                 </ul>
                             </div>
                             <div class="action">
-                                <a href="./recetas/recetas.html" class="btn">Quiero la receta!</a>
+                                <a href="..//recetas/recetas.html" class="btn">Quiero la receta!</a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="carousel-item">
                     <div class="receta-item card">
-                        <div class="card_landing" style="background-image: url(images/nioquis_lp.jpg);">
+                        <div class="card_landing" style="background-image: url(../images/nioquis_lp.jpg);">
                             <h6>Ñoquis</h6>
                         </div>
                         <div class="card_info">
@@ -450,7 +319,7 @@
                                 </ul>
                             </div>
                             <div class="action">
-                                <a href="./recetas/recetas.html" class="btn">Quiero la receta!</a>
+                                <a href="../recetas/recetas.html" class="btn">Quiero la receta!</a>
                             </div>
                         </div>
                     </div>
@@ -487,7 +356,7 @@
         <!-- Desayuno Argentino-->
         <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion desayuno">
             <div class="card h-100">
-                <img src="./html_paises/img/imgArg/medialunas.jpg" class="card-img-top" alt="medialunas">
+                <img src="../html_paises/img/imgArg/medialunas.jpg" class="card-img-top" alt="medialunas">
                 <div class="card-body">
                     <h5 class="card-title">Medialunas</h5>
                     <p class="card-text">Deliciosas medialunas que son croissants argentinos, ideales para acompañar
@@ -500,7 +369,7 @@
         <!-- Desayuno Boliviano-->
         <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion desayuno">
             <div class="card h-100">
-                <img src="./html_paises/img/imgBolivia/api.jpg" class="card-img-top" alt="api con pastel">
+                <img src="../html_paises/img/imgBolivia/api.jpg" class="card-img-top" alt="api con pastel">
                 <div class="card-body">
                     <h5 class="card-title">Api con Pastel</h5>
                     <p class="card-text">Bebida caliente de maíz morado acompañada de pasteles fritos rellenos de
@@ -513,7 +382,7 @@
         <!-- Desayuno Brasilero-->
         <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion desayuno">
             <div class="card h-100">
-                <img src="./html_paises/img/imgBrasil/Pão de Queijo.jpg" class="card-img-top" alt="pão de queijo">
+                <img src="../html_paises/img/imgBrasil/Pão de Queijo.jpg" class="card-img-top" alt="pão de queijo">
                 <div class="card-body">
                     <h5 class="card-title">Pão de Queijo</h5>
                     <p class="card-text">Pequeños panes de queso, crujientes por fuera y suaves por dentro.</p>
@@ -525,7 +394,7 @@
         <!-- Almuerzo Chileno-->
         <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion  almuerzo">
             <div class="card h-100">
-                <img src="./html_paises/img/imgChile/Pastel de Choclo.jpg" class="card-img-top" alt="pastel de choclo">
+                <img src="../html_paises/img/imgChile/Pastel de Choclo.jpg" class="card-img-top" alt="pastel de choclo">
                 <div class="card-body">
                     <h5 class="card-title">Pastel de Choclo</h5>
                     <p class="card-text">Guiso a base de carne y una capa de puré de maíz.</p>
@@ -537,7 +406,7 @@
         <!-- Almuerzo Colombiano-->
         <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion  almuerzo">
             <div class="card h-100">
-                <img src="./html_paises/img/imgColombia/Bandeja Paisa.jpg" class="card-img-top" alt="bandeja paisa">
+                <img src="../html_paises/img/imgColombia/Bandeja Paisa.jpg" class="card-img-top" alt="bandeja paisa">
                 <div class="card-body">
                     <h5 class="card-title">Bandeja Paisa</h5>
                     <p class="card-text">Plato típico con frijoles, carne, chicharrón, arroz y aguacate.</p>
@@ -549,7 +418,7 @@
         <!-- Almuerzo Ecuatoriano-->
         <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion almuerzo">
             <div class="card h-100">
-                <img src="./html_paises/img/imgEcuador/Encebollado.jpg" class="card-img-top" alt="encebollado">
+                <img src="../html_paises/img/imgEcuador/Encebollado.jpg" class="card-img-top" alt="encebollado">
                 <div class="card-body">
                     <h5 class="card-title">Encebollado</h5>
                     <p class="card-text">Sopa de pescado con yuca, cebolla y cilantro, muy nutritiva.</p>
@@ -561,7 +430,7 @@
         <!-- Merienda Paraguaya-->
         <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion merienda">
             <div class="card h-100">
-                <img src="./html_paises/img/imgParaguay/Pan de Queso.jpg" class="card-img-top" alt="pan de queso">
+                <img src="../html_paises/img/imgParaguay/Pan de Queso.jpg" class="card-img-top" alt="pan de queso">
                 <div class="card-body">
                     <h5 class="card-title">Pan de Queso</h5>
                     <p class="card-text">Pequeños panes de queso, suaves por dentro y crujientes por fuera.</p>
@@ -573,7 +442,7 @@
         <!-- Merienda Peruana-->
         <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion merienda">
             <div class="card h-100">
-                <img src="./html_paises/img/imgPeru/Picarones.jpg" class="card-img-top" alt="picarones">
+                <img src="../html_paises/img/imgPeru/Picarones.jpg" class="card-img-top" alt="picarones">
                 <div class="card-body">
                     <h5 class="card-title">Picarones</h5>
                     <p class="card-text">Dulces fritos en aceite vegetas hechos con masa de camote y zapallo, bañados en miel de chancaca.</p>
@@ -585,7 +454,7 @@
         <!-- Merienda Uruguaya-->
         <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion merienda">
             <div class="card h-100">
-                <img src="./html_paises/img/imgUruguay/Pastafrola.jpg" class="card-img-top" alt="pastafrola">
+                <img src="../html_paises/img/imgUruguay/Pastafrola.jpg" class="card-img-top" alt="pastafrola">
                 <div class="card-body">
                     <h5 class="card-title">Pastafrola</h5>
                     <p class="card-text">Tarta dulce con mermelada, un clásico de la merienda uruguaya.</p>
@@ -597,7 +466,7 @@
         <!-- Cena Venezolana-->
         <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion cena">
             <div class="card h-100">
-                <img src="./html_paises/img/imgVenezuela/Empanadas Andinas.jpg" class="card-img-top" alt="empanadas andinas">
+                <img src="../html_paises/img/imgVenezuela/Empanadas Andinas.jpg" class="card-img-top" alt="empanadas andinas">
                 <div class="card-body">
                     <h5 class="card-title">Empanadas Andinas</h5>
                     <p class="card-text">Empanadas crujientes rellenas de carne o queso, típicas de los Andes venezolanos.</p>
@@ -609,7 +478,7 @@
         <!-- Cena Argentina-->
         <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion cena">
             <div class="card h-100">
-                <img src="./html_paises/img/imgArg/ravioles.jpg" class="card-img-top" alt="ravioles">
+                <img src="../html_paises/img/imgArg/ravioles.jpg" class="card-img-top" alt="ravioles">
                 <div class="card-body">
                     <h5 class="card-title">Ravioles</h5>
                     <p class="card-text">Pasta Argentina rellena de carne, queso, verduras o una combinación de
@@ -622,7 +491,7 @@
         <!-- Cena Boliviana-->
         <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion cena">
             <div class="card h-100">
-                <img src="./html_paises/img/imgBolivia/chankaPollo.jpg" class="card-img-top" alt="chanka de pollo">
+                <img src="../html_paises/img/imgBolivia/chankaPollo.jpg" class="card-img-top" alt="chanka de pollo">
                 <div class="card-body">
                     <h5 class="card-title">Chanka de Pollo</h5>
                     <p class="card-text">Sopa de pollo típica de la región andina de Bolivia, preparada con choclo,
@@ -635,7 +504,7 @@
         <!-- horario fuera de limite -->
         <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion madrugada">
             <div class="card h-100">
-                <img src="./html_paises/img/imgBrasil/Biscoito de Polvilho.jpg" class="card-img-top" alt="biscoito de polvilho">
+                <img src="../html_paises/img/imgBrasil/Biscoito de Polvilho.jpg" class="card-img-top" alt="biscoito de polvilho">
                 <div class="card-body">
                     <h5 class="card-title">Biscoito de Polvilho</h5>
                     <p class="card-text">Galletas crujientes hechas de almidón de yuca, ideales para acompañar un
@@ -646,7 +515,7 @@
         </div>
         <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion madrugada">
             <div class="card h-100">
-                <img src="./html_paises/img/imgBolivia/masacoPlatano.jpg" class="card-img-top" alt="masaco de platano">
+                <img src="../html_paises/img/imgBolivia/masacoPlatano.jpg" class="card-img-top" alt="masaco de platano">
                 <div class="card-body">
                     <h5 class="card-title">Masaco de plátano</h5>
                     <p class="card-text">Un delicioso puré de plátano verde frito, mezclado con queso o carne.</p>
@@ -656,7 +525,7 @@
         </div>
          <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion madrugada">
             <div class="card h-100">
-                <img src="./html_paises/img/imgPeru/Arroz con Leche y Mazamorra.jpg" class="card-img-top" alt="arroz con leche y mazamorra">
+                <img src="../html_paises/img/imgPeru/Arroz con Leche y Mazamorra.jpg" class="card-img-top" alt="arroz con leche y mazamorra">
                 <div class="card-body">
                     <h5 class="card-title">Arroz con Leche y Mazamorra</h5>
                     <p class="card-text">Una combinación de Arroz con Leche cremoso y Mazamorra Morada con maíz morado, frutas y especias.</p>
@@ -1088,23 +957,4 @@
     </div>
 </div>
 
-
-    <!-- Footer -->
-    <footer class="footer bg-dark text-white py-4">
-        <div class="container text-center">
-            <p class="mb-2">&copy; 2024 Recetas de America. Todos los derechos reservados.</p>
-            <nav class="d-flex justify-content-center">
-                <a class="nav-link text-white" href="#">Términos y condiciones</a>
-                <a class="nav-link text-white" href="#">Política de privacidad</a>
-                <a class="nav-link text-white" href="#">Contacto</a>
-            </nav>
-            <div class="social-links mt-3">
-                <a href="#" class="text-white mx-2">Facebook</a>
-                <a href="#" class="text-white mx-2">Twitter</a>
-                <a href="#" class="text-white mx-2">Instagram</a>
-            </div>
-        </div>
-    </footer>
-</body>
-
-</html>
+<?php include '../includes/footer.php'?>  

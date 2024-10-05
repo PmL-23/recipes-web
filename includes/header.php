@@ -9,13 +9,36 @@
     <link rel="stylesheet" href="../css/0-globals.css">
     <link rel="stylesheet" href="../css/a-header.css">
     <link rel="stylesheet" href="../css/b-search.css">
+    <link rel="stylesheet" href="../css/c-countries.css">
+    <link rel="stylesheet" href="../css/d-slider.css">
     <link rel="stylesheet" href="../css/e-BarraLateral.css">
+    <link rel="stylesheet" href="../css/e-admin.css">
+    <link rel="stylesheet" href="../css/f-recomendacion.css">
     <link rel="stylesheet" href="../css/j-slider.css">
+    <link rel="stylesheet" href="categorias.css">
+
+    <link rel="stylesheet" href="../css_inicio_sesion/estilo_sesion.css">
+    <link rel="stylesheet" href="../css_inicio_sesion/iniciarSesion.css">
+    <script src="js/inicioSesion.js" defer></script>
+
+    <link rel="stylesheet" href="../CarpetaPerfil/EstilosPerfil.css">
+    <link rel="stylesheet" href="../CarpetaFavoritos/EstilosFavoritos.css">
+
+    <link rel="stylesheet" href="EstilosPerfil.css">
 
     <link rel="stylesheet" href="../css/recetas.css">
     <link rel="stylesheet" href="../css/recetas-banner.css">
     <link rel="stylesheet" href="../css/carrousel.css">
     <script src="recetas.js" defer></script>
+
+    <link rel="stylesheet" href="crear_receta_style.css">
+    <script src="crear_receta_script.js" defer></script>
+    
+    <link rel="stylesheet" href="css/e-BarraLateral.css">
+    <link rel="stylesheet" href="css/j-slider.css">
+
+    <script src="categorias.js" defer></script>
+    
 
     <!-- link SwiperJS CSS biblioteca para sliders -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
@@ -27,9 +50,11 @@
     <!-- Link SwiperJS script -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
     <!-- Link custom script -->
-    <script src="../script.js" defer></script>
-    <script src="../manejarModal.js" defer></script>
-    <script src="../recetas.js" defer></script>
+    <script src="script.js" defer></script>
+    <script src="manejarModal.js" defer></script>
+    <script src="recetas.js" defer></script>
+
+    <script src="../CarpetaPerfil/JSPerfil.js" defer></script>
 
 
 
@@ -47,18 +72,18 @@
     <header class="header">
         <nav class="navegacion-principal nav">
             <div class="container-fluid d-flex justify-content-between align-items-center">
-                <a class="navbar-brand" href="../index.html">
+                <a class="navbar-brand" href="../index/index.php">
                     <img class="logo" src="../images/logo.png" alt="logo">  
                 </a>
                 <ul class="nav justify-content-end"> 
                     <li class="nav-item">
-                        <a class="boton1" href="../index.html">
+                        <a class="boton1" href="../index/index.php">
                             <i class="bi bi-house-door"></i>
                             <span class="texto-icon">Inicio</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="boton1 buscador-header" href="../buscador/buscador.html">
+                        <a class="boton1 buscador-header" href="../buscador/buscador.php">
                             <i class="bi bi-search"></i>
                             <span class="texto-icon">Buscar</span>
                         </a>
@@ -70,7 +95,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">Países</a></li>
-                            <li><a class="dropdown-item" href="../categorias/categorias.html">Categorías</a></li>
+                            <li><a class="dropdown-item" href="../categorias/categorias.php">Categorías</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -99,11 +124,11 @@
                                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-0 ">
 
                                         <li class="nav-item justify-content-center">
-                                            <a class="boton-login col-6" href="../html_inicio_sesion/iniciarSesion.html">Iniciar Sesion</a>
+                                            <a class="boton-login col-6" href="../html_inicio_sesion/iniciarSesion.php">Iniciar Sesion</a>
                                         </li>
 
                                         <li class="nav-item justify-content-center">
-                                            <a class="boton-login col-6" href="../html_inicio_sesion/Registrarse.html">Registrarse</a>
+                                            <a class="boton-login col-6" href="../html_inicio_sesion/Registrarse.php">Registrarse</a>
                                         </li>
 
                                         <li class="nav-item justify-content-center">
@@ -111,19 +136,19 @@
                                         </li>
 
                                         <li class="nav-item justify-content-center">
-                                            <a class="nav-link mt-5" href="../CarpetaPerfil/Perfil.html">Perfil</a>
+                                            <a class="nav-link mt-5" href="../CarpetaPerfil/Perfil.php">Perfil</a>
                                         </li>
                                         <hr>
                                         <li class="nav-item justify-content-center mt-2">
-                                            <a class="nav-link " href="../crear receta/crear_receta.html">Subir Receta</a>
+                                            <a class="nav-link " href="../crearReceta/crear_receta.php">Subir Receta</a>
                                         </li>
                                         <hr>
                                         <li class="nav-item justify-content-center mt-2">
-                                            <a class="nav-link " href="../CarpetaFavoritos/Favoritos.html">Recetas Favoritas </a>
+                                            <a class="nav-link " href="../CarpetaFavoritos/Favoritos.php">Recetas Favoritas </a>
                                         </li>
                                         <hr>
                                         <li class="nav-item justify-content-center mt-2">
-                                            <a class="nav-link" href="../admin/index.html">Administración</a>
+                                            <a class="nav-link" href="../admin/index.php">Administración</a>
                                         </li>
 
                                         <li class="nav-item justify-content-center mt-5 text-center">
