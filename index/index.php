@@ -1,13 +1,6 @@
 <?php 
 session_start();
-if($_SESSION['id'])
-{
-    $msg = 'Hola'.$_SESSION['nomCompleto'];
-}
-else{
-    $msg = 'Bienvenido invitado :)';   
-}
-echo $msg;
+
 ?>
 
 <?php
