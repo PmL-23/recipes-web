@@ -10,15 +10,16 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     include '../includes/conec_db.php';
     $msg = '';
     $varClass = '';
-    $queryCheckLogin = "SELECT * FROM test WHERE email = :email AND password = :password";
+    $queryCheckLogin = "SELECT * FROM usuario WHERE email = :email";
     $resultadoQuery = $conn ->prepare($queryCheckLogin);
     $resultadoQuery->bindParam(':email', $_POST['email']);
-    $resultadoQuery->bindParam(':password', $_POST['password']);
     $resultadoQuery->execute();
-    if($row = $resultadoQuery->fetch(PDO::FETCH_ASSOC))
+    $row = $resultadoQuery->fetch(PDO::FETCH_ASSOC);
+
+    if(($row) && (password_verify($_POST['password'], $row['password'])))
     {
         $_SESSION['nomCompleto'] = $row['nomCompleto'];
-        $_SESSION['id'] = $row['id'];
+        $_SESSION['id'] = $row['id_usuario'];
         header('Location: ../index/index.php');
         die;
         $loginOK = true;
