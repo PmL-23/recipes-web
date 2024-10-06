@@ -1,5 +1,18 @@
-<?php include '../includes/header.php'?>
-  
+<?php 
+session_start();
+if($_SESSION['id'])
+{
+    $msg = 'Hola'.$_SESSION['nomCompleto'];
+}
+else{
+    $msg = 'Bienvenido invitado :)';   
+}
+echo $msg;
+?>
+
+<?php
+include '../includes/header.php'
+?>
     <!-- BUSCADOR -->
     <div class="buscador mt-4">
         <form action="#" method="GET">
