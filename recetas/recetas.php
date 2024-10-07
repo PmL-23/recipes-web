@@ -14,7 +14,7 @@
     </head>
     
 <body>
-<?php include '../includes/header-registrado.php'?>
+<?php include '../includes/header.php'?>
 
     <div class="contenido-principal container my-5 ps-5">
         <div class="perfil-usuario my-3">

@@ -19,7 +19,7 @@ session_start();
     
 <body>
 
-<?php include '../includes/header-login.php'?>
+<?php include '../includes/header.php'?>
     <!-- BUSCADOR -->
     <div class="buscador mt-4">
         <form action="#" method="GET">

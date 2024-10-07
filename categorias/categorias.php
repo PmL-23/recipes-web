@@ -13,7 +13,7 @@
     </head>
     
 <body>
-<?php include '../includes/header-login.php'?>
+<?php include '../includes/header.php'?>
 
     <div class="container d-flex flex-column align-items-center">
         <h1 class="my-5">Filtrar categorias</h1>
