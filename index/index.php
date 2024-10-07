@@ -10,9 +10,23 @@ else{
 echo $msg;
 ?>
 
-<?php
-include '../includes/header.php'
-?>
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Recetario</title>
+
+        <link rel="stylesheet" href="../css/b-search.css">
+        <link rel="stylesheet" href="../css/c-countries.css">
+        <script src="mostrarSegunFecha.js"></script>
+        
+        <?php include '../includes/head.php'?>
+    </head>
+    
+<body>
+
+<?php include '../includes/header-login.php'?>
     <!-- BUSCADOR -->
     <div class="buscador mt-4">
         <form action="#" method="GET">
@@ -60,43 +74,43 @@ include '../includes/header.php'
 
     <!-- paises -->
     <div class="paises-contenedor">
-        <a class="pais" href="#">
+        <a class="pais" href="../html_paises/pais_argentina.html">
             <img src="../svg/argentina.svg" alt="Argentina" id="paisArgentina">
             <p class="pais-nombre">Argentina</p>
         </a>
-        <a class="pais" href="#">
+        <a class="pais" href="../html_paises/pais_bolivia.html">
             <img src="../svg/bolivia.svg" alt="Bolivia" id="paisBolivia">
             <p class="pais-nombre">Bolivia</p>
         </a>
-        <a class="pais" href="#">
+        <a class="pais" href="../html_paises/pais_brasil.html">
             <img src="../svg/brasil.svg" alt="Brasil" id="paisBrasil">
             <p class="pais-nombre">Brasil</p>
         </a>
-        <a class="pais" href="#">
+        <a class="pais" href="../html_paises/pais_chile.html">
             <img src="../svg/chile.svg" alt="Chile" id="paisChile">
             <p class="pais-nombre">Chile</p>
         </a>
-        <a class="pais" href="#">
+        <a class="pais" href="../html_paises/pais_colombia.html">
             <img src="../svg/colombia.svg" alt="Colombia" id="paisColombia">
             <p class="pais-nombre">Colombia</p>
         </a>
-        <a class="pais" href="#">
+        <a class="pais" href="../html_paises/pais_ecuador.html">
             <img src="../svg/ecuador.svg" alt="Ecuador" id="paisEcuador">
             <p class="pais-nombre">Ecuador</p>
         </a>
-        <a class="pais" href="#">
+        <a class="pais" href="../html_paises/pais_paraguay.html">
             <img src="../svg/paraguay.svg" alt="Paraguay" id="paisParaguay">
             <p class="pais-nombre">Paraguay</p>
         </a>
-        <a class="pais" href="#">
+        <a class="pais" href="../html_paises/pais_peru.html">
             <img src="../svg/peru.svg" alt="Perú" id="paisPeru">
             <p class="pais-nombre">Perú</p>
         </a>
-        <a class="pais" href="#">
+        <a class="pais" href="../html_paises/pais_uruguay.html">
             <img src="../svg/uruguay.svg" alt="Uruguay" id="paisUruguay">
             <p class="pais-nombre">Uruguay</p>
         </a>
-        <a class="pais" href="#">
+        <a class="pais" href="../html_paises/pais_venezuela.html">
             <img class="pais" src="../svg/venezuela.svg" alt="Venezuela" id="paisVenezuela">
             <p class="pais-nombre">Venezuela</p>
         </a>

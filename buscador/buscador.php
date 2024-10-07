@@ -1,4 +1,18 @@
-<?php include '../includes/header.php'?>  
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Recetario</title>
+
+        <link rel="stylesheet" href="buscador_style.css">
+        <script src="buscador_script.js" defer></script>
+        
+        <?php include '../includes/head.php'?>
+    </head>
+    
+<body>
+<?php include '../includes/header-login.php'?>
     
     <!-- BUSCADOR -->
     <div class="buscador mt-4 container-fluid">

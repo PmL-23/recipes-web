@@ -20,6 +20,17 @@ const inicio = function() {
             mostrarFetiqueta();
         }
     });
+
+    
+document.getElementById('toggleFiltro').addEventListener('click', function() {
+    var filtroDiv = document.getElementById('filtro');
+    if (filtroDiv.style.display === 'none' || filtroDiv.style.display === '') {
+        filtroDiv.style.display = 'block';
+    } else {
+        filtroDiv.style.display = 'none';
+    }
+});
+
 }
 
 function mostrarFingrediente() {

@@ -1,4 +1,19 @@
-<?php include '../includes/header.php'?>
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Recetario</title>
+        
+        <link rel="stylesheet" href="categorias.css">
+        <script src="categorias.js" defer></script>
+        
+        <?php include '../includes/head.php'?>
+        
+    </head>
+    
+<body>
+<?php include '../includes/header-login.php'?>
 
     <div class="container d-flex flex-column align-items-center">
         <h1 class="my-5">Filtrar categorias</h1>
