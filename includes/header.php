@@ -72,10 +72,20 @@
     <header class="header">
         <nav class="navegacion-principal nav">
             <div class="container-fluid d-flex justify-content-between align-items-center">
-                <a class="navbar-brand" href="../index/index.php">
-                    <img class="logo" src="../images/logo.png" alt="logo">  
-                </a>
-                <ul class="nav justify-content-end"> 
+
+                <div class="m-0 container d-flex flex-row align-items-center">
+                    <a class="navbar-brand" href="../index/index.php"><img class="logo" src="../images/logo.png" alt="logo"></a>
+
+                    <?php
+                        if (isset($_SESSION['id']) && $_SESSION['id']) {
+                            echo '<h2 class="ms-2 text-white">Bienvenido '.$_SESSION['nomCompleto'].'</h2>';
+                        }else{
+                            echo '<h2 class="ms-2 text-white">Bienvenido invitado :)</h2>';
+                        }
+                    ?>
+                </div>
+                
+                <ul class="flex-nowrap w-100 nav justify-content-end"> 
                     <li class="nav-item">
                         <a class="boton1" href="../index/index.php">
                             <i class="bi bi-house-door"></i>
@@ -123,19 +133,11 @@
                                 <div class="row DivConLogIn" id="IDDivConLogIn">
                                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-0 ">
 
-                                        <li class="nav-item justify-content-center">
-                                            <a class="boton-login col-6" href="../html_inicio_sesion/iniciarSesion.php">Iniciar Sesion</a>
-                                        </li>
+                                    <?php
 
-                                        <li class="nav-item justify-content-center">
-                                            <a class="boton-login col-6" href="../html_inicio_sesion/Registrarse.php">Registrarse</a>
-                                        </li>
+                                    if(isset($_SESSION['id']) && $_SESSION['id']){ 
 
-                                        <li class="nav-item justify-content-center">
-                                            <a class="boton-login col-6" href="#"><img alt="logo-google" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/480px-Google_%22G%22_logo.svg.png"/>Ingresar con Google</a>
-                                        </li>
-
-                                        <li class="nav-item justify-content-center">
+                                        echo '<li class="nav-item justify-content-center">
                                             <a class="nav-link mt-5" href="../CarpetaPerfil/Perfil.php">Perfil</a>
                                         </li>
                                         <hr>
@@ -152,8 +154,27 @@
                                         </li>
 
                                         <li class="nav-item justify-content-center mt-5 text-center">
-                                            <a class="btn btn-outline-danger" href="#">Cerrar Sesion</a>
+                                            <a class="btn btn-outline-danger" href="../html_inicio_sesion/cerrarSesion.php">Cerrar Sesion</a>
+                                        </li>'; 
+                                        
+                                    }else{
+                                        
+                                        echo '<li class="nav-item justify-content-center">
+                                            <a class="boton-login col-6" href="../html_inicio_sesion/iniciarSesion.php">Iniciar Sesion</a>
                                         </li>
+
+                                        <li class="nav-item justify-content-center">
+                                            <a class="boton-login col-6" href="../html_inicio_sesion/Registrarse.php">Registrarse</a>
+                                        </li>
+
+                                        <li class="nav-item justify-content-center">
+                                            <a class="boton-login col-6" href="#"><img alt="logo-google" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/480px-Google_%22G%22_logo.svg.png"/>Ingresar con Google</a>
+                                        </li>'; 
+                                        
+                                    }
+
+                                    ?>
+
                                     </ul>
                                 </div>
                             </div>
