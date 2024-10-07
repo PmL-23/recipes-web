@@ -1,22 +1,3 @@
-<<<<<<< HEAD
-<!DOCTYPE html>
-<html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Recetario</title>
-        
-        <link rel="stylesheet" href="../css_inicio_sesion/estilo_sesion.css">
-        <link rel="stylesheet" href="../css_inicio_sesion/iniciarSesion.css">
-        <script src="js/inicioSesion.js" defer></script>
-        
-        <?php include '../includes/head.php'?>
-    </head>
-    
-
-<?php include '../includes/header-visitante.php'?>
-
-=======
 <?php
 require_once '../includes/conec_db.php';
 
@@ -110,8 +91,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 ?>
 
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Recetario</title>
+        
+        <link rel="stylesheet" href="../css_inicio_sesion/estilo_sesion.css">
+        <link rel="stylesheet" href="../css_inicio_sesion/iniciarSesion.css">
+        <script src="js/inicioSesion.js" defer></script>
+        
+        <?php include '../includes/head.php'?>
+    </head>
+
 <?php include '../includes/header.php'?>
->>>>>>> 51b62fe8a94c6015fba6760934d897f856b743d0
     <div class="pt-5"></div>
 
     <!-- Registrarse -->

@@ -49,8 +49,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
         <?php include '../includes/head.php'?>
     </head>
     
-
-<?php include '../includes/header-visitante.php'?>
+<body>
+<?php include '../includes/header.php'?>
 
 <div class="pt-5"></div>
 

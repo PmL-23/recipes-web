@@ -13,7 +13,7 @@
     
 <body>
 
-<?php include '../includes/header-login.php'?>
+<?php include '../includes/header.php'?>
 
     <!-- Main container -->
     <div class="container">

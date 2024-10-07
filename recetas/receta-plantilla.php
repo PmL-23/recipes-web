@@ -15,7 +15,7 @@
     </head>
     
 <body>
-<?php include '../includes/header-login.php'?>
+<?php include '../includes/header.php'?>
 
 
     <div class="contenido-principal container my-5 ps-5">

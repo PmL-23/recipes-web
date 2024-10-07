@@ -15,7 +15,7 @@
     </head>
     
 <body>
-<?php include '../includes/header-login.php'?>
+<?php include '../includes/header.php'?>
 
 <!---supongo que como un titulo que indique que estas en las recetas favoritas y depues ya las 
 publicaciones en si.

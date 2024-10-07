@@ -15,7 +15,7 @@
     </head>
     
 <body>
-<?php include '../includes/header-login.php'?>
+<?php include '../includes/header.php'?>
 
 
     <div class="container-fluid row mt-0 "> <!-- el contenedor de un perfil tedrá el nombre, la foto, la cantidad de perfiles seguidos y los seguidores propios-->

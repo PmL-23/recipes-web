@@ -12,7 +12,7 @@
     </head>
     
 <body>
-<?php include '../includes/header-login.php'?>
+<?php include '../includes/header.php'?>
 
 <form class="needs-validation" action="#" method="POST" id="frm-receta" name="frm-receta">    
     <div class="contenido-principal container w-100 w-lg-75 p-5 seccion">
