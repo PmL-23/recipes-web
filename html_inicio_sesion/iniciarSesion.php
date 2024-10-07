@@ -6,7 +6,7 @@ $loginOK = null;
 
 if($_SERVER['REQUEST_METHOD'] == 'POST')
 {
- 
+
     include '../includes/conec_db.php';
     $msg = '';
     $varClass = '';
@@ -33,11 +33,25 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     }
 }
 ?>
-<?php
-include '../includes/header.php';
-?>
- 
- <div class="pt-5"></div>
+
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Recetario</title>
+
+        <link rel="stylesheet" href="../css_inicio_sesion/estilo_sesion.css">
+        <link rel="stylesheet" href="../css_inicio_sesion/iniciarSesion.css">
+        <script src="js/inicioSesion.js" defer></script>
+        
+        <?php include '../includes/head.php'?>
+    </head>
+    
+
+<?php include '../includes/header-visitante.php'?>
+
+<div class="pt-5"></div>
 
     <!-- Inicio de Sesion -->
     <section id="formulario2" class="d-flex justify-content-center">
@@ -70,5 +84,6 @@ include '../includes/header.php';
             </form>
         </div>
     </section>
+
 
 <?php include '../includes/footer.php'?>

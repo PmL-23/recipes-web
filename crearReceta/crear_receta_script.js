@@ -8,7 +8,7 @@ const inicio = function ()
 
         validar();
 
-}
+};
 
 function validarPortada() {
         const inputPortada = document.getElementById("foto-portada");
@@ -202,7 +202,7 @@ function validarDificultad() {
 
 function validar() {
         let enviar = document.getElementById("btn-publicar");
-        enviar.addEventListener("click", function (event) {
+        enviar.addEventListener("submit", function (event) {
         
                 event.preventDefault();
 
@@ -218,8 +218,6 @@ function validar() {
 
                 
                 });
-
-
 }
 
 
@@ -275,6 +273,9 @@ const visualizarBandera = function ()
                 }
                 else if (paisSeleccionado === "par") {
                         imgBandera.src = "../svg/paraguay.svg";
+                }
+                else if (paisSeleccionado === "per") {
+                        imgBandera.src = "../svg/peru.svg";
                 }
                 else if (paisSeleccionado === "uru") {
                         imgBandera.src = "../svg/uruguay.svg";

@@ -5,43 +5,44 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Recetario</title>
 
-        <link rel="stylesheet" href="../css/recetas-banner.css">
         <link rel="stylesheet" href="../css/recetas.css">
+        <link rel="stylesheet" href="../css/recetas-banner.css">
         <link rel="stylesheet" href="../css/carrousel.css">
         <script src="recetas.js" defer></script>
         
         <?php include '../includes/head.php'?>
+
     </head>
     
 <body>
-<?php include '../includes/header-registrado.php'?>
+<?php include '../includes/header-login.php'?>
+
 
     <div class="contenido-principal container my-5 ps-5">
-        <div class="perfil-usuario my-3">
-            <div class="row align-items-center">
-                <div class="col-md-1 col-sm-6">
-                    <img src="../images/Linus_Torvalds_1.jpg" alt="Perfil Usuario"  id="foto-usuario">
-                </div>
-                <div class="col-md-4 col-sm-1">
-                    <h5 id="nombre-usuario">Linus Torvalds</h5>
-                </div>
-                <div class="col-md-7 col-sm-2 text-end">
-                    <p id="fecha-publicacion" class="text-muted">Fecha de publicación: 29/09/2024</p>
+        <div class="container">
+            <div class="perfil-usuario my-3">
+                <div class="row align-items-center">
+                    <div class="col-md-1 col-sm-6">
+                        <img src="../images/default-image.png" alt="Perfil Usuario"  id="foto-usuario">
+                    </div>
+                    <div class="col-md-4 col-sm-1">
+                        <h5 id="nombre-usuario"></h5>
+                    </div>
+                    <div class="col-md-7 col-sm-2 text-end">
+                        <p id="fecha-publicacion" class="text-muted">Fecha de publicación:<span></span></p>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="container">
-            <div class="row align-items-start">
+            <div class="datos-receta row align-items-start">
                 <div class="contenedor-img d-flex col-md-6 col-sm-12">
-                    <img src="../images/pizza_lp.jpg" alt="Receta" class="portada rounded img-fluid" id="portada-receta">
+                    <img src="../images/default-image.png" alt="Receta" class="portada rounded img-fluid" id="portada-receta">
                 </div>
                 <div class="content-info col-md-6 col-sm-12">
                     <div class="my-5">
-                        <h2>Pizza Linuxera</h2>
-                        <p>Descripción:</p><br>
-                        <p>sudo su</p>
-                        <p class="categoria-style d-inline-flex mb-3 fw-semibold border border-success-subtle rounded-5">Categoría</p>
+                        <h2></h2>
+                        <p></p><br>
+                        <p class="categoria-style d-inline-flex mb-3 fw-semibold border border-success-subtle rounded-5"></p>
                         <p class="estilosCategorias"></p>
                     </div>
                 </div>
@@ -53,49 +54,40 @@
         <div class="row align-items-start">
             <div class="col-4">
                 <div class="align-items-center box-icons">
-                    <img src="../svg/argentina.svg" alt="Bandera" width="35" class="bandera" id="bandera-receta">
-                    <h5>Argentina</h5>    
+                    <img src="#" alt="Bandera" width="35" class="bandera" id="bandera-receta">
+                    <h5></h5>    
                 </div>
             </div>
             <div class="col-4">
                 <div class="align-items-center box-icons">
                     <img src="../svg/bar-chart-line-fill.svg" width="25px" class="icono-item" alt="Dificultad icon">
                     <h5>Dificultad</h5>
-                    <p class="dificultad">Media</p>
+                    <p class="dificultad"></p>
                 </div>
             </div>
             <div class="col-4">
                 <div class="align-items-center box-icons">
                     <img src="../svg/alarm.svg" width="25px" class="icono-item" alt="Dificultad icon">
                     <h5>Tiempo</h5>
-                    <p class="tiempo">30 min</p>
+                    <p class="tiempo"></p>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="container text-center mt-5">
+    <div class="container mt-5">
         <h3>Ingredientes</h3>
-        <div class="row align-items-center my-3">
-            <div class="col-4">
-                <p>Ingrediente 1</p>
-            </div>
-            <div class="col-4">
-                <p>Ingrediente 2</p>
-            </div>
-            <div class="col-4">
-                <p>Ingrediente 3</p>
-            </div>
+        <div class="">
+        <ol class="list-group">
+            <li class="list-group-item"></li>
+        </ol>
         </div>
     </div>
 
     <div class="container mt-5 pasos-receta">
         <h3>Pasos de la Receta</h3>
         <ol class="list-group">
-            <li class="list-group-item">Paso 1: </li>
-            <li class="list-group-item">Paso 2: </li>
-            <li class="list-group-item">Paso 3: </li>
-    
+            <li class="list-group-item">Paso 1:</li>
         </ol>
     </div>
 </div>
@@ -111,8 +103,8 @@
                 <span class="star">&#9734;</span>
                 <span class="star">&#9734;</span>
             </div>
-            <p id="puntajePromedio">3.0</p>
-            <p id="totalValoraciones">Total de Valoraciones: <span id="countValoraciones">5</span></p>
+            <p id="puntajePromedio"></p>
+            <p id="totalValoraciones">Total de Valoraciones: <span id="countValoraciones"></span></p>
         </div>
 
         <div class="container my-5">
@@ -143,7 +135,7 @@
             </div>
         </div>
         
-              
+
 
     <div class="modal fade" id="modalReportar" tabindex="-1" aria-labelledby="modalReportarLabel" aria-hidden="true">
         <div class="modal-dialog">

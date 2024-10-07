@@ -1,33 +1,46 @@
-<?php include '../includes/header.php'?>
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Recetario</title>
+        
+        <script src="crear_receta_script.js" defer></script>
+        <link rel="stylesheet" href="crear_receta_style.css">
+        
+                <?php include '../includes/head.php'?>
+    </head>
     
+<body>
+<?php include '../includes/header-login.php'?>
 
-<form class="needs-validation" action="" method="get" id="frm-receta">    
+<form class="needs-validation" action="#" method="POST" id="frm-receta" name="frm-receta">    
     <div class="contenido-principal container w-100 w-lg-75 p-5 seccion">
             <div class="contenedor-img-preview text-center d-flex p-2 justify-content-center">
                 <img src="default-image.png" class="preview border rounded img-fluid" alt="Vista previa de la portada" id="preview-portada">
             </div>
             <div>
                 <label for="foto-portada" class="h5 form-label">Foto de portada</label>
-                <input class="form-control form-control-md" id="foto-portada" name="nportada" type="file" accept="image/*" required>
+                <input class="form-control form-control-md" id="foto-portada" name="portada" type="file" accept="image/*" required>
                 <small class="text-danger" id="errorPortada"></small>
             </div>
 
             <div>
                 <label class="h5 form-label" for="titulo">TÍtulo</label>
-                <input class="form-control form-control-md" type="text" name="ntitulo" placeholder="Añade el titulo de tu receta" aria-label=".form-control" id="titulo" maxlength="100" required>
+                <input class="form-control form-control-md" type="text" placeholder="Añade el titulo de tu receta" aria-label=".form-control" id="titulo" name="titulo" maxlength="100" required>
                 <small class="text-danger" id="error-titulo"></small>
             </div>
         
                 <div>
                 <label for="descripcion" class="h5 form-label">Descripción</label>
-                <textarea class="form-control textarea-resize" id="descripcion" name="ndescripcion" placeholder="Añade una descripción a tu receta" required></textarea>
+                <textarea class="form-control textarea-resize" id="descripcion" name="descripcion" placeholder="Añade una descripción a tu receta" required></textarea>
                 <small class="text-danger" id="error-descripcion"></small>
                 </div>
 
             <div class="row">
                 <div class="col-md-6">
                     <label for="select-pais" class="h6 form-label">País</label>
-                    <select class="form-select" aria-label="Select pais" name="npais" id="select-pais" required>
+                    <select class="form-select" aria-label="Select pais" name="pais" id="select-pais" required>
                         <option selected value="sin">-</option>
                         <option value="arg">Argentina</option>
                         <option value="bol">Bolivia</option>
@@ -47,7 +60,7 @@
                 </div>
                 <div class="col-md-6">
                     <label for="categoria" class="h6 form-label">Categoría</label>
-                    <select class="form-select" aria-label="Select pais" name="ncategoria" id="categoria">
+                    <select class="form-select" aria-label="Select pais" id="categoria" name="categoria">
                         <option selected>-</option>
                     </select>
                     <small class="text-danger" id="error-categoria"></small>
@@ -58,7 +71,7 @@
             <div class="row">
                 <div class="col mb-5">
                     <label for="dificultad" class="h6 form-label">Dificultad de elaboración</label>
-                    <select class="form-select" aria-label="Select dificultad" name="ndificultad" id="dificultad" required>
+                    <select class="form-select" aria-label="Select dificultad" id="dificultad" name="dificultad" required>
                         <option selected disabled>Elegí la dificultad de tu platillo</option>
                         <option value="facil">Fácil</option>
                         <option value="media">Media</option>
@@ -68,7 +81,7 @@
                 </div>
                 <div class="col-md-3 col-sm-12">
                     <label for="tiempo-elaboracion" class="h6 form-label">Tiempo de elaboración</label>
-                    <input type="number" class="form-control" name="ntiempoelab" placeholder="Ej: 30, 120..." aria-label="Number tiempo" id="tiempo-elaboracion" min="1" max="999999" required>
+                    <input type="number" class="form-control" name="tiempoelab" placeholder="Ej: 30, 120..." aria-label="Number tiempo" id="tiempo-elaboracion" min="1" max="999999" required>
                     <small class="text-danger" id="error-tiempo"></small>
 
                 </div>
