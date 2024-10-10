@@ -10,8 +10,9 @@ session_start();
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Recetario</title>
 
-        <link rel="stylesheet" href="../css/b-search.css">
+        <link rel="stylesheet" href="../buscador/buscador_style.css">
         <link rel="stylesheet" href="../css/c-countries.css">
+        <script src="../buscador/buscador_script.js" defer></script>
         <script src="mostrarSegunFecha.js"></script>
         
         <?php include '../includes/head.php'?>
@@ -36,74 +37,85 @@ session_start();
         <div class="filtro" id="filtro">
             <h5>Filtros de Búsqueda</h5>
             <form id="filtroForm">
-                <div class="form-group">
+                <div class="form-group container">
                     <label for="tipoFiltro">Filtrar por:</label>
                     <select class="form-control" id="tipoFiltro">
                         <option value="publicacion">Publicación</option>
                         <option value="ingredientes">Ingredientes</option>
                         <option value="etiquetas">Etiquetas</option>
+                        <option value="categoria">Categoría</option>
                     </select>
                 </div>
-                <div class="form-group">
+            <div class="container">
+                <div class="form-group d-none" id="ingrediente-filtro">
                     <label for="ingrediente">Ingrediente</label>
                     <input type="text" class="form-control" id="ingrediente" placeholder="Ej. Tomate">
                 </div>
-                <div class="form-group">
+                <div class="form-group d-none" id="categoria-filtro">
                     <label for="categoria">Categoría</label>
                     <select class="form-control" id="categoria" multiple>
-                        <option value="ensalada">Ensalada</option>
-                        <option value="sopa">Sopa</option>
-                        <option value="postre">Postre</option>
+                        <option value="saladas">Saladas</option>
+                        <option value="ocaciones-especiales">Ocaciones Especiales</option>
+                        <option value="dietas-especiales">Dietas Especiales</option>
+                        <option value="bebidas">Bebidas</option>
+                        <option value="dulces">Dulces</option>
                     </select>
                 </div>
-                <div class="form-group">
+                <div class="form-group d-none" id="publicacion-filtro">
+                    <label for="publicacion">Publicación</label>
+                    <select class="form-control" id="publicacion" multiple>
+                        <option value="Valoración">Valoración</option>
+                        <option value="Tiempo de elaboración">Tiempo de elaboración</option>
+                    </select>
+                </div>
+                <div class="form-group d-none" id="etiqueta-filtro">
                     <label for="etiqueta">Etiquetas</label>
                     <input type="text" class="form-control" id="etiqueta" placeholder="Ej. Vegetariano">
                 </div>
-                <button type="submit" class="btn btn-success">Buscar</button>
+            </div>
             </form>
         </div>
     </div>
 
     <!-- paises -->
     <div class="paises-contenedor">
-        <a class="pais" href="../html_paises/pais_argentina.html">
+        <a class="pais" href="../html_paises/pais_argentina.php">
             <img src="../svg/argentina.svg" alt="Argentina" id="paisArgentina">
             <p class="pais-nombre">Argentina</p>
         </a>
-        <a class="pais" href="../html_paises/pais_bolivia.html">
+        <a class="pais" href="../html_paises/pais_bolivia.php">
             <img src="../svg/bolivia.svg" alt="Bolivia" id="paisBolivia">
             <p class="pais-nombre">Bolivia</p>
         </a>
-        <a class="pais" href="../html_paises/pais_brasil.html">
+        <a class="pais" href="../html_paises/pais_brasil.php">
             <img src="../svg/brasil.svg" alt="Brasil" id="paisBrasil">
             <p class="pais-nombre">Brasil</p>
         </a>
-        <a class="pais" href="../html_paises/pais_chile.html">
+        <a class="pais" href="../html_paises/pais_chile.php">
             <img src="../svg/chile.svg" alt="Chile" id="paisChile">
             <p class="pais-nombre">Chile</p>
         </a>
-        <a class="pais" href="../html_paises/pais_colombia.html">
+        <a class="pais" href="../html_paises/pais_colombia.php">
             <img src="../svg/colombia.svg" alt="Colombia" id="paisColombia">
             <p class="pais-nombre">Colombia</p>
         </a>
-        <a class="pais" href="../html_paises/pais_ecuador.html">
+        <a class="pais" href="../html_paises/pais_ecuador.php">
             <img src="../svg/ecuador.svg" alt="Ecuador" id="paisEcuador">
             <p class="pais-nombre">Ecuador</p>
         </a>
-        <a class="pais" href="../html_paises/pais_paraguay.html">
+        <a class="pais" href="../html_paises/pais_paraguay.php">
             <img src="../svg/paraguay.svg" alt="Paraguay" id="paisParaguay">
             <p class="pais-nombre">Paraguay</p>
         </a>
-        <a class="pais" href="../html_paises/pais_peru.html">
+        <a class="pais" href="../html_paises/pais_peru.php">
             <img src="../svg/peru.svg" alt="Perú" id="paisPeru">
             <p class="pais-nombre">Perú</p>
         </a>
-        <a class="pais" href="../html_paises/pais_uruguay.html">
+        <a class="pais" href="../html_paises/pais_uruguay.php">
             <img src="../svg/uruguay.svg" alt="Uruguay" id="paisUruguay">
             <p class="pais-nombre">Uruguay</p>
         </a>
-        <a class="pais" href="../html_paises/pais_venezuela.html">
+        <a class="pais" href="../html_paises/pais_venezuela.php">
             <img class="pais" src="../svg/venezuela.svg" alt="Venezuela" id="paisVenezuela">
             <p class="pais-nombre">Venezuela</p>
         </a>
