@@ -15,7 +15,7 @@
 <?php include '../includes/header.php'?>
     
     <!-- BUSCADOR -->
-    <div class="buscador mt-4 container-fluid">
+    <div class="buscador mt-4">
         <form action="#" method="GET">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#26533c" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
@@ -24,11 +24,9 @@
             </svg>
             <input type="text" placeholder="Busca recetas, ingredientes, personas y más"
                 class="form-control d-inline-block" style="width: 80%;" id="busqueda">
-                <button type="submit" class="btn btn-success">Buscar</button>
+            <button type="button" id="toggleFiltro" class="btn btn-primary">Filtrar</button>
         </form>
     
-    <div>
-        <button type="button" id="toggleFiltro" class="btn btn-outline-success justify-content-md-end">Filtrar</button>
         <div class="filtro" id="filtro">
             <h5>Filtros de Búsqueda</h5>
             <form id="filtroForm">
@@ -69,8 +67,7 @@
                 </div>
             </div>
             </form>
-        </div>
-    </div>    
+        </div>   
 </div>
 
 <div class="container">
