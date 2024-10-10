@@ -7,6 +7,8 @@
 
         <link rel="stylesheet" href="../css/e-admin.css">
         <script src="admin.js" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
         
         <?php include '../includes/head.php'?>
     </head>
@@ -102,12 +104,6 @@
         </div>
     </div>
 
-    <!-- Scripts de bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- Scripts propio ( debe estar despues de cargar bootstrap para no tener problemas con modales/popups ) -->
-    <script src="admin.js"></script>
 </body>
 
 </html>

@@ -1,127 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="favicon/x-icon" href="../images/logo.png">
-    <link rel="stylesheet" href="../css/0-globals.css">
-    <link rel="stylesheet" href="../css/a-header.css">
-    <link rel="stylesheet" href="../css/b-search.css">
-    <link rel="stylesheet" href="../css/e-BarraLateral.css">
-    <link rel="stylesheet" href="../html_paises/css/paises.css">
-    <link rel="stylesheet" href="../css/f-recomendacion.css">
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Venezuela</title>
 
-    <!-- Link custom script -->
-    <script src="/script.js" defer></script>
-    <script src="/manejarModal.js" defer></script>
-    <script src="../html_paises/js/ordenarRecetas.js" defer></script>
-    <script src="js/ordenarRecetas.js" defer></script>
-    <!-- fuentes -->
-    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
-    <!--bootstrap-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-    <title>Venezuela</title>
-</head>
+        <link rel="stylesheet" href="../html_paises/css/paises.css">
+        <script src="../html_paises/js/ordenarRecetas.js" defer></script>
+        <script src="js/ordenarRecetas.js" defer></script>
+        
+        <?php include '../includes/head.php'?>
+    </head>
+    
 <body>
-<!-- header -->
-<header class="header">
-    <nav class="navegacion-principal nav">
-        <div class="container-fluid d-flex justify-content-between align-items-center">
-            <a class="navbar-brand" href="../index.html">
-                <img class="logo" src="../images/logo.png" alt="logo">
-            </a>
-            <ul class="nav justify-content-end">
-                <li class="nav-item">
-                    <a class="boton1" href="../index.html">
-                        <i class="bi bi-house-door"></i>
-                        <span class="texto-icon">Inicio</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="boton1 buscador-header" href="../buscador/buscador.html">
-                        <i class="bi bi-search"></i>
-                        <span class="texto-icon">Buscar</span>
-                    </a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="boton1 dropdown-toggle" role="button" data-bs-toggle="dropdown" href="#">
-                        <i class="bi bi-compass"></i>
-                        <span class="texto-icon">Explorar</span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Países</a></li>
-                        <li><a class="dropdown-item" href="../categorias/categorias.html">Categorías</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <button class="notificaciones btn btn-outline-light boton-menu" href="#">
-                        <i class="bi bi-bell"></i>
-                    </button>
-                </li>
-                <li class="nav-item">
-                    <!--barra lateral-->
-                    <button class="btn btn-outline-light boton-menu" type="button" data-bs-toggle="offcanvas"
-                    data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                    <!-- Icono de menú lateral -->
-                        <i class="bi bi-list"></i>
-                    </button>
-
-                    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
-                        aria-labelledby="offcanvasRightLabel">
-                        <div class="offcanvas-header">
-                            <h5 class="offcanvas-title" id="offcanvasRightLabel">Menú Recetas de America</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                        </div>
-
-                        <div class="offcanvas-body container">
-
-                            <div class="row DivConLogIn" id="IDDivConLogIn">
-                                <ul class="navbar-nav justify-content-end flex-grow-1 pe-0 ">
-
-                                    <li class="nav-item justify-content-center">
-                                        <a class="boton-login col-6" href="./html_inicio_sesion/iniciarSesion.html">Iniciar Sesion</a>
-                                    </li>
-
-                                    <li class="nav-item justify-content-center">
-                                        <a class="boton-login col-6" href="./html_inicio_sesion/Registrarse.html">Registrarse</a>
-                                    </li>
-
-                                    <li class="nav-item justify-content-center">
-                                        <a class="boton-login col-6" href="#"><img alt="logo-google" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/480px-Google_%22G%22_logo.svg.png"/>Ingresar con Google</a>
-                                    </li>
-
-                                    <li class="nav-item justify-content-center">
-                                        <a class="nav-link mt-5" href="../CarpetaPerfil/Perfil.html">Perfil</a>
-                                    </li>
-                                    <hr>
-                                    <li class="nav-item justify-content-center mt-2">
-                                        <a class="nav-link " href="../crear receta/crear_receta.html">Subir Receta</a>
-                                    </li>
-                                    <hr>
-                                    <li class="nav-item justify-content-center mt-2">
-                                        <a class="nav-link " href="../CarpetaFavoritos/Favoritos.html">Recetas Favoritas </a>
-                                    </li>
-                                    <hr>
-                                    <li class="nav-item justify-content-center mt-2">
-                                        <a class="nav-link" href="../admin/index.html">Administración</a>
-                                    </li>
-
-                                    <li class="nav-item justify-content-center mt-5 text-center">
-                                        <a class="btn btn-outline-danger" href="#">Cerrar Sesion</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</header>
+<?php include '../includes/header.php'?>
     
     <h2 class="text-center pt-5">Las mejores recetas de Venezuela</h2>
 <!-- Barra de navegación secundaria -->
