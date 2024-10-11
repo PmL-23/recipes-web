@@ -1,3 +1,17 @@
+<?php session_start();
+
+    if (empty($_SESSION['rol']) && !$_SESSION['rol']) {
+
+        header('Location: ../index/index.php'); // Vuelvo al index si no hay rol definido
+        exit();
+    }else{
+        if ($_SESSION['rol'] != "admin") {
+            header('Location: ../index/index.php'); // Vuelvo hay rol pero no es admin
+            exit();
+        }
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="es">
     <head>

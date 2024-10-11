@@ -14,6 +14,8 @@ session_start();
         <link rel="stylesheet" href="../css/c-countries.css">
         <script src="../buscador/buscador_script.js" defer></script>
         <script src="mostrarSegunFecha.js"></script>
+        <!-- Link custom script -->
+        <script src="../index/manejarModal.js" defer></script>
         
         <?php include '../includes/head.php'?>
     </head>

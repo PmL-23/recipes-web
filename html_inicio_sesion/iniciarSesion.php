@@ -10,7 +10,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     include '../includes/conec_db.php';
     $msg = '';
     $varClass = '';
-    $queryCheckLogin = "SELECT * FROM usuario WHERE email = :email";
+    $queryCheckLogin = "SELECT usuario.*, rol.nombre as nombre_rol FROM usuario JOIN rol ON rol.id_rol = usuario.id_rol WHERE email = :email";
     $resultadoQuery = $conn ->prepare($queryCheckLogin);
     $resultadoQuery->bindParam(':email', $_POST['email']);
     $resultadoQuery->execute();
@@ -20,6 +20,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     {
         $_SESSION['nomCompleto'] = $row['nomCompleto'];
         $_SESSION['id'] = $row['id_usuario'];
+        $_SESSION['rol'] = $row['nombre_rol'];
         header('Location: ../index/index.php');
         die;
         $loginOK = true;
@@ -42,9 +43,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Recetario</title>
 
-        <link rel="stylesheet" href="../css_inicio_sesion/estilo_sesion.css">
-        <link rel="stylesheet" href="../css_inicio_sesion/iniciarSesion.css">
-        <script src="js/inicioSesion.js" defer></script>
+        <!-- <link rel="stylesheet" href="../../css_inicio_sesion/estilo_sesion.css">
+        <link rel="stylesheet" href="../../css_inicio_sesion/iniciarSesion.css"> -->
         
         <?php include '../includes/head.php'?>
     </head>
