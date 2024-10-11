@@ -184,7 +184,9 @@ session_start();
     </div>
 
 <div class="pt-7"></div>
-
+<div class="container">
+    <div class="my-4 text-start display-4 fw-bold text-primary">Las mejores recetas!</div>
+</div>
 
     <!-- slider -->
     <div id="custom">
@@ -310,10 +312,6 @@ session_start();
 <!-- Recetas Argentinas -->
 <div class="container mt-5">
     <!-- Saludo -->
-    <!-- <div id="saludoDia" class="saludo-dia my-4 text-start display-4 fw-bold text-primary">
-    </div>
-    <div id="saludoDia" class="saludo-dia my-4 text-start display-4 fw-bold text-primary">
-    </div> -->
     <div id="saludoDia" class="saludo-dia my-4 text-start display-4 fw-bold text-primary">
         <!-- El saludo dinámico se mostrará aquí -->
     </div>
