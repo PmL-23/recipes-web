@@ -7,23 +7,26 @@
 
         <link rel="stylesheet" href="buscador_style.css">
         <script src="buscador_script.js" defer></script>
+        <script src="search.js" defer></script>
+        <script src="pasos.js" defer></script>
+        <script src="ingredientes.js" defer></script>
         
         <?php include '../includes/head.php'?>
     </head>
     
 <body>
-<?php include '../includes/header.php'?>
+<?php include '../includes/header.php';?>
     
     <!-- BUSCADOR -->
     <div class="buscador mt-4">
-        <form action="#" method="GET">
+        <form action="" method="post">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#26533c" stroke-width="2"
                 stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="11" cy="11" r="6" /> <!-- El círculo de la lupa -->
                 <line x1="16" y1="16" x2="21" y2="21" /> <!-- Mango de la lupa -->
             </svg>
             <input type="text" placeholder="Busca recetas, ingredientes, personas y más"
-                class="form-control d-inline-block" style="width: 80%;" id="busqueda">
+                class="form-control d-inline-block" style="width: 80%;" name="campo" id="campo">
             <button type="button" id="toggleFiltro" class="btn btn-primary">Filtrar</button>
         </form>
     
@@ -71,7 +74,25 @@
 </div>
 
 <div class="container">
-    <h2>Resultado:</h2><span id="text-ingresado"></span>
+    <table class="table table-striped table-hover">
+    <tbody id="content">
+        <!-- Aquí se rellenarán los datos dinámicamente -->
+    </tbody>
+</table>
+    
+    <div id="modalReceta" class="modal">
+        <div class="modal-contenido">
+            <span class="cerrar">&times;</span>
+            <h3>Pasos:</h3>
+            <ol id="pasosReceta">
+                <!-- Los pasos se cargarán aquí dinámicamente -->
+            </ol>
+            <h3>Ingredientes:</h3>
+        <ul id="ingredientesReceta">
+            <!-- Los ingredientes se cargarán aquí dinámicamente -->
+        </ul>
+        </div>
+    </div>
 </div>
 <div>
     <h1></h1><br>

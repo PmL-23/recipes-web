@@ -24,6 +24,8 @@ session_start();
 
 <?php include '../includes/header.php'?>
     <!-- BUSCADOR -->
+     <?php include '../includes/conec_db.php';?>
+     
     <div class="buscador mt-4">
         <form action="#" method="GET">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#26533c" stroke-width="2"
@@ -32,7 +34,7 @@ session_start();
                 <line x1="16" y1="16" x2="21" y2="21" /> <!-- Mango de la lupa -->
             </svg>
             <input type="text" placeholder="Busca recetas, ingredientes, personas y más"
-                class="form-control d-inline-block" style="width: 80%;" id="busqueda">
+                class="form-control d-inline-block" style="width: 80%;" id="busqueda" name="buscar">
             <button type="button" id="toggleFiltro" class="btn btn-primary">Filtrar</button>
         </form>
 
