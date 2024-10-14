@@ -13,7 +13,6 @@ document.addEventListener("DOMContentLoaded", function() {
 function fetchPasosReceta(idReceta) {
     let modal = document.getElementById("modalReceta");
     let pasosLista = document.getElementById("pasosReceta");
-    let ingredientesLista = document.getElementById("ingredientesReceta"); // Asegúrate de tener un contenedor para ingredientes
 
     let url = "pasos.php";
     let formData = new FormData();
@@ -29,9 +28,16 @@ function fetchPasosReceta(idReceta) {
 
         if (data.length > 0) {
             data.forEach(paso => {
-                let li = document.createElement("li");
-                li.textContent = paso.texto; // Ajustar según cómo recibas el texto
-                pasosLista.appendChild(li);
+                // Dividir el texto del paso en oraciones separadas por un punto
+                let oraciones = paso.texto.split('.');
+
+                oraciones.forEach((oracion, index) => {
+                    if (oracion.trim() !== '') { // Evitar agregar oraciones vacías
+                        let li = document.createElement("li");
+                        li.textContent = `${oracion.trim()}.`; // Agregar el punto al final
+                        pasosLista.appendChild(li);
+                    }
+                });
             });
         } else {
             pasosLista.innerHTML = '<li>No se encontraron pasos.</li>';
