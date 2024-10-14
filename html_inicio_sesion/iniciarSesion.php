@@ -10,7 +10,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     include '../includes/conec_db.php';
     $msg = '';
     $varClass = '';
-    $queryCheckLogin = "SELECT usuario.*, rol.nombre as nombre_rol FROM usuario JOIN rol ON rol.id_rol = usuario.id_rol WHERE email = :email";
+    $queryCheckLogin = "SELECT usuarios.*, roles.nombre as nombre_rol FROM usuarios JOIN roles ON roles.id_rol = usuarios.id_rol WHERE email = :email";
     $resultadoQuery = $conn ->prepare($queryCheckLogin);
     $resultadoQuery->bindParam(':email', $_POST['email']);
     $resultadoQuery->execute();
@@ -18,7 +18,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 
     if(($row) && (password_verify($_POST['password'], $row['password'])))
     {
-        $_SESSION['nomCompleto'] = $row['nomCompleto'];
+        $_SESSION['nomCompleto'] = $row['nom_completo'];
         $_SESSION['id'] = $row['id_usuario'];
         $_SESSION['rol'] = $row['nombre_rol'];
         header('Location: ../index/index.php');

@@ -79,14 +79,19 @@
                                         <li class="nav-item justify-content-center mt-2">
                                             <a class="nav-link " href="../CarpetaFavoritos/Favoritos.php">Recetas Favoritas </a>
                                         </li>
-                                        <hr>
-                                        <li class="nav-item justify-content-center mt-2">
-                                            <a class="nav-link" href="../admin/index.php">Administración</a>
-                                        </li>
+                                        <hr>';
 
-                                        <li class="nav-item justify-content-center mt-5 text-center">
-                                            <a class="btn btn-outline-danger" href="../html_inicio_sesion/cerrarSesion.php">Cerrar Sesion</a>
-                                        </li>'; 
+                                        if (isset($_SESSION['rol']) && $_SESSION['rol']) {
+                                            if ($_SESSION['rol'] == 'admin') {
+                                                echo '<li class="nav-item justify-content-center mt-2">
+                                                    <a class="nav-link" href="../admin/index.php">Administración</a>
+                                                </li>';
+                                            }
+                                        }
+
+                                        echo'<li class="nav-item justify-content-center mt-5 text-center">
+                                                <a class="btn btn-outline-danger" href="../html_inicio_sesion/cerrarSesion.php">Cerrar Sesion</a>
+                                            </li>'; 
                                         
                                     }else{
                                         
