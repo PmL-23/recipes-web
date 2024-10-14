@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="../html_paises/css/paises.css">
         <script src="../html_paises/js/ordenarRecetas.js" defer></script>
         <script src="js/ordenarRecetas.js" defer></script>
+        <script src="../index/manejarModal.js" defer></script>
         
         <?php include '../includes/head.php'?>
     </head>
@@ -111,7 +112,7 @@
             <!-- Almuerzo -->
             <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion  almuerzo">
                 <div class="card h-100">
-                    <img src="../html_paises/img/imgArg/milanesaNapo.jpg" class="card-img-top" alt="milanesa napolitana">
+                    <img src="../html_paises/img/imgArg/milanesa napolitana.jpg" class="card-img-top" alt="milanesa napolitana">
                     <div class="card-body">
                         <h5 class="card-title">Milanesa a la Napolitana</h5>
                         <p class="card-text">Deliciosa milanesa empanada, cubierta con salsa de tomate y queso fundido,
