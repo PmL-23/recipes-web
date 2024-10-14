@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Verifico si el usuario ya está registrado con esos datos.
-    $sqlUsuarioExistente = "SELECT id_usuario FROM usuario WHERE username = :Username OR email = :Email";
+    $sqlUsuarioExistente = "SELECT id_usuario FROM usuarios WHERE username = :Username OR email = :Email";
     $sqlVerificarUsuarioExistente = $conn->prepare($sqlUsuarioExistente); //Preparo la consulta que verifica si existe usuario con esos datos
 
     if (!$sqlVerificarUsuarioExistente) {
@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-    $sqlVerificarUsuarioExistente->bindParam(':Username', $fechaNacimiento, PDO::PARAM_STR);
+    $sqlVerificarUsuarioExistente->bindParam(':Username', $username, PDO::PARAM_STR);
     $sqlVerificarUsuarioExistente->bindParam(':Email', $email, PDO::PARAM_STR);
 
     $sqlVerificarUsuarioExistente->execute();
@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Registro del usuario, acá inserto a la tabla usuario los datos que se llenaron en el registro.
 
-        $sqlUsuario = "INSERT INTO usuario(id_rol, username, nomCompleto, email, password, fecha_nacimiento) VALUES (1, :Username, :NombreCompleto, :Email, :Password, :Fecha_Nac)";
+        $sqlUsuario = "INSERT INTO usuarios(id_rol, username, nom_completo, email, password, fecha_nacimiento) VALUES (1, :Username, :NombreCompleto, :Email, :Password, :Fecha_Nac)";
         $stmtUsuario = $conn->prepare($sqlUsuario); //Preparo la consulta que me inserta un usuario
 
         if (!$stmtUsuario) {

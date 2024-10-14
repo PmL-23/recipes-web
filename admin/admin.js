@@ -1,9 +1,9 @@
-//ARRAYS QUE USO PARA SIMULAR DATOS PROVENIENTES DE UNA BASE DE DATOS
-const categorias = ["Vegano", "Bebidas", "Ensaladas", "Postres"];
-const etiquetas = ["Cena", "Invierno"];
-const ingredientes = ["Harina", "Azucar", "Chocolate"];
+import { obtenerCategorias } from "./ScriptsJS/obtenerCategorias.js";
+import { obtenerEtiquetas } from "./ScriptsJS/obtenerEtiquetas.js";
+import { obtenerIngredientes } from "./ScriptsJS/obtenerIngredientes.js";
 
 //OBJETOS QUE USO PARA SIMULAR DATOS PROVENIENTES DE UNA BASE DE DATOS
+
 const usuariosReportados = [
     {
         id: 1,
@@ -114,12 +114,23 @@ const publicacionesReportadas = [
     }
 ];
 
-const modalElement = document.getElementById('modalGestionItem');
-const modalBootstrap = new bootstrap.Modal(modalElement);
+const modalElement1 = document.getElementById('modalGestionCategoria');
+const modalBootstrapCategorias = new bootstrap.Modal(modalElement1);
+
+const modalElement2 = document.getElementById('modalGestionEtiqueta');
+const modalBootstrapEtiquetas = new bootstrap.Modal(modalElement2);
+
+const modalElement3 = document.getElementById('modalGestionIngrediente');
+const modalBootstrapIngredientes = new bootstrap.Modal(modalElement3);
+
+const modalElement4 = document.getElementById('modalEliminarItem');
+const modalBootstrapEliminarItem = new bootstrap.Modal(modalElement4);
 
 document.addEventListener("DOMContentLoaded", function (){
 
     verificarSeccion();
+
+    actualizarContadores();
 
     document.querySelectorAll('.list-group a').forEach(item => {
 
@@ -135,20 +146,338 @@ document.addEventListener("DOMContentLoaded", function (){
         });
     });
 
-    // Agrego listening para capturar cambios en el hash dinámicamente
-    window.addEventListener('hashchange', function () {
-        manejarContenido(location.hash);
+    document.getElementById("btn-add-item").addEventListener("click", function (){
+
+        if(location.hash == "#admin-categorias" || location.hash == "#" || location.hash == ""){
+
+            document.getElementById("modalGestionCategoriaTitulo").textContent = "Crear categoría";
+            document.getElementById("inputCategoriaTitulo").value = '';
+
+            const imgPreviaCategoria = document.getElementById("imgPreviaCategoria");
+            imgPreviaCategoria.classList.add("d-none");
+            document.getElementById("seccion").value = '';
+
+            document.getElementById("formulario-gestion-categorias").dataset.accion = 'crear';
+            document.getElementById("categoriaID").value = '';
+
+        }else if(location.hash == "#admin-etiquetas"){
+
+            document.getElementById("modalGestionEtiquetaTitulo").textContent = "Crear etiqueta";
+            document.getElementById("inputEtiquetaTitulo").value = '';
+
+            document.getElementById("formulario-gestion-etiquetas").dataset.accion = 'crear';
+            document.getElementById("etiquetaID").value = '';
+
+        }else if(location.hash == "#admin-ingredientes"){
+
+            document.getElementById("modalGestionIngredienteTitulo").textContent = "Añadir ingrediente";
+            document.getElementById("inputIngredienteTitulo").value = '';
+
+            document.getElementById("formulario-gestion-ingredientes").dataset.accion = 'crear';
+            document.getElementById("ingredienteID").value = '';
+        }
     });
 
-    document.querySelector(".btn-add-item").addEventListener("click", modificarModalCrear);
+    document.getElementById("formulario-gestion-categorias").addEventListener("submit", function (e){
 
-    document.getElementById("formulario").addEventListener("submit", function(e){
         e.preventDefault();
 
+        let urlActual = window.location.href;
+        let palabraClave = "recipes-web-master/";
+
+            // Encuentra el índice de la palabra "recipes-web-master/" en la URL
+        let indice = urlActual.indexOf(palabraClave);
+
         if (e.target.dataset.accion == "crear") {
-            agregarItem();
+
+            if (indice !== -1) {
+
+                // Guarda la URL desde el inicio hasta la palabra "recipes-web-master/"
+                let urlCortada = urlActual.substring(0, indice + palabraClave.length);
+
+                fetch(urlCortada + "admin/CategoriasPHP/crearCategoria.php", {
+            
+                    method: "POST",
+                    body: new FormData(e.target)
+                })
+                .then(res => res.json())
+                .then(data => {
+
+                    if (data.success == true) {
+                        console.log("Categoria creada con éxito");
+                    }else{
+                        console.log("Error al crear categoría");
+                    }
+
+                    obtenerCategorias();
+
+                    modalBootstrapCategorias.hide();
+
+                });
+
+            } else {
+                console.log("La cadena 'recipes-web-master/' no se encontró en la URL.");
+            }
         }else if(e.target.dataset.accion == "editar"){
-            editarItem();
+
+            if (indice !== -1) {
+
+                // Guarda la URL desde el inicio hasta la palabra "recipes-web-master/"
+                let urlCortada = urlActual.substring(0, indice + palabraClave.length);
+
+                fetch(urlCortada + "admin/CategoriasPHP/editarCategoria.php", {
+            
+                    method: "POST",
+                    body: new FormData(e.target)
+                })
+                .then(res => res.json())
+                .then(data => {
+
+                    if (data.success == true) {
+                        console.log("Categoria editada con éxito");
+                    }else{
+                        console.log("Error al editar categoría");
+                    }
+
+                    obtenerCategorias();
+
+                    modalBootstrapCategorias.hide();
+
+                });
+
+            } else {
+                console.log("La cadena 'recipes-web-master/' no se encontró en la URL.");
+            }
+        }
+    });
+
+    document.getElementById("formulario-gestion-etiquetas").addEventListener("submit", function (e){
+        e.preventDefault();
+
+        let urlActual = window.location.href;
+        let palabraClave = "recipes-web-master/";
+
+            // Encuentra el índice de la palabra "recipes-web-master/" en la URL
+        let indice = urlActual.indexOf(palabraClave);
+
+        if (e.target.dataset.accion == "crear") {
+
+            if (indice !== -1) {
+
+                // Guarda la URL desde el inicio hasta la palabra "recipes-web-master/"
+                let urlCortada = urlActual.substring(0, indice + palabraClave.length);
+
+                fetch(urlCortada + "admin/EtiquetasPHP/crearEtiqueta.php", {
+            
+                    method: "POST",
+                    body: new FormData(e.target)
+                })
+                .then(res => res.json())
+                .then(data => {
+
+                    if (data.success == true) {
+                        console.log("Etiqueta creada con éxito");
+                    }else{
+                        console.log("Error al crear etiqueta");
+                    }
+
+                    obtenerEtiquetas();
+
+                    modalBootstrapEtiquetas.hide();
+
+                });
+
+            } else {
+                console.log("La cadena 'recipes-web-master/' no se encontró en la URL.");
+            }
+        }else if(e.target.dataset.accion == "editar"){
+
+            if (indice !== -1) {
+
+                // Guarda la URL desde el inicio hasta la palabra "recipes-web-master/"
+                let urlCortada = urlActual.substring(0, indice + palabraClave.length);
+
+                fetch(urlCortada + "admin/EtiquetasPHP/editarEtiqueta.php", {
+            
+                    method: "POST",
+                    body: new FormData(e.target)
+                })
+                .then(res => res.json())
+                .then(data => {
+
+                    if (data.success == true) {
+                        console.log("Etiqueta editada con éxito");
+                    }else{
+                        console.log("Error al editar etiqueta");
+                    }
+
+                    obtenerEtiquetas();
+
+                    modalBootstrapEtiquetas.hide();
+
+                });
+
+            } else {
+                console.log("La cadena 'recipes-web-master/' no se encontró en la URL.");
+            }
+        }
+    });
+
+    document.getElementById("formulario-gestion-ingredientes").addEventListener("submit", function (e){
+        e.preventDefault();
+
+        let urlActual = window.location.href;
+        let palabraClave = "recipes-web-master/";
+
+            // Encuentra el índice de la palabra "recipes-web-master/" en la URL
+        let indice = urlActual.indexOf(palabraClave);
+
+        if (e.target.dataset.accion == "crear") {
+
+            if (indice !== -1) {
+
+                // Guarda la URL desde el inicio hasta la palabra "recipes-web-master/"
+                let urlCortada = urlActual.substring(0, indice + palabraClave.length);
+
+                fetch(urlCortada + "admin/IngredientesPHP/crearIngrediente.php", {
+            
+                    method: "POST",
+                    body: new FormData(e.target)
+                })
+                .then(res => res.json())
+                .then(data => {
+
+                    if (data.success == true) {
+                        console.log("Ingrediente añadido con éxito");
+                    }else{
+                        console.log("Error al añadir ingrediente");
+                    }
+
+                    obtenerIngredientes();
+
+                    modalBootstrapIngredientes.hide();
+
+                });
+
+            } else {
+                console.log("La cadena 'recipes-web-master/' no se encontró en la URL.");
+            }
+        }else if(e.target.dataset.accion == "editar"){
+
+            if (indice !== -1) {
+
+                // Guarda la URL desde el inicio hasta la palabra "recipes-web-master/"
+                let urlCortada = urlActual.substring(0, indice + palabraClave.length);
+
+                fetch(urlCortada + "admin/IngredientesPHP/editarIngrediente.php", {
+            
+                    method: "POST",
+                    body: new FormData(e.target)
+                })
+                .then(res => res.json())
+                .then(data => {
+
+                    if (data.success == true) {
+                        console.log("Ingrediente editado con éxito");
+                    }else{
+                        console.log("Error al editar ingrediente");
+                    }
+
+                    obtenerIngredientes();
+
+                    modalBootstrapIngredientes.hide();
+
+                });
+
+            } else {
+                console.log("La cadena 'recipes-web-master/' no se encontró en la URL.");
+            }
+        }
+    });
+
+    document.getElementById("formulario-eliminar-item").addEventListener("submit", function(e){
+
+        e.preventDefault();
+
+        let urlActual = window.location.href;
+        let palabraClave = "recipes-web-master/";
+
+            // Encuentra el índice de la palabra "recipes-web-master/" en la URL
+        let indice = urlActual.indexOf(palabraClave);
+
+        if (indice !== -1) {
+
+            // Guarda la URL desde el inicio hasta la palabra "recipes-web-master/"
+            let urlCortada = urlActual.substring(0, indice + palabraClave.length);
+
+            if (location.hash == "#admin-categorias" || location.hash == "#" || location.hash == "") {
+                fetch(urlCortada + "admin/CategoriasPHP/eliminarCategoria.php", {
+        
+                    method: "POST",
+                    body: new FormData(e.target)
+                })
+                .then(res => res.json())
+                .then(data => {
+    
+                    if (data.success == true) {
+                        console.log("Categoria eliminada con éxito");
+                    }else{
+                        console.log("Error al eliminar categoría");
+                    }
+    
+                    obtenerCategorias();
+    
+                    modalBootstrapEliminarItem.hide();
+    
+                });
+
+            }else if(location.hash == "#admin-etiquetas"){
+
+                fetch(urlCortada + "admin/EtiquetasPHP/eliminarEtiqueta.php", {
+        
+                    method: "POST",
+                    body: new FormData(e.target)
+                })
+                .then(res => res.json())
+                .then(data => {
+    
+                    if (data.success == true) {
+                        console.log("Etiqueta eliminada con éxito");
+                    }else{
+                        console.log("Error al eliminar etiqueta");
+                    }
+    
+                    obtenerEtiquetas();
+    
+                    modalBootstrapEliminarItem.hide();
+    
+                });
+
+            }else if(location.hash == "#admin-ingredientes"){
+
+                fetch(urlCortada + "admin/IngredientesPHP/eliminarIngrediente.php", {
+        
+                    method: "POST",
+                    body: new FormData(e.target)
+                })
+                .then(res => res.json())
+                .then(data => {
+    
+                    if (data.success == true) {
+                        console.log("Ingrediente eliminado con éxito");
+                    }else{
+                        console.log("Error al eliminar ingrediente");
+                    }
+    
+                    obtenerIngredientes();
+    
+                    modalBootstrapEliminarItem.hide();
+    
+                });
+            }
+
+        } else {
+            console.log("La cadena 'recipes-web-master/' no se encontró en la URL.");
         }
     });
 
@@ -173,8 +502,6 @@ function verificarSeccion(){
         manejarContenido('#admin-categorias');
     }
 
-    actualizarContadores();
-
 };
 
 function adaptarDashboard(href){
@@ -190,42 +517,6 @@ function adaptarDashboard(href){
         }
     });
 };
-
-function actualizarTabla(arrayDeItems){
-
-    const tabla = document.getElementById('tabla-items').getElementsByTagName('tbody')[0];
-
-    tabla.innerHTML = ``;
-
-    arrayDeItems.forEach((itemNombre, index) => {
-        const nuevaFila = tabla.insertRow();
-
-        // Crear las celdas para la fila
-        const celdaNombre = nuevaFila.insertCell(0);
-        const celdaBoton = nuevaFila.insertCell(1);
-
-        // Asignar los valores a las celdas
-        celdaNombre.textContent = itemNombre;
-
-        // Asignar contenido a las celdas usando innerHTML
-        celdaBoton.innerHTML = `<button class="btn btn-custom-bg btn-sm btn-editar-item" data-bs-toggle="modal" data-bs-target="#modalGestionItem">Editar</button><button class="btn btn-danger btn-sm ms-1 btn-eliminar-item">Eliminar</button>`;
-
-        // Seleccionar el botón recién creado y añadir la funcionalidad de eliminar
-        const botonEliminar = nuevaFila.querySelector('.btn-eliminar-item');
-        botonEliminar.addEventListener('click', function() {
-            eliminarItemDeTabla(arrayDeItems, index);
-        });
-
-        // Seleccionar el botón recién creado y añadir la funcionalidad de eliminar
-        const botonEditar = nuevaFila.querySelector('.btn-editar-item');
-        botonEditar.addEventListener('click', function() {
-            modificarModalEditar(index);
-        });
-    });
-
-    //actualizo los contadores del dashboard
-    actualizarContadores();
-}
 
 function obtenerUsuariosReportados(){
 
@@ -383,93 +674,76 @@ function obtenerPublicacionesReportadas(){
     panelContenido.appendChild(contenedorCards);
 }
 
-// Función para eliminar un item del array y actualizar la tabla
-function eliminarItemDeTabla(arrayDeItems, index) {
+function actualizarContadores(){
 
-    // Eliminar el item del array usando el índice segun la tabla
-    const seccionActual = location.hash;
+    let urlActual = window.location.href;
+    let palabraClave = "recipes-web-master/";
 
-    if (seccionActual == "#admin-categorias" || seccionActual == "" || seccionActual == "#") {
-        
-        categorias.splice(index, 1);
+    // Encuentra el índice de la palabra "recipes-web-master/" en la URL
+    let indice = urlActual.indexOf(palabraClave);
 
-    }else if(seccionActual == "#admin-etiquetas"){
+    if (indice !== -1) {
 
-        etiquetas.splice(index, 1);
+        // Guarda la URL desde el inicio hasta la palabra "recipes-web-master/"
+        let urlCortada = urlActual.substring(0, indice + palabraClave.length);
 
-    }else if(seccionActual == "#admin-ingredientes"){
+        fetch(urlCortada + "admin/PHPextras/contador.php", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        .then(res => {
+            // Verifico si la respuesta fue exitosa
+            if (!res.ok) {
+                throw new Error('Error en la solicitud: ' + res.status);
+            }
 
-        ingredientes.splice(index, 1);
+            // Verifico si hay contenido en la respuesta
+            if (res.headers.get('content-length') === '0') {
+                return null; // No hay contenido
+            }
 
+            // Convierto a JSON
+            return res.json();
+        })
+        .then(data => {
+
+            const ContadorCategorias = document.getElementById("cont-categorias");
+            const ContadorEtiquetas = document.getElementById("cont-etiquetas");
+            const ContadorIngredientes = document.getElementById("cont-ingredientes");
+
+            if (data.totalCategorias > 0) {
+                ContadorCategorias.classList.remove("d-none");
+                ContadorCategorias.innerText = data.totalCategorias;
+            }else{
+                ContadorCategorias.classList.add("d-none");
+            }
+
+            if (data.totalEtiquetas > 0) {
+                ContadorEtiquetas.classList.remove("d-none");
+                ContadorEtiquetas.innerText = data.totalEtiquetas;
+            }else{
+                ContadorEtiquetas.classList.add("d-none");
+            }
+
+            if (data.totalIngredientes > 0) {
+                ContadorIngredientes.classList.remove("d-none");
+                ContadorIngredientes.innerText = data.totalIngredientes;
+            }else{
+                ContadorIngredientes.classList.add("d-none");
+            }
+
+        });
+
+    } else {
+        console.log("La cadena 'recipes-web-master/' no se encontró en la URL.");
     }
-
-    // Actualizo la tabla para reflejar los cambios
-    actualizarTabla(arrayDeItems);
-
 }
 
-// Función para preparar el modal para agregar un item a la tabla
-function modificarModalCrear() {
-    
-    const seccionActual = location.hash;
-
-    if (seccionActual == "#admin-categorias" || seccionActual == "" || seccionActual == "#") {
-        
-        document.querySelector(".modal-title").textContent = "Agregar una categoría";
-        document.querySelector(".form-label").textContent = "Nombre de la categoría";
-
-    }else if(seccionActual == "#admin-etiquetas"){
-        
-        document.querySelector(".modal-title").textContent = "Agregar una etiqueta";
-        document.querySelector(".form-label").textContent = "Nombre de la etiqueta";
-        
-    }else if(seccionActual == "#admin-ingredientes"){
-        
-        document.querySelector(".modal-title").textContent = "Agregar un ingrediente";
-        document.querySelector(".form-label").textContent = "Nombre del ingrediente";
-    }
-
-    document.getElementById("inputNombreItem").value = "";
-    document.getElementById("formulario").dataset.accion = "crear";
-
-}
-
-// Función para preparar el modal para editar un item de la tabla
-function modificarModalEditar(index) {
-    
-    const seccionActual = location.hash;
-
-    if (seccionActual == "#admin-categorias" || seccionActual == "" || seccionActual == "#") {
-        
-        document.querySelector(".modal-title").textContent = "Modificar categoria";
-        document.querySelector(".form-label").textContent = "Nombre de la categoría";
-        document.getElementById("inputNombreItem").value = categorias[index];
-
-    }else if(seccionActual == "#admin-etiquetas"){
-
-        document.querySelector(".modal-title").textContent = "Modificar etiqueta";
-        document.querySelector(".form-label").textContent = "Nombre de la etiqueta";
-        document.getElementById("inputNombreItem").value = etiquetas[index];
-
-    }else if(seccionActual == "#admin-ingredientes"){
-
-        document.querySelector(".modal-title").textContent = "Modificar ingrediente";
-        document.querySelector(".form-label").textContent = "Nombre del ingrediente";
-        document.getElementById("inputNombreItem").value = ingredientes[index];
-
-    }
-
-    document.getElementById("formulario").dataset.accion = "editar";
-    document.getElementById("itemID").value = index;
-
-}
-
-function actualizarContadores() {
+function actualizarContadoresAnterior() {
 
     const contadores = [
-        { element: document.getElementById("cont-categorias"), items: categorias },
-        { element: document.getElementById("cont-etiquetas"), items: etiquetas },
-        { element: document.getElementById("cont-ingredientes"), items: ingredientes },
         { element: document.getElementById("cont-usuarios-report"), items: usuariosReportados },
         { element: document.getElementById("cont-comentarios-report"), items: comentariosReportados },
         { element: document.getElementById("cont-publicaciones-report"), items: publicacionesReportadas }
@@ -487,121 +761,56 @@ function actualizarContadores() {
     
 }
 
-function agregarItem(){
-
-    // Obtener el valor del campo de nombre
-    const nombreItem = document.getElementById('inputNombreItem').value.trim();
-
-    //Obtengo la seccion actual que se va a modificar
-    const seccion = location.hash;
-
-    if (nombreItem !== "") {
-
-        if(seccion == "#admin-categorias" || seccion == "" || seccion == "#"){
-            categorias.push(nombreItem);
-            actualizarTabla(categorias);
-        }else if(seccion == "#admin-etiquetas"){
-            etiquetas.push(nombreItem);
-            actualizarTabla(etiquetas);
-        }else if(seccion == "#admin-ingredientes"){
-            ingredientes.push(nombreItem);
-            actualizarTabla(ingredientes);
-        }
-
-        // Limpio el campo de texto
-        document.getElementById('inputNombreItem').value = "";
-    }
-}
-
-function editarItem(){
-
-    //Obtengo el id del item desde un hidden input
-    const itemIndex = document.getElementById("itemID").value;
-
-    // Obtener el valor del campo de nombre
-    const nombreItem = document.getElementById('inputNombreItem').value.trim();
-
-    //Obtengo la seccion actual que se va a modificar
-    const seccion = location.hash;
-
-    if (nombreItem !== "") {
-
-        if(seccion == "#admin-categorias" || seccion == "" || seccion == "#"){
-
-            categorias[itemIndex] = nombreItem;
-            actualizarTabla(categorias);
-
-        }else if(seccion == "#admin-etiquetas"){
-
-            etiquetas[itemIndex] = nombreItem;
-            actualizarTabla(etiquetas);
-
-        }else if(seccion == "#admin-ingredientes"){
-
-            ingredientes[itemIndex] = nombreItem;
-            actualizarTabla(ingredientes);
-        }
-
-        //Escondo modal de bootstrap
-        modalBootstrap.hide();
-
-        // Limpio el campo de texto
-        document.getElementById('inputNombreItem').value = "";
-    }
-
-}
-
 function manejarContenido(seccion){
 
     const panelTitulo = document.querySelector(".panel-title");
     const panelBtn = document.querySelector(".btn-add-item");
     const panelContenido = document.querySelector(".panel-body");
+    const BotonAgregar = document.getElementById("btn-add-item");
 
-    panelContenido.innerHTML = `<table class="table table-bordered" id="tabla-items">
-                                            <thead>
-                                                <tr>
-                                                    <th>Nombre</th>
-                                                    <th>Acciones</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <!-- Aca van los items dinámicos -->
-                                            </tbody>
-                                        </table>`;
+    panelContenido.innerHTML = ``;
 
     switch (seccion) {
 
+        //Modifico la interfaz según la seccion
+
         case '#admin-categorias':
 
-            //Modifico la interfaz según la seccion
             panelTitulo.textContent = "Categorías";
             panelBtn.classList.remove("d-none");
             panelBtn.textContent = "Añadir categoría";
+            panelContenido.innerHTML = ``;
+            BotonAgregar.setAttribute("data-bs-target", "#modalGestionCategoria");
             
+            obtenerCategorias();
             adaptarDashboard("#admin-categorias");
-            actualizarTabla(categorias);
+
             break;
             
         case '#admin-etiquetas':
-                
-            //Modifico la interfaz según la seccion
+
             panelTitulo.textContent = "Etiquetas";
             panelBtn.classList.remove("d-none");
-            panelBtn.textContent = "Añadir etiqueta";
-
+            panelBtn.textContent = "Añadir Etiqueta";
+            panelContenido.innerHTML = ``;
+            BotonAgregar.setAttribute("data-bs-target", "#modalGestionEtiqueta");
+            
+            obtenerEtiquetas();
             adaptarDashboard("#admin-etiquetas");
-            actualizarTabla(etiquetas);
+
             break;
                 
         case '#admin-ingredientes':
 
-            //Modifico la interfaz según la seccion
             panelTitulo.textContent = "Ingredientes";
             panelBtn.classList.remove("d-none");
-            panelBtn.textContent = "Añadir ingrediente";
-
+            panelBtn.textContent = "Añadir Ingrediente";
+            panelContenido.innerHTML = ``;
+            BotonAgregar.setAttribute("data-bs-target", "#modalGestionIngrediente");
+            
+            obtenerIngredientes();
             adaptarDashboard("#admin-ingredientes");
-            actualizarTabla(ingredientes);
+
             break;
                     
         case '#admin-usuarios':
@@ -611,8 +820,8 @@ function manejarContenido(seccion){
             panelContenido.innerHTML = ``;
 
             obtenerUsuariosReportados();
-
             adaptarDashboard("#admin-usuarios");
+
             break;
             
         case '#admin-comentarios':
@@ -622,8 +831,8 @@ function manejarContenido(seccion){
             panelContenido.innerHTML = ``;
             
             obtenerComentariosReportados();
-            
             adaptarDashboard("#admin-comentarios");
+
             break;
             
             case '#admin-publicaciones':
@@ -633,18 +842,21 @@ function manejarContenido(seccion){
             panelContenido.innerHTML = ``;
 
             obtenerPublicacionesReportadas();
-
             adaptarDashboard("#admin-publicaciones");
+
             break;
 
         default:
 
-            //Modifico la interfaz según la seccion
             panelTitulo.textContent = "Categorías";
-            document.querySelector(".btn-add-item").textContent = "Añadir categoría";
+            panelBtn.classList.remove("d-none");
+            panelBtn.textContent = "Añadir categoría";
+            panelContenido.innerHTML = ``;
+            BotonAgregar.setAttribute("data-bs-target", "#modalGestionCategoria");
             
+            obtenerCategorias();
             adaptarDashboard("#admin-categorias");
-            actualizarTabla(categorias);
+
             break;
     }
 }
