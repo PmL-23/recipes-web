@@ -6,7 +6,7 @@ if ($id_receta != null) {
     // Obtener los ingredientes y sus cantidades para la receta
     $sql = "SELECT i.nombre, pi.cantidad 
             FROM publicacion_ingrediente pi 
-            JOIN ingrediente i ON pi.id_ingrediente = i.id_ingrediente 
+            JOIN ingredientes i ON pi.id_ingrediente = i.id_ingrediente 
             WHERE pi.id_publicacion = :id_publicacion";
     
     $stmt = $conn->prepare($sql);

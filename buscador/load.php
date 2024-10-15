@@ -8,10 +8,9 @@ $col = [
             'descripcion',
             'fecha_publicacion',
             'dificultad',
-            'minutos_prep',
-            'pais'
+            'minutos_prep'
         ];
-$tabla = 'publicacion_receta';
+$tabla = 'publicaciones_recetas';
 
 $campo = isset($_POST['campo']) ? $_POST['campo'] : null;
 
