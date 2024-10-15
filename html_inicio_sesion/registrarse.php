@@ -1,6 +1,11 @@
 <?php
 require_once '../includes/conec_db.php';
 
+$query = "SELECT * FROM paises";
+$stm = $conn->prepare($query);
+$stm->execute();
+$paises = $stm->fetchAll(PDO::FETCH_ASSOC);
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $username = isset($_POST["username"]) ? $_POST["username"] : NULL;
@@ -9,7 +14,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nomCompleto = isset($_POST["nomCompleto"]) ? $_POST["nomCompleto"] : NULL;
     $email = isset($_POST["email"]) ? $_POST["email"] : NULL;
     $fecha_nacimiento = isset($_POST["fecha_nacimiento"]) ? $_POST["fecha_nacimiento"] : NULL;
+    $id_pais = isset($_POST["id_pais"]) ? $_POST["id_pais"] : NULL;
 
+    
     
     if (empty($_POST["username"]) || empty($_POST["password"]) || empty($_POST["confirm_password"]) || empty($_POST["nomCompleto"])|| empty($_POST["email"])|| empty($_POST["fecha_nacimiento"])) {
         echo "Por favor, completa todos los campos para registrar el nuevo usuario de forma exitosa.";
@@ -62,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Registro del usuario, acá inserto a la tabla usuario los datos que se llenaron en el registro.
 
-        $sqlUsuario = "INSERT INTO usuarios(id_rol, username, nom_completo, email, password, fecha_nacimiento) VALUES (1, :Username, :NombreCompleto, :Email, :Password, :Fecha_Nac)";
+        $sqlUsuario = "INSERT INTO usuarios(id_rol, username, nom_completo, email, password, fecha_nacimiento,id_pais) VALUES (1, :Username, :NombreCompleto, :Email, :Password, :Fecha_Nac,:id_pais)";
         $stmtUsuario = $conn->prepare($sqlUsuario); //Preparo la consulta que me inserta un usuario
 
         if (!$stmtUsuario) {
@@ -75,6 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmtUsuario->bindParam(':Email', $email, PDO::PARAM_STR);
         $stmtUsuario->bindParam(':Password', $hashedPassword, PDO::PARAM_STR);
         $stmtUsuario->bindParam(':Fecha_Nac', $fecha_nacimiento, PDO::PARAM_STR);
+        $stmtUsuario->bindParam(':id_pais', $id_pais, PDO::PARAM_INT);
 
         if ($stmtUsuario->execute()) {
 
@@ -151,6 +159,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <label for="fecha_nacimiento" class="form-label">Fecha de nacimiento:</label>
                     <input id="fecha_nacimiento" type="date" class="form-control" name="fecha_nacimiento" min="18" placeholder="Ingrese su fecha de nacimiento" required>
                     <div class="form-text" id="error-fecha_nacimiento"></div>
+                </div>
+
+                <div>
+                    <label for="id_pais" class="form-label">País:</label>
+                    <select name="id_pais" id="id_pais" class="form-control">
+                     <option value="" >Seleccione un pais</option>
+                       <?php
+                        foreach ($paises as $pais) {
+                          echo '<option value="'.$pais['id_pais'].'">'.$pais['nombre'].'</option>';
+                          }
+                         ?>
+                     </select><br>
                 </div>
 
                 <hr>
