@@ -4,7 +4,7 @@ require '../includes/conec_db.php';
 $id_receta = isset($_POST['id_receta']) ? $_POST['id_receta'] : null;
 
 if ($id_receta != null) {
-    $sql = "SELECT num_paso, texto FROM paso_receta WHERE id_publicacion = :id_publicacion ORDER BY num_paso ASC";
+    $sql = "SELECT num_paso, texto FROM pasos_receta WHERE id_publicacion = :id_publicacion ORDER BY num_paso ASC";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':id_publicacion', $id_receta, PDO::PARAM_INT);
     $stmt->execute();
