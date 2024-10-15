@@ -225,7 +225,7 @@ session_start();
                                 </ul>
                             </div>
                             <div class="action">
-                                <a href="../recetas/recetas.html" class="btn">Quiero la receta!</a>
+                                <a href="../recetas/recetas.php" class="btn">Quiero la receta!</a>
                             </div>
                         </div>
                     </div>
