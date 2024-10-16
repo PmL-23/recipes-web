@@ -15,6 +15,7 @@ session_start();
         <link rel="stylesheet" href="../css/c-countries.css">
         <script src="../buscador/buscador_script.js" defer></script>
         <script src="mostrarSegunFecha.js"></script>
+        <script src="receta_paises.js" defer></script>
         <!-- Link custom script -->
         <script src="../index/manejarModal.js" defer></script>
         
@@ -25,7 +26,9 @@ session_start();
 
     <?php include '../includes/header.php' ?>
     <!-- BUSCADOR -->
-     <?php include '../includes/conec_db.php';?>
+     <?php include '../includes/conec_db.php';
+     include '../includes/paises.php'?>
+
      
     <div class="buscador mt-4">
         <form action="#" method="GET">
