@@ -74,7 +74,7 @@
             </div>
 
             <div class="container-suggestions">
-                <!-- Aquí irán las sugerencias -->
+                <!-- Aquí irán las sugerencias -->sacascascasc
             </div>
         </div>
         <div class="buscador2 ocultar">
@@ -85,7 +85,7 @@
     <div class="container">
         <table class="table table-striped table-hover">
             <tbody id="content">
-                <!-- Aquí se rellenarán los datos dinámicamente -->
+                <!-- Aquí se rellenarán los datos dinámicamente -->cascascascascsc
             </tbody>
         </table>
 
