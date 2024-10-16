@@ -1,6 +1,26 @@
 const inicio = function() {
     const tipoFiltro = document.getElementById("tipoFiltro");
+    const filtroDiv = document.getElementById("filtro");
+    const toggleFiltro = document.getElementById('toggleFiltro');
 
+    // Muestra/oculta el filtro cuando se hace clic en el botón de filtro
+    toggleFiltro.addEventListener('click', function(event) {
+        event.stopPropagation(); // Evita que el clic se propague al documento
+        if (filtroDiv.style.display === 'none' || filtroDiv.style.display === '') {
+            filtroDiv.style.display = 'block';
+        } else {
+            filtroDiv.style.display = 'none';
+        }
+    });
+
+    // Cierra el filtro si se hace clic fuera de él
+    document.addEventListener('click', function(event) {
+        if (!filtroDiv.contains(event.target) && !toggleFiltro.contains(event.target)) {
+            filtroDiv.style.display = 'none';
+        }
+    });
+
+    // Maneja los cambios en el select de filtro
     tipoFiltro.addEventListener("change", function() {
         const filtroSelect = tipoFiltro.value;
 
@@ -8,7 +28,6 @@ const inicio = function() {
         ocultarFetiqueta();
         ocultarFingrediente();
         ocultarFpublicacion();
-    
 
         if (filtroSelect === "ingredientes") {
             mostrarFingrediente();
@@ -20,17 +39,6 @@ const inicio = function() {
             mostrarFetiqueta();
         }
     });
-
-    
-document.getElementById('toggleFiltro').addEventListener('click', function() {
-    var filtroDiv = document.getElementById('filtro');
-    if (filtroDiv.style.display === 'none' || filtroDiv.style.display === '') {
-        filtroDiv.style.display = 'block';
-    } else {
-        filtroDiv.style.display = 'none';
-    }
-});
-
 }
 
 function mostrarFingrediente() {
@@ -72,6 +80,22 @@ function ocultarFetiqueta() {
     const fetiqueta = document.getElementById("etiqueta-filtro");
     fetiqueta.classList.add("d-none");
 }
+document.addEventListener('click', function (event) {
+    const filtroDiv = document.getElementById('filtro');
+    const toggleFiltroButton = document.getElementById('toggleFiltro');
 
+    if (!filtroDiv.contains(event.target) && !toggleFiltroButton.contains(event.target)) {
+        filtroDiv.style.display = 'none'; // Oculta el filtro
+    }
+});
+
+document.getElementById('toggleFiltro').addEventListener('click', function () {
+    const filtroDiv = document.getElementById('filtro');
+    if (!filtro.style.display === "none" || filtro.style.display === "") {
+        filtro.style.display = "block";
+    } else {
+        filtro.style.display = "none";
+    }
+});
 
 window.onload = inicio;

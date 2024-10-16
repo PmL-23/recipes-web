@@ -3,11 +3,11 @@
 /* Estilos del cuadro de búsqueda */
 .search-input-box {
     width: 50%;
-    background-color: #ffffff;
+    background-color: #fff;
     border: 1px solid #26533c; /* Borde verde */
     border-radius: 5px;
+    color: #26533c;
     position: relative;
-    color: #f5f6f4;
     box-shadow: 0 1px 5px 3px rgba(0, 0, 0, 0.12);
     display: flex;
     align-items: center;
