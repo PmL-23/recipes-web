@@ -18,7 +18,15 @@
     max-width: 600px; /* ancho maximo del formulario para mantenerlo a una escala adecuada */
     width: 100%; /* hace que el formulario ocupe todo el ancho disponible dentro de su contenedor */
 }
-
+.buscador div {
+    display: flex; /* usamos felbox para luego aliniar los elementos hijos al medio*/
+    align-items: center; 
+    border: 2px solid var(--color_principal); /* borde de 2px con color similar al encabezado */
+    border-radius: 25px; /* bordes redondeados para un diseño mas suave */
+    padding: 10px 20px; /* espacio interno para separar el contenido del borde */
+    max-width: 600px; /* ancho maximo del formulario para mantenerlo a una escala adecuada */
+    width: 100%; /* hace que el formulario ocupe todo el ancho disponible dentro de su contenedor */
+}
 /* estilo para el campo de entrada de texto en el formulario */
 .buscador input[type="text"] {
     border: none; /* elimina el borde predeterminado del campo de entrada */
