@@ -1,10 +1,8 @@
 <?php
 require_once '../includes/conec_db.php';
+include '../includes/paises.php';
 
-$query = "SELECT * FROM paises";
-$stm = $conn->prepare($query);
-$stm->execute();
-$paises = $stm->fetchAll(PDO::FETCH_ASSOC);
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
