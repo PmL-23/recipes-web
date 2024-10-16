@@ -267,7 +267,7 @@
             <!-- Cena -->
             <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion cena">
                 <div class="card h-100">
-                    <img src="../html_paises/img/imgArg/milanesasPure.jpg" class="card-img-top" alt="milanesa con pure">
+                    <img src="../html_paises/img/imgArg/milanesas con pure.jpg" class="card-img-top" alt="milanesa con pure">
                     <div class="card-body">
                         <h5 class="card-title">Milanesas con puré</h5>
                         <p class="card-text">Las milanesas de carne empanada, acompañadas de puré, clásico argentino.
