@@ -1,5 +1,5 @@
 <?php
-$serverName="127.0.0.1:3307";
+$serverName="127.0.0.1";
 $username="root";
 $password= "";
 $dbname= "proyecto_recetas_prog_web";
