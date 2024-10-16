@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -18,7 +22,7 @@
     <div class="container d-flex flex-column align-items-center">
         <h1 class="my-5">Filtrar categorias</h1>
         <div class="w-75">
-            <ul class="d-flex d-column w-100 justify-content-around">
+            <ul class="d-flex d-column w-100 justify-content-around flex-wrap">
                 <li class="filtro-item item-active">Todas</li>
                 <li class="filtro-item">Saladas</li>
                 <li class="filtro-item">Ocasiones especiales</li>

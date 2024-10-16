@@ -59,7 +59,7 @@ export function obtenerCategorias(){
                         divPadre.innerHTML = `
                             <div class="card-body d-flex flex-row p-0 px-3">
         
-                                <img src="${urlCortada}/categorias/imgs/${e.nombre_imagen}" alt="Imagen ${e.titulo}" class="w-25 h-25 m-2 rounded-circle">
+                                <img src="../categorias/imgs/${e.nombre_imagen}" alt="Imagen ${e.titulo}" class="w-25 h-25 m-2 rounded-circle">
         
                                 <div class="container-sm d-flex flex-column justify-content-evenly align-items-center">
                                     <h4>${e.titulo}</h4>
@@ -84,7 +84,7 @@ export function obtenerCategorias(){
         
                         const imgPreviaCategoria = document.getElementById("imgPreviaCategoria");
                         imgPreviaCategoria.classList.remove("d-none");
-                        imgPreviaCategoria.src = `data:image/jpeg;base64,${e.imagen}`;
+                        imgPreviaCategoria.src = `../categorias/imgs/${e.nombre_imagen}`;
                         imgPreviaCategoria.alt = 'Imagen ' + e.titulo;
                         document.getElementById("seccion").value = e.seccion;
         
