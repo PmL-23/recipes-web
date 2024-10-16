@@ -12,6 +12,8 @@ body{
 }
 
 .filtro-item{
+    max-height: 2rem;
+    margin-top: 1rem;
     list-style: none;
     background-color: lightgray;
     border-radius: 1rem;
