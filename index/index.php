@@ -11,85 +11,74 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recetario</title>
 
-    <link rel="stylesheet" href="../css/c-countries.css">
-    <link rel="stylesheet" href="../buscador/buscador_style.css">
-    <link rel="stylesheet" href="a.css">
-    <script src="a.js" defer></script>
-    <script src="../buscador/buscador_script.js" defer></script>
-    <script src="mostrarSegunFecha.js"></script>
-    <script src="buscador.js" defer></script>
-    <!-- Link custom script -->
-    <script src="../index/manejarModal.js" defer></script>
-
-    <?php include '../includes/head.php' ?>
-</head>
-
+        <link rel="stylesheet" href="../buscador/buscador_style.css">
+        <link rel="stylesheet" href="../css/c-countries.css">
+        <script src="../buscador/buscador_script.js" defer></script>
+        <script src="mostrarSegunFecha.js"></script>
+        <!-- Link custom script -->
+        <script src="../index/manejarModal.js" defer></script>
+        
+        <?php include '../includes/head.php'?>
+    </head>
+    
 <body>
 
     <?php include '../includes/header.php' ?>
     <!-- BUSCADOR -->
-    <?php include '../includes/conec_db.php'; ?>
+     <?php include '../includes/conec_db.php';?>
+     
+    <div class="buscador mt-4">
+        <form action="#" method="GET">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#26533c" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="6" /> <!-- El círculo de la lupa -->
+                <line x1="16" y1="16" x2="21" y2="21" /> <!-- Mango de la lupa -->
+            </svg>
+            <input type="text" placeholder="Busca recetas, ingredientes, personas y más"
+                class="form-control d-inline-block" style="width: 80%;" id="busqueda" name="buscar">
+            <button type="button" id="toggleFiltro" class="btn btn-primary">Filtrar</button>
+        </form>
 
-
-    <div class="container mt-4 d-flex justify-content-center">
-        <div class="search-input-box">
-            <a href="#" target="_blank" class="search-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#26533c" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="11" cy="11" r="6"></circle>
-                    <line x1="16" y1="16" x2="21" y2="21"></line>
-                </svg>
-            </a>
-            <input type="text" id="campo" placeholder="Busca recetas, ingredientes, personas y más" />
-            <button type="button" id="toggleFiltro" class="btn btn-primary ms-2 me-2">Filtrar</button>
-            <div class="filtro mt-4" id="filtro">
-                <h5>Filtros de Búsqueda</h5>
-                <form id="filtroForm">
-                    <div class="form-group container">
-                        <label for="tipoFiltro">Filtrar por:</label>
-                        <select class="form-control" id="tipoFiltro">
-                            <option value="publicacion">Publicación</option>
-                            <option value="ingredientes">Ingredientes</option>
-                            <option value="etiquetas">Etiquetas</option>
-                            <option value="categoria">Categoría</option>
-                        </select>
-                    </div>
-                    <div class="container">
-                        <div class="form-group d-none" id="ingrediente-filtro">
-                            <label for="ingrediente">Ingrediente</label>
-                            <input type="text" class="form-control" id="ingrediente" placeholder="Ej. Tomate">
-                        </div>
-                        <div class="form-group d-none" id="categoria-filtro">
-                            <label for="categoria">Categoría</label>
-                            <select class="form-control" id="categoria" multiple>
-                                <option value="saladas">Saladas</option>
-                                <option value="ocaciones-especiales">Ocaciones Especiales</option>
-                                <option value="dietas-especiales">Dietas Especiales</option>
-                                <option value="bebidas">Bebidas</option>
-                                <option value="dulces">Dulces</option>
-                            </select>
-                        </div>
-                        <div class="form-group d-none" id="publicacion-filtro">
-                            <label for="publicacion">Publicación</label>
-                            <select class="form-control" id="publicacion" multiple>
-                                <option value="Valoración">Valoración</option>
-                                <option value="Tiempo de elaboración">Tiempo de elaboración</option>
-                            </select>
-                        </div>
-                        <div class="form-group d-none" id="etiqueta-filtro">
-                            <label for="etiqueta">Etiquetas</label>
-                            <input type="text" class="form-control" id="etiqueta" placeholder="Ej. Vegetariano">
-                        </div>
-                    </div>
-                </form>
+        <div class="filtro" id="filtro">
+            <h5>Filtros de Búsqueda</h5>
+            <form id="filtroForm">
+                <div class="form-group container">
+                    <label for="tipoFiltro">Filtrar por:</label>
+                    <select class="form-control" id="tipoFiltro">
+                        <option value="publicacion">Publicación</option>
+                        <option value="ingredientes">Ingredientes</option>
+                        <option value="etiquetas">Etiquetas</option>
+                        <option value="categoria">Categoría</option>
+                    </select>
+                </div>
+            <div class="container">
+                <div class="form-group d-none" id="ingrediente-filtro">
+                    <label for="ingrediente">Ingrediente</label>
+                    <input type="text" class="form-control" id="ingrediente" placeholder="Ej. Tomate">
+                </div>
+                <div class="form-group d-none" id="categoria-filtro">
+                    <label for="categoria">Categoría</label>
+                    <select class="form-control" id="categoria" multiple>
+                        <option value="saladas">Saladas</option>
+                        <option value="ocaciones-especiales">Ocaciones Especiales</option>
+                        <option value="dietas-especiales">Dietas Especiales</option>
+                        <option value="bebidas">Bebidas</option>
+                        <option value="dulces">Dulces</option>
+                    </select>
+                </div>
+                <div class="form-group d-none" id="publicacion-filtro">
+                    <label for="publicacion">Publicación</label>
+                    <select class="form-control" id="publicacion" multiple>
+                        <option value="Valoración">Valoración</option>
+                        <option value="Tiempo de elaboración">Tiempo de elaboración</option>
+                    </select>
+                </div>
+                <div class="form-group d-none" id="etiqueta-filtro">
+                    <label for="etiqueta">Etiquetas</label>
+                    <input type="text" class="form-control" id="etiqueta" placeholder="Ej. Vegetariano">
+                </div>
             </div>
-
-            <div class="container-suggestions">
-                <!-- Aquí irán las sugerencias -->
-            </div>
-        </div>
-        <div class="buscador2 ocultar">
-            <div id="tituloContainer"></div>
+            </form>
         </div>
     </div>
 
@@ -101,46 +90,11 @@ session_start();
 
     <!-- paises -->
     <div class="paises-contenedor">
-        <a class="pais" href="../html_paises/pais_argentina.php">
-            <img src="../svg/argentina.svg" alt="Argentina" id="paisArgentina">
-            <p class="pais-nombre">Argentina</p>
-        </a>
-        <a class="pais" href="../html_paises/pais_bolivia.php">
-            <img src="../svg/bolivia.svg" alt="Bolivia" id="paisBolivia">
-            <p class="pais-nombre">Bolivia</p>
-        </a>
-        <a class="pais" href="../html_paises/pais_brasil.php">
-            <img src="../svg/brasil.svg" alt="Brasil" id="paisBrasil">
-            <p class="pais-nombre">Brasil</p>
-        </a>
-        <a class="pais" href="../html_paises/pais_chile.php">
-            <img src="../svg/chile.svg" alt="Chile" id="paisChile">
-            <p class="pais-nombre">Chile</p>
-        </a>
-        <a class="pais" href="../html_paises/pais_colombia.php">
-            <img src="../svg/colombia.svg" alt="Colombia" id="paisColombia">
-            <p class="pais-nombre">Colombia</p>
-        </a>
-        <a class="pais" href="../html_paises/pais_ecuador.php">
-            <img src="../svg/ecuador.svg" alt="Ecuador" id="paisEcuador">
-            <p class="pais-nombre">Ecuador</p>
-        </a>
-        <a class="pais" href="../html_paises/pais_paraguay.php">
-            <img src="../svg/paraguay.svg" alt="Paraguay" id="paisParaguay">
-            <p class="pais-nombre">Paraguay</p>
-        </a>
-        <a class="pais" href="../html_paises/pais_peru.php">
-            <img src="../svg/peru.svg" alt="Perú" id="paisPeru">
-            <p class="pais-nombre">Perú</p>
-        </a>
-        <a class="pais" href="../html_paises/pais_uruguay.php">
-            <img src="../svg/uruguay.svg" alt="Uruguay" id="paisUruguay">
-            <p class="pais-nombre">Uruguay</p>
-        </a>
-        <a class="pais" href="../html_paises/pais_venezuela.php">
-            <img class="pais" src="../svg/venezuela.svg" alt="Venezuela" id="paisVenezuela">
-            <p class="pais-nombre">Venezuela</p>
-        </a>
+        <?php foreach($paises as $pais): ?>
+            <div class="bandera-container" onclick="abrirRecetas(<?= $pais['id_pais'] ?>)">
+                <img src="../svg/<?= $pais['ruta_imagen_pais'] ?>" alt="<?= $pais['nombre'] ?>" title="<?= $pais['nombre'] ?>" class="bandera" width="100" height="auto">
+            </div>
+        <?php endforeach; ?>
     </div>
 
 
@@ -243,7 +197,7 @@ session_start();
                                 </ul>
                             </div>
                             <div class="action">
-                                <a href="../recetas/recetas.html" class="btn">Quiero la receta!</a>
+                                <a href="../recetas/recetas.php" class="btn">Quiero la receta!</a>
                             </div>
                         </div>
                     </div>
