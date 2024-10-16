@@ -44,3 +44,23 @@ function select(element) {
     boxSuggestions.innerHTML = ""; // Limpia las sugerencias
     searchContainer.classList.remove('active'); // Oculta el contenedor de sugerencias
 }
+document.addEventListener('click', function (event) {
+    const filtroDiv = document.getElementById('filtro');
+    const toggleFiltroButton = document.getElementById('toggleFiltro');
+
+    // Verifica si el clic ocurrió fuera del div 'filtro' y del botón 'Filtrar'
+    if (!filtroDiv.contains(event.target) && !toggleFiltroButton.contains(event.target)) {
+        filtroDiv.style.display = 'none'; // Oculta el filtro
+    }
+});
+
+// Evento para mostrar el filtro cuando se hace clic en el botón 'Filtrar'
+document.getElementById('toggleFiltro').addEventListener('click', function () {
+    const filtroDiv = document.getElementById('filtro');
+     // Alterna la visibilidad del filtro
+     if (!filtro.style.display === "none" || filtro.style.display === "") {
+        filtro.style.display = "block";
+    } else {
+        filtro.style.display = "none";
+    }
+}); 
