@@ -16,6 +16,7 @@ session_start();
         <script src="mostrarSegunFecha.js"></script>
         <!-- Link custom script -->
         <script src="../index/manejarModal.js" defer></script>
+        <script src="receta_paises.js" defer></script>
         
         <?php include '../includes/head.php'?>
     </head>
@@ -24,7 +25,11 @@ session_start();
 
 <?php include '../includes/header.php'?>
     <!-- BUSCADOR -->
-     <?php include '../includes/conec_db.php';?>
+     <?php include '../includes/conec_db.php';
+     include '../includes/paises.php';
+     
+     ?>
+     
      
     <div class="buscador mt-4">
         <form action="#" method="GET">
@@ -83,46 +88,11 @@ session_start();
 
     <!-- paises -->
     <div class="paises-contenedor">
-        <a class="pais" href="../html_paises/pais_argentina.php">
-            <img src="../svg/argentina.svg" alt="Argentina" id="paisArgentina">
-            <p class="pais-nombre">Argentina</p>
-        </a>
-        <a class="pais" href="../html_paises/pais_bolivia.php">
-            <img src="../svg/bolivia.svg" alt="Bolivia" id="paisBolivia">
-            <p class="pais-nombre">Bolivia</p>
-        </a>
-        <a class="pais" href="../html_paises/pais_brasil.php">
-            <img src="../svg/brasil.svg" alt="Brasil" id="paisBrasil">
-            <p class="pais-nombre">Brasil</p>
-        </a>
-        <a class="pais" href="../html_paises/pais_chile.php">
-            <img src="../svg/chile.svg" alt="Chile" id="paisChile">
-            <p class="pais-nombre">Chile</p>
-        </a>
-        <a class="pais" href="../html_paises/pais_colombia.php">
-            <img src="../svg/colombia.svg" alt="Colombia" id="paisColombia">
-            <p class="pais-nombre">Colombia</p>
-        </a>
-        <a class="pais" href="../html_paises/pais_ecuador.php">
-            <img src="../svg/ecuador.svg" alt="Ecuador" id="paisEcuador">
-            <p class="pais-nombre">Ecuador</p>
-        </a>
-        <a class="pais" href="../html_paises/pais_paraguay.php">
-            <img src="../svg/paraguay.svg" alt="Paraguay" id="paisParaguay">
-            <p class="pais-nombre">Paraguay</p>
-        </a>
-        <a class="pais" href="../html_paises/pais_peru.php">
-            <img src="../svg/peru.svg" alt="Perú" id="paisPeru">
-            <p class="pais-nombre">Perú</p>
-        </a>
-        <a class="pais" href="../html_paises/pais_uruguay.php">
-            <img src="../svg/uruguay.svg" alt="Uruguay" id="paisUruguay">
-            <p class="pais-nombre">Uruguay</p>
-        </a>
-        <a class="pais" href="../html_paises/pais_venezuela.php">
-            <img class="pais" src="../svg/venezuela.svg" alt="Venezuela" id="paisVenezuela">
-            <p class="pais-nombre">Venezuela</p>
-        </a>
+        <?php foreach($paises as $pais): ?>
+            <div class="bandera-container" onclick="abrirRecetas(<?= $pais['id_pais'] ?>)">
+                <img src="../svg/<?= $pais['ruta_imagen_pais'] ?>" alt="<?= $pais['nombre'] ?>" title="<?= $pais['nombre'] ?>" class="bandera" width="100" height="auto">
+            </div>
+        <?php endforeach; ?>
     </div>
 
 
