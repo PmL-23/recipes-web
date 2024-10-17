@@ -2,20 +2,20 @@
 session_start();
 include '../includes/conec_db.php';
 if (!isset($_SESSION['id'])) {
-    header("Location: ../html_inicio_sesion/iniciarSesion.php"); // Redirigir a login si no está logueado
+    header("Location: ../html_inicio_sesion/iniciarSesion.php"); 
     exit();
 }
 $id_usuario = $_SESSION['id'];
 
 try {
-    $query = "SELECT * FROM usuarios WHERE id_usuario = :id_usuario"; // Usa el nombre del parámetro
+    $query = "SELECT * FROM usuarios WHERE id_usuario = :id_usuario"; 
     $stmt = $conn->prepare($query);
-    $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT); // Enlazar el parámetro correctamente
+    $stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT); 
     $stmt->execute();
     
-    $usuario = $stmt->fetch(PDO::FETCH_ASSOC); // Obtener el resultado como un array asociativo
+    $usuario = $stmt->fetch(PDO::FETCH_ASSOC); 
 } catch (PDOException $e) {
-    echo "Error: " . $e->getMessage(); // Manejo de errores
+    echo "Error: " . $e->getMessage();
 }
 
 try {
