@@ -100,7 +100,9 @@ session_start();
     <!-- Aquí irán las sugerencias -->
 </div>
 
+<div id="content" class="oculto pt-7">
 
+</div>
 
 
     <!-- paises -->
