@@ -2,8 +2,6 @@ const searchContainer = document.querySelector('.search-input-box');
 const inputSearch = document.getElementById("campo");
 const boxSuggestions = document.querySelector('.container-suggestions');
 const content = document.getElementById("content"); // Asegúrate de tener este contenedor en tu HTML
-const filtroDiv = document.getElementById('filtro');
-const toggleFiltroButton = document.getElementById('toggleFiltro');
 
 // Evento para buscar datos cuando se escribe en el campo de búsqueda
 inputSearch.addEventListener("keyup", function () {
@@ -60,15 +58,6 @@ document.addEventListener('click', function (event) {
     }
 });
 
-// Evento para mostrar el filtro cuando se hace clic en el botón 'Filtrar'
-toggleFiltroButton.addEventListener('click', function () {
-    // Alterna la visibilidad del filtro
-    if (filtroDiv.style.display === "none" || filtroDiv.style.display === "") {
-        filtroDiv.style.display = "block";
-    } else {
-        filtroDiv.style.display = "none";
-    }
-});
 
 // Función para obtener datos adicionales
 function getData2() {
