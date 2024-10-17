@@ -80,18 +80,23 @@ function ocultarFetiqueta() {
     const fetiqueta = document.getElementById("etiqueta-filtro");
     fetiqueta.classList.add("d-none");
 }
-document.addEventListener('click', function (event) {
-    const filtroDiv = document.getElementById('filtro');
-    const toggleFiltroButton = document.getElementById('toggleFiltro');
+document.addEventListener("click", function (event) {
+    const filtro = document.getElementById("filtro");
+    const toggleFiltro = document.getElementById("toggleFiltro");
 
-    if (!filtroDiv.contains(event.target) && !toggleFiltroButton.contains(event.target)) {
-        filtroDiv.style.display = 'none'; // Oculta el filtro
+    // Verifica si el clic fue fuera del div filtro y fuera del botón de filtro
+    if (!filtro.contains(event.target) && !toggleFiltro.contains(event.target)) {
+        filtro.style.display = "none"; // Oculta el filtro
     }
 });
 
-document.getElementById('toggleFiltro').addEventListener('click', function () {
-    const filtroDiv = document.getElementById('filtro');
-    if (!filtro.style.display === "none" || filtro.style.display === "") {
+// Evento para mostrar el filtro cuando se hace clic en el botón "Filtrar"
+document.getElementById("toggleFiltro").addEventListener("click", function (event) {
+    event.stopPropagation(); // Previene que el evento de click se propague al document
+    const filtro = document.getElementById("filtro");
+
+    // Alterna la visibilidad del filtro
+    if (filtro.style.display === "none" || filtro.style.display === "") {
         filtro.style.display = "block";
     } else {
         filtro.style.display = "none";
