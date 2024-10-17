@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" href="a.css">
     <script src="a.js" defer></script>
+    <script src="buscador_script.js" defer></script>
     <!-- <script src="search.js" defer></script> -->
     <!-- <script src="pasos.js" defer></script> -->
     <script src="ingredientes.js" defer></script>
@@ -30,48 +31,9 @@
                 </svg>
             </a>
             <input type="text" id="campo" placeholder="Busca recetas, ingredientes, personas y más" />
-            <button type="button" id="toggleFiltro" class="btn btn-primary ms-2 me-2">Filtrar</button>
-            <div class="filtro" id="filtro">
-                <h5>Filtros de Búsqueda</h5>
-                <form id="filtroForm">
-                    <div class="form-group container">
-                        <label for="tipoFiltro">Filtrar por:</label>
-                        <select class="form-control" id="tipoFiltro">
-                            <option value="publicacion">Publicación</option>
-                            <option value="ingredientes">Ingredientes</option>
-                            <option value="etiquetas">Etiquetas</option>
-                            <option value="categoria">Categoría</option>
-                        </select>
-                    </div>
-                    <div class="container">
-                        <div class="form-group d-none" id="ingrediente-filtro">
-                            <label for="ingrediente">Ingrediente</label>
-                            <input type="text" class="form-control" id="ingrediente" placeholder="Ej. Tomate">
-                        </div>
-                        <div class="form-group d-none" id="categoria-filtro">
-                            <label for="categoria">Categoría</label>
-                            <select class="form-control" id="categoria" multiple>
-                                <option value="saladas">Saladas</option>
-                                <option value="ocaciones-especiales">Ocaciones Especiales</option>
-                                <option value="dietas-especiales">Dietas Especiales</option>
-                                <option value="bebidas">Bebidas</option>
-                                <option value="dulces">Dulces</option>
-                            </select>
-                        </div>
-                        <div class="form-group d-none" id="publicacion-filtro">
-                            <label for="publicacion">Publicación</label>
-                            <select class="form-control" id="publicacion" multiple>
-                                <option value="Valoración">Valoración</option>
-                                <option value="Tiempo de elaboración">Tiempo de elaboración</option>
-                            </select>
-                        </div>
-                        <div class="form-group d-none" id="etiqueta-filtro">
-                            <label for="etiqueta">Etiquetas</label>
-                            <input type="text" class="form-control" id="etiqueta" placeholder="Ej. Vegetariano">
-                        </div>
-                    </div>
-                </form>
-            </div>
+            <a href="filtrar.php"><button type="button" id="toggleFiltro" class="btn btn-primary ms-2 me-2">Filtrar</button></a>
+            
+           
 
             <div class="container-suggestions">
                 <!-- Aquí irán las sugerencias -->
