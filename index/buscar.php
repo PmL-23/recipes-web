@@ -41,19 +41,11 @@ if ($num_rows > 0) {
     while($row = $resultado->fetch(PDO::FETCH_ASSOC)) {
         // Procesa cada fila tanto para títulos como para las tarjetas
         // Título
-        $html .= '<div class="col-12 contenedor-titulo" onclick="window.location.href=\'receta.php?id=' . $row['id_publicacion'] . '\'">';
+        $html .= '<div class="col-12 contenedor-titulo" onclick="mostrarReceta(' . $row['id_publicacion'] . ')">';
         $html .= '<div class="titulo">' . $row['titulo'] . '</div>';
         $html .= '</div>';
-    
-        // Tarjetas de recetas
-        $html .= '<div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion desayuno">';
-        $html .= '<div class="card h-100">';
-        $html .= '<img src="../html_paises/img/imgArg/' . $row['titulo'] . '.jpg" class="card-img-top" alt="' . $row['titulo'] . '">';
-        $html .= '<div class="card-body">';
-        $html .= '<h5 class="card-title">' . $row['titulo'] . '</h5>';
-        $html .= '<p class="card-text">' . $row['descripcion'] . '</p>';
-        $html .= '<a id="verReceta" href="#" class="btn btn-primary verReceta" data-id="' . $row['id_publicacion'] . '" data-modal="modalReceta">Ver Receta</a>';
-        $html .= '</div></div></div>'; // Cerrar las etiquetas abiertas
+        
+        
     }
     
 } else {
