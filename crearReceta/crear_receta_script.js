@@ -1,14 +1,15 @@
 const inicio = function ()
 {
         visualizarPortada();
+//        agregarPais();
         agregarIngrediente();
         agregarPaso ();
         subirImagenPaso();
         visualizarBandera();
+        mostrarCategoria();
 
         validar();
-
-};
+};      
 
 function validarPortada() {
         const inputPortada = document.getElementById("foto-portada");
@@ -202,7 +203,7 @@ function validarDificultad() {
 
 function validar() {
         let enviar = document.getElementById("btn-publicar");
-        enviar.addEventListener("submit", function (event) {
+        enviar.addEventListener("click", function (event) {
         
                 event.preventDefault();
 
@@ -234,6 +235,8 @@ const visualizarPortada = function ()
 
 }
 
+//Pais
+
 const visualizarBandera = function ()
 {   
         const imgBandera= document.getElementById("banderita");
@@ -241,52 +244,100 @@ const visualizarBandera = function ()
 
         selectPais.addEventListener("change",function () {
 
-                const paisSeleccionado = selectPais.value;
+                const paisSeleccionado = selectPais.options[selectPais.selectedIndex];
+                const banderaURL = paisSeleccionado.getAttribute("data-bandera");
+                        
+                if (banderaURL) {
+                        imgBandera.src = banderaURL;
+                        imgBandera.classList.remove("d-none"); 
+                } else {
+                        imgBandera.classList.add("d-none"); 
+                        imgBandera.src = ""; 
+                }
+        });
 
-                if (paisSeleccionado === "sin") {
-                        imgBandera.classList.add("d-none");
-                        imgBandera.src = "";
-                        return;
-                }
-                imgBandera.classList.remove("d-none");
-                
-                if (paisSeleccionado === "arg") 
-                {
-                        imgBandera.src = "../svg/argentina.svg";
-                }
-                else if (paisSeleccionado === "bol") 
-                {
-                        imgBandera.src = "../svg/bolivia.svg";
-                }
-                else if (paisSeleccionado === "bra")
-                {
-                        imgBandera.src = "../svg/brasil.svg";
-                }
-                else if (paisSeleccionado === "chi") {
-                        imgBandera.src = "../svg/chile.svg";
-                }
-                else if (paisSeleccionado === "col") {
-                        imgBandera.src = "../svg/colombia.svg";
-                }
-                else if (paisSeleccionado === "ecu") {
-                        imgBandera.src = "../svg/ecuador.svg";
-                }
-                else if (paisSeleccionado === "par") {
-                        imgBandera.src = "../svg/paraguay.svg";
-                }
-                else if (paisSeleccionado === "per") {
-                        imgBandera.src = "../svg/peru.svg";
-                }
-                else if (paisSeleccionado === "uru") {
-                        imgBandera.src = "../svg/uruguay.svg";
-                }
-                else if (paisSeleccionado === "ven") {
-                        imgBandera.src = "../svg/venezuela.svg";
-                }
-
-});
 }
 
+const agregarPais = function()
+{
+        const agregarBotonPais = document.getElementById("agregar-pais");
+        const paisContainer = document.getElementById("c-paises");
+
+        agregarBotonPais.addEventListener("click", function () {
+                const nuevoPais = document.createElement("div");
+                        
+                //nuevoPais.innerHTML = ;
+      //solucionar agregar select con php                  
+
+                const quitarBoton = document.createElement("button");
+                quitarBoton.classList.add("boton-secundario", "d-flex");
+                quitarBoton.type = "button";
+                quitarBoton.innerHTML = "<i class='bi bi-trash me-1'></i> Quitar";
+        
+        
+                quitarBoton.addEventListener("click", function () {
+                        nuevoPais.remove();
+                });
+                
+                nuevoPais.appendChild(quitarBoton); 
+                paisContainer.appendChild(nuevoPais); 
+        });
+}
+
+
+//Categoria
+const mostrarCategoria = function () {       
+        const selectCat = document.getElementById("categoria");
+        const tagCategoria = document.getElementById("tag-categoria");
+        
+                selectCat.addEventListener("change", function () {
+                const selectCatIndex = selectCat.options[selectCat.selectedIndex]; 
+                const catSeleccionada = selectCatIndex.textContent;
+        
+                if (catSeleccionada) {
+                        tagCategoria.classList.remove("d-none");
+                        tagCategoria.textContent = catSeleccionada; 
+                } else {
+                        tagCategoria.classList.add("d-none");
+                        tagCategoria.textContent = ""; 
+                }
+                });
+}
+
+//Etiquetas
+/* const agregarEtiqueta = function()
+{
+        const agregarEtiquetaBtn = document.getElementById("agregar-etiqueta");
+        const etiquetaContainer = document.getElementById("etiquetas");
+
+        
+
+        agregarBoton.addEventListener("click", function () {
+                const newEtiqueta = document.createElement("div");
+                newEtiqueta.classList.add("un_ingrediente", "d-grid", "gap-2", "d-flex", "justify-content-md-end");
+                
+                const input = document.createElement("input");
+                input.type = "text";
+                input.classList.add("form-control");
+                input.placeholder = "";
+                
+                const quitarBoton = document.createElement("button");
+                quitarBoton.classList.add("boton-secundario", "d-flex");
+                quitarBoton.type = "button";
+                quitarBoton.innerHTML = "<i class='bi bi-trash me-1'></i> Quitar";
+        
+        //borrar ingredientes (solo los creados por la función)
+                quitarBoton.addEventListener("click", function () {
+                        newEtiqueta.remove();
+                });
+                
+                newEtiqueta.appendChild(input);
+                newEtiqueta.appendChild(quitarBoton);
+                etiquetaContainer.appendChild(newEtiqueta);
+        });
+} */
+
+//Ingredientes
 
 const agregarIngrediente = function()
 {
@@ -297,31 +348,27 @@ const agregarIngrediente = function()
 
         agregarBoton.addEventListener("click", function () {
                 const newIngrediente = document.createElement("div");
-                newIngrediente.classList.add("un_ingrediente", "d-grid", "gap-2", "d-md-flex", "justify-content-md-end");
+                newIngrediente.classList.add("un_ingrediente", "d-grid", "gap-2", "d-flex", "justify-content-md-end");
                 
-                const input = document.createElement("input");
-                input.type = "text";
-                input.classList.add("form-control", "me-md-2");
-                input.placeholder = "";
+                newIngrediente.innerHTML= '<input type="text" class="form-control" name="ingrediente[]" placeholder="Ej: 400gr de harina..." id="primer-ingrediente" required></input>'
                 
                 const quitarBoton = document.createElement("button");
-                quitarBoton.classList.add("btn", "border", "rounded", "remove-button");
+                quitarBoton.classList.add("boton-secundario", "d-flex");
                 quitarBoton.type = "button";
-                quitarBoton.innerText = "Quitar";
+                quitarBoton.innerHTML = "<i class='bi bi-trash me-1'></i> Quitar";
         
         //borrar ingredientes (solo los creados por la función)
                 quitarBoton.addEventListener("click", function () {
                         newIngrediente.remove();
                 });
                 
-                newIngrediente.appendChild(input);
                 newIngrediente.appendChild(quitarBoton);
                 ingredientesContainer.appendChild(newIngrediente);
         });
 }
 
 
-
+//Pasos
 const agregarPaso = function() {
         const agregarPasoBoton = document.getElementById("agregar-paso");
         const pasosLista = document.getElementById("list-paso");
@@ -332,25 +379,25 @@ const agregarPaso = function() {
         
 
                 const newPasoDiv = document.createElement("div");
-                newPasoDiv.classList.add("un_paso", "d-grid", "gap-2", "d-md-flex", "justify-content-md-end");
-        
-                const input = document.createElement("textarea");
-                input.classList.add("form-control", "me-md-2", "input-paso", "textarea-resize");
-                input.placeholder = "";
-                input.required = true;
+                newPasoDiv.classList.add("un_paso", "d-grid", "d-flex", "justify-content-end");
+                
+                newPasoDiv.innerHTML= ' <textarea class="form-control input-paso textarea-resize" name="paso[]" placeholder="Ej: Mezcla los ingredientes en un bowl..." id="primer-paso" required></textarea> ';
+
+                const divBoton = document.createElement("div");
+                divBoton.classList.add("d-grid", "d-flex", "justify-content-end", "mt-2");
         
                 const quitarBoton = document.createElement("button");
-                quitarBoton.classList.add("btn-sm", "border", "rounded", "p-2", "px-3");
+                quitarBoton.classList.add("boton-secundario", "d-flex");
                 quitarBoton.type = "button";
-                quitarBoton.innerText = "Quitar";
+                quitarBoton.innerHTML = "<i class='bi bi-trash me-1'></i> Quitar";
         
                 quitarBoton.addEventListener("click", function() {
                         newPasoLi.remove();
                 });
         
                 newPasoLi.appendChild(newPasoDiv);
-                newPasoDiv.appendChild(input);
-                newPasoDiv.appendChild(quitarBoton);
+                newPasoLi.appendChild(divBoton);
+                divBoton.appendChild(quitarBoton);
         
 
                 const newElementoPasoDiv = document.createElement("div");
@@ -374,8 +421,8 @@ const agregarPaso = function() {
         
                 const quitarBotonImagen = document.createElement("button");
                 quitarBotonImagen.type = "button";
-                quitarBotonImagen.innerText = "Quitar Imagen";
-                quitarBotonImagen.classList.add("btn-sm", "border", "rounded", "ms-2", "d-none");
+                quitarBotonImagen.innerHTML = "<i class='bi bi-trash me-1'></i>Quitar Imagen";
+                quitarBotonImagen.classList.add("boton-secundario", "d-flex", "mt-2", "d-none");
                 
         
                 inputFile.addEventListener("change", function() {
