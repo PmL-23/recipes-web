@@ -1,0 +1,74 @@
+.boton-principal {
+    display: inline-block;
+    background-color: #004227;
+    border: 2px solid transparent;
+    padding: 6px 40px;
+    border-radius: 10px;
+    text-align: center;
+    color: #ffffff;
+    font-weight:500;
+    transition: background-color 0.3s, color 0.3s, border 0.3s;
+}
+
+.boton-principal:hover
+{
+    background-color: #21A66E !important;
+}
+
+.icono
+{
+    padding-bottom: 0px;
+    margin: 0px 0px 0px 10px;
+    padding: 0px;
+}
+
+.boton-secundario {
+    display: inline-block;
+    background-color: #e9e9e9;
+    border: 2px solid transparent;
+    padding: 6px 20px;
+    border-radius: 10px;
+    text-align: center;
+    color: #000000;
+    font-weight:500;
+    transition: background-color 0.3s, color 0.3s, border 0.3s;
+}
+
+.boton-secundario:hover
+{
+    background-color: white;
+}
+
+.boton-secundario:disabled {
+    color: #6c757d; 
+    
+}
+
+.boton-item {
+    display: inline-block;
+    background-color: transparent;
+    border: 1px solid #e9e9e9;
+    padding: 8px 20px;
+    border-radius: 30px;
+    text-align: center;
+    color: #000000;
+    font-weight:500;
+    transition: background-color 0.3s, color 0.3s, border 0.3s;
+}
+
+.boton-item:hover {
+    background-color:#D6F1DA;
+    border: transparent;
+}
+
+.tag-categorias {
+    display: inline-block;
+    background-color: #00a759;
+    border: 2px solid #008648;
+    padding: 6px 20px;
+    border-radius: 30px;
+    text-align: center;
+    color: #ffffff;
+    font-weight:500;
+}
+
