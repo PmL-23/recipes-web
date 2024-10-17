@@ -6,11 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recetario</title>
 
-    <link rel="stylesheet" href="../index/a.css">
-    <script src="../index/a.js" defer></script>
-    <script src="buscador_script.js" defer></script>
-    <script src="search.js" defer></script>
-    <script src="pasos.js" defer></script>
+    <link rel="stylesheet" href="a.css">
+    <script src="a.js" defer></script>
+    <!-- <script src="search.js" defer></script> -->
+    <!-- <script src="pasos.js" defer></script> -->
     <script src="ingredientes.js" defer></script>
 
     <?php include '../includes/head.php' ?>
@@ -18,9 +17,10 @@
 
 <body>
     <?php include '../includes/header.php'; ?>
-
-    <!-- BUSCADOR -->
-    <div class="container mt-4 d-flex justify-content-center">
+    <?php include '../includes/conec_db.php';
+    include '../includes/paises.php' ?>
+ <!-- BUSCADOR -->
+ <div class="container mt-4 d-flex justify-content-center">
         <div class="search-input-box">
             <a href="#" target="_blank" class="search-icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#26533c" stroke-width="2"
@@ -74,7 +74,7 @@
             </div>
 
             <div class="container-suggestions">
-                <!-- Aquí irán las sugerencias -->sacascascasc
+                <!-- Aquí irán las sugerencias -->
             </div>
         </div>
         <div class="buscador2 ocultar">
@@ -82,27 +82,17 @@
         </div>
     </div>
 
-    <div class="container">
-        <table class="table table-striped table-hover">
-            <tbody id="content">
-                <!-- Aquí se rellenarán los datos dinámicamente -->cascascascascsc
-            </tbody>
-        </table>
 
-        <div id="modalReceta" class="modal">
-            <div class="modal-contenido">
-                <span class="cerrar">&times;</span>
-                <h3>Pasos:</h3>
-                <ol id="pasosReceta">
-                    <!-- Los pasos se cargarán aquí dinámicamente -->
-                </ol>
-                <h3>Ingredientes:</h3>
-                <ul id="ingredientesReceta">
-                    <!-- Los ingredientes se cargarán aquí dinámicamente -->
-                </ul>
-            </div>
-        </div>
-    </div>
+
+<div class="container-suggestions">
+    <!-- Aquí irán las sugerencias -->
+</div>
+
+<div id="content" class="oculto pt-7">
+
+</div>
+
+
     <div>
         <h1></h1><br>
         <h1></h1><br>
