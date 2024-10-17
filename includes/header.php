@@ -69,7 +69,7 @@
                                     if(isset($_SESSION['id']) && $_SESSION['id']){ 
 
                                         echo '<li class="nav-item justify-content-center">
-                                            <a class="nav-link mt-5" href="../CarpetaPerfil/Perfil.php">Perfil</a>
+                                            <a class="nav-link mt-5" href="../perfil-usuario/mi_perfil.php">Perfil</a>
                                         </li>
                                         <hr>
                                         <li class="nav-item justify-content-center mt-2">
