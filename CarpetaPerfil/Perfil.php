@@ -5,18 +5,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Recetario</title>
         
-<<<<<<< HEAD:CarpetaPerfil/Perfil.php
         
         <link rel="stylesheet" href="../CarpetaPerfil/EstilosPerfil.css">
         <link rel="stylesheet" href="../CarpetaFavoritos/EstilosFavoritos.css">
         <script src="../CarpetaPerfil/JSPerfil.js" defer></script>
-=======
-        <script src="./JSPerfil.js" defer></script>
-
->>>>>>> 84cbfc1 (seccion Perfil - avance JS):CarpetaPerfil/Perfil.html
         
+        <?php include '../includes/conec_db.php'?>
         <?php include '../includes/head.php'?>
-        
     </head>
     
 <body>
@@ -26,8 +21,7 @@
     <div class="container-fluid row mt-0 "> <!-- el contenedor de un perfil tedrá el nombre, la foto, la cantidad de perfiles seguidos y los seguidores propios-->
 
         <div class="col-1 FotoDePerfil p-1 ">
-
-            <img class="d-inline" alt="Texto si no ve imagen" src="../images/bondiola_lp.jpg"width="44" height="44">
+            <img class="d-inline" alt="Texto si no ve imagen" src="../images/bondiola_lp.jpg"width="44" height="44" id="IDFotoPerfil">
         </div>
         <div class="col-7 d-inline p-0">
 
@@ -100,10 +94,10 @@
                     </div>
                     <hr>
                 <!-- Formulario con apartados editables -->
-                <form id="editProfileForm">
+                <form id="PerfilUsuarioForm">
                     <div class="mb-3">
                         <label for="IDNombreEnEditarPerfil" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="IDNombreEnEditarPerfil" placeholder="Ingrese su nombre">
+                        <input type="text" class="form-control" id="Nombre" placeholder="Ingrese su nombre">
                     </div>
                     <div class="mb-3">
                         <label for="IDApellidoEnEditarPerfil" class="form-label">Apellido</label>
@@ -191,13 +185,13 @@
         <div class="col-4 row mt-4  p-0">
             <div class="col-6 p-0">
                 <p class="box p-0 d-flex justify-content-center align-items-center">Seguidores</p>
-                <p class="boxcantidad mt-0 p-0 d-flex justify-content-center align-items-center">44</p>
+                <p class="boxcantidad mt-0 p-0 d-flex justify-content-center align-items-center" id="IDCantidadSeguidores">44</p>
             </div>
             
             <div class="col-6  p-0 ">
                 <p class="box p-0 d-flex justify-content-center align-items-center ">Siguiendo</p>
                 
-                <p class="boxcantidad mt-0 p-0 d-flex justify-content-center align-items-center">1</p>
+                <p class="boxcantidad mt-0 p-0 d-flex justify-content-center align-items-center" id="IDCantidadSeguidos">1</p>
             </div>
         </div>
     </div>
@@ -234,6 +228,7 @@ Dios te ayude hermano
 
     <br>
     <br>
+<!---
         <div class="container-fluid row ">
             <div class="col-1 "></div>
     
@@ -251,7 +246,7 @@ Dios te ayude hermano
                             <button type="button" data-bs-target="#carouselExampleIndicators1" data-bs-slide-to="1" aria-label="Slide 2"></button>
                             
                         </div>
-                        <div class="carousel-inner slide"> <!---buscar manera para que el tamaño de una imagen no perjudique la UX-->
+                        <div class="carousel-inner slide"> 
                             <div class="carousel-item active slide" data-background-image="../images/nioquis_lp.jpg">
                                 <img src="../images/nioquis_lp.jpg"  class="d-block w-100" alt="...">
                             </div>
@@ -297,25 +292,24 @@ Dios te ayude hermano
                     </ul>
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
-                            <!-- Valoración y cantidad de valoraciones -->
+
                             <div class="valoracion">
                                 <p>Valoración: ★★★★☆ (32 valoraciones)</p>
                             </div>
                             
-                            <!-- Cantidad de comentarios -->
+
                             <div class="comentarios">
                                 <p>10 comentarios</p>
                             </div>
                         </div>
                         
-                        <!-- Botones de acción -->
+
                         <div class="d-flex justify-content-end mt-2">
-                            <!-- Botón para compartir -->
+
                             <button class="btn btn-outline-primary me-2" type="button">
                                 Compartir
                             </button>
-                    
-                            <!-- Botón para guardar en favoritos -->
+
                             <button class="btn btn btn-outline-dark" type="button">
                                 Guardar en Favoritos
                             </button>
@@ -326,66 +320,9 @@ Dios te ayude hermano
             
             <div class="col-1 "></div>
     
-        </div>
+        </div>-->
 
 
 </body>
 </html>
-
-
-<!---
-
- Button trigger modal 
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-    Launch static backdrop modal
-  </button>
-  
-   Modal 
-  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          ...
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Understood</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-    <img src="/FONDO.png" class="card-img-top" alt="Texto si no ve imagen">
-
-
-
-<div class="col-1 p-0 ms-0">
-    <br>
-    <div >
-        <p class="box p-0 d-flex justify-content-center align-items-center">Seguidores</p>
-        
-        <p class="boxfollowers mt-0 p-1 d-flex justify-content-center align-items-center">1</p>
-    </div>
-</div>
-
-
-Comienza el body de la publicacion
-            <div class="DivBodyPublicacionCarrousel p-0 d-flex justify-content-center align-items-center">
-                <img alt="Texto si no ve imagen" src="/FONDO.png" width="400" height="200">
-            </div>
-            <div class="DivBodyPublicacionCategoriaYEtiquetas p-0 "></div>
-                
-            </div>
-            <div class="DivBodyPublicacionIngredientes p-0 "></div>
-                
-            </div>
-            <div class="DivBodyPublicacionDescripcion p-0 "></div>
-                
-            </div>-->
-
-
 <?php include '../includes/footer.php'?>  
