@@ -1,3 +1,4 @@
+//      hay que arreglar las lineas 55, 84, 107, 131 y 184.
 //objeto para el usuario
 let IDSesion;
 let Usuario = {
