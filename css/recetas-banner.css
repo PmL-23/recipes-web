@@ -25,7 +25,10 @@ h5{
 }
 
 
-
+.margen-carta{
+    margin-left: 10px;
+    margin-right: 10px;
+}
 
 .categoria-style {
     font-size: 14px;
@@ -36,7 +39,28 @@ h5{
     padding: 8px 16px; /* padding interno */
     border-radius: 30px;
 }
-
+.categoria-style2 {
+    font-size: 18px;
+    background-color: #26533c !important;
+    border-width: 2px solid;
+    border-color: #183b29;
+    color:#d4ffeb;
+    padding: 8px 16px; /* padding interno */
+    border-radius: 30px;
+}
+.etiqueta-style {
+    font-size: 15px;
+    background-color: #274b74 !important;
+    border-width: 2px solid;
+    border-color: #183b29;
+    color:#d4ffeb;
+    padding: 8px 16px; /* padding interno */
+    border-radius: 30px;
+}
+.TextoCaracteristicasPublicacion{
+    font-size: 18px;
+    font-weight: bold;
+}
 .categoria-style ::after{
     background-color: #030303;
 }

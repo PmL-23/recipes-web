@@ -51,7 +51,7 @@ const ProcesarInformacionLLenarEncabezado = function(data) {
 
 const LLenarEncabezado = async function () {
 
-    let url = window.location.origin + '/RECIPES-WEB/CarpetaPerfil/TraerUsuario.php?IDUsuario=' + IDSesion;
+    let url = window.location.origin + '/RECIPES-WEB/CarpetaPerfil/TraerUsuario.php?IDUsuario=' + IDSesion;/////////////////////////////////////////////////////////////////////////////////////////////
     try {
         let respuesta = await fetch (url, {
         method : 'get',
@@ -80,7 +80,7 @@ const ProcesarInformacionTraerValoraciones = function(data, index) {
 }
 
 const TraerValoraciones = async function (IDPublicacion, index) {
-    let url = window.location.origin + '/RECIPES-WEB/CarpetaPerfil/TraerValoraciones.php?IDPublicacion=' + IDPublicacion;
+    let url = window.location.origin + '/RECIPES-WEB/CarpetaPerfil/TraerValoraciones.php?IDPublicacion=' + IDPublicacion;/////////////////////////////////////////////////////////////////////////////////////////////
     try {
         let respuesta = await fetch(url, {
             method: 'get',
@@ -103,7 +103,7 @@ const ProcesarInformacionTraerCantComentarios = function(data, index) {
 
 
 const TraerCantComentarios = async function (IDPublicacion, index) {
-    let url = window.location.origin + '/RECIPES-WEB/CarpetaPerfil/TraerCantComentarios.php?IDPublicacion=' + IDPublicacion;
+    let url = window.location.origin + '/RECIPES-WEB/CarpetaPerfil/TraerCantComentarios.php?IDPublicacion=' + IDPublicacion;/////////////////////////////////////////////////////////////////////////////////////////////
     try {
         let respuesta = await fetch(url, {
             method: 'get',
@@ -127,7 +127,7 @@ const ProcesarInformacionTraerCategoria = function(data, index) {
 
 
 const TraerCategoria = async function (IDCategoria, index) {
-    let url = window.location.origin + '/RECIPES-WEB/CarpetaPerfil/TraerCategoriaPublicacion.php?IDCategoria=' + IDCategoria;
+    let url = window.location.origin + '/RECIPES-WEB/CarpetaPerfil/TraerCategoriaPublicacion.php?IDCategoria=' + IDCategoria;/////////////////////////////////////////////////////////////////////////////////////////////
     try {
         let respuesta = await fetch(url, {
             method: 'get',
@@ -180,7 +180,7 @@ const ProcesarInformacionTraerPublicaciones = async function(data) {
 
 const TraerPublicaciones = async function () {
 
-    let url = window.location.origin + '/RECIPES-WEB/CarpetaPerfil/TraerPublicaciones.php?IDUsuario=' + IDSesion;
+    let url = window.location.origin + '/RECIPES-WEB/CarpetaPerfil/TraerPublicaciones.php?IDUsuario=' + IDSesion;/////////////////////////////////////////////////////////////////////////////////////////////
     try {
         let respuesta = await fetch (url, {
         method : 'get',
@@ -263,89 +263,116 @@ function LLenarDivPublicaciones() {
 
 //            <div class="container-fluid row" id="DivPublicacion${i}">
             const fragmentoHTML =`
-
-
                 
-                <div class="card p-3 mt-2 col-lg-4 mb-3" id="DivPublicacion${i}">
-                        <div class="DivEncabezadoPublicacion d-flex justify-content-between align-items-center">
-                            <div class="d-flex align-items-center">
-                                <img class="d-inline" alt="Fperfil" src="" width="25" height="25">
-                                <p class="d-inline mb-0" id="IDNombreCompletoDeUsuarioEnPublicacion">${Usuario.nom_completo}</p>
-                                <p class="d-inline text-secondary mb-0" id="IDNombreDeUsuarioEnPublicacion">@${Usuario.username}</p>
-                            </div>
-                            <p class="text-secondary mb-0" id="IDFechaPublicacion">${Publicacion[i].fecha_publicacion}</p>
-                        </div>
-
-    
-                        <div id="carouselExampleIndicators${i}" class="carousel slide carouselPerfil bg-black">
-                            <div class="carousel-indicators">
-                                <button type="button" data-bs-target="#carouselExampleIndicators${i}" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                                <button type="button" data-bs-target="#carouselExampleIndicators${i}" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                            </div>
-                            <div class="carousel-inner"> <!---buscar manera para que el tamaño de una imagen no perjudique la UX-->
-                                <div class="carousel-item active slide" data-background-image="">
-                                    <img src="" class="d-block w-100" alt="...">
-                                </div>
-                                <div class="carousel-item slide" data-background-image="">
-                                    <img src="" class="d-block w-100 " alt="...">
-                                </div>
-                            </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators${i}" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators${i}" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-                        </div>
-                        
-                        <div class="card-body ">
-                            <h5 class="card-title ">${Publicacion[i].titulo}</h5>
-                            <p class="card-text">${Publicacion[i].descripcion}</p>
-                        </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item mt-3">
-                                <p class="card-text EstilosCategorias">${Publicacion[i].nom_categoria}</p>
-                                    
-                            </li>
-                            <li class="list-group-item">
-                                <ul>
-                                    <li><p class="card-text"></p></li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <!-- Valoración y cantidad de valoraciones -->
-                                <div class="valoracion">
-                                    <p> Valoracion ${Publicacion[i].prom_valoracion} (${Publicacion[i].cant_valoraciones} valoraciones)</p>
-                                </div>
-                                
-                                <!-- Cantidad de comentarios -->
-                                <div class="comentarios">
-                                    <p> ${Publicacion[i].cant_comentarios} comentarios</p>
-                                </div>
-                            </div>
-                            
-                            <!-- Botones de acción -->
-                            <div class="d-flex justify-content-end mt-2">
-                                <!-- Botón para compartir -->
-                                <button class="btn btn-outline-primary me-2" type="button">
-                                    Compartir
-                                </button>
-                        
-                                <!-- Botón para guardar en favoritos -->
-                                <button class="btn btn btn-outline-dark" type="button">
-                                    Guardar en Favoritos
-                                </button>
-                            </div>
-                        </div>
+<div class="p-3 mt-2 col-xxl-4 col-xl-6 col-md-12" id="DivPublicacion${i}">
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-10">
+        <div class="card">
+            <div class="DivEncabezadoPublicacion d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <img class="d-inline" alt="Fperfil" src="" width="25" height="25">
+                    <p class="d-inline mb-0" id="IDNombreCompletoDeUsuarioEnPublicacion">${Usuario.nom_completo}</p>
+                    <p class="d-inline text-secondary mb-0" id="IDNombreDeUsuarioEnPublicacion">@${Usuario.username}</p>
                 </div>
-    
-
-    
+                <p class="text-secondary mb-0" id="IDFechaPublicacion">${Publicacion[i].fecha_publicacion}</p>
             </div>
+
+
+            <div id="carouselExampleIndicators${i}" class="carousel slide carouselPerfil bg-black">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleIndicators${i}" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators${i}" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                </div>
+                <div class="carousel-inner"> <!---buscar manera para que el tamaño de una imagen no perjudique la UX-->
+                    <div class="carousel-item active slide" data-background-image="">
+                        <img src="" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item slide" data-background-image="">
+                        <img src="" class="d-block w-100 " alt="...">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators${i}" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators${i}" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+            
+            <div class="card-body ">
+                <h5 class="card-title ">${Publicacion[i].titulo}</h5>
+                <p class="card-text">${Publicacion[i].descripcion}</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item mt-3">
+                    <p class="categoria-style2 d-inline-flex mb-3 fw-semibold border border-success-subtle rounded-5">${Publicacion[i].nom_categoria}</p>
+                    <p class="etiqueta-style d-inline-flex mb-3 fw-semibold border border-success-subtle rounded-5">etiqueta nashe</p>
+                    <p class="etiqueta-style d-inline-flex mb-3 fw-semibold border border-success-subtle rounded-5">etiqueta nashe2</p>
+                    <p class="etiqueta-style d-inline-flex mb-3 fw-semibold border border-success-subtle rounded-5">etiqueta nashe3</p>
+                </li>
+                <li class="list-group-item">
+                        <div class="contenedor-detalles container text-center ">
+                        <div class="row align-items-start">
+                            <div class="col-4">
+                                <div class="align-items-center box-icons">
+                                    <img src="../svg/argentina.svg" alt="Bandera" width="35" class="bandera" id="bandera-receta">
+                                    <p class="TextoCaracteristicasPublicacion">Argentina</p> 
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="align-items-center box-icons">
+                                    <img src="../svg/bar-chart-line-fill.svg" width="25px" class="icono-item" alt="Dificultad icon">
+                                    <p class="TextoCaracteristicasPublicacion mb-0">Dificultad</p>
+                                    <p class="">Media</p>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="align-items-center box-icons">
+                                    <img src="../svg/alarm.svg" width="25px" class="icono-item" alt="Dificultad icon">
+                                    <p class="TextoCaracteristicasPublicacion mb-0">Tiempo</p>
+                                    <p class="tiempo">30 min</p>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                </li>
+
+            </ul>
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <!-- Valoración y cantidad de valoraciones -->
+                    <div class="valoracion">
+                        <p> Valoracion ${Publicacion[i].prom_valoracion} (${Publicacion[i].cant_valoraciones} valoraciones)</p>
+                    </div>
+                    
+                    <!-- Cantidad de comentarios -->
+                    <div class="comentarios">
+                        <p> ${Publicacion[i].cant_comentarios} comentarios</p>
+                    </div>
+                </div>
+                
+                <!-- Botones de acción -->
+                <div class="d-flex justify-content-end mt-2">
+                    <!-- Botón para compartir -->
+                    <button class="btn btn-outline-primary me-2" type="button">
+                        Compartir
+                    </button>
+            
+                    <!-- Botón para guardar en favoritos -->
+                    <button class="btn btn btn-outline-dark" type="button">
+                        Guardar en Favoritos
+                    </button>
+                </div>
+                
+            </div>
+        </div>
+        </div>
+        <div class="col-1"></div>
+    </div>
+</div>
 
             `;
             // Agregar el fragmento de HTML al contenedor
@@ -356,8 +383,8 @@ function LLenarDivPublicaciones() {
 }
 document.addEventListener("DOMContentLoaded", async function () {
     IDSesion = document.body.getAttribute('data-id-usuario');
-    console.log("viendo");
-    console.log(IDSesion);
+    //console.log("viendo");
+    //console.log(IDSesion);
     let promesasDOM = [];
     promesasDOM.push(LLenarEncabezado()); //si usamos un away en el for, se rompe, por eso hacemos esto
     promesasDOM.push(TraerPublicaciones()); //si usamos un away en el for, se rompe, por eso hacemos esto
