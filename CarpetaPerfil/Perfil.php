@@ -1,13 +1,21 @@
 <?php
-session_start();
-include '../includes/conec_db.php';
-if (!isset($_SESSION['id'])) {
-    header("Location: ../html_inicio_sesion/iniciarSesion.php"); 
-    exit();
-}
-$id_usuario = $_SESSION['id'];
-?>
 
+include '../includes/conec_db.php';
+
+if (!isset($_GET['IDUsuario'])) {
+    echo json_encode([
+        'success' => false,
+        'error' => [
+            'cliente' => [
+                'No se especifico un usuario',
+            ],
+        ],
+    ], JSON_PRETTY_PRINT);
+    echo 'PERO PONE EL IDUSUARIO EN EL GET CAPO';
+    die();
+}
+$id_usuario = $_GET['IDUsuario'];
+?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -15,7 +23,6 @@ $id_usuario = $_SESSION['id'];
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Recetario</title>
-        
         
         <link rel="stylesheet" href="../CarpetaPerfil/EstilosPerfil.css">
         <link rel="stylesheet" href="../CarpetaFavoritos/EstilosFavoritos.css">
@@ -36,7 +43,7 @@ $id_usuario = $_SESSION['id'];
         <div class="col-7 d-inline p-0">
             <p class="d-inline" id="IDNombreCompletoDeUsuario">Nombre & Apellido de Usuario</p>
             <p class="d-inline text-secondary" id="IDNombreDeUsuario">@NombreDeUsuario</p>
-        <!-- Dropdown -->
+        <!-- Dropdown --><!--
         <div class="btn-group">
             <button type="button" class="btn btn-success dropdown-toggle btn-sm p-0" data-bs-toggle="dropdown" aria-expanded="false"></button>
             <ul class="dropdown-menu">
@@ -46,7 +53,7 @@ $id_usuario = $_SESSION['id'];
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#modalEliminarCuenta">Eliminar Cuenta</a></li>
             </ul>
-        </div>
+        </div>-->
 
         <!-- Modal Cambiar Contraseña -->
         <div class="modal fade" id="modalCambiarContrasena" tabindex="-1" aria-labelledby="modalCambiarContrasenaLabel" aria-hidden="true">
