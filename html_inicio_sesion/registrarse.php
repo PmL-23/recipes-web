@@ -67,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Registro del usuario, acá inserto a la tabla usuario los datos que se llenaron en el registro.
 
-        $sqlUsuario = "INSERT INTO usuarios(id_rol, username, nom_completo, email, password, fecha_nacimiento,id_pais) VALUES (1, :Username, :NombreCompleto, :Email, :Password, :Fecha_Nac,:id_pais)";
+        $sqlUsuario = "INSERT INTO usuarios(id_rol, username, nom_completo, email, password, fecha_nacimiento, id_pais, foto_usuario) VALUES (1, :Username, :NombreCompleto, :Email, :Password, :Fecha_Nac, :id_pais, :foto_usuario)";
         $stmtUsuario = $conn->prepare($sqlUsuario); //Preparo la consulta que me inserta un usuario
 
         if (!$stmtUsuario) {
@@ -75,12 +75,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         }
 
+        $foto_usuario = "../fotos_usuario/default/default.jpg";
+
         $stmtUsuario->bindParam(':Username', $username, PDO::PARAM_STR); //con esto nada mas establezco los valores que obtuve a la consulta
         $stmtUsuario->bindParam(':NombreCompleto', $nomCompleto, PDO::PARAM_STR);
         $stmtUsuario->bindParam(':Email', $email, PDO::PARAM_STR);
         $stmtUsuario->bindParam(':Password', $hashedPassword, PDO::PARAM_STR);
         $stmtUsuario->bindParam(':Fecha_Nac', $fecha_nacimiento, PDO::PARAM_STR);
         $stmtUsuario->bindParam(':id_pais', $id_pais, PDO::PARAM_INT);
+        $stmtUsuario->bindParam(':foto_usuario',$foto_usuario,PDO::PARAM_STR);
 
         if ($stmtUsuario->execute()) {
 
