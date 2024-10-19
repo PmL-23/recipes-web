@@ -1,4 +1,5 @@
 //objeto para el usuario
+let IDSesion;
 let Usuario = {
     id_usuario: null, 
     id_rol: null,
@@ -20,6 +21,8 @@ const ProcesarInformacionLLenarEncabezado = function(data) {
     //console.log(data);
     let IDNombreCompletoDeUsuario = document.getElementById('IDNombreCompletoDeUsuario');
     let IDNombreDeUsuario = document.getElementById('IDNombreDeUsuario');
+
+
     //faltaria actualizar lo de los seguidores
 
     if (data.length === 0) {
@@ -48,7 +51,7 @@ const ProcesarInformacionLLenarEncabezado = function(data) {
 
 const LLenarEncabezado = async function () {
 
-    let url = window.location.origin + '/RECIPES-WEB/CarpetaPerfil/TraerUsuario.php?IDUsuario=3';
+    let url = window.location.origin + '/RECIPES-WEB/CarpetaPerfil/TraerUsuario.php?IDUsuario=' + IDSesion;
     try {
         let respuesta = await fetch (url, {
         method : 'get',
@@ -169,15 +172,15 @@ const ProcesarInformacionTraerPublicaciones = async function(data) {
         await Promise.all(promesasValoraciones);
         //console.log("en el for de las publicaciones");
         //console.log(CantidadPublicaciones);
-        LLenarDivPublicaciones();
         console.log(Publicacion);
     }
+    LLenarDivPublicaciones();
 }
 
 
 const TraerPublicaciones = async function () {
 
-    let url = window.location.origin + '/RECIPES-WEB/CarpetaPerfil/TraerPublicaciones.php?IDUsuario=3';
+    let url = window.location.origin + '/RECIPES-WEB/CarpetaPerfil/TraerPublicaciones.php?IDUsuario=' + IDSesion;
     try {
         let respuesta = await fetch (url, {
         method : 'get',
@@ -237,9 +240,8 @@ function CopiarEnlacePerfil() {
 
 //funcion para copiar en enlace para compartir el perfil.
 function LLenarDivPublicaciones() {
-        
-
     const contenedor = document.getElementById("IDContenedorPublicacionesPropias"); // Selecciona el contenedor
+    console.log("sdaasd");
     if(CantidadPublicaciones==0){
         const fragmentoHTML =`
         <div class="container-fluid row d-flex justify-content-center align-items-center">
@@ -251,17 +253,20 @@ function LLenarDivPublicaciones() {
             <br>
         </div>`;
         // Agregar el fragmento de HTML al contenedor
-        contenedor.innerHTML += fragmentoHTML;  
+        contenedor.innerHTML = fragmentoHTML;  
     }
     
     else{
     for (let i = 0; i < CantidadPublicaciones; i++) {
             //falta la logica para poner tantas imagenes como tenga la publicacion.
+
+
+//            <div class="container-fluid row" id="DivPublicacion${i}">
             const fragmentoHTML =`
-            <div class="container-fluid row" id="DivPublicacion${i}">
-                <div class="col-1 "></div>
+
+
                 
-                <div class="card p-0 col-10">
+                <div class="card p-3 mt-2 col-lg-4 mb-3" id="DivPublicacion${i}">
                         <div class="DivEncabezadoPublicacion d-flex justify-content-between align-items-center">
                             <div class="d-flex align-items-center">
                                 <img class="d-inline" alt="Fperfil" src="" width="25" height="25">
@@ -338,12 +343,10 @@ function LLenarDivPublicaciones() {
                         </div>
                 </div>
     
-                <div class="col-1 "></div>
+
     
             </div>
-        <br>
-        <hr>
-        <br>
+
             `;
             // Agregar el fragmento de HTML al contenedor
             contenedor.innerHTML += fragmentoHTML;  
@@ -352,7 +355,9 @@ function LLenarDivPublicaciones() {
     }
 }
 document.addEventListener("DOMContentLoaded", async function () {
-
+    IDSesion = document.body.getAttribute('data-id-usuario');
+    console.log("viendo");
+    console.log(IDSesion);
     let promesasDOM = [];
     promesasDOM.push(LLenarEncabezado()); //si usamos un away en el for, se rompe, por eso hacemos esto
     promesasDOM.push(TraerPublicaciones()); //si usamos un away en el for, se rompe, por eso hacemos esto

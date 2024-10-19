@@ -1,3 +1,14 @@
+<?php
+session_start();
+include '../includes/conec_db.php';
+if (!isset($_SESSION['id'])) {
+    header("Location: ../html_inicio_sesion/iniciarSesion.php"); 
+    exit();
+}
+$id_usuario = $_SESSION['id'];
+?>
+
+
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -14,9 +25,8 @@
         <?php include '../includes/head.php'?>
     </head>
     
-<body>
+<body data-id-usuario="<?php echo htmlspecialchars($id_usuario); ?>">
 <?php include '../includes/header.php'?>
-
 
     <div class="container-fluid row mt-0 "> <!-- el contenedor de un perfil tedrá el nombre, la foto, la cantidad de perfiles seguidos y los seguidores propios-->
 
@@ -24,7 +34,6 @@
             <img class="d-inline" alt="Texto si no ve imagen" src="../images/bondiola_lp.jpg"width="44" height="44" id="IDFotoPerfil">
         </div>
         <div class="col-7 d-inline p-0">
-
             <p class="d-inline" id="IDNombreCompletoDeUsuario">Nombre & Apellido de Usuario</p>
             <p class="d-inline text-secondary" id="IDNombreDeUsuario">@NombreDeUsuario</p>
         <!-- Dropdown -->
@@ -217,11 +226,8 @@ Dios te ayude hermano
 
 -->
 <hr class="mt-0">
-<br>
-<br>
-<br>
-<br>
-    <div class="" id="IDContenedorPublicacionesPropias">
+
+    <div class="container-fluid row" id="IDContenedorPublicacionesPropias">
 
     </div>
 
@@ -322,7 +328,8 @@ Dios te ayude hermano
     
         </div>-->
 
-
+<div >
+<?php include '../includes/footer.php'?>  
+</div>
 </body>
 </html>
-<?php include '../includes/footer.php'?>  
