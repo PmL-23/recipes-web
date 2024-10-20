@@ -1,0 +1,30 @@
+/* perfil.css */
+
+.card-img-top {
+    object-fit: cover; /* Ajusta la imagen de perfil */
+}
+
+.publicacion {
+    position: relative;
+}
+
+#boton-opc {
+    position: absolute; /* Mantiene el botón en posición absoluta */
+    top: 10px; /* Espaciado desde la parte superior */
+    right: 10px; /* Espaciado desde la derecha */
+    z-index: 10; /* Asegura que esté por encima de otros elementos */
+}
+
+.carousel-item img {
+    max-height: 400px; /* Ajusta la altura máxima de las imágenes del carrusel */
+    object-fit: cover; /* Mantiene la proporción de la imagen */
+}
+
+
+.modal-header {
+    background-color: #f8f9fa; /* Color de fondo del encabezado del modal */
+}
+
+.modal-title {
+    color: #343a40; /* Color del título del modal */
+}

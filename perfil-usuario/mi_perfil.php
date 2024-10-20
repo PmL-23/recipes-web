@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 include '../includes/conec_db.php';
 
 if (!isset($_SESSION['id'])) {
@@ -52,6 +53,9 @@ try {
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage(); 
 }
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -61,7 +65,11 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil</title>
     <link rel="stylesheet" href="imagen_perfil.css">
+    <link rel="stylesheet" href="boton_publicacion.css">
+    
     <script src="cambiar_imagen.js" defer></script>
+    <script src="boton_publicacion.js" defer></script>
+
     <?php include '../includes/head.php'; ?>
 </head>
 <body>
@@ -72,10 +80,10 @@ try {
                 <div class="card text-center position-relative">
                     <img src="<?= htmlspecialchars($usuario['foto_usuario']) ?>" class="card-img-top" alt="Foto de Perfil" id="imagenPerfil">
                     <button class="notificaciones btn btn-outline-light boton-menu" id="btnCambiarImagen" aria-label="Cambiar imagen" style="display: none;">Cambiar imagen</button>
-                     <div class="card-body">
+                    <div class="card-body">
                         <h5 class="card-title">Nombre: <?php echo htmlspecialchars($usuario['nom_completo']); ?></h5>
-                         <p class="card-text">Descripción: <?php echo htmlspecialchars($usuario['descripcion']); ?></p>
-                     </div>
+                        <p class="card-text">Descripción: <?php echo htmlspecialchars($usuario['descripcion']); ?></p>
+                    </div>
                 </div>
             </div>
 
@@ -83,37 +91,46 @@ try {
                 <h4>Publicaciones de <?php echo htmlspecialchars($usuario['nom_completo']); ?></h4>
                 <ul class="list-group">
                     <?php foreach ($publicaciones as $publicacion): ?>
-                        <li class="list-group-item">
-                            <h5><?php echo htmlspecialchars($publicacion['titulo']); ?></h5>
-                            <p><?php echo htmlspecialchars($publicacion['descripcion']); ?></p>
-                            <small>Publicado el: <?php echo date('d-m-Y', strtotime($publicacion['fecha_publicacion'])); ?></small>
+                    <li class="list-group-item position-relative">
+                        <h5><?php echo htmlspecialchars($publicacion['titulo']); ?></h5>
+                        <p><?php echo htmlspecialchars($publicacion['descripcion']); ?></p>
+                        <small>Publicado el: <?php echo date('d-m-Y', strtotime($publicacion['fecha_publicacion'])); ?></small>
 
-                            
-                            <div id="carousel<?php echo $publicacion['id_publicacion']; ?>" class="carousel slide mt-3" data-bs-ride="carousel">
-                                <div class="carousel-inner">
-                                    <?php foreach ($publicacion['imagenes'] as $index => $imagen): ?>
-                                        <div class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>">
-                                            <img src="<?php echo htmlspecialchars($imagen); ?>" class="d-block w-100" alt="Imagen de <?php echo htmlspecialchars($publicacion['titulo']); ?>">
-                                        </div>
-                                    <?php endforeach; ?>
-                                </div>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#carousel<?php echo $publicacion['id_publicacion']; ?>" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Anterior</span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#carousel<?php echo $publicacion['id_publicacion']; ?>" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Siguiente</span>
-                                </button>
+                        <div class="acciones position-absolute" id="boton-opc">
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton<?php echo $publicacion['id_publicacion']; ?>" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="bi bi-caret-down-fill"></i>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton<?php echo $publicacion['id_publicacion']; ?>">
+                                <li><a class="dropdown-item" href="#" onclick="editarPublicacion(<?php echo $publicacion['id_publicacion']; ?>)">Editar publicación</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="eliminarPublicacion(<?php echo $publicacion['id_publicacion']; ?>)">Eliminar publicación</a></li>
+                            </ul>
+                        </div>
+
+                        <div id="carousel<?php echo $publicacion['id_publicacion']; ?>" class="carousel slide mt-3" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                <?php foreach ($publicacion['imagenes'] as $index => $imagen): ?>
+                                    <div class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>">
+                                        <img src="<?php echo htmlspecialchars($imagen); ?>" class="d-block w-100" alt="Imagen de <?php echo htmlspecialchars($publicacion['titulo']); ?>">
+                                    </div>
+                                <?php endforeach; ?>
                             </div>
-                        </li>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carousel<?php echo $publicacion['id_publicacion']; ?>" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Anterior</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carousel<?php echo $publicacion['id_publicacion']; ?>" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Siguiente</span>
+                            </button>
+                        </div>
+                    </li>
                     <?php endforeach; ?>
                 </ul>
             </div>
         </div>
     </div>
 
-    
+                                    <!-- Modal para editar la foto perfil -->
     <div class="modal fade" id="modalCambiarImagen" tabindex="-1" aria-labelledby="modalCambiarImagenLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -136,6 +153,9 @@ try {
         </div>
     </div>
 
-<?php include '../includes/footer.php' ?>
+    <?php include '../includes/footer.php'; ?>
+
 </body>
 </html>
+
+
