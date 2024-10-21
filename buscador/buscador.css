@@ -1,0 +1,252 @@
+/* a.css */
+
+
+.cuerpo, .contenido {
+    height: 100%; /* Establece la altura al 100% para el body y contenido */
+    margin: 0; /* Elimina márgenes predeterminados */
+}
+
+
+.contenido {
+    display: flex; /* Usar flexbox para organizar el contenido */
+    flex-direction: column; /* Organizar los elementos en columna */
+    min-height: 100vh; /* Asegura que el contenedor ocupe al menos la altura de la ventana */
+}
+
+
+.busca-receta {
+    max-width: 800px; /* Ajusta el ancho máximo del formulario */
+    margin: 0 auto; /* Centrar el formulario horizontalmente */
+    background-color: aqua; /* Color de fondo del formulario */
+    padding: 20px; /* Espacio interno */
+}
+
+
+/* Estilos para los botones */
+#toggleFiltro {
+    background-color: #26533c !important;
+    color: white;
+    border-radius: 25px; /* Bordes redondeados para el input */
+    font-weight: bold;
+}
+/* Modifica el estilo de la clase 'filtroTamanio' para que los filtros ocupen toda la altura */
+.filtroTamanio {
+    display: flex; /* Usa flexbox para alinear elementos */
+    flex-direction: column; /* Organiza los elementos en columna */
+    height: 100%; /* Asegura que ocupe toda la altura disponible */
+}
+/* Ajusta el tamaño de pantalla grande */
+@media (min-width: 992px) { /* Pantallas grandes */
+    .filtroTamanio {
+        flex: 0 0 25%; /* 25% del ancho para los filtros */
+        max-width: 25%;
+    }
+    #resultados {
+        flex: 1; /* El resto del espacio para los resultados */
+    }
+}
+#toggleFiltro:hover { /* Corrige el ID a 'toggleFiltro' */
+    background-color: #0f3b25 !important;
+    color:  white;
+}
+
+
+/* Estilo para los botones adicionales */
+.buscar-btn, .filtrar-btn {
+    margin: 0 5px; /* Margen entre botones */
+}
+
+
+/* Estilo para el campo de entrada */
+.form-control {
+    border: 1px solid #26533c; /* Borde pequeño de color #26533c */
+    border-radius: 35px; /* Bordes redondeados para el input */
+}
+
+
+
+
+/* dificultad y tiempo */
+.card-img-wrapper {
+    position: relative; /* Posicionar el contenedor de la imagen */
+}
+
+
+.card-img-top {
+    width: 100%; /* Asegura que la imagen ocupe todo el ancho */
+    height: auto; /* Mantiene la proporción de la imagen */
+}
+
+
+.card-overlay {
+    position: absolute; /* Posición absoluta para superponer sobre la imagen */
+    bottom: 0px; /* Espacio desde el fondo */
+    left: 0; /* Alineación a la izquierda */
+    right: 0; /* Alineación a la derecha */
+    color: white; /* Color del texto */
+    padding: 1px 10px; /* Cambiado a 5px para abajo, manteniendo 10px a los lados */    display: flex; /* Usar flexbox para alinear los elementos */
+    justify-content: space-between; /* Espacio entre los elementos */
+    align-items: center; /* Alinea verticalmente al centro */
+}
+
+
+.card-details {
+    display: flex; /* Usar flexbox para organizar los detalles */
+    justify-content: space-between; /* Espacio entre dificultad y minutos */
+    width: 100%; /* Asegura que el contenedor use todo el ancho */
+}
+
+
+.dificultad, .minutos {
+    margin: 0; /* Elimina márgenes por defecto */
+}
+
+
+
+
+@media (min-width: 1024px) {
+    .busca-receta {
+        padding: 30px; /* Aumentar el padding del formulario */
+    }
+    h5.card-title,p.card-text{
+        text-align: start;
+        font-size: 1rem;
+    }
+    #toggleFiltro {
+        font-size: 1em; /* Aumentar el tamaño de fuente */
+        padding: 10px 20px; /* Aumentar el padding del botón */
+    }
+   
+    .buscar-btn, .filtrar-btn {
+        font-size: 1.2em; /* Aumentar el tamaño de fuente de los botones */
+        padding: 10px 20px; /* Aumentar el padding de los botones */
+    }
+
+
+    .form-control {
+        font-size: 1.1em; /* Aumentar el tamaño de fuente del input */
+        padding: 10px; /* Aumentar el padding del input */
+    }
+    .card-body {
+        padding: 3px;
+    }
+    .card-img-top{
+        border-radius: 10px;
+    }
+    .card{
+        border-color: white;
+    }
+   
+}
+.filtros {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+@media (max-width: 991px) {
+    .col-md-8 {
+        flex: 0 0 auto;
+        width: 100%;
+    }
+}
+
+@media (min-width: 992px) { /* Pantallas grandes: 4 recetas por fila */
+    #resultados .col-lg-4 {
+        flex: 0 0 25%; /* 25% para mostrar 4 recetas por fila */
+        max-width: 50%;
+    }
+}
+@media (max-width: 991px) {
+    #pantallaGrande{
+        display: none;
+    }
+    a#pantallasChicas{
+        display: block;
+        text-decoration: none;
+    }
+    #resultados .col-md-6 {
+        flex: 0 0 50%; /* 50% para mostrar 2 recetas por fila */
+        max-width: 50%;
+    }
+    .card-body {
+        padding: 3px;
+    }
+    .card{
+        border-color: white;
+    }
+    .card-img-top{
+        border-radius: 10px;
+    }
+    .col-md-4 {
+        flex: 0 0 auto; /* Ajusta la propiedad flex según sea necesario */
+        width: 100%;    /* Ajusta el ancho al 100% dentro de este rango */
+    }
+}
+
+@media (max-width: 767.98px) { /* Celulares: 1 receta por fila */
+    h5.card-title{
+        font-size: .9rem;
+    }.col-md-4 {
+        flex: 0 0 auto; /* Ajusta la propiedad flex según sea necesario */
+        width: 120%;    /* Ajusta el ancho al 100% dentro de este rango */
+    }
+    div.card-details{
+        font-size: 1rem;
+    }
+}
+/* @media (min-width: 768px) {
+    .col-md-8 {
+        flex: 0 0 auto;
+        width: 100%;
+    }
+} */
+/* modal */
+.modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+
+
+    .modal-contenido {
+        background-color: white;
+        padding: 20px;
+        width: 80%;
+        max-width: 400px;
+        border-radius: 5px;
+        position: relative;
+    }
+
+
+    .close-modal {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+
+    /* Clase oculto para esconder el modal */
+    .oculto {
+        display: none;
+    }
+
+
+    /* Para pantallas pequeñas */
+    @media (max-width: 1024px) {
+        .modal-contenido {
+            width: 100%;
+            height: 100%;
+            max-width: none;
+            border-radius: 0;
+        }
+    }
