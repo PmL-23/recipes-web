@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $updateStmt->execute();
 
         // Crea el enlace de recuperación
-        $enlaceRecuperacion = "http://localhost/xampp/proyecto_final/recipes-web/html_inicio_sesion/nueva_contrasena.php?token=$token";
+        $enlaceRecuperacion = "http://localhost/xampp/proyecto_final/recipes-web/inicio_sesion/nueva_contrasena.php?token=$token";
 
         $nombre_cuenta = $usuario['nom_completo'];
 

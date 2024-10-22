@@ -10,7 +10,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'] ?? NULL;
     $password = $_POST['password'] ?? NULL;
 
+    if (!isset($email)) {
+        $formValid = false;
+        $msg= 'El campo email no fue enviado.';
+        $varClass = 'alert-danger';
+    }
 
+    if (!isset($password)) {
+        $formValid = false;
+        $msg= 'El campo contraseña no fue enviado';
+        $varClass = 'alert-danger';
+    }
+    
 
     if ((is_null($email) || empty($email)) || (is_null($password) || empty($password))) {
         $formValid = false;
