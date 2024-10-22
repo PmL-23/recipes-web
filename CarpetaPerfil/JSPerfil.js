@@ -1,6 +1,8 @@
-//      hay que arreglar las lineas 55, 84, 107, 131 y 184.
+//variables globales
+let IDUsuarioPerfil;
+let urlVariable;
+
 //objeto para el usuario
-let IDSesion;
 let Usuario = {
     id_usuario: null, 
     id_rol: null,
@@ -52,7 +54,8 @@ const ProcesarInformacionLLenarEncabezado = function(data) {
 
 const LLenarEncabezado = async function () {
 
-    let url = window.location.origin + '/RECIPES-WEB/CarpetaPerfil/TraerUsuario.php?IDUsuario=' + IDSesion;/////////////////////////////////////////////////////////////////////////////////////////////
+    let url = urlVariable + '/TraerUsuario.php?IDUsuario=' + IDUsuarioPerfil;
+    //console.log(url);
     try {
         let respuesta = await fetch (url, {
         method : 'get',
@@ -81,7 +84,7 @@ const ProcesarInformacionTraerValoraciones = function(data, index) {
 }
 
 const TraerValoraciones = async function (IDPublicacion, index) {
-    let url = window.location.origin + '/RECIPES-WEB/CarpetaPerfil/TraerValoraciones.php?IDPublicacion=' + IDPublicacion;/////////////////////////////////////////////////////////////////////////////////////////////
+    let url = urlVariable + '/TraerValoraciones.php?IDPublicacion=' + IDPublicacion;
     try {
         let respuesta = await fetch(url, {
             method: 'get',
@@ -104,7 +107,7 @@ const ProcesarInformacionTraerCantComentarios = function(data, index) {
 
 
 const TraerCantComentarios = async function (IDPublicacion, index) {
-    let url = window.location.origin + '/RECIPES-WEB/CarpetaPerfil/TraerCantComentarios.php?IDPublicacion=' + IDPublicacion;/////////////////////////////////////////////////////////////////////////////////////////////
+    let url = urlVariable + '/TraerCantComentarios.php?IDPublicacion=' + IDPublicacion;
     try {
         let respuesta = await fetch(url, {
             method: 'get',
@@ -128,7 +131,7 @@ const ProcesarInformacionTraerCategoria = function(data, index) {
 
 
 const TraerCategoria = async function (IDCategoria, index) {
-    let url = window.location.origin + '/RECIPES-WEB/CarpetaPerfil/TraerCategoriaPublicacion.php?IDCategoria=' + IDCategoria;/////////////////////////////////////////////////////////////////////////////////////////////
+    let url = urlVariable + '/TraerCategoriaPublicacion.php?IDCategoria=' + IDCategoria;
     try {
         let respuesta = await fetch(url, {
             method: 'get',
@@ -181,7 +184,7 @@ const ProcesarInformacionTraerPublicaciones = async function(data) {
 
 const TraerPublicaciones = async function () {
 
-    let url = window.location.origin + '/RECIPES-WEB/CarpetaPerfil/TraerPublicaciones.php?IDUsuario=' + IDSesion;/////////////////////////////////////////////////////////////////////////////////////////////
+    let url = urlVariable + '/TraerPublicaciones.php?IDUsuario=' + IDUsuarioPerfil;
     try {
         let respuesta = await fetch (url, {
         method : 'get',
@@ -242,7 +245,6 @@ function CopiarEnlacePerfil() {
 //funcion para copiar en enlace para compartir el perfil.
 function LLenarDivPublicaciones() {
     const contenedor = document.getElementById("IDContenedorPublicacionesPropias"); // Selecciona el contenedor
-    console.log("sdaasd");
     if(CantidadPublicaciones==0){
         const fragmentoHTML =`
         <div class="container-fluid row d-flex justify-content-center align-items-center">
@@ -383,9 +385,9 @@ function LLenarDivPublicaciones() {
     }
 }
 document.addEventListener("DOMContentLoaded", async function () {
-    IDSesion = document.body.getAttribute('data-id-usuario');
-    //console.log("viendo");
-    //console.log(IDSesion);
+    IDUsuarioPerfil = document.body.getAttribute('data-id-usuario');
+    urlVariable = document.body.getAttribute('data-url-base');
+    //console.log(urlVariable);
     let promesasDOM = [];
     promesasDOM.push(LLenarEncabezado()); //si usamos un away en el for, se rompe, por eso hacemos esto
     promesasDOM.push(TraerPublicaciones()); //si usamos un away en el for, se rompe, por eso hacemos esto
