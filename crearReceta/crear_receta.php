@@ -1,23 +1,16 @@
 <?php
 
 session_start();
-$serverName="127.0.0.1";
-$username="root";
-$password= "";
-$dbname= "proyecto_recetas_prog_web";
 
-$conn = new PDO("mysql:host=".$serverName.";dbname=".$dbname.";charset=utf8", $username, $password);
-$conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-
-
+require_once('../includes/conec_db.php');
 
 $categoriaQuery = "SELECT * FROM categorias ORDER BY categorias.id_categoria DESC";
 $queryResultsCategoria = $conn->prepare($categoriaQuery);
 $queryResultsCategoria->execute(); 
 
 if (!$queryResultsCategoria) {
-        echo "Error en la consulta SQL";
-        exit();
+    echo "Error en la consulta SQL";
+    exit();
 }
 
 $paisQuery = "SELECT * FROM paises ORDER BY paises.id_pais ASC";
@@ -26,12 +19,27 @@ $queryResultsPais->execute();
 
 if (!$queryResultsPais) {
     echo "Error en la consulta SQL";
-        exit();
+    exit();
+}
+
+$etiquetasQuery = "SELECT * FROM etiquetas ORDER BY etiquetas.id_etiqueta DESC";
+$queryResultsEtiquetas = $conn->prepare($etiquetasQuery);
+$queryResultsEtiquetas->execute(); 
+
+if (!$queryResultsEtiquetas) {
+    echo "Error en la consulta SQL";
+    exit();
+}
+
+$ingredientesQuery = "SELECT * FROM ingredientes ORDER BY ingredientes.id_ingrediente DESC";
+$queryResultsIngredientes = $conn->prepare($ingredientesQuery);
+$queryResultsIngredientes->execute(); 
+
+if (!$queryResultsIngredientes) {
+    echo "Error en la consulta SQL";
+    exit();
 }
 ?>
-
-
-
 
 <!DOCTYPE html>
 <html lang="es">
@@ -52,14 +60,14 @@ if (!$queryResultsPais) {
 
 
 
-<form class="" action="../crearReceta/form_crearReceta.php" method="POST" id="frm-receta" name="frm-receta">    
+<form class="" method="POST" id="frm-receta" name="frm-receta">    
     <div class="contenido-principal container w-100 w-lg-75 p-5 seccion">
-            <div class="contenedor-img-preview text-center d-flex p-2 justify-content-center">
+            <div class="contenedor-img-preview text-center d-flex p-2 justify-content-center overflow-hidden">
                 <img src="default-image.png" class="preview border rounded img-fluid" alt="Vista previa de la portada" id="preview-portada">
             </div>
             <div class="mt-3">
                 <label for="foto-portada" class="h5 form-label mt-3">Foto de portada</label>
-                <input class="form-control form-control-md" id="foto-portada" name="portada" type="file" accept="image/*" required>
+                <input type="file" name="imagenes[]" id="foto-portada" multiple>
                 <small class="text-danger" id="errorPortada"></small>
             </div>
     
@@ -76,27 +84,37 @@ if (!$queryResultsPais) {
             </div>
 
             <div class="row mt-3">
-                <div class="c-paises col-md-6">
-                    <div>
-                        <label for="select-pais" class="h6 form-label mt-3">País</label>
-                        <select class="form-select" aria-label="Select pais" name="pais[]" id="select-pais" required>
-                            <option value="sin">Receta sin país</option>
-                            <?php 
-                            while ($paisRow = $queryResultsPais->fetch(PDO::FETCH_ASSOC)) {
-                                $rutaBandera = "../svg/" . $paisRow['ruta_imagen_pais'];
-                                echo '<option value="'.$paisRow['id_pais'].'" data-bandera="'.$rutaBandera.'">'.$paisRow['nombre'].'</option>';
-                            }
-                            ?>  
-                        </select>
-                        <small class="text-danger" id="error-pais"></small>
-                        <span class="d-flex align-items-center mt-2">
-                            <img class="bandera-select d-none mini-bandera" src="" alt="Bandera del país" id="banderita">
-                        </span>
+
+                <div class="col-md-6">
+
+                    <div class="c-paises" id="input-paises">
+    
+                        <h4 for="select-pais" class="h6 form-label mt-3">País</h4>
+            
+                        <div class="pais-container my-2 d-flex flex-row">
+                            <select class="w-50 select-pais form-select" aria-label="Select pais" name="pais[]" required>
+                                <option value="" selected>Receta sin país</option>
+                                <?php
+                                    while ($paisRow = $queryResultsPais->fetch(PDO::FETCH_ASSOC)) {
+                                        $rutaBandera = "../svg/" . $paisRow['ruta_imagen_pais'];
+                                        echo '<option value="'.$paisRow['id_pais'].'" data-pais="'.$rutaBandera.'">'.$paisRow['nombre'].'</option>';
+                                    }
+                                ?>
+                            </select>
+    
+                            <small class="text-danger" id="error-pais"></small>
+                            <img class="ms-2 bandera mini-bandera d-none" src="" alt="Bandera">
+    
+                        </div>
+    
                     </div>
-                    <div class="d-grid mt-5">
-                        <button class="boton-item" type="button" id="agregar-pais">+ Agregar País</button>
+                    
+                    <div class="d-flex justify-content-start mt-3">
+                        <button class="boton-item" type="button" id="agregar-pais">+ Agregar país</button>
                     </div>
+
                 </div>
+
                 <div class="col-md-6">
                     <label for="categoria" class="h6 form-label mt-3">Categoría</label>
                     <select class="form-select" aria-label="Select categoria" id="categoria" name="categoria">
@@ -152,29 +170,41 @@ if (!$queryResultsPais) {
                         </select>
                     </div>
                 </div>
-                <div class="col-md-12 etiquetas">
-                    <label for="etiqueta" class="h6 form-label mt-5">Etiqueta</label>
-                    <input type="text" class="form-control form-control-md" name="etiqueta" id="etiqueta" placeholder="Escribe una etiqueta...">
-                </div>
-                <!-- <div class="d-grid">
-                <button class="boton-item mt-5" type="button" id="agregar-etiqueta">+ Agregar Etiqueta</button>
-                </div> -->
+                
             </div>
 
     </div>
 
-
+    <div class="contenido-etiquetas container  w-100 w-lg-75 p-5  mt-5 seccion">
+        <h5 class="h5 form-label">Etiquetas</h5>
+        <div id="etiquetas">
+            <div class="una_etiqueta d-grid gap-2 d-flex flex-column justify-content-md-end mt-3" id="item-etiqueta">
+                <select class="form-select" aria-label="Select etiqueta" name="etiqueta[]">
+                    <option value="" selected disabled>Selecciona una etiqueta</option>
+                    <?php 
+                        while ($etiquetaRow = $queryResultsEtiquetas->fetch(PDO::FETCH_ASSOC)) {
+                            echo '<option value="'.$etiquetaRow['id_etiqueta'].'">'.$etiquetaRow['titulo'].'</option>';
+                        }
+                    ?>  
+                </select>
+            </div>
+            <small class="text-danger" id="error-etiqueta"></small>
+        </div>
+        <div class="d-flex justify-content-center mt-3">
+            <button class="boton-item" type="button" id="agregar-etiqueta">+ Agregar etiqueta</button>
+        </div>
+    </div>                   
 
     <div class="contenido-ingredientes container  w-100 w-lg-75 p-5  mt-5 seccion">
+        <h5 class="h5 form-label">Ingredientes</h5>
         <div id="ingredientes">
-            <h5 class="h5 form-label">Ingredientes</h5>
             <div class="un_ingrediente d-grid gap-2 d-flex justify-content-md-end" id="item-ingrediente">
                 <input type="text" class="form-control" name="ingrediente[]" placeholder="Ej: 400gr de harina..." id="primer-ingrediente" required>
                 <button class="boton-secundario d-flex" type="button" id="quitar-ing" disabled><i class="bi bi-trash me-1"></i>Quitar</button>
             </div>
             <small class="text-danger" id="error-ingrediente"></small>
         </div>
-        <div class="d-grid">
+        <div class="d-flex justify-content-center mt-3">
             <button class="boton-item" type="button" id="agregar-ing">+ Agregar Ingrediente</button>
         </div>
     </div>
@@ -183,8 +213,8 @@ if (!$queryResultsPais) {
         <h5 class="h5 form-label">Pasos</h5>
             <ol class=" list-group-numbered h6" id="list-paso">
                 <li class="item-lista list-group-item" id="li-paso">
-                    <div class="un_paso d-grid d-flex justify-content-end" id="item-paso">
-                        <textarea class="form-control input-paso textarea-resize" name="paso[]" placeholder="Ej: Mezcla los ingredientes en un bowl..." id="primer-paso" required></textarea>   
+                    <div class="un_paso d-grid d-flex justify-content-end">
+                        <textarea class="form-control input-paso textarea-resize item-paso" name="paso[]" placeholder="Ej: Mezcla los ingredientes en un bowl..." required></textarea>   
                     </div> 
                     <small class="text-danger" id="error-paso"></small>
                     <div class="d-grid d-flex justify-content-end mt-2">
@@ -192,14 +222,14 @@ if (!$queryResultsPais) {
                     </div>                
                     <div class="elementos-paso d-grid gap-2 d-md-flex justify-content-md-start">
                         <div class="contenedor-paso-img justify-content-start">
-                            <img src="default-image.png" class="img-paso border rounded img-fluid" alt="Imagen del paso" id="img-paso-id">
-                            <input class="form-control mt-2" type="file" name="imagen_paso[]" id="file-paso" accept="image/*">
-                            <button class="boton-secundario d-flex mt-2 d-none" type="button" id="quitar-imagen"><i class="bi bi-trash me-1"></i>Quitar Imagen</button>         
+                            <img src="default-image.png" class="img-paso border rounded img-fluid img-paso-id" alt="Imagen del paso">
+                            <input class="form-control mt-2 file-paso" type="file" name="imagenes_paso1[]" multiple>
+                            <button class="boton-secundario d-flex mt-2 d-none quitar-imagen" type="button"><i class="bi bi-trash me-1"></i>Quitar Imagen</button>         
                         </div>
                     </div>
                 </li>
             </ol>
-            <div class="d-grid">
+            <div class="d-flex justify-content-center mt-3">
                 <button class="boton-item" type="button" id="agregar-paso">+ Agregar Paso</button>
             </div>
         </div>
@@ -214,6 +244,7 @@ if (!$queryResultsPais) {
             <button class="boton-principal" type="submit" id="btn-publicar">Publicar</button>
         </div>
     </div>  
+    
     <!-- Modal -->
     <div class="modal fade" id="cancelar-publicacion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
