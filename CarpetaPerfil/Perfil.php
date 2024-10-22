@@ -15,7 +15,33 @@ if (!isset($_GET['IDUsuario'])) {
     die();
 }
 $id_usuario = $_GET['IDUsuario'];
+
+//seccion en la que obtenemos la url actual.
+$scheme = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? "https" : "http";      
+$host = $_SERVER['HTTP_HOST'];
+$requestUri = $_SERVER['REQUEST_URI'];
+$currentUrl = $scheme . "://" . $host . $requestUri;
+$indexPosition = strpos($currentUrl, 'CarpetaPerfil.php');
+$urlVariable = '';
+
+if ($indexPosition !== false) {
+    $urlVariable = substr($currentUrl, 0, $indexPosition + strlen('CarpetaPerfil.php'));
+} else {
+
+    $indexPosition = strpos($currentUrl, 'CarpetaPerfil/');
+    if ($indexPosition !== false) {
+        $urlVariable = substr($currentUrl, 0, $indexPosition + strlen('CarpetaPerfil/'));
+    } else {
+        // Fallback: usar el esquema y host si no se encuentran patrones
+        $urlVariable = $scheme . "://" . $host . '/';
+    }
+}
 ?>
+
+
+
+
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -32,7 +58,8 @@ $id_usuario = $_GET['IDUsuario'];
         <?php include '../includes/head.php'?>
     </head>
     
-<body data-id-usuario="<?php echo htmlspecialchars($id_usuario); ?>">
+<body data-id-usuario="<?php echo htmlspecialchars($id_usuario); ?>" data-url-base="<?php echo htmlspecialchars($urlVariable); ?>">
+
 <?php include '../includes/header.php'?>
 
     <div class="container-fluid row mt-0 "> <!-- el contenedor de un perfil tedrá el nombre, la foto, la cantidad de perfiles seguidos y los seguidores propios-->
