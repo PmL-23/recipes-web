@@ -90,17 +90,17 @@
                                         }
 
                                         echo'<li class="nav-item justify-content-center mt-5 text-center">
-                                                <a class="btn btn-outline-danger" href="../html_inicio_sesion/cerrarSesion.php">Cerrar Sesion</a>
+                                                <a class="btn btn-outline-danger" href="../inicio_sesion/cerrarSesion.php">Cerrar Sesion</a>
                                             </li>'; 
                                         
                                     }else{
                                         
                                         echo '<li class="nav-item justify-content-center">
-                                            <a class="boton-login col-6" href="../html_inicio_sesion/iniciarSesion.php">Iniciar Sesion</a>
+                                            <a class="boton-login col-6" href="../inicio_sesion/iniciarSesion.php">Iniciar Sesion</a>
                                         </li>
 
                                         <li class="nav-item justify-content-center">
-                                            <a class="boton-login col-6" href="../html_inicio_sesion/Registrarse.php">Registrarse</a>
+                                            <a class="boton-login col-6" href="../inicio_sesion/registrarse.php">Registrarse</a>
                                         </li>
 
                                         <li class="nav-item justify-content-center">
