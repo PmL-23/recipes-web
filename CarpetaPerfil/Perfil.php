@@ -1,6 +1,5 @@
 <?php
-
-include '../includes/conec_db.php';
+session_start();
 
 if (!isset($_GET['NombreDeUsuario'])) {
     echo json_encode([
@@ -25,7 +24,7 @@ $indexPosition = strpos($currentUrl, 'CarpetaPerfil.php');
 $urlVariable = '';
 
 if ($indexPosition !== false) {
-    $urlVariable = substr($currentUrl, 0, $indexPosition + strlen('CarpetaPerfil.php'));
+    $urlVariable = substr($currentUrl, 0, $indexPosition + strlen('CarpetaPerfil'));
 } else {
 
     $indexPosition = strpos($currentUrl, 'CarpetaPerfil/');
@@ -39,10 +38,6 @@ if ($indexPosition !== false) {
 ?>
 
 
-
-
-
-
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -50,24 +45,24 @@ if ($indexPosition !== false) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Recetario</title>
         
-        <link rel="stylesheet" href="../CarpetaPerfil/EstilosPerfil.css">
-        <link rel="stylesheet" href="../CarpetaFavoritos/EstilosFavoritos.css">
+
+
         <script src="../CarpetaPerfil/JSPerfil.js" defer></script>
         
-        <?php include '../includes/conec_db.php'?>
         <?php include '../includes/head.php'?>
     </head>
     
 <body data-Nombre_Usuario="<?php echo htmlspecialchars($Nombre_Usuario); ?>" data-url-base="<?php echo htmlspecialchars($urlVariable); ?>">
 
-<?php include '../includes/header.php'?>
+<?php include '../includes/header.php';
+include '../includes/conec_db.php';?>
 
-    <div class="container-fluid row mt-0 "> <!-- el contenedor de un perfil tedrá el nombre, la foto, la cantidad de perfiles seguidos y los seguidores propios-->
+    <div class="container-fluid row mt-0"> <!-- el contenedor de un perfil tedrá el nombre, la foto, la cantidad de perfiles seguidos y los seguidores propios-->
 
-        <div class="col-1 FotoDePerfil p-1 ">
-            <img class="d-inline" alt="Texto si no ve imagen" src="../images/bondiola_lp.jpg"width="44" height="44" id="IDFotoPerfil">
-        </div>
-        <div class="col-7 d-inline p-0">
+        <div class="col-8 d-inline p-3 mt-0">
+            <div class="FotoDePerfil p-1 d-inline">
+                <img class="d-inline" alt="Texto si no ve imagen" src="../images/bondiola_lp.jpg"width="44" height="44" id="IDFotoPerfil">
+            </div>
             <p class="d-inline" id="IDNombreCompletoDeUsuario">Nombre & Apellido de Usuario</p>
             <p class="d-inline text-secondary" id="IDNombreDeUsuario">@NombreDeUsuario</p>
         <!-- Dropdown --><!--
@@ -184,56 +179,55 @@ if ($indexPosition !== false) {
             </div>
         </div>
 
-<!-- Modal Eliminar Cuenta -->
-<div class="modal fade" id="modalEliminarCuenta" tabindex="-1" aria-labelledby="modalEliminarCuentaLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalEliminarCuentaLabel">Eliminar Cuenta</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <!-- Botón que abre el modal de confirmación -->
-                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalConfirmarEliminacion">Eliminar Cuenta</button>
+        <!-- Modal Eliminar Cuenta -->
+        <div class="modal fade" id="modalEliminarCuenta" tabindex="-1" aria-labelledby="modalEliminarCuentaLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalEliminarCuentaLabel">Eliminar Cuenta</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <!-- Botón que abre el modal de confirmación -->
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalConfirmarEliminacion">Eliminar Cuenta</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
 
-<!-- Modal Confirmación de Eliminación -->
-<div class="modal fade" id="modalConfirmarEliminacion" tabindex="-1" aria-labelledby="modalConfirmarEliminacionLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalConfirmarEliminacionLabel">Confirmar Eliminación</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>¿Estás completamente seguro de que deseas eliminar tu cuenta?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-danger" id="IDBotonEliminarCuenta">Sí, eliminar cuenta</button>
+        <!-- Modal Confirmación de Eliminación -->
+        <div class="modal fade" id="modalConfirmarEliminacion" tabindex="-1" aria-labelledby="modalConfirmarEliminacionLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalConfirmarEliminacionLabel">Confirmar Eliminación</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>¿Estás completamente seguro de que deseas eliminar tu cuenta?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-danger" id="IDBotonEliminarCuenta">Sí, eliminar cuenta</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
 
-        </div>
+    </div>
         
-        <div class="col-4 row mt-4  p-0">
-            <div class="col-6 p-0">
+        <div class="col-4 row mt-1 p-0">
+            <div class="col-6 p-0 mt-0">
                 <p class="box p-0 d-flex justify-content-center align-items-center">Seguidores</p>
                 <p class="boxcantidad mt-0 p-0 d-flex justify-content-center align-items-center" id="IDCantidadSeguidores">44</p>
             </div>
             
-            <div class="col-6  p-0 ">
+            <div class="col-6  p-0 mt-0">
                 <p class="box p-0 d-flex justify-content-center align-items-center ">Siguiendo</p>
-                
                 <p class="boxcantidad mt-0 p-0 d-flex justify-content-center align-items-center" id="IDCantidadSeguidos">1</p>
             </div>
         </div>
@@ -362,8 +356,8 @@ Dios te ayude hermano
     
         </div>-->
 
-<div >
-<?php include '../includes/footer.php'?>  
-</div>
+    <div>
+    <?php include '../includes/footer.php'?>  
+    </div>
 </body>
 </html>

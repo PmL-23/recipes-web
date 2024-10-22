@@ -49,13 +49,14 @@ const ProcesarInformacionLLenarEncabezado = function(data) {
 
             //faltaria actualizar lo de los seguidores
         }
+
     }
 }
 
 const LLenarEncabezado = async function () {
 
     let url = urlVariable + '/TraerUsuario.php?NombreUsuario=' + Nombre_Usuario_Perfi;
-    console.log(url);
+    //console.log(url);
     try {
         let respuesta = await fetch (url, {
         method : 'get',
@@ -169,6 +170,7 @@ const ProcesarInformacionTraerPublicaciones = async function(data) {
             promesasComentarios.push(TraerCantComentarios(publi.id_publicacion, CantidadPublicaciones));
             promesasValoraciones.push(TraerValoraciones(publi.id_publicacion, CantidadPublicaciones));
             CantidadPublicaciones += 1;
+
         }
         // Esperar a que todas las promesas se resuelvan
         await Promise.all(promesasCategorias);
@@ -256,19 +258,16 @@ function LLenarDivPublicaciones() {
             <div class="col-1"></div>
             <br>
         </div>`;
-        // Agregar el fragmento de HTML al contenedor
-        contenedor.innerHTML = fragmentoHTML;  
+    // Agregar el fragmento de HTML al contenedor
+    contenedor.innerHTML = fragmentoHTML;
     }
     
     else{
     for (let i = 0; i < CantidadPublicaciones; i++) {
             //falta la logica para poner tantas imagenes como tenga la publicacion.
-
-
-//            <div class="container-fluid row" id="DivPublicacion${i}">
             const fragmentoHTML =`
                 
-<div class="p-3 mt-2 col-xxl-4 col-xl-6 col-md-12" id="DivPublicacion${i}">
+<div class="p-3 mt-2 col-xxl-4 col-xl-6 col-md-12 mx-auto" id="DivPublicacion${i}">
     <div class="row">
         <div class="col-1"></div>
         <div class="col-10">
@@ -378,23 +377,23 @@ function LLenarDivPublicaciones() {
     </div>
 </div>
 
-            `;
-            // Agregar el fragmento de HTML al contenedor
-            contenedor.innerHTML += fragmentoHTML;  
-    
+            `;    
+    // Agregar el fragmento de HTML al contenedor
+    contenedor.innerHTML += fragmentoHTML;
         }
     }
 }
 document.addEventListener("DOMContentLoaded", async function () {
     Nombre_Usuario_Perfi = document.body.getAttribute('data-Nombre_Usuario');
     urlVariable = document.body.getAttribute('data-url-base');
-    //console.log(Nombre_Usuario_Perfi);
-    let promesasDOM = [];
+    /*let promesasDOM = [];
     promesasDOM.push(LLenarEncabezado()); //si usamos un away en el for, se rompe, por eso hacemos esto
     await Promise.all(promesasDOM);
     let promesasDOM2 = [];// esperamos al encabezado para seguir
     promesasDOM2.push(TraerPublicaciones()); 
-    await Promise.all(promesasDOM2);
+    await Promise.all(promesasDOM2);*/
 
+    await LLenarEncabezado();
+    await TraerPublicaciones();
     
 });
