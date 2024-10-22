@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <label for="password" class="form-label h6">Contraseña <span class="text-danger">*</span></label>
                 <input id="password" type="password" class="form-control" name="password" maxlength="20" autocomplete="off" placeholder="Ingrese su contraseña" value="<?php if (isset($password)) echo $password?>">
                 <div class="d-flex justify-content-start mb-5 mt-2"> 
-                    <small>¿Has olvidado tu contraseña?<a href="#" class="ms-2 text-decoration-none">Recuperar contraseña</a></small>
+                    <small>¿Has olvidado tu contraseña?<a href="../inicio_sesion/recuperar_cuenta.php" class="ms-2 text-decoration-none">Recuperar contraseña</a></small>
                 </div>
             </div>
             <div class="">
@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         </form>
         <div class="d-flex justify-content-center mt-5">
-            <small>¿No estás registrado?<a href="../html_inicio_sesion/Registrarse.php" class="ms-2 text-decoration-none">Crear cuenta</a></small>
+            <small>¿No estás registrado?<a href="../inicio_sesion/Registrarse.php" class="ms-2 text-decoration-none">Crear cuenta</a></small>
         </div>
     </div>
 </section>
