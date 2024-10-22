@@ -1,5 +1,5 @@
 //variables globales
-let IDUsuarioPerfil;
+let Nombre_Usuario_Perfi;
 let urlVariable;
 
 //objeto para el usuario
@@ -54,8 +54,8 @@ const ProcesarInformacionLLenarEncabezado = function(data) {
 
 const LLenarEncabezado = async function () {
 
-    let url = urlVariable + '/TraerUsuario.php?IDUsuario=' + IDUsuarioPerfil;
-    //console.log(url);
+    let url = urlVariable + '/TraerUsuario.php?NombreUsuario=' + Nombre_Usuario_Perfi;
+    console.log(url);
     try {
         let respuesta = await fetch (url, {
         method : 'get',
@@ -184,7 +184,8 @@ const ProcesarInformacionTraerPublicaciones = async function(data) {
 
 const TraerPublicaciones = async function () {
 
-    let url = urlVariable + '/TraerPublicaciones.php?IDUsuario=' + IDUsuarioPerfil;
+    let url = urlVariable + '/TraerPublicaciones.php?IDUsuario=' + Usuario.id_usuario;
+    //console.log(url);
     try {
         let respuesta = await fetch (url, {
         method : 'get',
@@ -385,11 +386,15 @@ function LLenarDivPublicaciones() {
     }
 }
 document.addEventListener("DOMContentLoaded", async function () {
-    IDUsuarioPerfil = document.body.getAttribute('data-id-usuario');
+    Nombre_Usuario_Perfi = document.body.getAttribute('data-Nombre_Usuario');
     urlVariable = document.body.getAttribute('data-url-base');
-    //console.log(urlVariable);
+    //console.log(Nombre_Usuario_Perfi);
     let promesasDOM = [];
     promesasDOM.push(LLenarEncabezado()); //si usamos un away en el for, se rompe, por eso hacemos esto
-    promesasDOM.push(TraerPublicaciones()); //si usamos un away en el for, se rompe, por eso hacemos esto
     await Promise.all(promesasDOM);
+    let promesasDOM2 = [];// esperamos al encabezado para seguir
+    promesasDOM2.push(TraerPublicaciones()); 
+    await Promise.all(promesasDOM2);
+
+    
 });

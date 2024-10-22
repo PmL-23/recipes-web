@@ -2,7 +2,7 @@
 
 include '../includes/conec_db.php';
 
-if (!isset($_GET['IDUsuario'])) {
+if (!isset($_GET['NombreUsuario'])) {
     echo json_encode([
         'success' => false,
         'error' => [
@@ -13,10 +13,10 @@ if (!isset($_GET['IDUsuario'])) {
     ], JSON_PRETTY_PRINT);
     die();
 }
-$UsuarioID = $_GET['IDUsuario'];
-$query = "SELECT * FROM usuarios WHERE id_usuario = :usuario_id";
+$Nombre_Usuario_ = $_GET['NombreUsuario'];
+$query = "SELECT * FROM usuarios WHERE username = :NombreUsuario_";
 $stm = $conn->prepare($query);
-$stm->bindParam(':usuario_id', $UsuarioID);
+$stm->bindParam(':NombreUsuario_', $Nombre_Usuario_);
 $stm->execute();
 $usuario = $stm->fetchAll(PDO::FETCH_ASSOC);
 
