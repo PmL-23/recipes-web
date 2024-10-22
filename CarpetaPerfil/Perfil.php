@@ -2,7 +2,7 @@
 
 include '../includes/conec_db.php';
 
-if (!isset($_GET['IDUsuario'])) {
+if (!isset($_GET['NombreDeUsuario'])) {
     echo json_encode([
         'success' => false,
         'error' => [
@@ -14,7 +14,7 @@ if (!isset($_GET['IDUsuario'])) {
     echo 'PERO PONE EL IDUSUARIO EN EL GET CAPO';
     die();
 }
-$id_usuario = $_GET['IDUsuario'];
+$Nombre_Usuario = $_GET['NombreDeUsuario'];
 
 //seccion en la que obtenemos la url actual.
 $scheme = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? "https" : "http";      
@@ -58,7 +58,7 @@ if ($indexPosition !== false) {
         <?php include '../includes/head.php'?>
     </head>
     
-<body data-id-usuario="<?php echo htmlspecialchars($id_usuario); ?>" data-url-base="<?php echo htmlspecialchars($urlVariable); ?>">
+<body data-Nombre_Usuario="<?php echo htmlspecialchars($Nombre_Usuario); ?>" data-url-base="<?php echo htmlspecialchars($urlVariable); ?>">
 
 <?php include '../includes/header.php'?>
 
