@@ -1,44 +1,46 @@
-// Agregar el listener para el formulario
-document.getElementById('buscarReceta').addEventListener('submit', function (event) {
-    event.preventDefault(); // Prevenir el comportamiento por defecto del formulario
+document.addEventListener("DOMContentLoaded", function () {
 
-    let formData = new FormData(this); // Obtener los datos del formulario
+    let buscarReceta = document.getElementById('buscarReceta'); //buscador que tenemos como form
+    let filtrarBtn = document.getElementById('.filtrar-btn');
+    let pantallasChicas = document.getElementById('pantallasChicas');
+    let modalFiltros = document.getElementById('modalFiltros');
+    let cerrarModal = document.querySelector('.close-modal');
+    let resultados = document.getElementById("resultados");
+    buscarReceta.addEventListener('submit', function (event) {
+        event.preventDefault();
 
-    // Hacer la solicitud a buscar2.php usando AJAX (fetch)
-    fetch('recetas.php', {
-        method: 'POST',
-        body: formData
-    })
-        .then(response => response.text()) // Convertir la respuesta a texto
-        .then(data => {
-            document.getElementById('resultados').innerHTML = data; // Mostrar los resultados en el contenedor
+        let formData = new FormData(this); //datos del formulario
+
+        fetch('recetas.php', {
+            method: 'POST',
+            body: formData
         })
-        .catch(err => console.log('Error:', err)); // Mostrar errores en la consola
-});
+            .then(response => response.text())
+            .then(data => {
+                resultados.innerHTML = data; // resultados en el contenedor
+            })
+            .catch(err => console.log('Error:', err));
+    });
 
-// Agregar el listener para el botón Filtrar
-document.querySelector('.filtrar-btn').addEventListener('click', function () {
-    window.location.href = 'filtrar.php'; // Redirigir a filtrar.php
-});
-// Agregar el listener para el enlace con el ID 'pantallasChicas'
-const pantallasChicas = document.getElementById('pantallasChicas');
-const modalFiltros = document.getElementById('modalFiltros');
-const closeModal = document.querySelector('.close-modal');
+    //redirigir
+    filtrarBtn.addEventListener('click', function () {
+        window.location.href = 'filtrar.php';
+    });
+    
+    //modal
+    pantallasChicas.addEventListener('click', function (event) {
+        event.preventDefault(); 
+        modalFiltros.classList.remove('oculto'); 
+    });
+    cerrarModal.addEventListener('click', function () {
+        modalFiltros.classList.add('oculto'); 
+    });
 
-// Función para mostrar el modal
-pantallasChicas.addEventListener('click', function(event) {
-    event.preventDefault(); // Prevenir el comportamiento por defecto del enlace
-    modalFiltros.classList.remove('oculto'); // Mostrar el modal
-});
+    // cerrar el modal al hacer clic fuera del contenido del modal
+    window.addEventListener('click', function (event) {
+        if (event.target === modalFiltros) {
+            modalFiltros.classList.add('oculto'); 
+        }
+    });
 
-// Función para cerrar el modal al hacer clic en el botón de cierre
-closeModal.addEventListener('click', function() {
-    modalFiltros.classList.add('oculto'); // Ocultar el modal
-});
-
-// Función para cerrar el modal al hacer clic fuera del contenido del modal
-window.addEventListener('click', function(event) {
-    if (event.target === modalFiltros) {
-        modalFiltros.classList.add('oculto'); // Ocultar el modal si se hace clic fuera de él
-    }
 });
