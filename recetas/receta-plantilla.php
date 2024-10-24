@@ -1,49 +1,82 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Recetario</title>
 
-        <link rel="stylesheet" href="../css/recetas.css">
-        <link rel="stylesheet" href="../css/recetas-banner.css">
-        <link rel="stylesheet" href="../css/carrousel.css">
-        <script src="recetas.js" defer></script>
-        
-        <?php include '../includes/head.php'?>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recetario</title>
 
-    </head>
-    
+    <link rel="stylesheet" href="../css/recetas.css">
+    <link rel="stylesheet" href="../css/recetas-banner.css">
+    <link rel="stylesheet" href="../css/carrousel.css">
+    <script src="recetas.js" defer></script>
+
+    <?php
+    include '../includes/head.php';
+    include 'manjeoGetReceta.php'; //aca esta en manejo de las recetas
+    ?>
+
+</head>
+
 <body>
-<?php include '../includes/header.php'?>
-
+    <?php include '../includes/header.php' ?>
 
     <div class="contenido-principal container my-5 ps-5">
         <div class="container">
             <div class="perfil-usuario my-3">
                 <div class="row align-items-center">
                     <div class="col-md-1 col-sm-6">
-                        <img src="../images/default-image.png" alt="Perfil Usuario"  id="foto-usuario">
+                        <div id="imagenUsuarioDB">
+                            <!-- Aca va la foto del usuario -->
+                            <img src="<?php
+                                        if (empty($fotoUsuario)) {
+                                            echo '../images/default-image.png'; // Imagen por defecto
+                                        } else {
+                                            echo $fotoUsuario; // Foto del usuario
+                                        }
+                                        ?>" alt="Imagen del usuario" id="portada-receta" height="80">
+                        </div>
                     </div>
+
                     <div class="col-md-4 col-sm-1">
-                        <h5 id="nombre-usuario"></h5>
+                        <h5 id="nombre-usuario">
+                            <!-- Aca va el nombre del usuario -->
+                            <?php echo "@$nombreUsuario"; ?>
+                        </h5>
                     </div>
                     <div class="col-md-7 col-sm-2 text-end">
-                        <p id="fecha-publicacion" class="text-muted">Fecha de publicación:<span></span></p>
+                        <p id="fecha-publicacion" class="text-muted">Fecha de publicación:
+                            <span>
+                                <?php echo $fecha; ?>
+                            </span>
+                        </p>
                     </div>
                 </div>
             </div>
 
             <div class="datos-receta row align-items-start">
                 <div class="contenedor-img d-flex col-md-6 col-sm-12">
-                    <img src="../images/default-image.png" alt="Receta" class="portada rounded img-fluid" id="portada-receta">
+                    <!-- Aca va la imagen de la receta -->
+                    <img src="<?php echo $imagen; ?>" alt="Receta" class="portada rounded img-fluid" id="portada-receta">
                 </div>
                 <div class="content-info col-md-6 col-sm-12">
                     <div class="my-5">
-                        <h2></h2>
-                        <p></p><br>
-                        <p class="categoria-style d-inline-flex mb-3 fw-semibold border border-success-subtle rounded-5"></p>
-                        <p class="estilosCategorias"></p>
+                        <h2 id="tituloRecetaDB">
+                            <!-- titulo de la receta -->
+                            <?php echo $titulo; ?>
+                        </h2>
+                        <p id="descripcionRecetaDB">
+                            <!-- descripcion de la receta -->
+                            <?php echo $descripcion; ?>
+                        </p><br>
+                        <p class="categoria-style d-inline-flex mb-3 fw-semibold border border-success-subtle rounded-5">
+                        <div id="categoriasDB">
+                            <!-- todas las categorias -->
+                        </div>
+                        </p>
+                        <p class="estilosCategorias">
+                            <!-- ni idea que va aca -->
+                        </p>
                     </div>
                 </div>
             </div>
@@ -54,22 +87,31 @@
         <div class="row align-items-start">
             <div class="col-4">
                 <div class="align-items-center box-icons">
+                    <div id="imagenPaisRecetaDB">
+                        <!-- imagen del pais al que pertenece la receta -->
+                    </div>
                     <img src="#" alt="Bandera" width="35" class="bandera" id="bandera-receta">
-                    <h5></h5>    
+                    <h5 id="nombrePaisRecetaDB">
+                        <!-- nombre del pais de la receta -->
+                    </h5>
                 </div>
             </div>
             <div class="col-4">
                 <div class="align-items-center box-icons">
                     <img src="../svg/bar-chart-line-fill.svg" width="25px" class="icono-item" alt="Dificultad icon">
                     <h5>Dificultad</h5>
-                    <p class="dificultad"></p>
+                    <p id="dificultadRecetaDB" class="dificultad">
+                        <!-- dificultad de la rectea baja intermedia alta -->
+                    </p>
                 </div>
             </div>
             <div class="col-4">
                 <div class="align-items-center box-icons">
                     <img src="../svg/alarm.svg" width="25px" class="icono-item" alt="Dificultad icon">
                     <h5>Tiempo</h5>
-                    <p class="tiempo"></p>
+                    <p id="tiempoRecetaDB" class="tiempo">
+                        <!-- tiempo en minutos de la receta -->
+                    </p>
                 </div>
             </div>
         </div>
@@ -78,63 +120,67 @@
     <div class="container mt-5">
         <h3>Ingredientes</h3>
         <div class="">
-        <ol class="list-group">
-            <li class="list-group-item"></li>
-        </ol>
+            <ol class="list-group">
+                <li id="ingredientesRecetaDB" class="list-group-item">
+                    <!-- todos los ingredientes como una lista -->
+                </li>
+            </ol>
         </div>
     </div>
 
     <div class="container mt-5 pasos-receta">
         <h3>Pasos de la Receta</h3>
         <ol class="list-group">
-            <li class="list-group-item">Paso 1:</li>
+            <li id="pasosRecetaDB" class="list-group-item">Paso 1:
+                <!-- todos los pasos como una lista -->
+            </li>
         </ol>
     </div>
-</div>
-    
+    </div>
 
+    <!-- hasta aca le mando -->
 
-        <div class="valoraciones my-4 text-center">
-            <h5>Promedio de valoraciones</h5>
-            <div class="stars" id="promedioCalificaciones">
-                <span class="star">&#9733;</span>
-                <span class="star">&#9733;</span>
-                <span class="star">&#9733;</span>
-                <span class="star">&#9734;</span>
-                <span class="star">&#9734;</span>
-            </div>
-            <p id="puntajePromedio"></p>
-            <p id="totalValoraciones">Total de Valoraciones: <span id="countValoraciones"></span></p>
+    <div class="valoraciones my-4 text-center">
+        <h5>Promedio de valoraciones</h5>
+        <div class="stars" id="promedioCalificaciones">
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9733;</span>
+            <span class="star">&#9734;</span>
+            <span class="star">&#9734;</span>
         </div>
+        <p id="puntajePromedio"></p>
+        <p id="totalValoraciones">Total de Valoraciones: <span id="countValoraciones"></span></p>
+    </div>
 
-        <div class="container my-5">
-            <div class="comentarios ps-5" id="seccionComentarios">
-                <h5>Comentarios:</h5>
-                <textarea id="comentarioText" class="form-control mb-2" rows="3" placeholder="Escribe tu comentario..."></textarea>
-                <button class="btn btn-success" id="btnEnviarComentario">Enviar</button>
-                <ul class="list-group mt-3" id="listaComentarios"></ul>
-                
-                <div class="acciones my-2">
-                    <button class="btn btn-light" id="btnComentar">
-                        <i class="bi bi-chat"></i>
-                    </button>
-                    <button class="btn btn-light" id="btnCompartir">
-                        <i class="bi bi-share"></i> 
-                    </button>
-                    <button class="btn btn-light">
-                        <i class="bi bi-bookmark"></i>
-                    </button>
-                    <div class="valoracion">
-                        <span class="star" data-value="1">&#9733;</span>
-                        <span class="star" data-value="2">&#9733;</span>
-                        <span class="star" data-value="3">&#9733;</span>
-                        <span class="star" data-value="4">&#9733;</span>
-                        <span class="star" data-value="5">&#9733;</span>
-                    </div>
+    <div class="container my-5">
+        <div class="comentarios ps-5" id="seccionComentarios">
+            <h5>Comentarios:</h5>
+            <textarea id="comentarioText" class="form-control mb-2" rows="3" placeholder="Escribe tu comentario..."></textarea>
+            <button class="btn btn-success" id="btnEnviarComentario">Enviar</button>
+            <ul class="list-group mt-3" id="listaComentarios"></ul>
+
+            <div class="acciones my-2">
+                <button class="btn btn-light" id="btnComentar">
+                    <i class="bi bi-chat"></i>
+                </button>
+                <button class="btn btn-light" id="btnCompartir">
+                    <i class="bi bi-share"></i>
+                </button>
+                <button class="btn btn-light">
+                    <i class="bi bi-bookmark"></i>
+                </button>
+                <div class="valoracion">
+                    <span class="star" data-value="1">&#9733;</span>
+                    <span class="star" data-value="2">&#9733;</span>
+                    <span class="star" data-value="3">&#9733;</span>
+                    <span class="star" data-value="4">&#9733;</span>
+                    <span class="star" data-value="5">&#9733;</span>
                 </div>
             </div>
         </div>
-        
+    </div>
+
 
 
     <div class="modal fade" id="modalReportar" tabindex="-1" aria-labelledby="modalReportarLabel" aria-hidden="true">
@@ -302,4 +348,4 @@
     </div>
 
 
-<?php include '../includes/footer.php'?>  
+    <?php include '../includes/footer.php' ?>

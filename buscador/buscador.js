@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let modalFiltros = document.getElementById('modalFiltros');
     let cerrarModal = document.querySelector('.close-modal');
     let resultados = document.getElementById("resultados");
+    
     buscarReceta.addEventListener('submit', function (event) {
         event.preventDefault();
 

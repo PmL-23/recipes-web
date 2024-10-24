@@ -5,6 +5,8 @@ require '../includes/conec_db.php';
 $tabla = 'publicaciones_recetas';
 $col = [
     'id_publicacion',
+    'id_categoria',
+    'id_usuario_autor',
     'titulo',
     'descripcion',
     'fecha_publicacion',
@@ -36,7 +38,8 @@ if ($campo != null) {
 
             // formato de la receta en el buscador
             $html .= '<div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion desayuno">';
-            $html .= '<div class="card h-100">';
+            $html .= '<div class="card h-100 cursor-pointer">';
+            $html .= '<a href="../recetas/receta-plantilla.php?id=' . $row['id_publicacion'] . '">'; // lo paso por id
             $html .= '<div class="card-img-wrapper">'; 
             $html .= '<img src="' . $imagen . '" class="card-img-top" alt="' . htmlspecialchars($row['titulo'], ENT_QUOTES, 'UTF-8') . '">';
             $html .= '<div class="card-overlay">'; 
@@ -45,7 +48,7 @@ if ($campo != null) {
             $html .= '<p class="card-text minutos">' . htmlspecialchars($row['minutos_prep'], ENT_QUOTES, 'UTF-8') . ' min</p>';
             $html .= '</div>'; 
             $html .= '</div>'; 
-            $html .= '</div>'; 
+            $html .= '</div></a>'; 
             $html .= '<div class="card-body text-left">'; 
             $html .= '<h5 class="card-title receta-titulo">' . htmlspecialchars($row['titulo'], ENT_QUOTES, 'UTF-8') . '</h5>';
             $html .= '</div></div></div>'; 
