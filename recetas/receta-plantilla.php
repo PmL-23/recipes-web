@@ -70,12 +70,12 @@
                             <?php echo $descripcion; ?>
                         </p><br>
                         <p class="categoria-style d-inline-flex mb-3 fw-semibold border border-success-subtle rounded-5">
-                            <?php echo $categoriaTitulo;?>
+                            <?php echo $categoriaTitulo; ?>
                             <!-- todas las categorias -->
                         </p>
                         <p class="estilosCategorias">
-                            <?php 
-                             if (!empty($etiquetas)) {
+                            <?php
+                            if (!empty($etiquetas)) {
                                 foreach ($etiquetas as $etiqueta) {
                                     echo '<span class="etiqueta">' . $etiqueta . '</span> ';
                                 }
@@ -95,13 +95,13 @@
         <div class="row align-items-start">
             <div class="col-4">
                 <div class="align-items-center box-icons">
-                        <!-- imagen del pais al que pertenece la receta -->
-                    
-                    <img src="../svg/<?php echo $paisReceta;?>" alt="Bandera" width="35" class="bandera" id="bandera-receta">
+                    <!-- imagen del pais al que pertenece la receta -->
+
+                    <img src="../svg/<?php echo $paisReceta; ?>" alt="Bandera" width="35" class="bandera" id="bandera-receta">
 
                     <h5 id="nombrePaisRecetaDB">
                         <?php
-                            echo $nombrePais;
+                        echo $nombrePais;
                         ?>
                     </h5>
                 </div>
@@ -132,15 +132,15 @@
         <h3>Ingredientes</h3>
         <div class="">
             <ol class="list-group">
-                    <!-- todos los ingredientes como una lista -->
-                    <?php 
-                             if (!empty($ingredientes)) {
-                                foreach ($ingredientes as $ingrediente) {
-                                    echo '<li class="list-group-item">' . $ingrediente . '</li> ';
-                                }
-                            } else {
-                                echo 'No hay ingredientes';
-                            }?>
+                <!-- todos los ingredientes como una lista -->
+                <?php
+                if (!empty($ingredientes)) {
+                    foreach ($ingredientes as $ingrediente) {
+                        echo '<li class="list-group-item">' . $ingrediente . '</li> ';
+                    }
+                } else {
+                    echo 'No hay ingredientes';
+                } ?>
             </ol>
         </div>
     </div>
@@ -148,15 +148,15 @@
     <div class="container mt-5 pasos-receta">
         <h3>Pasos de la Receta</h3>
         <ol class="list-group">
-                <!-- todos los pasos como una lista -->
-                <?php 
-                             if (!empty($pasos)) {
-                                foreach ($pasos as $paso) {
-                                    echo '<li class="list-group-item">' . $paso . '</li> ';
-                                }
-                            } else {
-                                echo 'No hay pasos';
-                            }?>
+            <!-- todos los pasos como una lista -->
+            <?php
+            if (!empty($pasos)) {
+                foreach ($pasos as $paso) {
+                    echo '<li class="list-group-item">' . $paso . '</li> ';
+                }
+            } else {
+                echo 'No hay pasos';
+            } ?>
         </ol>
     </div>
     </div>

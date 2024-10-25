@@ -25,11 +25,9 @@ if (isset($_GET['id'])) {
     $recetas = $stmt->fetchAll(PDO::FETCH_ASSOC);#agarramos todas
 
 
-
-
     if ($recetas) {
         $receta = $recetas[0];#usamos solo la primera en los demas que no tengas mas de 1 valor
-        // obtenemos datos de la receta
+
         $nombreUsuario = htmlspecialchars($receta['username'], ENT_QUOTES, 'UTF-8');
         $fotoUsuario = htmlspecialchars($receta['foto_usuario'], ENT_QUOTES, 'UTF-8');
         $titulo = htmlspecialchars($receta['titulo'], ENT_QUOTES, 'UTF-8');
@@ -40,7 +38,6 @@ if (isset($_GET['id'])) {
         $imagen = '../html_paises/img/imgArg/' . $receta['titulo'] . '.jpg';
         $categoriaTitulo = htmlspecialchars($receta['categoria_titulo'], ENT_QUOTES, 'UTF-8'); // Título de la categoría
        
-        // Array de etiquetas
         $etiquetas = [];
         foreach ($recetas as $row) {
             if (!empty($row['etiqueta_titulo'])) {
@@ -52,8 +49,6 @@ if (isset($_GET['id'])) {
             $imagen = '../html_paises/img/imgArg/default.jpg'; // Imagen por defecto
         }
 
-
-
         $paisReceta = htmlspecialchars($receta['ruta_imagen_pais'], ENT_QUOTES, 'UTF-8');
         $nombrePais = htmlspecialchars($receta['nombre'], ENT_QUOTES, 'UTF-8');
 
@@ -63,7 +58,7 @@ if (isset($_GET['id'])) {
                 $ingredientes[] = htmlspecialchars($row['ingrediente'], ENT_QUOTES, 'UTF-8');
             }
         }
-        $ingredientes = array_unique($ingredientes);//para que no repita
+        $ingredientes = array_unique($ingredientes);
         
         $pasos = [];
         foreach ($recetas as $row) {
@@ -71,10 +66,8 @@ if (isset($_GET['id'])) {
                 $pasos[] = htmlspecialchars($row['texto'], ENT_QUOTES, 'UTF-8');
             }
         }
-        $pasos = array_unique($pasos);//para que no repita
+        $pasos = array_unique($pasos);
 
-
-        
     } else {
         echo "No se encontró la receta.";
     }
