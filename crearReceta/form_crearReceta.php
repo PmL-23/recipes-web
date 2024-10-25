@@ -65,25 +65,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $QueryImagen->bindParam(':ruta_imagen', $nombreArchivoUnico, PDO::PARAM_STR);
                         $QueryImagen->execute();
 
-                        /* if ($QueryImagen->execute()) {
-                    
-                            $ultimoIDInsertado = $conn->lastInsertId();
-                            
-                            if (!empty($ultimoIDInsertado) && is_numeric($ultimoIDInsertado)) {
-
-                                echo "imagen subida con éxito";
-                    
-                            }else{
-
-                                echo "No se pudo subir la imagen";
-                            }
-                    
-                        }else{
-                            echo json_encode([
-                                'success' => false
-                            ]);
-                        } */
-
                     } else {
                         echo json_encode(['success' => false, 'msj_error' => 'Error al subir el archivo'.$nombreArchivo]);
                     }
@@ -189,32 +170,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     $QueryImagenPaso->bindParam(':ruta_imagen_paso', $imagenIDUnico, PDO::PARAM_STR);
                                     $QueryImagenPaso->execute();
             
-                                    /* if ($QueryImagenPaso->execute()) {
-                        
-                                        // Devuelve el JSON con el header correcto
-                                        //header('Content-Type: application/json');
-                                
-                                        $ultimoIDInsertado = $conn->lastInsertId();
-                                        
-                                        if (!empty($ultimoIDInsertado) && is_numeric($ultimoIDInsertado)) {
-            
-                                            echo "imagen de paso subida con éxito";
-                                
-                                        }else{
-            
-                                            echo "No se pudo subir la imagen";
-            
-                                            echo json_encode([
-                                                'success' => false
-                                            ]);
-                                        }
-                                
-                                    }else{
-                                        echo json_encode([
-                                            'success' => false
-                                        ]);
-                                    } */
-            
                                 } else {
                                     echo json_encode(['success' => false, 'msj_error' => 'Error al guardar el archivo '.$fileName]);
                                 }
@@ -237,7 +192,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         echo json_encode([
-            'success' => true
+            'success' => true,
+            'nueva_receta_id' => $id_publicacion
         ]);
 
     }

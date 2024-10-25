@@ -53,25 +53,37 @@ const inicio = function ()
         document.getElementById("frm-receta").addEventListener("submit", function (e){
                 e.preventDefault();
 
-                if(validar() == true){
+                let urlActual = window.location.href;
+                let palabraClave = "recipes-web-master/";
 
-                        fetch("http://localhost/myProjects/ProgWeb/recipes-web-master/crearReceta/form_crearReceta.php", {
-                    
-                                method: "POST",
-                                body: new FormData(e.target)
-                        })
-                        .then(res => res.json())
-                        .then(data => {
-                
-                                if (data.success == true) {
-                                    console.log("Receta creada con éxito");
-                                    window.location.href = "../recetas/receta-plantilla.php";
-                                }else{
-                                    console.log("Error al crear receta");
-                                }
-                
-                        });
+                // Encuentra el índice de la palabra "UIE/" en la URL
+                let indice = urlActual.indexOf(palabraClave);
+
+                if (indice !== -1) {
+
+                        // Guarda la URL desde el inicio hasta la palabra "UIE/"
+                        let urlCortada = urlActual.substring(0, indice + palabraClave.length);
+
+                        if(validar() == true){
+
+                                fetch(urlCortada + "crearReceta/form_crearReceta.php", {
+                            
+                                        method: "POST",
+                                        body: new FormData(e.target)
+                                })
+                                .then(res => res.json())
+                                .then(data => {
                         
+                                        if (data.success == true) {
+                                            console.log("Receta creada con éxito");
+                                            window.location.href = "../recetas/receta-plantilla.php?id=" + data.nueva_receta_id;
+                                        }else{
+                                            console.log("Error al crear receta");
+                                        }
+                        
+                                });
+                                
+                        }
                 }
 
         });
