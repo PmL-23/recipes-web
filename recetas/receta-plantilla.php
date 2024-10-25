@@ -97,11 +97,19 @@
                 <div class="align-items-center box-icons">
                     <!-- imagen del pais al que pertenece la receta -->
 
-                    <img src="../svg/<?php echo $paisReceta; ?>" alt="Bandera" width="35" class="bandera" id="bandera-receta">
+                    <?php
+                    if (!empty($paisRecetas)) {
+                        foreach ($paisRecetas as $paisReceta) {
+                            echo '<img src="../svg/' . $paisReceta . '" alt="Bandera" width="35" class="bandera" id="bandera-receta"> ';
+                        }
+                    } else {
+                        echo 'No hay banderas disponibles';
+                    }
+                    ?>
 
                     <h5 id="nombrePaisRecetaDB">
                         <?php
-                        echo $nombrePais;
+                        echo 'origen';
                         ?>
                     </h5>
                 </div>

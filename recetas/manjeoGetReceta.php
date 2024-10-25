@@ -49,7 +49,14 @@ if (isset($_GET['id'])) {
             $imagen = '../html_paises/img/imgArg/default.jpg'; // Imagen por defecto
         }
 
-        $paisReceta = htmlspecialchars($receta['ruta_imagen_pais'], ENT_QUOTES, 'UTF-8');
+        //$paisReceta = htmlspecialchars($receta['ruta_imagen_pais'], ENT_QUOTES, 'UTF-8');
+        $paisRecetas = [];
+        foreach ($recetas as $row) {
+            if (!empty($row['ruta_imagen_pais'])) {
+                $paisRecetas[] = htmlspecialchars($row['ruta_imagen_pais'], ENT_QUOTES, 'UTF-8');
+            }
+        }
+        $paisRecetas = array_unique($paisRecetas);
         $nombrePais = htmlspecialchars($receta['nombre'], ENT_QUOTES, 'UTF-8');
 
         $ingredientes = [];

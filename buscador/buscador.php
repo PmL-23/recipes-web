@@ -7,7 +7,8 @@
     <title>Filtrar</title>
     <?php include '../includes/head.php'; ?>
     <link rel="stylesheet" href="buscador.css">
-    <script src="buscador.js" defer></script>
+    <script src="busca.js" defer></script>
+    <script src="filtro.js" defer></script>
 </head>
 
 <body class="cuerpo">
@@ -72,25 +73,21 @@
                             <div class="form-group">
                                 <label for="dificultad">Dificultad</label>
                                 <select id="dificultad" class="form-control">
-                                    <option value="">Todas</option>
-                                    <option value="facil">Fácil</option>
-                                    <option value="media">Media</option>
-                                    <option value="dificil">Difícil</option>
+                                    <option value="" disabled selected>Seleccione una dificultad.</option>
+
                                 </select>
                             </div>
                             <div class="form-group mt-3">
-                                <label for="tiempo">Categoria</label>
-                                <select id="tiempo" class="form-control">
-                                    <option value="">Todos</option>
-                                    <option value="menos30">Mañana</option>
-                                    <option value="30a60">Tarde</option>
-                                    <option value="mas60">Noche</option>
+                                <label for="categoria">Categoria</label>
+                                <select id="categoria" class="form-control">
+                                    <option value="" disabled selected>Seleccione una categoria</option>
+
                                 </select>
                             </div>
                             <div class="form-group mt-3">
                                 <label for="tiempo">Tiempo de Preparación</label>
                                 <select id="tiempo" class="form-control">
-                                    <option value="">Todos</option>
+                                    <option value="" disabled selected>Seleccione una tiempo.</option>
                                     <option value="menos30">Menos de 30 minutos</option>
                                     <option value="30a60">30 a 60 minutos</option>
                                     <option value="mas60">Más de 60 minutos</option>
