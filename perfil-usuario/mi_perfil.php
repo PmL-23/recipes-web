@@ -123,6 +123,10 @@ try {
                                 <span class="visually-hidden">Siguiente</span>
                             </button>
                         </div>
+                        <div class="mt-3"> <!--Botones de guardar/compartir-->
+                            <button class="btn btn-success" onclick="guardarReceta(<?php echo $publicacion['id_publicacion']; ?>)"><i class="bi bi-save"></i></button>
+                            <button class="btn btn-info" onclick="compartirReceta(<?php echo $publicacion['id_publicacion']; ?>)"><i class="bi bi-share-fill"></i></button>
+                        </div>
                     </li>
                     <?php endforeach; ?>
                 </ul>
