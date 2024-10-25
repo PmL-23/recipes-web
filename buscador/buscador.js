@@ -1,12 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
 
     let buscarReceta = document.getElementById('buscarReceta'); //buscador que tenemos como form
-    let filtrarBtn = document.getElementById('.filtrar-btn');
     let pantallasChicas = document.getElementById('pantallasChicas');
+    let pantallaGrande = document.getElementById('pantallaGrande');
     let modalFiltros = document.getElementById('modalFiltros');
     let cerrarModal = document.querySelector('.close-modal');
     let resultados = document.getElementById("resultados");
-    
+
     buscarReceta.addEventListener('submit', function (event) {
         event.preventDefault();
 
@@ -19,13 +19,16 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(response => response.text())
             .then(data => {
                 resultados.innerHTML = data; // resultados en el contenedor
+                // Depuración en la consola para ver el contenido recibido
+                console.log("Contenido recibido:", data);
+                if (data.trim() !== "") { 
+                    pantallaGrande.classList.remove('oculto');
+                    console.log("pantallaGrande se muestra"); // Verificar en la consola
+                }
             })
             .catch(err => console.log('Error:', err));
-    });
 
-    //redirigir
-    filtrarBtn.addEventListener('click', function () {
-        window.location.href = 'filtrar.php';
+
     });
     
     //modal

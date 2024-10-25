@@ -20,7 +20,7 @@
             <form id="buscarReceta" method="POST" class="d-flex justify-content-center">
                 <input id="acaa" type="text" placeholder="Busca recetas, ingredientes, personas y más" class="form-control me-2 buscador-input" name="campo" style="max-width: 400px;">
                 <button type="submit" id="toggleFiltro" class="btn buscar-btn buscador-boton">Buscar</button>
-                <button type="button" id="toggleFiltro" class="btn filtrar-btn buscador-boton">Filtrar</button>
+                <a href="filtrar.php"><button type="button" id="toggleFiltro" class="btn filtrar-btn buscador-boton">Filtrar</button></a>
             </form>
         </div>
 
@@ -66,7 +66,7 @@
                         </div>
                     </div>
                     <!-- filtro pantallas grandes -->
-                    <div id="pantallaGrande" class="filtros mt-4">
+                    <div id="pantallaGrande" class="filtros mt-4 oculto">
                         <h5>Filtros</h5>
                         <form>
                             <div class="form-group">
