@@ -36,5 +36,18 @@ function eliminarPublicacion(id) {
     }
 }
 
+function compartirReceta(idPublicacion) {
+    const enlaceReceta = `http://localhost/xampp/proyecto_final/recipes-web/recetas/receta.php?id=${idPublicacion}`;  //Link de la receta
+    
+    navigator.clipboard.writeText(enlaceReceta) //Para copiar el link en el portapapeles
+        .then(() => {
+            alert("El enlace de la receta ha sido copiado al portapapeles."); 
+        })
+        .catch(err => {
+            console.error("Error al copiar el enlace: ", err);
+        });
+}
+
+
 
 
