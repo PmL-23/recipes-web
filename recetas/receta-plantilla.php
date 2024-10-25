@@ -26,7 +26,7 @@
             <div class="perfil-usuario my-3">
                 <div class="row align-items-center">
                     <div class="col-md-1 col-sm-6">
-                        <div id="imagenUsuarioDB">
+                        <div>
                             <!-- Aca va la foto del usuario -->
                             <img src="<?php
                                         if (empty($fotoUsuario)) {
@@ -45,7 +45,7 @@
                         </h5>
                     </div>
                     <div class="col-md-7 col-sm-2 text-end">
-                        <p id="fecha-publicacion" class="text-muted">Fecha de publicación:
+                        <p class="text-muted">Fecha de publicación:
                             <span>
                                 <?php echo $fecha; ?>
                             </span>
@@ -61,20 +61,28 @@
                 </div>
                 <div class="content-info col-md-6 col-sm-12">
                     <div class="my-5">
-                        <h2 id="tituloRecetaDB">
+                        <h2>
                             <!-- titulo de la receta -->
                             <?php echo $titulo; ?>
                         </h2>
-                        <p id="descripcionRecetaDB">
+                        <p>
                             <!-- descripcion de la receta -->
                             <?php echo $descripcion; ?>
                         </p><br>
                         <p class="categoria-style d-inline-flex mb-3 fw-semibold border border-success-subtle rounded-5">
-                        <div id="categoriasDB">
+                            <?php echo $categoriaTitulo;?>
                             <!-- todas las categorias -->
-                        </div>
                         </p>
                         <p class="estilosCategorias">
+                            <?php 
+                             if (!empty($etiquetas)) {
+                                foreach ($etiquetas as $etiqueta) {
+                                    echo '<span class="etiqueta">' . $etiqueta . '</span> ';
+                                }
+                            } else {
+                                echo 'No hay etiquetas';
+                            }
+                            ?>
                             <!-- ni idea que va aca -->
                         </p>
                     </div>
@@ -87,30 +95,33 @@
         <div class="row align-items-start">
             <div class="col-4">
                 <div class="align-items-center box-icons">
-                    <div id="imagenPaisRecetaDB">
                         <!-- imagen del pais al que pertenece la receta -->
-                    </div>
-                    <img src="#" alt="Bandera" width="35" class="bandera" id="bandera-receta">
+                    
+                    <img src="../svg/<?php echo $paisReceta;?>" alt="Bandera" width="35" class="bandera" id="bandera-receta">
+
                     <h5 id="nombrePaisRecetaDB">
-                        <!-- nombre del pais de la receta -->
+                        <?php
+                            echo $nombrePais;
+                        ?>
                     </h5>
                 </div>
             </div>
             <div class="col-4">
                 <div class="align-items-center box-icons">
                     <img src="../svg/bar-chart-line-fill.svg" width="25px" class="icono-item" alt="Dificultad icon">
-                    <h5>Dificultad</h5>
+                    <!-- <h5>Dificultad</h5> -->
                     <p id="dificultadRecetaDB" class="dificultad">
-                        <!-- dificultad de la rectea baja intermedia alta -->
+                        <?php echo $dificultad; ?>
                     </p>
                 </div>
             </div>
             <div class="col-4">
                 <div class="align-items-center box-icons">
                     <img src="../svg/alarm.svg" width="25px" class="icono-item" alt="Dificultad icon">
-                    <h5>Tiempo</h5>
+                    <!-- <h5>Tiempo</h5> -->
                     <p id="tiempoRecetaDB" class="tiempo">
                         <!-- tiempo en minutos de la receta -->
+                        <?php echo $minutos_prep . 'min'; ?>
                     </p>
                 </div>
             </div>
@@ -121,9 +132,15 @@
         <h3>Ingredientes</h3>
         <div class="">
             <ol class="list-group">
-                <li id="ingredientesRecetaDB" class="list-group-item">
                     <!-- todos los ingredientes como una lista -->
-                </li>
+                    <?php 
+                             if (!empty($ingredientes)) {
+                                foreach ($ingredientes as $ingrediente) {
+                                    echo '<li class="list-group-item">' . $ingrediente . '</li> ';
+                                }
+                            } else {
+                                echo 'No hay ingredientes';
+                            }?>
             </ol>
         </div>
     </div>
@@ -131,9 +148,15 @@
     <div class="container mt-5 pasos-receta">
         <h3>Pasos de la Receta</h3>
         <ol class="list-group">
-            <li id="pasosRecetaDB" class="list-group-item">Paso 1:
                 <!-- todos los pasos como una lista -->
-            </li>
+                <?php 
+                             if (!empty($pasos)) {
+                                foreach ($pasos as $paso) {
+                                    echo '<li class="list-group-item">' . $paso . '</li> ';
+                                }
+                            } else {
+                                echo 'No hay pasos';
+                            }?>
         </ol>
     </div>
     </div>

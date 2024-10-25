@@ -2,20 +2,33 @@
 require '../includes/conec_db.php';
 if (isset($_GET['id'])) {
 
+
     $id_receta = $_GET['id'];
 
-    $sql = "SELECT p.*, u.username, u.foto_usuario 
-            FROM publicaciones_recetas p
-            INNER JOIN usuarios u ON p.id_usuario_autor = u.id_usuario
-            WHERE p.id_publicacion = :id";
+
+    $sql = "SELECT p.*, u.username, u.foto_usuario, c.titulo AS categoria_titulo, d.titulo AS etiqueta_titulo, pa.id_pais, pe.ruta_imagen_pais, pi.nombre, po.ingrediente, pu.texto
+                FROM publicaciones_recetas p
+                INNER JOIN usuarios u ON p.id_usuario_autor = u.id_usuario
+                INNER JOIN categorias c ON p.id_categoria = c.id_categoria
+                INNER JOIN etiquetas_recetas d ON p.id_publicacion = d.id_publicacion
+                INNER JOIN paises_recetas pa ON p.id_publicacion = pa.id_publicacion
+                INNER JOIN paises pe ON pa.id_pais = pe.id_pais    
+                INNER JOIN paises pi ON pa.id_pais = pi.id_pais    
+                INNER JOIN ingredientes_recetas po ON p.id_publicacion = po.id_publicacion
+                INNER JOIN pasos_recetas pu ON p.id_publicacion = pu.id_publicacion
+                WHERE p.id_publicacion = :id";
+
 
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':id', $id_receta, PDO::PARAM_INT);
     $stmt->execute();
-    $receta = $stmt->fetch(PDO::FETCH_ASSOC);
+    $recetas = $stmt->fetchAll(PDO::FETCH_ASSOC);#agarramos todas
 
 
-    if ($receta) {
+
+
+    if ($recetas) {
+        $receta = $recetas[0];#usamos solo la primera en los demas que no tengas mas de 1 valor
         // obtenemos datos de la receta
         $nombreUsuario = htmlspecialchars($receta['username'], ENT_QUOTES, 'UTF-8');
         $fotoUsuario = htmlspecialchars($receta['foto_usuario'], ENT_QUOTES, 'UTF-8');
@@ -25,12 +38,49 @@ if (isset($_GET['id'])) {
         $dificultad = htmlspecialchars($receta['dificultad'], ENT_QUOTES, 'UTF-8');
         $minutos_prep = htmlspecialchars($receta['minutos_prep'], ENT_QUOTES, 'UTF-8');
         $imagen = '../html_paises/img/imgArg/' . $receta['titulo'] . '.jpg';
+        $categoriaTitulo = htmlspecialchars($receta['categoria_titulo'], ENT_QUOTES, 'UTF-8'); // Título de la categoría
+       
+        // Array de etiquetas
+        $etiquetas = [];
+        foreach ($recetas as $row) {
+            if (!empty($row['etiqueta_titulo'])) {
+                $etiquetas[] = htmlspecialchars($row['etiqueta_titulo'], ENT_QUOTES, 'UTF-8');
+            }
+        }
+        $etiquetas = array_unique($etiquetas);//para que no repita
         if (!file_exists($imagen)) {
             $imagen = '../html_paises/img/imgArg/default.jpg'; // Imagen por defecto
         }
+
+
+
+        $paisReceta = htmlspecialchars($receta['ruta_imagen_pais'], ENT_QUOTES, 'UTF-8');
+        $nombrePais = htmlspecialchars($receta['nombre'], ENT_QUOTES, 'UTF-8');
+
+        $ingredientes = [];
+        foreach ($recetas as $row) {
+            if (!empty($row['ingrediente'])) {
+                $ingredientes[] = htmlspecialchars($row['ingrediente'], ENT_QUOTES, 'UTF-8');
+            }
+        }
+        $ingredientes = array_unique($ingredientes);//para que no repita
+        
+        $pasos = [];
+        foreach ($recetas as $row) {
+            if (!empty($row['texto'])) {
+                $pasos[] = htmlspecialchars($row['texto'], ENT_QUOTES, 'UTF-8');
+            }
+        }
+        $pasos = array_unique($pasos);//para que no repita
+
+
+        
     } else {
         echo "No se encontró la receta.";
     }
 } else {
     echo "No se proporcionó una receta válida.";
 }
+
+
+
