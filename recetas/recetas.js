@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    // Por el tema de los comentarios
+    /* // Por el tema de los comentarios
     const btnEnviarComentario = document.getElementById('btnEnviarComentario');
     const listaComentarios = document.getElementById('listaComentarios');
     const comentarioText = document.getElementById('comentarioText');
@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function() {
             event.preventDefault(); 
             btnEnviarComentario.click(); 
         }
-    });
+    }); */
 });
 
 

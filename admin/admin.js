@@ -183,16 +183,16 @@ document.addEventListener("DOMContentLoaded", function (){
         e.preventDefault();
 
         let urlActual = window.location.href;
-        let palabraClave = "recipes-web-master/";
+        let palabraClave = "recipes-web/";
 
-            // Encuentra el índice de la palabra "recipes-web-master/" en la URL
+            // Encuentra el índice de la palabra "recipes-web/" en la URL
         let indice = urlActual.indexOf(palabraClave);
 
         if (e.target.dataset.accion == "crear") {
 
             if (indice !== -1) {
 
-                // Guarda la URL desde el inicio hasta la palabra "recipes-web-master/"
+                // Guarda la URL desde el inicio hasta la palabra "recipes-web/"
                 let urlCortada = urlActual.substring(0, indice + palabraClave.length);
 
                 fetch(urlCortada + "admin/CategoriasPHP/crearCategoria.php", {
@@ -216,13 +216,13 @@ document.addEventListener("DOMContentLoaded", function (){
                 });
 
             } else {
-                console.log("La cadena 'recipes-web-master/' no se encontró en la URL.");
+                console.log("La cadena 'recipes-web/' no se encontró en la URL.");
             }
         }else if(e.target.dataset.accion == "editar"){
 
             if (indice !== -1) {
 
-                // Guarda la URL desde el inicio hasta la palabra "recipes-web-master/"
+                // Guarda la URL desde el inicio hasta la palabra "recipes-web/"
                 let urlCortada = urlActual.substring(0, indice + palabraClave.length);
 
                 fetch(urlCortada + "admin/CategoriasPHP/editarCategoria.php", {
@@ -246,7 +246,7 @@ document.addEventListener("DOMContentLoaded", function (){
                 });
 
             } else {
-                console.log("La cadena 'recipes-web-master/' no se encontró en la URL.");
+                console.log("La cadena 'recipes-web/' no se encontró en la URL.");
             }
         }
     });
@@ -255,16 +255,16 @@ document.addEventListener("DOMContentLoaded", function (){
         e.preventDefault();
 
         let urlActual = window.location.href;
-        let palabraClave = "recipes-web-master/";
+        let palabraClave = "recipes-web/";
 
-            // Encuentra el índice de la palabra "recipes-web-master/" en la URL
+            // Encuentra el índice de la palabra "recipes-web/" en la URL
         let indice = urlActual.indexOf(palabraClave);
 
         if (e.target.dataset.accion == "crear") {
 
             if (indice !== -1) {
 
-                // Guarda la URL desde el inicio hasta la palabra "recipes-web-master/"
+                // Guarda la URL desde el inicio hasta la palabra "recipes-web/"
                 let urlCortada = urlActual.substring(0, indice + palabraClave.length);
 
                 fetch(urlCortada + "admin/EtiquetasPHP/crearEtiqueta.php", {
@@ -288,13 +288,13 @@ document.addEventListener("DOMContentLoaded", function (){
                 });
 
             } else {
-                console.log("La cadena 'recipes-web-master/' no se encontró en la URL.");
+                console.log("La cadena 'recipes-web/' no se encontró en la URL.");
             }
         }else if(e.target.dataset.accion == "editar"){
 
             if (indice !== -1) {
 
-                // Guarda la URL desde el inicio hasta la palabra "recipes-web-master/"
+                // Guarda la URL desde el inicio hasta la palabra "recipes-web/"
                 let urlCortada = urlActual.substring(0, indice + palabraClave.length);
 
                 fetch(urlCortada + "admin/EtiquetasPHP/editarEtiqueta.php", {
@@ -318,7 +318,7 @@ document.addEventListener("DOMContentLoaded", function (){
                 });
 
             } else {
-                console.log("La cadena 'recipes-web-master/' no se encontró en la URL.");
+                console.log("La cadena 'recipes-web/' no se encontró en la URL.");
             }
         }
     });
@@ -327,16 +327,16 @@ document.addEventListener("DOMContentLoaded", function (){
         e.preventDefault();
 
         let urlActual = window.location.href;
-        let palabraClave = "recipes-web-master/";
+        let palabraClave = "recipes-web/";
 
-            // Encuentra el índice de la palabra "recipes-web-master/" en la URL
+            // Encuentra el índice de la palabra "recipes-web/" en la URL
         let indice = urlActual.indexOf(palabraClave);
 
         if (e.target.dataset.accion == "crear") {
 
             if (indice !== -1) {
 
-                // Guarda la URL desde el inicio hasta la palabra "recipes-web-master/"
+                // Guarda la URL desde el inicio hasta la palabra "recipes-web/"
                 let urlCortada = urlActual.substring(0, indice + palabraClave.length);
 
                 fetch(urlCortada + "admin/IngredientesPHP/crearIngrediente.php", {
@@ -360,13 +360,13 @@ document.addEventListener("DOMContentLoaded", function (){
                 });
 
             } else {
-                console.log("La cadena 'recipes-web-master/' no se encontró en la URL.");
+                console.log("La cadena 'recipes-web/' no se encontró en la URL.");
             }
         }else if(e.target.dataset.accion == "editar"){
 
             if (indice !== -1) {
 
-                // Guarda la URL desde el inicio hasta la palabra "recipes-web-master/"
+                // Guarda la URL desde el inicio hasta la palabra "recipes-web/"
                 let urlCortada = urlActual.substring(0, indice + palabraClave.length);
 
                 fetch(urlCortada + "admin/IngredientesPHP/editarIngrediente.php", {
@@ -390,7 +390,7 @@ document.addEventListener("DOMContentLoaded", function (){
                 });
 
             } else {
-                console.log("La cadena 'recipes-web-master/' no se encontró en la URL.");
+                console.log("La cadena 'recipes-web/' no se encontró en la URL.");
             }
         }
     });
@@ -400,14 +400,14 @@ document.addEventListener("DOMContentLoaded", function (){
         e.preventDefault();
 
         let urlActual = window.location.href;
-        let palabraClave = "recipes-web-master/";
+        let palabraClave = "recipes-web/";
 
-            // Encuentra el índice de la palabra "recipes-web-master/" en la URL
+            // Encuentra el índice de la palabra "recipes-web/" en la URL
         let indice = urlActual.indexOf(palabraClave);
 
         if (indice !== -1) {
 
-            // Guarda la URL desde el inicio hasta la palabra "recipes-web-master/"
+            // Guarda la URL desde el inicio hasta la palabra "recipes-web/"
             let urlCortada = urlActual.substring(0, indice + palabraClave.length);
 
             if (location.hash == "#admin-categorias" || location.hash == "#" || location.hash == "") {
@@ -477,7 +477,7 @@ document.addEventListener("DOMContentLoaded", function (){
             }
 
         } else {
-            console.log("La cadena 'recipes-web-master/' no se encontró en la URL.");
+            console.log("La cadena 'recipes-web/' no se encontró en la URL.");
         }
     });
 
@@ -677,14 +677,14 @@ function obtenerPublicacionesReportadas(){
 function actualizarContadores(){
 
     let urlActual = window.location.href;
-    let palabraClave = "recipes-web-master/";
+    let palabraClave = "recipes-web/";
 
-    // Encuentra el índice de la palabra "recipes-web-master/" en la URL
+    // Encuentra el índice de la palabra "recipes-web/" en la URL
     let indice = urlActual.indexOf(palabraClave);
 
     if (indice !== -1) {
 
-        // Guarda la URL desde el inicio hasta la palabra "recipes-web-master/"
+        // Guarda la URL desde el inicio hasta la palabra "recipes-web/"
         let urlCortada = urlActual.substring(0, indice + palabraClave.length);
 
         fetch(urlCortada + "admin/PHPextras/contador.php", {
@@ -737,7 +737,7 @@ function actualizarContadores(){
         });
 
     } else {
-        console.log("La cadena 'recipes-web-master/' no se encontró en la URL.");
+        console.log("La cadena 'recipes-web/' no se encontró en la URL.");
     }
 }
 

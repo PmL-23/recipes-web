@@ -54,7 +54,7 @@ const inicio = function ()
                 e.preventDefault();
 
                 let urlActual = window.location.href;
-                let palabraClave = "recipes-web-master/";
+                let palabraClave = "recipes-web/";
 
                 // Encuentra el índice de la palabra "UIE/" en la URL
                 let indice = urlActual.indexOf(palabraClave);

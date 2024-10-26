@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -10,6 +12,7 @@
     <link rel="stylesheet" href="../css/recetas-banner.css">
     <link rel="stylesheet" href="../css/carrousel.css">
     <script src="recetas.js" defer></script>
+    <script src="./Scripts-Comentarios/comentariosReceta.js" defer></script>
 
     <?php
     include '../includes/head.php';
@@ -187,8 +190,11 @@
     <div class="container my-5">
         <div class="comentarios ps-5" id="seccionComentarios">
             <h5>Comentarios:</h5>
-            <textarea id="comentarioText" class="form-control mb-2" rows="3" placeholder="Escribe tu comentario..."></textarea>
-            <button class="btn btn-success" id="btnEnviarComentario">Enviar</button>
+            <form action="" method="post" id="form-comentario">
+                <textarea id="comentarioText" class="form-control border border-info-subtle" name="texto_comentario" maxlength="255" rows="4" cols="50" placeholder="Escribe tu comentario..." required></textarea>
+                <input type="hidden" name="id_publicacion_receta" id="id_publicacion_receta" value="<?php if( isset($_GET['id'])) echo $_GET['id']; ?>">
+                <button type="submit" class="btn btn-success mt-2" id="btnEnviarComentario">Enviar</button>
+            </form>
             <ul class="list-group mt-3" id="listaComentarios"></ul>
 
             <div class="acciones my-2">
@@ -377,6 +383,4 @@
             <span class="visually-hidden">Next</span>
         </button>
     </div>
-
-
     <?php include '../includes/footer.php' ?>

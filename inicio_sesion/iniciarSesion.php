@@ -39,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($row) {
             if (password_verify($password, $row['password'])) {
                 $_SESSION['nomCompleto'] = $row['nom_completo'];
+                $_SESSION['nomUsuario'] = $row['username'];
                 $_SESSION['id'] = $row['id_usuario'];
                 $_SESSION['rol'] = $row['nombre_rol'];
                 header('Location: ../index/index.php');

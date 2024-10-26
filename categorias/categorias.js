@@ -107,7 +107,7 @@ function cargarTodasCategorias(){
     });
 
     let urlActual = window.location.href;
-    let palabraClave = "recipes-web-master/";
+    let palabraClave = "recipes-web/";
 
         // Encuentra el índice de la palabra "UIE/" en la URL
     let indice = urlActual.indexOf(palabraClave);
@@ -157,7 +157,7 @@ function cargarTodasCategorias(){
         });
 
     } else {
-        console.log("La cadena 'recipes-web-master/' no se encontró en la URL.");
+        console.log("La cadena 'recipes-web/' no se encontró en la URL.");
     }
 
 }
