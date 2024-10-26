@@ -69,24 +69,24 @@
                     <!-- filtro pantallas grandes -->
                     <div id="pantallaGrande" class="filtros mt-4 oculto">
                         <h5>Filtros</h5>
-                        <form>
+                        <form id="filtrarReceta" action="aplicandoFiltros.php" method="`POST">
                             <div class="form-group">
-                                <label for="dificultad">Dificultad</label>
-                                <select id="dificultad" class="form-control">
+                                <label for="dificultad" >Dificultad</label>
+                                <select name="dificultad" id="dificultad" class="form-control">
                                     <option value="" disabled selected>Seleccione una dificultad.</option>
 
                                 </select>
                             </div>
                             <div class="form-group mt-3">
-                                <label for="categoria">Categoria</label>
-                                <select id="categoria" class="form-control">
+                                <label for="categoria" >Categoria</label>
+                                <select name="categoria" id="categoria" class="form-control">
                                     <option value="" disabled selected>Seleccione una categoria</option>
 
                                 </select>
                             </div>
                             <div class="form-group mt-3">
                                 <label for="tiempo">Tiempo de Preparación</label>
-                                <select id="tiempo" class="form-control">
+                                <select id="tiempo" name="tiempo" class="form-control">
                                     <option value="" disabled selected>Seleccione una tiempo.</option>
                                     <option value="menos30">Menos de 30 minutos</option>
                                     <option value="30a60">30 a 60 minutos</option>
@@ -94,7 +94,7 @@
                                 </select>
                             </div>
                             <div class="form-group mt-3">
-                                <button type="button" class="btn btn-primary mt-3">Aplicar Filtros</button>
+                                <button type="submit" class="btn btn-primary mt-3">Aplicar Filtros</button>
                             </div>
                         </form>
                     </div>

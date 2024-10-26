@@ -1,6 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
     const selectsDificultad = document.querySelectorAll('#dificultad');
     const selectsCategoria = document.querySelectorAll('#categoria');
+    let filtrarReceta = document.getElementById('filtrarReceta');
+    let resultados = document.getElementById("resultados");
+    let pantallaGrande = document.getElementById('pantallaGrande');
+
     const url = 'filtrosBuscador.php';
 
     async function cargarDificultades(data) {
@@ -53,6 +57,30 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error('Error en cargarFiltros:', error);
         }
     }
-
     cargarFiltros();
+
+    filtrarReceta.addEventListener('submit', function(event) {
+        event.preventDefault();
+    
+        let formData = new FormData(this);
+        console.log([...formData]);  // Verifica el contenido de FormData
+    
+        fetch('aplicandoFiltros.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+            resultados.innerHTML = data;
+            console.log('contenido recibido:', data); // Verificar el contenido recibido
+            if (data.trim() !== "") { 
+                pantallaGrande.classList.remove('oculto');
+                console.log("pantallaGrande se muestra"); // Verificar si se muestra correctamente
+            } else {
+                console.log("No se encontró contenido para mostrar.");
+            }
+        })
+        .catch(err => console.log('Error:', err));
+    });
+    
 });

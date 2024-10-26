@@ -14,7 +14,8 @@ $col = [
     'minutos_prep'
 ];
 
-$campo = isset($_POST['campo']) ? $_POST['campo'] : null;
+$campo = isset($_POST['campo']) ? $_POST['campo'] : (isset($_GET['campo']) ? $_GET['campo'] : null);//cambiar a como estaba antes
+
 
 $html = '';
 
