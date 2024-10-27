@@ -1,4 +1,4 @@
-<?php session_start(); ?>
+<?php require_once('./Scripts-Valoracion/getValoracionActual.php'); ?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -12,7 +12,8 @@
     <link rel="stylesheet" href="../css/recetas-banner.css">
     <link rel="stylesheet" href="../css/carrousel.css">
     <script src="recetas.js" defer></script>
-    <script src="./Scripts-Comentarios/comentariosReceta.js" defer></script>
+    <script src="./Scripts-Comentarios/comentariosReceta.js" type="module" defer></script>
+    <script src="./Scripts-Valoracion/valoracionReceta.js" type="module" defer></script>
 
     <?php
     include '../includes/head.php';
@@ -31,7 +32,7 @@
                     <div class="col-md-1 col-sm-6">
                         <div>
                             <!-- Aca va la foto del usuario -->
-                            <img src="<?php
+                            <img class="mt-3 rounded" src="<?php
                                         if (empty($fotoUsuario)) {
                                             echo '../images/default-image.png'; // Imagen por defecto
                                         } else {
@@ -62,8 +63,10 @@
                     <!-- Aca va la imagen de la receta -->
                     <img src="<?php echo $imagen; ?>" alt="Receta" class="portada rounded img-fluid" id="portada-receta">
                 </div>
-                <div class="content-info col-md-6 col-sm-12">
-                    <div class="my-5">
+                <div class="content-info col-md-6 col-sm-12 my-5 d-flex flex-column justify-content-between">
+
+                    <div>
+
                         <h2>
                             <!-- titulo de la receta -->
                             <?php echo $titulo; ?>
@@ -88,6 +91,54 @@
                             ?>
                             <!-- ni idea que va aca -->
                         </p>
+                        
+                    </div>
+
+                    <div class="mt-3 d-flex flex-row justify-content-between">
+
+                        <div class="acciones my-2">
+
+                            <button class="btn btn-light" id="btnCompartir">
+                                <i class="bi bi-share"></i>
+                            </button>
+
+                            <button class="btn btn-light">
+                                <i class="bi bi-bookmark"></i>
+                            </button>
+
+                        </div>
+
+                        <div class="valoracion mx-5 d-flex flex-column justify-content-center">
+
+                            <span class="m-0">Califica esta receta</span>
+
+                            <span class="puntuacion text-center fw-bolder">
+                                <?php if (isset($ValoracionDeReceta['puntuacion']) && $ValoracionDeReceta['puntuacion']) {
+                                    echo $ValoracionDeReceta['puntuacion'];
+                                }else{
+                                    echo "-";
+                                } ?>
+                            </span>
+                            
+                            <div id="valoracion" data-value="<?php if(!empty($ValoracionDeReceta['puntuacion']) && is_numeric($ValoracionDeReceta['puntuacion'])) echo $ValoracionDeReceta['puntuacion']; else echo "0"; ?>">
+                                <?php
+                                    for ($i = 1; $i <= 5; $i++) { 
+                                        if (!empty($ValoracionDeReceta['puntuacion']) && is_numeric($ValoracionDeReceta['puntuacion'])) {
+                                            if ($i <= $ValoracionDeReceta['puntuacion']) {
+                                                ?><span class="estrella hover" data-value="<?php echo $i ?>">&#9733;</span><?php
+                                            }else{
+                                                ?><span class="estrella" data-value="<?php echo $i ?>">&#9733;</span><?php
+                                            }
+                                        }else{
+                                            ?><span class="estrella" data-value="<?php echo $i ?>">&#9733;</span><?php
+                                        }
+                                    }
+                                ?>
+                            </div>
+
+                            <input type="hidden" name="valoracion" value="0">
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -174,49 +225,107 @@
 
     <!-- hasta aca le mando -->
 
-    <div class="valoraciones my-4 text-center">
-        <h5>Promedio de valoraciones</h5>
-        <div class="stars" id="promedioCalificaciones">
-            <span class="star">&#9733;</span>
-            <span class="star">&#9733;</span>
-            <span class="star">&#9733;</span>
-            <span class="star">&#9734;</span>
-            <span class="star">&#9734;</span>
-        </div>
-        <p id="puntajePromedio"></p>
-        <p id="totalValoraciones">Total de Valoraciones: <span id="countValoraciones"></span></p>
-    </div>
+    <div class="container mt-5 d-flex flex-row justify-content-around">
+    
+        <div class="w-75 mt-2 mb-5">
 
-    <div class="container my-5">
-        <div class="comentarios ps-5" id="seccionComentarios">
-            <h5>Comentarios:</h5>
-            <form action="" method="post" id="form-comentario">
-                <textarea id="comentarioText" class="form-control border border-info-subtle" name="texto_comentario" maxlength="255" rows="4" cols="50" placeholder="Escribe tu comentario..." required></textarea>
-                <input type="hidden" name="id_publicacion_receta" id="id_publicacion_receta" value="<?php if( isset($_GET['id'])) echo $_GET['id']; ?>">
-                <button type="submit" class="btn btn-success mt-2" id="btnEnviarComentario">Enviar</button>
-            </form>
-            <ul class="list-group mt-3" id="listaComentarios"></ul>
+            <div class="comentarios d-flex flex-column" id="seccionComentarios">
+    
+                <div>
+                    <div class="d-flex flex-row justify-content-between">
 
-            <div class="acciones my-2">
-                <button class="btn btn-light" id="btnComentar">
-                    <i class="bi bi-chat"></i>
-                </button>
-                <button class="btn btn-light" id="btnCompartir">
-                    <i class="bi bi-share"></i>
-                </button>
-                <button class="btn btn-light">
-                    <i class="bi bi-bookmark"></i>
-                </button>
-                <div class="valoracion">
-                    <span class="star" data-value="1">&#9733;</span>
-                    <span class="star" data-value="2">&#9733;</span>
-                    <span class="star" data-value="3">&#9733;</span>
-                    <span class="star" data-value="4">&#9733;</span>
-                    <span class="star" data-value="5">&#9733;</span>
+                        <h5 id="comentariosContador" class="m-0 w-50">Comentarios</h5>
+                        <span class="w-100 d-block me-3 text-danger text-end" id="comment-error-msg"></span>
+
+                    </div>
+
+                    <form action="" method="post" id="form-comentario" class="my-3">
+
+                        <textarea id="comentarioText" class="form-control border border-success" name="texto_comentario" maxlength="255" rows="4" cols="50" placeholder="Escribe tu comentario..." required></textarea>
+                        <input type="hidden" name="id_publicacion_receta" id="id_publicacion_receta" value="<?php if( isset($_GET['id'])) echo $_GET['id']; ?>">
+        
+                        <div class="d-flex justify-content-between align-items-center">
+        
+                            <p id="contadorCaracteres" class="ms-3 m-0">Límite de caracteres: 0/255</p>
+                            <button type="submit" class="btn btn-success mt-2" id="btnPublicarComentario">Publicar comentario</button>
+        
+                        </div>
+        
+                    </form>
+
                 </div>
+
+                <ul class="list-group mt-3 w-100" id="listaComentarios"></ul>
+
             </div>
         </div>
+
+        <div class="valoraciones w-25 m-5 text-center">
+
+            <h5 id="numPromedioValoraciones" class=""></h5>
+
+            <div id="estrellasPromedioValoraciones" class="d-flex flex-row justify-content-center"></div>
+
+            <span class="fw-medium" id="valoracionesContador"></span>
+
+            <div class="w-100 porc-valoraciones m-5 ms-0 text-center">
+
+                <span class="d-flex">
+                    <p class="w-100 m-0 me-2">5 estrellas</p>
+
+                    <div class="w-100 progress my-2 contenedor-porcentaje-cinco-estrellas" role="progressbar" aria-label="Warning example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-bar barra-porcentaje-cinco-estrellas" style="width: 0%"></div>
+                    </div>
+
+                    <p class="ms-2 cant-val-cinco-estrellas">1</p>
+                </span>
+
+                <span class="d-flex">
+                    <p class="w-100 m-0 me-2">4 estrellas</p>
+
+                    <div class="w-100 progress my-2 contenedor-porcentaje-cuatro-estrellas" role="progressbar" aria-label="Warning example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-bar barra-porcentaje-cuatro-estrellas" style="width: 0%"></div>
+                    </div>
+                    
+                    <p class="ms-2 cant-val-cuatro-estrellas">0</p>
+                </span>
+
+                <span class="d-flex">
+                    <p class="w-100 m-0 me-2">3 estrellas</p>
+
+                    <div class="w-100 progress my-2 contenedor-porcentaje-tres-estrellas" role="progressbar" aria-label="Warning example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-bar barra-porcentaje-tres-estrellas" style="width: 0%"></div>
+                    </div>
+                    
+                    <p class="ms-2 cant-val-tres-estrellas">2</p>
+                </span>
+
+                <span class="d-flex">
+                    <p class="w-100 m-0 me-2">2 estrellas</p>
+
+                    <div class="w-100 progress my-2 contenedor-porcentaje-dos-estrellas" role="progressbar" aria-label="Warning example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-bar barra-porcentaje-dos-estrellas" style="width: 0%"></div>
+                    </div>
+                    
+                    <p class="ms-2 cant-val-dos-estrellas">0</p>
+                </span>
+
+                <span class="d-flex">
+                    <p class="w-100 m-0 me-2">1 estrella</p>
+
+                    <div class="w-100 progress my-2 contenedor-porcentaje-una-estrella" role="progressbar" aria-label="Warning example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-bar barra-porcentaje-una-estrella" style="width: 0%"></div>
+                    </div>
+                    
+                    <p class="ms-2 cant-val-una-estrella">0</p>
+                </span>
+            
+            </div>
+            
+        </div>
+
     </div>
+
 
 
 
@@ -259,7 +368,7 @@
             <div class="modal-content">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 <h2>Compartir</h2>
-                <div class="redes">
+                <div class="redes my-5">
                     <a href="https://www.facebook.com" target="_blank"><i class="bi bi-facebook"></i></a>
                     <a href="https://www.instagram.com" target="_blank"><i class="bi bi-instagram"></i></a>
                     <a href="https://twitter.com" target="_blank"><i class="bi bi-twitter"></i></a>
@@ -268,7 +377,7 @@
         </div>
     </div>
 
-    <h1>Publicaciones similares</h1>
+    <h1 class="ms-5">Publicaciones similares</h1>
     <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">

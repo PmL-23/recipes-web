@@ -1,7 +1,7 @@
 let urlActual = window.location.href;
 let palabraClave = "recipes-web/";
 
-// Encuentra el índice de la palabra "UIE/" en la URL
+// Encuentra el índice de la palabra "recipes-web/" en la URL
 let indice = urlActual.indexOf(palabraClave);
 
 document.addEventListener("DOMContentLoaded", function (){
@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function (){
         e.preventDefault();
 
         if (indice !== -1) {
-            // Guarda la URL desde el inicio hasta la palabra "UIE/"
+            // Guarda la URL desde el inicio hasta la palabra "recipes-web/"
             let urlCortada = urlActual.substring(0, indice + palabraClave.length);
 
             fetch(urlCortada + "recetas/Scripts-Comentarios/postComentarioReceta.php", {
@@ -25,54 +25,37 @@ document.addEventListener("DOMContentLoaded", function (){
 
                 if (data.success == true) {
 
-                    const CajaComentariosDeSitio = document.getElementById(`listaComentarios`);
-    
-                    const nuevoComentario = document.createElement('li');
-                    nuevoComentario.className = 'comentario list-group-item';
+                    cargarComentariosReceta();
 
-                    nuevoComentario.innerHTML = `
-                        <div class="comentario-header d-flex justify-content-between align-items-center">
-                            <div>
-                                <span class="username">${data.nombre}</span>
-                                <span class="timestamp text-muted">${data.fechaPublicacion}</span>
-                            </div>
-                            <div class="acciones">
-                                <button class="btn btn-light" onclick="toggleMenu(event)">
-                                    <i class="bi bi-three-dots"></i>
-                                </button>
-                                <div class="acciones-menu" style="display: none;">
-                                    <button class="btn btn-light" onclick="reportarComentario(this)">
-                                        <i class="bi bi-exclamation-circle"></i> Reportar
-                                    </button>
-                                    <button class="btn btn-light" onclick="eliminarComentario(this)">
-                                        <i class="bi bi-trash"></i> Eliminar
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="comentario-body">${data.texto_comentario}</div>
-                    `;
-                
-                    CajaComentariosDeSitio.prepend(nuevoComentario);
+                    document.getElementById("comment-error-msg").textContent = '';
+                    document.getElementById("comentarioText").value = '';
+                    document.getElementById("contadorCaracteres").textContent = 'Límite de caracteres: 0/255';
 
                 }else{
-                    console.log("error al crear comentario");
+                    document.getElementById("comment-error-msg").textContent = data.message;
                 }
             });
         } else {
-            console.log("La palabra 'UIE/' no se encontró en la URL.");
+            console.log("La palabra 'recipes-web/' no se encontró en la URL.");
         }
+    });
+
+    const textAreaComentario = document.getElementById("comentarioText");
+    const cantidadCharRestantes = document.getElementById("contadorCaracteres");
+
+    textAreaComentario.addEventListener("input", function () {
+        cantidadCharRestantes.textContent = 'Límite de caracteres: ' + textAreaComentario.value.length + '/255';
     });
 
 });
 
-function cargarComentariosReceta() {
+export function cargarComentariosReceta() {
 
     const IDReceta = document.getElementById("id_publicacion_receta").value;
 
     if (indice !== -1) {
 
-        // Guarda la URL desde el inicio hasta la palabra "UIE/"
+        // Guarda la URL desde el inicio hasta la palabra "recipes-web/"
         let urlCortada = urlActual.substring(0, indice + palabraClave.length);
 
         fetch(urlCortada + "recetas/Scripts-Comentarios/getComentariosReceta.php?id_publicacion_receta=" + IDReceta, {
@@ -97,11 +80,15 @@ function cargarComentariosReceta() {
         })
         .then(data => {
 
+            const comentariosCounter = document.getElementById("comentariosContador");
+
             if (data.length > 0) {
-                //Hay comentarios
                 console.log(data);
 
+                comentariosCounter.textContent = `Comentarios (${data.length})`;
+
                 const listaComentarios = document.getElementById("listaComentarios");
+                listaComentarios.innerHTML = ``;
 
                 data.forEach(e => {
                     const nuevoComentario = document.createElement('li');
@@ -109,9 +96,9 @@ function cargarComentariosReceta() {
 
                     nuevoComentario.innerHTML = `
                         <div class="comentario-header d-flex justify-content-between align-items-center">
-                            <div>
-                                <span class="username">${e.nombre}</span>
-                                <span class="timestamp text-muted">${e.fechaPublicacion}</span>
+                            <div class="w-100 d-flex flex-row align-items-center">
+                                <span class="username" data-user-comment${e.idComentario}>${e.nombre}</span>
+                                <span class="timestamp ms-2 text-muted">${e.fechaPublicacion}</span>
                             </div>
                             <div class="acciones">
                                 <button class="btn btn-light" onclick="toggleMenu(event)">
@@ -131,11 +118,37 @@ function cargarComentariosReceta() {
                     `;
 
                     listaComentarios.appendChild(nuevoComentario);
+
+                    if (e.puntuacion > 0) {
+
+                        const ContenedorValoracion = document.createElement("div");
+
+                        ContenedorValoracion.className = "ms-2 d-flex flex-row";
+
+                        for (let index = 1; index <= 5; index++) {
+
+                            const estrella = document.createElement("span");
+
+                            estrella.innerHTML = "&#9733;";
+
+                            if (index <= e.puntuacion) {
+                                estrella.className = "estrella hover fs-5"
+                            }else{
+                                estrella.className = "estrella fs-5";
+                            }
+
+                            ContenedorValoracion.appendChild(estrella);
+
+                        }
+                        
+                        document.querySelector(`[data-user-comment${e.idComentario}]`).insertAdjacentElement("afterend", ContenedorValoracion);
+                    }
+
                 });
                 
             }else{
                 //No hay comentarios
-                console.log("No hay comentarios en esta publicación..");
+                comentariosCounter.textContent = `Comentarios (0)`;
             }
         });
     }

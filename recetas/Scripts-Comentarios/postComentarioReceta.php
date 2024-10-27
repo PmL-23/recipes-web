@@ -7,7 +7,7 @@ require_once('../../includes/conec_db.php');
 $usuarioID = $_SESSION['id'];//establezco el usuario id con el id de la sesion
 $nombreUsuario = $_SESSION['nomUsuario'];
 
-/* if (!Permisos::tienePermiso('Comentar Sitio', $usuarioID)) {//validamos que tenga permiso para comentar, de lo contrario, mostramos error
+/* if (!Permisos::tienePermiso('Comentar publicacion', $usuarioID)) {//validamos que tenga permiso para comentar, de lo contrario, mostramos error
     echo("error al comentar, no tiene permiso.");
     header('Location: ../Vistas/index.php'); //Si el usuario intento comentar y no tiene permiso, vuelvo al indice, mejorar en versiones futuras*
     exit();
@@ -69,6 +69,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
 } else {
-    echo json_encode(['success' => false, 'message' => 'Faltan campos en la solicitud..', 'id_sitio' => $id_sitio]);
+    echo json_encode(['success' => false, 'message' => 'Faltan campos en la solicitud..', 'id_publicacion_receta' => $id_publicacion_receta]);
 }
 ?>
