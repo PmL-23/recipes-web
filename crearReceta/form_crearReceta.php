@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                         $QueryImagen = $conn->prepare($sqlQueryImagen);
                         $QueryImagen->bindParam(':id_publicacion', $id_publicacion, PDO::PARAM_INT);
-                        $QueryImagen->bindParam(':ruta_imagen', $nombreArchivoUnico, PDO::PARAM_STR);
+                        $QueryImagen->bindParam(':ruta_imagen', $directorioDestino, PDO::PARAM_STR);
                         $QueryImagen->execute();
 
                     } else {
@@ -167,7 +167,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
                                     $QueryImagenPaso = $conn->prepare($sqlQueryImagenPaso);
                                     $QueryImagenPaso->bindParam(':id_paso', $id_paso, PDO::PARAM_INT);
-                                    $QueryImagenPaso->bindParam(':ruta_imagen_paso', $imagenIDUnico, PDO::PARAM_STR);
+                                    $QueryImagenPaso->bindParam(':ruta_imagen_paso', $fileDestination, PDO::PARAM_STR);
                                     $QueryImagenPaso->execute();
             
                                 } else {
