@@ -74,17 +74,24 @@ try {
 </head>
 <body>
     <?php include '../includes/header.php'; ?>
-    <div class="container mt-5">
+    <div class="container mt-5 min-vh-100">
         <div class="row">
             <div class="col-md-4">
                 <div class="card text-center position-relative">
                     <img src="<?= htmlspecialchars($usuario['foto_usuario']) ?>" class="card-img-top" alt="Foto de Perfil" id="imagenPerfil">
-                    <button class="notificaciones btn btn-outline-light boton-menu" id="btnCambiarImagen" aria-label="Cambiar imagen" style="display: none;">Cambiar imagen</button>
+
+                    <?php
+                    //if ( == $_SESSION['id'])
+                    echo'<button class="notificaciones btn btn-outline-light boton-menu" id="btnCambiarImagen" aria-label="Cambiar imagen" style="display: none;">Cambiar imagen</button>'
+                    ?>
+
                     <div class="card-body">
                         <h5 class="card-title">Nombre: <?php echo htmlspecialchars($usuario['nom_completo']); ?></h5>
                         <p class="card-text">Descripción: <?php echo htmlspecialchars($usuario['descripcion']); ?></p>
                     </div>
                 </div>
+            
+
             </div>
 
             <div class="col-md-8">

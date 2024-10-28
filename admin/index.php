@@ -1,14 +1,16 @@
 <?php session_start();
 
-    if (empty($_SESSION['rol']) && !$_SESSION['rol']) {
+include '../includes/permisos.php';
 
-        header('Location: ../index/index.php'); // Vuelvo al index si no hay rol definido
+    if (!isset($_SESSION['id'])) {
+        header('Location: ../index/index.php'); 
         exit();
 
     }else{
         
-        if ($_SESSION['rol'] != "admin") {
-            header('Location: ../index/index.php'); // Vuelvo hay rol pero no es admin
+        
+        if (! Permisos::tienePermiso('Acceder a Administración', $_SESSION['id'])) {
+            header('Location: ../index/index.php'); // Vuelvo no tiene permiso //location pagina error
             exit();
         }
     }
@@ -37,12 +39,37 @@
             <div class="col-md-4">
                 <div class="list-group">
                     <a href="#" class="list-group-item custom-bg">Dashboard de administrador</a>
-                    <a href="#admin-categorias" class="list-group-item"><div class="d-flex justify-content-between align-items-center"><p class="m-0">Gestionar Categorias</p><span id="cont-categorias" class="badge text-bg-success rounded-pill"></span></div></a>
-                    <a href="#admin-etiquetas" class="list-group-item"><div class="d-flex justify-content-between align-items-center"><p class="m-0">Gestionar Etiquetas</p><span id="cont-etiquetas" class="badge text-bg-success rounded-pill"></span></div></a>
-                    <a href="#admin-ingredientes" class="list-group-item"><div class="d-flex justify-content-between align-items-center"><p class="m-0">Gestionar Ingredientes</p><span id="cont-ingredientes" class="badge text-bg-success rounded-pill"></span></div></a>
-                    <a href="#admin-usuarios" class="list-group-item"><div class="d-flex justify-content-between align-items-center"><p class="m-0">Usuarios reportados</p><span id="cont-usuarios-report" class="badge text-bg-success rounded-pill"></span></div></a>
-                    <a href="#admin-comentarios" class="list-group-item"><div class="d-flex justify-content-between align-items-center"><p class="m-0">Comentarios reportados</p><span id="cont-comentarios-report" class="badge text-bg-success rounded-pill"></span></div></a>
-                    <a href="#admin-publicaciones" class="list-group-item"><div class="d-flex justify-content-between align-items-center"><p class="m-0">Publicaciones reportadas</p><span id="cont-publicaciones-report" class="badge text-bg-success rounded-pill"></span></div></a>
+                    
+                    <?php if (Permisos::tienePermiso('Gestionar Categorias', $_SESSION['id'])) 
+                    {?>
+                        <a href="#admin-categorias" class="list-group-item"><div class="d-flex justify-content-between align-items-center"><p class="m-0">Gestionar Categorias</p><span id="cont-categorias" class="badge text-bg-success rounded-pill"></span></div></a>
+                    <?php } ?>
+
+                    <?php if (Permisos::tienePermiso('Gestionar Etiquetas', $_SESSION['id'])) 
+                    {?>
+                        <a href="#admin-etiquetas" class="list-group-item"><div class="d-flex justify-content-between align-items-center"><p class="m-0">Gestionar Etiquetas</p><span id="cont-etiquetas" class="badge text-bg-success rounded-pill"></span></div></a>
+                    <?php } ?>
+
+                    <?php if (Permisos::tienePermiso('Gestionar Ingredientes', $_SESSION['id'])) 
+                    {?>
+                        <a href="#admin-ingredientes" class="list-group-item"><div class="d-flex justify-content-between align-items-center"><p class="m-0">Gestionar Ingredientes</p><span id="cont-ingredientes" class="badge text-bg-success rounded-pill"></span></div></a>
+                    <?php } ?>
+
+                    <?php if (Permisos::tienePermiso('Gestionar Usuarios Reportados', $_SESSION['id'])) 
+                    {?>
+                        <a href="#admin-usuarios" class="list-group-item"><div class="d-flex justify-content-between align-items-center"><p class="m-0">Usuarios reportados</p><span id="cont-usuarios-report" class="badge text-bg-success rounded-pill"></span></div></a> 
+                    <?php } ?>
+
+                    <?php if (Permisos::tienePermiso('Gestionar Comentarios Reportados', $_SESSION['id'])) 
+                    {?>
+                        <a href="#admin-comentarios" class="list-group-item"><div class="d-flex justify-content-between align-items-center"><p class="m-0">Comentarios reportados</p><span id="cont-comentarios-report" class="badge text-bg-success rounded-pill"></span></div></a> 
+                        <?php } ?>
+
+                    <?php if (Permisos::tienePermiso('Gestionar Publicaciones Reportadas', $_SESSION['id'])) 
+                    {?>
+                        <a href="#admin-publicaciones" class="list-group-item"><div class="d-flex justify-content-between align-items-center"><p class="m-0">Publicaciones reportadas</p><span id="cont-publicaciones-report" class="badge text-bg-success rounded-pill"></span></div></a> 
+                    <?php } ?>
+
                 </div>
             </div>
 

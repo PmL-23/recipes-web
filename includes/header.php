@@ -81,13 +81,12 @@
                                         </li>
                                         <hr>';
 
-                                        if (isset($_SESSION['rol']) && $_SESSION['rol']) {
-                                            if ($_SESSION['rol'] == 'admin') {
+                                            if (isset($_SESSION['id']) && Permisos::tienePermiso('Acceder a Administración', $_SESSION['id'])) {
                                                 echo '<li class="nav-item justify-content-center mt-2">
                                                     <a class="nav-link" href="../admin/index.php">Administración</a>
                                                 </li>';
                                             }
-                                        }
+                                        
 
                                         echo'<li class="nav-item justify-content-center mt-5 text-center">
                                                 <a class="btn btn-outline-danger" href="../inicio_sesion/cerrarSesion.php">Cerrar Sesion</a>

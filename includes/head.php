@@ -1,3 +1,6 @@
+<?php
+require_once '../includes/permisos.php';
+?>
         <!-- link CSS generales -->
         <link rel="icon" type="favicon/x-icon" href="../images/logo.png">
         <link rel="stylesheet" href="../css/0-globals.css">

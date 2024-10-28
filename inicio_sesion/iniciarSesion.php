@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if ($formValid) {
-        $queryCheckLogin = "SELECT usuarios.*, roles.nombre as nombre_rol FROM usuarios JOIN roles ON roles.id_rol = usuarios.id_rol WHERE email = :email or username = :email";
+        $queryCheckLogin = "SELECT * FROM usuarios WHERE email = :email or username = :email";
         $resultadoQuery = $conn->prepare($queryCheckLogin);
         $resultadoQuery->bindParam(':email', $email);
         $resultadoQuery->execute();

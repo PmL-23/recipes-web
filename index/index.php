@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+include '../includes/permisos.php'
 ?>
 
 <!DOCTYPE html>
