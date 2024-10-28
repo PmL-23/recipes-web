@@ -1,4 +1,5 @@
 <?php require_once('./Scripts-Valoracion/getValoracionActual.php'); ?>
+<?php require_once('./Scripts-Favorito/getEstadoDeFavorito.php'); ?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -14,6 +15,7 @@
     <script src="recetas.js" defer></script>
     <script src="./Scripts-Comentarios/comentariosReceta.js" type="module" defer></script>
     <script src="./Scripts-Valoracion/valoracionReceta.js" type="module" defer></script>
+    <script src="./Scripts-Favorito/favoritoReceta.js" defer></script>
 
     <?php
     include '../includes/head.php';
@@ -98,12 +100,12 @@
 
                         <div class="acciones my-2">
 
-                            <button class="btn btn-light" id="btnCompartir">
-                                <i class="bi bi-share"></i>
+                            <button class="btn btn-outline-secondary bg-none" id="btnCompartir">
+                                <i class="bi bi-share-fill"></i>
                             </button>
 
-                            <button class="btn btn-light">
-                                <i class="bi bi-bookmark"></i>
+                            <button type="button" id="btn-favorito" class="btn btn-outline-danger <?php if(!empty($EstadoDeRecetaFav['id_favorito']) && is_numeric($EstadoDeRecetaFav['id_favorito'])) echo "active"; ?>">
+                                <i class="bi bi-heart-fill"></i>
                             </button>
 
                         </div>
