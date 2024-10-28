@@ -1,5 +1,5 @@
 {
-    "name": "Grupo/recipes-web",
+    "name": "grupo/recipes-web",
     "autoload": {
         "psr-4": {
             "Grupo\\RecipesWeb\\": "src/"
