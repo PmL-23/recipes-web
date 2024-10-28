@@ -69,7 +69,7 @@
                     <!-- filtro pantallas grandes -->
                     <div id="pantallaGrande" class="filtros mt-4 oculto">
                         <h5>Filtros</h5>
-                        <form id="filtrarReceta" action="aplicandoFiltros.php" method="`POST">
+                        <form id="filtrarReceta" action="aplicandoFiltros.php" method="POST">
                             <div class="form-group">
                                 <label for="dificultad" >Dificultad</label>
                                 <select name="dificultad" id="dificultad" class="form-control">

@@ -22,8 +22,8 @@ $conditions = [];
 $params = [];
 
 if ($dificultad != null) {
-    $conditions[] = 'publicaciones_recetas.dificultad LIKE :dificultad';
-    $params[':dificultad'] = "%" . $dificultad . "%";
+    $conditions[] = 'publicaciones_recetas.dificultad = :dificultad';
+    $params[':dificultad'] = $dificultad;
 }
 
 if ($categoria != null) {
@@ -39,7 +39,6 @@ if ($tiempo === 'menos30') {
     $conditions[] = 'publicaciones_recetas.minutos_prep > 60';
 }
 
-// si hay condiciones construirt la consulta
 if (!empty($conditions)) {
     $sql = "SELECT " . implode(", ", $col) . " 
             FROM $tabla 
@@ -48,9 +47,8 @@ if (!empty($conditions)) {
     
     $stmt = $conn->prepare($sql);
 
-    // vincular parametros
     foreach ($params as $key => $value) {
-        $stmt->bindParam($key, $value, PDO::PARAM_STR);
+        $stmt->bindValue($key, $value, PDO::PARAM_STR);//cambiar a bindValue por errores
     }
 
     $stmt->execute();
