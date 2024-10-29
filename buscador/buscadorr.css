@@ -149,13 +149,50 @@
 }
 
 @media (max-width: 991px) {
+    
+    /* Estilos para agrandar el buscador en pantallas más pequeñas */
+    .buscador {
+        padding: 20px;
+        font-size: 1.2em;
+    }
+
+    .buscador-input {
+        max-width: 100%; /* Hace que el input ocupe todo el ancho disponible */
+        padding: 10px; /* Agranda el campo de entrada */
+        font-size: 1.2em;
+    }
+
+    .buscar-btn, .filtrar-btn {
+        font-size: 1em;
+        padding: 10px 20px;
+    }
+    .my-3 {
+        margin-top: 0rem !important;
+        margin-bottom: 0rem !important;
+    }
+    
+    .filtrar-btn{
+        display: none;
+    }
     #pantallaGrande {
         display: none;
+    }
+    #buscarReceta{
+        width: 100%;
     }
 
     a#pantallasChicas {
         display: block;
         text-decoration: none;
+        background-color: #26533c;
+        border-radius: 2rem;
+        margin-bottom: 2rem;
+    }
+    #filtroChico{
+        text-align: center;
+        color: white;
+        font-weight: bold;
+        font-size: 2rem;
     }
 
     #resultados .col-md-6 {
@@ -180,7 +217,33 @@
         width: 100%;
     }
 }
+@media (max-width: 576px) {
+    /* Estilos para agrandar el buscador en pantallas más pequeñas */
+    .buscador {
+        padding: 10px;
+        font-size: 1em;
+    }
 
+    .buscador-input {
+        max-width: 100%; /* Hace que el input ocupe todo el ancho disponible */
+        padding: 10px; /* Agranda el campo de entrada */
+        font-size: 1.1em;
+    }
+
+    .buscar-btn, .filtrar-btn {
+        font-size: 1em;
+        padding: 10px 20px;
+    }
+    #filtroChico{
+        text-align: center;
+        color: white;
+        font-weight: bold;
+        font-size: 1.5rem;
+    }
+    .mt-4 {
+        margin-top: 1rem !important;
+    }
+}
 @media (max-width: 767.98px) {
 
     h5.card-title {

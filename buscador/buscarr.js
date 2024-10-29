@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let cerrarModal = document.querySelector('.close-modal');
     let resultados = document.getElementById("resultados");
     let botonFiltro = document.querySelector('.filtrar-btn'); 
+    let aplicarModalFiltros = document.getElementById("aplicarModalFiltros");
 
     buscarReceta.addEventListener('submit', function (event) {
         event.preventDefault();
@@ -39,6 +40,9 @@ document.addEventListener("DOMContentLoaded", function () {
         modalFiltros.classList.remove('oculto'); 
     });
     cerrarModal.addEventListener('click', function () {
+        modalFiltros.classList.add('oculto'); 
+    });
+    aplicarModalFiltros.addEventListener('click', function () {
         modalFiltros.classList.add('oculto'); 
     });
 

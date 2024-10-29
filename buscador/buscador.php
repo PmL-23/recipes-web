@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Filtrar</title>
     <?php include '../includes/head.php'; ?>
-    <link rel="stylesheet" href="buscador.css">
-    <script src="buscar.js" defer></script>
+    <link rel="stylesheet" href="buscadorr.css">
+    <script src="buscarr.js" defer></script>
     <script src="filtro.js" defer></script>
 </head>
 
@@ -26,14 +26,14 @@
         </div>
 
         <!-- RECETAS Y FILTROS -->
-        <div class="container flex-fill mt-4">
+        <div class="container flex-fill mt-1">
             <div class="row">
                 <!-- FILTRO-->
                 <div class="filtroTamanio col-lg-3 col-md-4 col-sm-12 mb-4">
                     <!-- filtro pantallas chicas -->
-                    <a id="pantallasChicas" class="oculto" href="#">
-                        <div class="filtros mt-4">
-                            <h5>Filtros</h5>
+                    <a id="pantallasChicas" class=" oculto" href="#">
+                        <div class="mt-3">
+                            <h5 id="filtroChico">Filtros</h5>
                         </div>
                     </a>
                     <!-- MODAL -->
@@ -41,29 +41,34 @@
                         <div class="modal-contenido">
                             <span class="close-modal">&times;</span>
                             <h5>Filtros</h5>
-                            <form>
-                                <div class="form-group">
-                                    <label for="dificultad">Dificultad</label>
-                                    <select id="dificultad" class="form-control">
-                                        <option value="">Todas</option>
-                                        <option value="facil">Fácil</option>
-                                        <option value="media">Media</option>
-                                        <option value="dificil">Difícil</option>
-                                    </select>
-                                </div>
-                                <div class="form-group mt-3">
-                                    <label for="tiempo">Tiempo de Preparación</label>
-                                    <select id="tiempo" class="form-control">
-                                        <option value="">Todos</option>
-                                        <option value="menos30">Menos de 30 minutos</option>
-                                        <option value="30a60">30 a 60 minutos</option>
-                                        <option value="mas60">Más de 60 minutos</option>
-                                    </select>
-                                </div>
-                                <div class="form-group mt-3">
-                                    <button type="button" class="btn btn-primary mt-3">Aplicar Filtros</button>
-                                </div>
-                            </form>
+                            <form id="filtrarReceta" action="aplicandoFiltros.php" method="POST">
+                            <div class="form-group">
+                                <label for="dificultad" >Dificultad</label>
+                                <select name="dificultad" id="dificultad" class="form-control">
+                                    <option value="" disabled selected>Seleccione una dificultad.</option>
+
+                                </select>
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="categoria" >Categoria</label>
+                                <select name="categoria" id="categoria" class="form-control">
+                                    <option value="" disabled selected>Seleccione una categoria</option>
+
+                                </select>
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="tiempo">Tiempo de Preparación</label>
+                                <select id="tiempo" name="tiempo" class="form-control">
+                                    <option value="" disabled selected>Seleccione una tiempo.</option>
+                                    <option value="menos30">Menos de 30 minutos</option>
+                                    <option value="30a60">30 a 60 minutos</option>
+                                    <option value="mas60">Más de 60 minutos</option>
+                                </select>
+                            </div>
+                            <div class="form-group mt-3">
+                                <button type="submit" id="aplicarModalFiltros" class="btn btn-primary mt-3">Aplicar Filtros</button>
+                            </div>
+                        </form>
                         </div>
                     </div>
                     <!-- filtro pantallas grandes -->
