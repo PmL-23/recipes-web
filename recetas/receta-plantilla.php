@@ -15,6 +15,7 @@ require_once('../includes/razonesReporte.php');
     <link rel="stylesheet" href="../css/recetas.css">
     <link rel="stylesheet" href="../css/recetas-banner.css">
     <link rel="stylesheet" href="../css/carrousel.css">
+    <link rel="stylesheet" href="estilos.css">
     <script src="recetas.js" defer></script>
     <script src="./Scripts-Comentarios/comentariosReceta.js" type="module" defer></script>
     <script src="./Scripts-Valoracion/valoracionReceta.js" type="module" defer></script>
