@@ -1,5 +1,8 @@
-<?php require_once('./Scripts-Valoracion/getValoracionActual.php'); ?>
-<?php require_once('./Scripts-Favorito/getEstadoDeFavorito.php'); ?>
+<?php 
+require_once('./Scripts-Valoracion/getValoracionActual.php');
+require_once('./Scripts-Favorito/getEstadoDeFavorito.php');
+require_once('../includes/razonesReporte.php'); 
+?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -12,10 +15,11 @@
     <link rel="stylesheet" href="../css/recetas.css">
     <link rel="stylesheet" href="../css/recetas-banner.css">
     <link rel="stylesheet" href="../css/carrousel.css">
-    <script src="recetas.js" defer></script>
+    <!-- <script src="recetas.js" defer></script> -->
     <script src="./Scripts-Comentarios/comentariosReceta.js" type="module" defer></script>
     <script src="./Scripts-Valoracion/valoracionReceta.js" type="module" defer></script>
     <script src="./Scripts-Favorito/favoritoReceta.js" defer></script>
+    <script src="./Scripts-Reportes/reporteReceta.js" defer></script>
 
     <?php
     include '../includes/head.php';
@@ -100,7 +104,11 @@
 
                         <div class="acciones my-2">
 
-                            <button class="btn btn-outline-secondary bg-none" id="btnCompartir">
+                            <button type="button" class="btn btn-outline-warning bg-none" id="btn-reportar" data-bs-toggle="modal" data-bs-target="#modalReportar">
+                                <i class="bi bi-flag-fill text-black"></i>
+                            </button>
+
+                            <button type="button" class="btn btn-outline-secondary bg-none" id="btnCompartir">
                                 <i class="bi bi-share-fill"></i>
                             </button>
 
@@ -328,10 +336,9 @@
 
     </div>
 
+    <!-- MODAL REPORTAR PUBLICACIÓN -->
 
-
-
-    <div class="modal fade" id="modalReportar" tabindex="-1" aria-labelledby="modalReportarLabel" aria-hidden="true">
+    <div class="modal fade p-0" id="modalReportar" tabindex="-1" aria-labelledby="modalReportarLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -339,31 +346,38 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+
                     <form id="formReportar">
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" required>
-                        </div>
+
                         <div class="mb-3">
                             <label for="motivo" class="form-label">Motivo</label>
-                            <select class="form-select" id="motivo" required>
+                            <select class="form-select" id="motivo" name="motivo" required>
                                 <option value="">Seleccione un motivo</option>
-                                <option value="Inapropiado">Contenido inapropiado</option>
-                                <option value="Spam">Spam</option>
-                                <option value="Otros">Otros</option>
+                                <?php if (!empty($razonesReporte)) {
+                                    foreach ($razonesReporte as $razon) {
+                                        echo '<option value='.$razon['id_razon'].'>'.$razon['descripcion'].'</option>';
+                                    }
+                                } ?>
                             </select>
                         </div>
+
                         <div class="mb-3">
-                            <label for="descripcion" class="form-label">Descripción</label>
-                            <textarea class="form-control" id="descripcion" rows="3" required></textarea>
+                            <label for="observacion" class="form-label">Descripción</label>
+                            <textarea class="form-control" name="observacion" id="observacion" rows="7" placeholder="Detalles sobre el motivo de reporte.." required></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">Enviar Reporte</button>
+
+                        <input type="hidden" name="id_publicacion_receta" value="<?php if( isset($_GET['id'])) echo $_GET['id']; ?>">
+
+                        <button type="submit" class="btn btn-dark">Enviar Reporte</button>
+
                     </form>
+
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- MODAL COMPARTIR PUBLICACIÓN -->
 
     <div id="modalCompartir" class="modal">
         <div class="modal-dialog modal-dialog-centered">
