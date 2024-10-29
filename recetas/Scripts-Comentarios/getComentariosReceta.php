@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
         if ($ID_Receta) {
 
-            $query = $conn->prepare("SELECT comentarios.id_comentario, comentarios.texto, comentarios.fecha_comentario, IFNULL(valoraciones.puntuacion, 0) AS puntuacion, usuarios.username as nombre_usuario FROM comentarios LEFT JOIN valoraciones ON comentarios.id_usuario_autor = valoraciones.id_usuario_autor JOIN usuarios ON usuarios.id_usuario = comentarios.id_usuario_autor WHERE comentarios.id_publicacion = :ID_Publicacion_Receta ORDER BY comentarios.id_comentario DESC");
+            $query = $conn->prepare("SELECT DISTINCT comentarios.id_comentario, comentarios.texto, comentarios.fecha_comentario, IFNULL(valoraciones.puntuacion, 0) AS puntuacion, usuarios.username AS nombre_usuario FROM comentarios LEFT JOIN valoraciones ON comentarios.id_usuario_autor = valoraciones.id_usuario_autor AND comentarios.id_publicacion = valoraciones.id_publicacion JOIN usuarios ON usuarios.id_usuario = comentarios.id_usuario_autor WHERE comentarios.id_publicacion = :ID_Publicacion_Receta ORDER BY comentarios.id_comentario DESC");
             $query->bindParam(':ID_Publicacion_Receta', $ID_Receta);
             $query->execute();
     
