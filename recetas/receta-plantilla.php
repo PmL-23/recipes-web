@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../css/recetas.css">
     <link rel="stylesheet" href="../css/recetas-banner.css">
     <link rel="stylesheet" href="../css/carrousel.css">
+    <link rel="stylesheet" href="estilos.css">
     <script src="recetas.js" defer></script>
     <script src="./Scripts-Comentarios/comentariosReceta.js" type="module" defer></script>
     <script src="./Scripts-Valoracion/valoracionReceta.js" type="module" defer></script>
@@ -35,12 +36,12 @@
                         <div>
                             <!-- Aca va la foto del usuario -->
                             <img class="mt-3 rounded" src="<?php
-                                        if (empty($fotoUsuario)) {
-                                            echo '../images/default-image.png'; // Imagen por defecto
-                                        } else {
-                                            echo $fotoUsuario; // Foto del usuario
-                                        }
-                                        ?>" alt="Imagen del usuario" id="portada-receta" height="80">
+                                                            if (empty($fotoUsuario)) {
+                                                                echo '../images/default-image.png'; // Imagen por defecto
+                                                            } else {
+                                                                echo $fotoUsuario; // Foto del usuario
+                                                            }
+                                                            ?>" alt="Imagen del usuario" id="portada-receta" height="80">
                         </div>
                     </div>
 
@@ -93,7 +94,7 @@
                             ?>
                             <!-- ni idea que va aca -->
                         </p>
-                        
+
                     </div>
 
                     <div class="mt-3 d-flex flex-row justify-content-between">
@@ -104,7 +105,7 @@
                                 <i class="bi bi-share-fill"></i>
                             </button>
 
-                            <button type="button" id="btn-favorito" class="btn btn-outline-danger <?php if(!empty($EstadoDeRecetaFav['id_favorito']) && is_numeric($EstadoDeRecetaFav['id_favorito'])) echo "active"; ?>">
+                            <button type="button" id="btn-favorito" class="btn btn-outline-danger <?php if (!empty($EstadoDeRecetaFav['id_favorito']) && is_numeric($EstadoDeRecetaFav['id_favorito'])) echo "active"; ?>">
                                 <i class="bi bi-heart-fill"></i>
                             </button>
 
@@ -117,25 +118,26 @@
                             <span class="puntuacion text-center fw-bolder">
                                 <?php if (isset($ValoracionDeReceta['puntuacion']) && $ValoracionDeReceta['puntuacion']) {
                                     echo $ValoracionDeReceta['puntuacion'];
-                                }else{
+                                } else {
                                     echo "-";
                                 } ?>
                             </span>
-                            
-                            <div id="valoracion" data-value="<?php if(!empty($ValoracionDeReceta['puntuacion']) && is_numeric($ValoracionDeReceta['puntuacion'])) echo $ValoracionDeReceta['puntuacion']; else echo "0"; ?>">
+
+                            <div id="valoracion" data-value="<?php if (!empty($ValoracionDeReceta['puntuacion']) && is_numeric($ValoracionDeReceta['puntuacion'])) echo $ValoracionDeReceta['puntuacion'];
+                                                                else echo "0"; ?>">
                                 <?php
-                                    for ($i = 1; $i <= 5; $i++) { 
-                                        if (!empty($ValoracionDeReceta['puntuacion']) && is_numeric($ValoracionDeReceta['puntuacion'])) {
-                                            if ($i <= $ValoracionDeReceta['puntuacion']) {
-                                                ?><span class="estrella hover" data-value="<?php echo $i ?>">&#9733;</span><?php
-                                            }else{
-                                                ?><span class="estrella" data-value="<?php echo $i ?>">&#9733;</span><?php
-                                            }
-                                        }else{
-                                            ?><span class="estrella" data-value="<?php echo $i ?>">&#9733;</span><?php
-                                        }
-                                    }
-                                ?>
+                                for ($i = 1; $i <= 5; $i++) {
+                                    if (!empty($ValoracionDeReceta['puntuacion']) && is_numeric($ValoracionDeReceta['puntuacion'])) {
+                                        if ($i <= $ValoracionDeReceta['puntuacion']) {
+                                ?><span class="estrella hover" data-value="<?php echo $i ?>">&#9733;</span><?php
+                                                                                                        } else {
+                                                                                                            ?><span class="estrella" data-value="<?php echo $i ?>">&#9733;</span><?php
+                                                                                                                                                                                                }
+                                                                                                                                                                                            } else {
+                                                                                                                                                                                                    ?><span class="estrella" data-value="<?php echo $i ?>">&#9733;</span><?php
+                                                                                                                                                                                            }
+                                                                                                                                                                                        }
+                                                                                                                                                                                                ?>
                             </div>
 
                             <input type="hidden" name="valoracion" value="0">
@@ -209,30 +211,42 @@
         </div>
     </div>
 
-    <div class="container mt-5 pasos-receta">
+    <div class="pasos-receta bg-white mt-4 ms-6 border-0 shadow-none">
         <h3>Pasos de la Receta</h3>
-        <ol class="list-group">
+        <ol class="list-unstyled p-0 m-0">
             <!-- todos los pasos como una lista -->
             <?php
             if (!empty($pasos)) {
-                foreach ($pasos as $paso) {
-                    echo '<li class="list-group-item">' . $paso . '</li> ';
+                foreach ($pasos as $index => $paso) {
+                    // numero antes del paso
+                    if (isset($numerosPasos[$index])) {
+                        echo '<li class="mb-4 bg-transparent border-0 p-0">' .
+                            'Paso ' . htmlspecialchars($numerosPasos[$index], ENT_QUOTES, 'UTF-8') . ': ' .
+                            htmlspecialchars($paso, ENT_QUOTES, 'UTF-8') . '</li>';
+                    } else {
+                        echo '<li class="mb-4 bg-transparent border-0 p-0">' .
+                            htmlspecialchars($paso, ENT_QUOTES, 'UTF-8') . '</li>';
+                    }
+                    // imagen del paso
+                    if (isset($imagenesPasos[$index])) {
+                        echo '<img src="' . htmlspecialchars($imagenesPasos[$index], ENT_QUOTES, 'UTF-8') . '" alt="Imagen del paso" class="img-fluid mb-2" style="width: 40%; height: 40%;">';
+                    }
                 }
             } else {
                 echo 'No hay pasos';
-            } ?>
+            }
+            ?>
         </ol>
     </div>
     </div>
 
-    <!-- hasta aca le mando -->
 
     <div class="container mt-5 d-flex flex-row justify-content-around">
-    
+
         <div class="w-75 mt-2 mb-5">
 
             <div class="comentarios d-flex flex-column" id="seccionComentarios">
-    
+
                 <div>
                     <div class="d-flex flex-row justify-content-between">
 
@@ -244,15 +258,15 @@
                     <form action="" method="post" id="form-comentario" class="my-3">
 
                         <textarea id="comentarioText" class="form-control border border-success" name="texto_comentario" maxlength="255" rows="4" cols="50" placeholder="Escribe tu comentario..." required></textarea>
-                        <input type="hidden" name="id_publicacion_receta" id="id_publicacion_receta" value="<?php if( isset($_GET['id'])) echo $_GET['id']; ?>">
-        
+                        <input type="hidden" name="id_publicacion_receta" id="id_publicacion_receta" value="<?php if (isset($_GET['id'])) echo $_GET['id']; ?>">
+
                         <div class="d-flex justify-content-between align-items-center">
-        
+
                             <p id="contadorCaracteres" class="ms-3 m-0">Límite de caracteres: 0/255</p>
                             <button type="submit" class="btn btn-success mt-2" id="btnPublicarComentario">Publicar comentario</button>
-        
+
                         </div>
-        
+
                     </form>
 
                 </div>
@@ -288,7 +302,7 @@
                     <div class="w-100 progress my-2 contenedor-porcentaje-cuatro-estrellas" role="progressbar" aria-label="Warning example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
                         <div class="progress-bar barra-porcentaje-cuatro-estrellas" style="width: 0%"></div>
                     </div>
-                    
+
                     <p class="ms-2 cant-val-cuatro-estrellas">0</p>
                 </span>
 
@@ -298,7 +312,7 @@
                     <div class="w-100 progress my-2 contenedor-porcentaje-tres-estrellas" role="progressbar" aria-label="Warning example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
                         <div class="progress-bar barra-porcentaje-tres-estrellas" style="width: 0%"></div>
                     </div>
-                    
+
                     <p class="ms-2 cant-val-tres-estrellas">2</p>
                 </span>
 
@@ -308,7 +322,7 @@
                     <div class="w-100 progress my-2 contenedor-porcentaje-dos-estrellas" role="progressbar" aria-label="Warning example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
                         <div class="progress-bar barra-porcentaje-dos-estrellas" style="width: 0%"></div>
                     </div>
-                    
+
                     <p class="ms-2 cant-val-dos-estrellas">0</p>
                 </span>
 
@@ -318,12 +332,12 @@
                     <div class="w-100 progress my-2 contenedor-porcentaje-una-estrella" role="progressbar" aria-label="Warning example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
                         <div class="progress-bar barra-porcentaje-una-estrella" style="width: 0%"></div>
                     </div>
-                    
+
                     <p class="ms-2 cant-val-una-estrella">0</p>
                 </span>
-            
+
             </div>
-            
+
         </div>
 
     </div>
