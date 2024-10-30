@@ -17,10 +17,11 @@ require_once('../includes/razonesReporte.php');
     <link rel="stylesheet" href="../css/carrousel.css">
     <link rel="stylesheet" href="estilos.css">
     <script src="recetas.js" defer></script>
-    <script src="./Scripts-Comentarios/comentariosReceta.js" type="module" defer></script>
-    <script src="./Scripts-Valoracion/valoracionReceta.js" type="module" defer></script>
     <script src="./Scripts-Favorito/favoritoReceta.js" defer></script>
     <script src="./Scripts-Reportes/reporteReceta.js" defer></script>
+    <script src="./Scripts-Reportes/reporteComentario.js" defer></script>
+    <script src="./Scripts-Comentarios/comentariosReceta.js" type="module" defer></script>
+    <script src="./Scripts-Valoracion/valoracionReceta.js" type="module" defer></script>
 
     <?php
     include '../includes/head.php';
@@ -105,11 +106,11 @@ require_once('../includes/razonesReporte.php');
 
                         <div class="acciones my-2">
 
-                            <button type="button" class="btn btn-outline-warning bg-none" id="btn-reportar" data-bs-toggle="modal" data-bs-target="#modalReportar">
+                            <button type="button" class="btn btn-outline-warning bg-none" id="btn-reportar" data-bs-toggle="modal" data-bs-target="#modalReportarPublicacion">
                                 <i class="bi bi-flag-fill text-black"></i>
                             </button>
 
-                            <button type="button" class="btn btn-outline-secondary bg-none" id="btnCompartir">
+                            <button type="button" class="btn btn-outline-secondary bg-none" id="btnCompartir" data-bs-toggle="modal" data-bs-target="#modalCompartir">
                                 <i class="bi bi-share-fill"></i>
                             </button>
 
@@ -339,18 +340,59 @@ require_once('../includes/razonesReporte.php');
 
     </div>
 
-    <!-- MODAL REPORTAR PUBLICACIÓN -->
+    <!-- MODAL REPORTAR COMENTARIO -->
 
-    <div class="modal fade p-0" id="modalReportar" tabindex="-1" aria-labelledby="modalReportarLabel" aria-hidden="true">
+    <div class="modal fade p-0" id="modalReportarComentario" tabindex="-1" aria-labelledby="modalReportarComentarioLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalReportarLabel">Reportar Publicación</h5>
+                    <h5 class="modal-title" id="modalReportarComentarioLabel">Reportar comentario</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
 
-                    <form id="formReportar">
+                    <form id="formReportarComentario">
+
+                        <div class="mb-3">
+                            <label for="motivo" class="form-label">Motivo</label>
+                            <select class="form-select" id="motivo" name="motivo" required>
+                                <option value="">Seleccione un motivo</option>
+                                <?php if (!empty($razonesReporte)) {
+                                    foreach ($razonesReporte as $razon) {
+                                        echo '<option value='.$razon['id_razon'].'>'.$razon['descripcion'].'</option>';
+                                    }
+                                } ?>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="observacion" class="form-label">Descripción</label>
+                            <textarea class="form-control" name="observacion" id="observacion" rows="7" placeholder="Detalles sobre el motivo de reporte.." required></textarea>
+                        </div>
+
+                        <input type="hidden" name="id_comentario" id="id_comentario" value="">
+
+                        <button type="submit" class="btn btn-dark">Enviar Reporte</button>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL REPORTAR PUBLICACIÓN -->
+
+    <div class="modal fade p-0" id="modalReportarPublicacion" tabindex="-1" aria-labelledby="modalReportarPublicacionLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalReportarPublicacionLabel">Reportar Publicación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <form id="formReportarPublicacion">
 
                         <div class="mb-3">
                             <label for="motivo" class="form-label">Motivo</label>

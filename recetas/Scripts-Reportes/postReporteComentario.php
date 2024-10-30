@@ -18,8 +18,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
 
         $id_motivo_reporte = isset($_POST["motivo"]) ? $_POST["motivo"] : NULL;
-        $id_publicacion_receta = isset($_POST["id_publicacion_receta"]) ? $_POST["id_publicacion_receta"] : NULL;
-        $objReportado = "publicacion";
+        $id_comentario_reportado = isset($_POST["id_comentario"]) ? $_POST["id_comentario"] : NULL;
+        $objReportado = "comentario";
         $observacionReporte = isset($_POST["observacion"]) ? $_POST["observacion"] : NULL;
 
         if ( empty($id_motivo_reporte) ) {
@@ -27,8 +27,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         }
 
-        if ( empty($id_publicacion_receta) ) {
-            echo json_encode(['success' => false, 'message' => 'Id de publicación a reportar no encontrado..']);
+        if ( empty($id_comentario_reportado) ) {
+            echo json_encode(['success' => false, 'message' => 'Id de comentario a reportar no encontrado..']);
             exit();
         }
 
@@ -37,12 +37,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         }
 
-        $query = "INSERT INTO reportes (id_razon, id_reportante, id_obj_reportado, tipo_obj_reportado, observacion) VALUES (:IDRazon, :IDUsuarioReportante, :id_publicacion_receta, :tipo_obj_reportado, :Observacion)";
+        $query = "INSERT INTO reportes (id_razon, id_reportante, id_obj_reportado, tipo_obj_reportado, observacion) VALUES (:IDRazon, :IDUsuarioReportante, :id_comentario_reportado, :tipo_obj_reportado, :Observacion)";
         $ConsultaSQL = $conn->prepare($query);
 
         $ConsultaSQL->bindParam(':IDRazon', $id_motivo_reporte, PDO::PARAM_INT);
         $ConsultaSQL->bindParam(':IDUsuarioReportante', $usuarioID, PDO::PARAM_INT);
-        $ConsultaSQL->bindParam(':id_publicacion_receta', $id_publicacion_receta, PDO::PARAM_INT);
+        $ConsultaSQL->bindParam(':id_comentario_reportado', $id_comentario_reportado, PDO::PARAM_INT);
         $ConsultaSQL->bindParam(':tipo_obj_reportado', $objReportado, PDO::PARAM_STR);
         $ConsultaSQL->bindParam(':Observacion', $observacionReporte, PDO::PARAM_STR);
 

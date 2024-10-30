@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function (){
 
-    document.getElementById("formReportarPublicacion").addEventListener("submit", function (e){
+    document.getElementById("formReportarComentario").addEventListener("submit", function (e){
 
         e.preventDefault();
 
@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function (){
             // Guarda la URL desde el inicio hasta la palabra "recipes-web/"
             let urlCortada = urlActual.substring(0, indice + palabraClave.length);
 
-            fetch(urlCortada + "recetas/Scripts-Reportes/postReporteReceta.php", {
+            fetch(urlCortada + "recetas/Scripts-Reportes/postReporteComentario.php", {
                 method: "POST",
                 body: new FormData(e.target)
             })
@@ -25,11 +25,12 @@ document.addEventListener("DOMContentLoaded", function (){
 
                 if (data.success == true) {
 
-                    console.log("Publicación reportada con éxito..");
+                    console.log("Comentario reportado con éxito..");
 
                 }else{
                     
                     console.log(data);
+
                 }
 
             });
