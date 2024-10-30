@@ -238,7 +238,6 @@ require_once('../includes/razonesReporte.php');
 
     </div>
 
-
     <div class="container mt-5 d-flex flex-row justify-content-around">
 
         <div class="w-75 mt-2 mb-5">
