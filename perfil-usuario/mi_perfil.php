@@ -54,8 +54,22 @@ try {
     echo "Error: " . $e->getMessage(); 
 }
 
+try {
+    $query2 = "
+        SELECT usuarios.id_usuario, usuarios.nom_completo, usuarios.foto_usuario 
+        FROM usuarios_seguidos
+        JOIN usuarios ON usuarios_seguidos.id_seguidor = usuarios.id_usuario
+        WHERE usuarios_seguidos.id_seguido = :id_usuario
+    ";
+    $stmt2 = $conn->prepare($query2);
+    $stmt2->bindParam(":id_usuario", $id_usuario, PDO::PARAM_INT);
+    $stmt2->execute();
 
+    $seguidores = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
+} catch (PDOException $e) {
+    echo "Error: " . $e->getMessage(); 
+}
 ?>
 
 <!DOCTYPE html>
@@ -79,68 +93,74 @@ try {
             <div class="col-md-4">
                 <div class="card text-center position-relative">
                     <img src="<?= htmlspecialchars($usuario['foto_usuario']) ?>" class="card-img-top" alt="Foto de Perfil" id="imagenPerfil">
-
-                    <?php
-                    //if ( == $_SESSION['id'])
-                    echo'<button class="notificaciones btn btn-outline-light boton-menu" id="btnCambiarImagen" aria-label="Cambiar imagen" style="display: none;">Cambiar imagen</button>'
-                    ?>
-
+                    <?php echo '<button class="notificaciones btn btn-outline-light boton-menu" id="btnCambiarImagen" aria-label="Cambiar imagen" style="display: none;">Cambiar imagen</button>'; ?>
                     <div class="card-body">
-                        <h5 class="card-title">Nombre: <?php echo htmlspecialchars($usuario['nom_completo']); ?></h5>
+                        <h1 class="card-title"><?php echo htmlspecialchars($usuario['nom_completo']); ?></h1>
                         <p class="card-text">Descripción: <?php echo htmlspecialchars($usuario['descripcion']); ?></p>
                     </div>
                 </div>
-            
-
+                <h5 class="mt-5">Seguidores (<?= count($seguidores); ?>)</h5>
+                <div class="seguidores-container">
+                    <ul class="list-group">
+                        <?php if (!empty($seguidores)): ?>
+                            <?php foreach ($seguidores as $seguidor): ?>
+                                <li class="list-group-item">
+                                    <img src="<?= htmlspecialchars($seguidor['foto_usuario']) ?>" class="rounded-circle" alt="Foto de <?= htmlspecialchars($seguidor['nom_completo']) ?>">
+                                    <?= htmlspecialchars($seguidor['nom_completo']) ?>
+                                </li>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <li class="list-group-item">No tienes seguidores.</li>
+                        <?php endif; ?>
+                    </ul>
+                </div>
             </div>
 
             <div class="col-md-8">
-                <h4>Publicaciones de <?php echo htmlspecialchars($usuario['nom_completo']); ?></h4>
+                <h2>Publicaciones de <?php echo htmlspecialchars($usuario['nom_completo']); ?></h2>
                 <ul class="list-group">
                     <?php foreach ($publicaciones as $publicacion): ?>
-                    <li class="list-group-item position-relative">
-                        <h5><?php echo htmlspecialchars($publicacion['titulo']); ?></h5>
-                        <p><?php echo htmlspecialchars($publicacion['descripcion']); ?></p>
-                        <small>Publicado el: <?php echo date('d-m-Y', strtotime($publicacion['fecha_publicacion'])); ?></small>
-
-                        <div class="acciones position-absolute" id="boton-opc">
-                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton<?php echo $publicacion['id_publicacion']; ?>" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="bi bi-caret-down-fill"></i>
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton<?php echo $publicacion['id_publicacion']; ?>">
-                                <li><a class="dropdown-item" href="#" onclick="editarPublicacion(<?php echo $publicacion['id_publicacion']; ?>)">Editar publicación</a></li>
-                                <li><a class="dropdown-item" href="#" onclick="eliminarPublicacion(<?php echo $publicacion['id_publicacion']; ?>)">Eliminar publicación</a></li>
-                            </ul>
-                        </div>
-
-                        <div id="carousel<?php echo $publicacion['id_publicacion']; ?>" class="carousel slide mt-3" data-bs-ride="carousel">
-                            <div class="carousel-inner">
-                                <?php foreach ($publicacion['imagenes'] as $index => $imagen): ?>
-                                    <div class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>">
-                                        <img src="<?php echo htmlspecialchars($imagen); ?>" class="d-block w-100" alt="Imagen de <?php echo htmlspecialchars($publicacion['titulo']); ?>">
-                                    </div>
-                                <?php endforeach; ?>
+                        <li class="list-group-item position-relative">
+                            <h5><?php echo htmlspecialchars($publicacion['titulo']); ?></h5>
+                            <p><?php echo htmlspecialchars($publicacion['descripcion']); ?></p>
+                            <small>Publicado el: <?php echo date('d-m-Y', strtotime($publicacion['fecha_publicacion'])); ?></small>
+                            <div class="acciones position-absolute" id="boton-opc">
+                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton<?php echo $publicacion['id_publicacion']; ?>" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="bi bi-caret-down-fill"></i>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton<?php echo $publicacion['id_publicacion']; ?>">
+                                    <li><a class="dropdown-item" href="#" onclick="editarPublicacion(<?php echo $publicacion['id_publicacion']; ?>)">Editar publicación</a></li>
+                                    <li><a class="dropdown-item" href="#" onclick="eliminarPublicacion(<?php echo $publicacion['id_publicacion']; ?>)">Eliminar publicación</a></li>
+                                </ul>
                             </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carousel<?php echo $publicacion['id_publicacion']; ?>" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Anterior</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carousel<?php echo $publicacion['id_publicacion']; ?>" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Siguiente</span>
-                            </button>
-                        </div>
-                        <div class="mt-3"> <!--Botones de guardar/compartir-->
-                            <button class="btn btn-success" onclick="guardarReceta(<?php echo $publicacion['id_publicacion']; ?>)"><i class="bi bi-save"></i></button>
-                            <button class="btn btn-info" onclick="compartirReceta(<?php echo $publicacion['id_publicacion']; ?>)"><i class="bi bi-share-fill"></i></button>
-                        </div>
-                    </li>
+
+                            <div id="carousel<?php echo $publicacion['id_publicacion']; ?>" class="carousel slide mt-3" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                    <?php foreach ($publicacion['imagenes'] as $index => $imagen): ?>
+                                        <div class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>">
+                                            <img src="<?php echo htmlspecialchars($imagen); ?>" class="d-block w-100" alt="Imagen de <?php echo htmlspecialchars($publicacion['titulo']); ?>">
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carousel<?php echo $publicacion['id_publicacion']; ?>" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Anterior</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carousel<?php echo $publicacion['id_publicacion']; ?>" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Siguiente</span>
+                                </button>
+                            </div>
+                            <div class="mt-3"> <!--Botones de guardar/compartir-->
+                                <button class="btn btn-success" onclick="guardarReceta(<?php echo $publicacion['id_publicacion']; ?>)"><i class="bi bi-save"></i></button>
+                                <button class="btn btn-info" onclick="compartirReceta(<?php echo $publicacion['id_publicacion']; ?>)"><i class="bi bi-share-fill"></i></button>
+                            </div>
+                        </li>
                     <?php endforeach; ?>
                 </ul>
             </div>
         </div>
     </div>
-
                                     <!-- Modal para editar la foto perfil -->
     <div class="modal fade" id="modalCambiarImagen" tabindex="-1" aria-labelledby="modalCambiarImagenLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -165,7 +185,6 @@ try {
     </div>
 
     <?php include '../includes/footer.php'; ?>
-
 </body>
 </html>
 
