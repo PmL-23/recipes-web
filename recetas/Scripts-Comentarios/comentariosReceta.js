@@ -105,10 +105,10 @@ export function cargarComentariosReceta() {
                                     <i class="bi bi-three-dots"></i>
                                 </button>
                                 <div class="acciones-menu" style="display: none;">
-                                    <button class="btn btn-light" onclick="reportarComentario(this)">
+                                    <button class="btn btn-light rounded-0" data-comment="${e.idComentario}" onclick="reportarComentario(this.dataset.comment)" data-bs-toggle="modal" data-bs-target="#modalReportarComentario">
                                         <i class="bi bi-exclamation-circle"></i> Reportar
                                     </button>
-                                    <button class="btn btn-light" onclick="eliminarComentario(this)">
+                                    <button class="btn btn-light rounded-0" data-comment="${e.idComentario}" onclick="eliminarComentario(this.dataset.comment)">
                                         <i class="bi bi-trash"></i> Eliminar
                                     </button>
                                 </div>
