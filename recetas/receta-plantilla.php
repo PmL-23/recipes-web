@@ -1,7 +1,7 @@
-<?php 
+<?php
 require_once('./Scripts-Valoracion/getValoracionActual.php');
 require_once('./Scripts-Favorito/getEstadoDeFavorito.php');
-require_once('../includes/razonesReporte.php'); 
+require_once('../includes/razonesReporte.php');
 ?>
 
 <!DOCTYPE html>
@@ -140,12 +140,12 @@ require_once('../includes/razonesReporte.php');
                                 ?><span class="estrella hover" data-value="<?php echo $i ?>">&#9733;</span><?php
                                                                                                         } else {
                                                                                                             ?><span class="estrella" data-value="<?php echo $i ?>">&#9733;</span><?php
-                                                                                                                                                                                                }
-                                                                                                                                                                                            } else {
-                                                                                                                                                                                                    ?><span class="estrella" data-value="<?php echo $i ?>">&#9733;</span><?php
-                                                                                                                                                                                            }
-                                                                                                                                                                                        }
-                                                                                                                                                                                                ?>
+                                                                                                                                                                                }
+                                                                                                                                                                            } else {
+                                                                                                                                                                                    ?><span class="estrella" data-value="<?php echo $i ?>">&#9733;</span><?php
+                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                                            ?>
                             </div>
 
                             <input type="hidden" name="valoracion" value="0">
@@ -210,7 +210,7 @@ require_once('../includes/razonesReporte.php');
                 <?php
                 if (!empty($ingredientes)) {
                     foreach ($ingredientes as $ingrediente) {
-                        echo '<li class="list-group-item">' . $ingrediente . '</li> ';
+                        echo '<li class="list-group-item bg-transparent border-0 p-0">' . $ingrediente . '</li> ';
                     }
                 } else {
                     echo 'No hay ingredientes';
@@ -219,33 +219,23 @@ require_once('../includes/razonesReporte.php');
         </div>
     </div>
 
-    <div class="pasos-receta bg-white mt-4 ms-6 border-0 shadow-none">
-        <h3>Pasos de la Receta</h3>
-        <ol class="list-unstyled p-0 m-0">
-            <!-- todos los pasos como una lista -->
-            <?php
-            if (!empty($pasos)) {
-                foreach ($pasos as $index => $paso) {
-                    // numero antes del paso
-                    if (isset($numerosPasos[$index])) {
-                        echo '<li class="mb-4 bg-transparent border-0 p-0">' .
-                            'Paso ' . htmlspecialchars($numerosPasos[$index], ENT_QUOTES, 'UTF-8') . ': ' .
-                            htmlspecialchars($paso, ENT_QUOTES, 'UTF-8') . '</li>';
-                    } else {
-                        echo '<li class="mb-4 bg-transparent border-0 p-0">' .
-                            htmlspecialchars($paso, ENT_QUOTES, 'UTF-8') . '</li>';
-                    }
-                    // imagen del paso
-                    if (isset($imagenesPasos[$index])) {
-                        echo '<img src="' . htmlspecialchars($imagenesPasos[$index], ENT_QUOTES, 'UTF-8') . '" alt="Imagen del paso" class="img-fluid mb-2" style="width: 40%; height: 40%;">';
-                    }
-                }
-            } else {
-                echo 'No hay pasos';
-            }
-            ?>
+    <div class="container pasos-receta bg-white mt-4 border-0 shadow-none">
+        <h3>Pasos</h3>
+        <ol class="list-group list-group-numbered">
+            <?php foreach ($pasos as $paso): ?>
+                <li class="mb-4 bg-transparent border-0 p-0">
+                    <strong>Paso <?php echo $paso['num_paso']; ?>:</strong> <?php echo $paso['texto']; ?>
+                    <?php if (!empty($paso['imagenes'])): ?>
+                        <div class="imagenes-pasos d-flex flex-wrap mt-2">
+                            <?php foreach ($paso['imagenes'] as $imagenPaso): ?>
+                                <img src="<?php echo $imagenPaso; ?>" alt="Imagen del paso" class="img-fluid mb-2" style="width: 40%; height: 40%;">
+                            <?php endforeach; ?>
+                        </div>
+                    <?php endif; ?>
+                </li>
+            <?php endforeach; ?>
         </ol>
-    </div>
+
     </div>
 
 
@@ -369,7 +359,7 @@ require_once('../includes/razonesReporte.php');
                                 <option value="">Seleccione un motivo</option>
                                 <?php if (!empty($razonesReporte)) {
                                     foreach ($razonesReporte as $razon) {
-                                        echo '<option value='.$razon['id_razon'].'>'.$razon['descripcion'].'</option>';
+                                        echo '<option value=' . $razon['id_razon'] . '>' . $razon['descripcion'] . '</option>';
                                     }
                                 } ?>
                             </select>
@@ -380,7 +370,7 @@ require_once('../includes/razonesReporte.php');
                             <textarea class="form-control" name="observacion" id="observacion" rows="7" placeholder="Detalles sobre el motivo de reporte.." required></textarea>
                         </div>
 
-                        <input type="hidden" name="id_publicacion_receta" value="<?php if( isset($_GET['id'])) echo $_GET['id']; ?>">
+                        <input type="hidden" name="id_publicacion_receta" value="<?php if (isset($_GET['id'])) echo $_GET['id']; ?>">
 
                         <button type="submit" class="btn btn-dark">Enviar Reporte</button>
 
@@ -406,120 +396,10 @@ require_once('../includes/razonesReporte.php');
             </div>
         </div>
     </div>
+    <!-- PUBLICACIONES similares -->
+    <div class="container">
+        <h1 class="">Publicaciones similares</h1>
 
-    <h1 class="ms-5">Publicaciones similares</h1>
-    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <div class="receta-item card">
-                    <div class="card_landing" style="background-image: url(../images/milanesas_lp.jpg);">
-                        <h6>Milanesas</h6>
-                    </div>
-                    <div class="card_info">
-                        <div class="head">
-                            <p class="title">Milanesas</p>
-                            <div class="description">
-                                <div class="item">
-                                    <i class="fas fa-clock"></i>
-                                    <p>30 min</p>
-                                </div>
-                                <div class="item">
-                                    <i class="fas fa-user"></i>
-                                    <p>4</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="content">
-                            <p class="title">Ingredientes:</p>
-                            <ul class="list">
-                                <li>500g de carne</li>
-                                <li>1 taza de pan rallado</li>
-                                <li>2 huevos</li>
-                                <li>Sal y pimienta al gusto</li>
-                            </ul>
-                        </div>
-                        <div class="action">
-                            <a href="#" class="btn">Quiero la receta!</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="receta-item card">
-                    <div class="card_landing" style="background-image: url(../images/empanadas_lp.jpg);">
-                        <h6>Empanadas</h6>
-                    </div>
-                    <div class="card_info">
-                        <div class="head">
-                            <p class="title">Empanadas</p>
-                            <div class="description">
-                                <div class="item">
-                                    <i class="fas fa-clock"></i>
-                                    <p>45 min</p>
-                                </div>
-                                <div class="item">
-                                    <i class="fas fa-user"></i>
-                                    <p>6</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="content">
-                            <p class="title">Ingredientes:</p>
-                            <ul class="list">
-                                <li>500g de carne picada</li>
-                                <li>1 cebolla</li>
-                                <li>2 huevos</li>
-                                <li>1 paquete de masa para empanadas</li>
-                            </ul>
-                        </div>
-                        <div class="action">
-                            <a href="#" class="btn">Quiero la receta!</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="receta-item card">
-                    <div class="card_landing" style="background-image: url(../images/nioquis_lp.jpg);">
-                        <h6>Ñoquis</h6>
-                    </div>
-                    <div class="card_info">
-                        <div class="head">
-                            <p class="title">Ñoquis</p>
-                            <div class="description">
-                                <div class="item">
-                                    <i class="fas fa-clock"></i>
-                                    <p>50 min</p>
-                                </div>
-                                <div class="item">
-                                    <i class="fas fa-user"></i>
-                                    <p>6</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="content">
-                            <p class="title">Ingredientes:</p>
-                            <ul class="list">
-                                <li>Harina unos g</li>
-                                <li>3kg de queso para rallar</li>
-                                <li>2 huevos</li>
-                                <li>1 paquete de masa para empanadas</li>
-                            </ul>
-                        </div>
-                        <div class="action">
-                            <a href="#" class="btn">Quiero la receta!</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
     </div>
+
     <?php include '../includes/footer.php' ?>
