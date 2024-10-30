@@ -23,3 +23,18 @@
     object-fit: cover; 
     border-radius: 50%; 
 }
+
+
+#descripcionForm {
+    display: none; 
+    margin-top: 10px; 
+}
+
+#descripcionInput {
+    display: none;
+    resize: none; 
+}
+
+#descripcionButtons{
+    display: none;
+}
