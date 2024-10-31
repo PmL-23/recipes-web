@@ -1,17 +1,33 @@
 document.addEventListener("DOMContentLoaded", function () {
-    let buscarReceta = document.getElementById('buscarReceta'); 
+    let buscarReceta = document.getElementById('buscarReceta');
     let pantallasChicas = document.getElementById('pantallasChicas');
     let pantallaGrande = document.getElementById('pantallaGrande');
     let modalFiltros = document.getElementById('modalFiltros');
     let cerrarModal = document.querySelector('.close-modal');
     let resultados = document.getElementById("resultados");
-    let botonFiltro = document.querySelector('.filtrar-btn'); 
+    let botonFiltro = document.querySelector('.filtrar-btn');
     let aplicarModalFiltros = document.getElementById("aplicarModalFiltros");
+    let filtrarRecetaModal = document.getElementById('filtrarRecetaModal');
 
+    filtrarRecetaModal.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        let formData = new FormData(this);
+
+        fetch('aplicandoFiltros.php', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.text())
+            .then(data => {
+                resultados.innerHTML = data;
+            })
+            .catch(err => console.error('Error en el filtrado:', err));
+    });
     buscarReceta.addEventListener('submit', function (event) {
         event.preventDefault();
 
-        let formData = new FormData(this); 
+        let formData = new FormData(this);
 
         fetch('recetas.php', {
             method: 'POST',
@@ -21,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(data => {
                 resultados.innerHTML = data;
                 console.log("Contenido recibido:", data);
-                if (data.trim() !== "") { 
+                if (data.trim() !== "") {
                     pantallaGrande.classList.remove('oculto');
                     console.log("pantallaGrande se muestra");
                 }
@@ -36,20 +52,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // modal
     pantallasChicas.addEventListener('click', function (event) {
-        event.preventDefault(); 
-        modalFiltros.classList.remove('oculto'); 
+        event.preventDefault();
+        modalFiltros.classList.remove('oculto');
     });
     cerrarModal.addEventListener('click', function () {
-        modalFiltros.classList.add('oculto'); 
+        modalFiltros.classList.add('oculto');
     });
     aplicarModalFiltros.addEventListener('click', function () {
-        modalFiltros.classList.add('oculto'); 
+        modalFiltros.classList.add('oculto');
     });
 
     // Cerrar el modal al hacer clic fuera del contenido del modal
     window.addEventListener('click', function (event) {
         if (event.target === modalFiltros) {
-            modalFiltros.classList.add('oculto'); 
+            modalFiltros.classList.add('oculto');
         }
     });
 });

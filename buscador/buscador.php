@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Filtrar</title>
     <?php include '../includes/head.php'; ?>
-    <link rel="stylesheet" href="buscadorr.css">
-    <script src="buscarr.js" defer></script>
+    <link rel="stylesheet" href="buscador.css">
     <script src="filtro.js" defer></script>
+    <script src="buscar.js" defer></script>
 </head>
 
 <body class="cuerpo">
@@ -41,34 +41,34 @@
                         <div class="modal-contenido">
                             <span class="close-modal">&times;</span>
                             <h5>Filtros</h5>
-                            <form id="filtrarReceta" action="aplicandoFiltros.php" method="POST">
-                            <div class="form-group">
-                                <label for="dificultad" >Dificultad</label>
-                                <select name="dificultad" id="dificultad" class="form-control">
-                                    <option value="" disabled selected>Seleccione una dificultad.</option>
+                            <form id="filtrarRecetaModal" method="POST">
+                                <div class="form-group">
+                                    <label for="dificultad">Dificultad</label>
+                                    <select name="dificultad" id="dificultad" class="form-control">
+                                        <option value="" disabled selected>Seleccione una dificultad.</option>
 
-                                </select>
-                            </div>
-                            <div class="form-group mt-3">
-                                <label for="categoria" >Categoria</label>
-                                <select name="categoria" id="categoria" class="form-control">
-                                    <option value="" disabled selected>Seleccione una categoria</option>
+                                    </select>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <label for="categoria">Categoria</label>
+                                    <select name="categoria" id="categoria" class="form-control">
+                                        <option value="" disabled selected>Seleccione una categoria</option>
 
-                                </select>
-                            </div>
-                            <div class="form-group mt-3">
-                                <label for="tiempo">Tiempo de Preparación</label>
-                                <select id="tiempo" name="tiempo" class="form-control">
-                                    <option value="" disabled selected>Seleccione una tiempo.</option>
-                                    <option value="menos30">Menos de 30 minutos</option>
-                                    <option value="30a60">30 a 60 minutos</option>
-                                    <option value="mas60">Más de 60 minutos</option>
-                                </select>
-                            </div>
-                            <div class="form-group mt-3">
-                                <button type="submit" id="aplicarModalFiltros" class="btn btn-primary mt-3">Aplicar Filtros</button>
-                            </div>
-                        </form>
+                                    </select>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <label for="tiempo">Tiempo de Preparación</label>
+                                    <select id="tiemp0" name="tiempo" class="form-control">
+                                        <option value="" disabled selected>Seleccione una tiempo.</option>
+                                        <option value="menos30">Menos de 30 minutos</option>
+                                        <option value="30a60">30 a 60 minutos</option>
+                                        <option value="mas60">Más de 60 minutos</option>
+                                    </select>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <button type="submit" id="aplicarModalFiltros" class="btn btn-primary mt-3">Aplicar Filtros</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <!-- filtro pantallas grandes -->
@@ -76,14 +76,14 @@
                         <h5>Filtros</h5>
                         <form id="filtrarReceta" action="aplicandoFiltros.php" method="POST">
                             <div class="form-group">
-                                <label for="dificultad" >Dificultad</label>
+                                <label for="dificultad">Dificultad</label>
                                 <select name="dificultad" id="dificultad" class="form-control">
                                     <option value="" disabled selected>Seleccione una dificultad.</option>
 
                                 </select>
                             </div>
                             <div class="form-group mt-3">
-                                <label for="categoria" >Categoria</label>
+                                <label for="categoria">Categoria</label>
                                 <select name="categoria" id="categoria" class="form-control">
                                     <option value="" disabled selected>Seleccione una categoria</option>
 
