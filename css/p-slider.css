@@ -1,0 +1,14 @@
+/* Ajusta la altura del carrusel si es necesario */
+.carouselPerfil {
+    max-height: 50% !important;
+    overflow: hidden !important;
+}
+
+/* Ajuste de imagen para mostrarla completamente */
+.custom-carousel-image {
+    object-fit: contain !important;
+    width: 50% !important;
+    height: 43% !important;
+    background-color: #000 ; /* Color de fondo opcional para los bordes vacíos */
+}
+

@@ -14,15 +14,14 @@ if (!isset($_GET['IDUsuario'])) {
     die();
 }
 $UsuarioID = $_GET['IDUsuario'];
-$query = "SELECT * FROM publicaciones_recetas WHERE id_usuario_autor = :usuario_id";
+$query = "SELECT publicaciones_recetas.*, categorias.titulo AS nombre_categoria
+FROM publicaciones_recetas
+LEFT JOIN categorias ON publicaciones_recetas.id_categoria = categorias.id_categoria
+WHERE publicaciones_recetas.id_usuario_autor = :usuario_id";
 $stm = $conn->prepare($query);
 $stm->bindParam(':usuario_id', $UsuarioID);
 $stm->execute();
 $Publicacion = $stm->fetchAll(PDO::FETCH_ASSOC);
-
-
-//se deberia traer tambien la tablas de seguidores y seguidos para devolverla en el json.
-
 
 
 echo json_encode($Publicacion, JSON_PRETTY_PRINT);
