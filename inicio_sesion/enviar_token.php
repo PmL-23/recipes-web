@@ -1,9 +1,6 @@
 <?php
 session_start();
-require '../vendor/autoload.php';
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+require '../config.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     include '../includes/conec_db.php';
@@ -28,28 +25,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $updateStmt->bindParam(':id_usuario', $usuario['id_usuario']);
         $updateStmt->execute();
 
-        // Crea el enlace de recuperación
-        $enlaceRecuperacion = "http://localhost/xampp/proyecto_final/recipes-web/inicio_sesion/nueva_contrasena.php?token=$token";
+        // Crea el enlace dinámico de recuperación
+        
+        $protocolo = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
+        $host = $_SERVER['HTTP_HOST'];
+        $enlaceRecuperacion = "$protocolo://$host/xampp/proyecto_final/recipes-web/inicio_sesion/nueva_contrasena.php?token=$token";
+
 
         $nombre_cuenta = $usuario['nom_completo'];
 
-        // Configuracion de PHPMailer
-        $mail = new PHPMailer(true);
+        // Obtener el mailer de la configuración
+        $mail = configMailer();
         try {
-            $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com'; 
-            $mail->SMTPAuth = true;
-            $mail->Username = '@gmail.com'; //email
-            $mail->Password = ''; //contraseña
-            $mail->SMTPSecure = 'tls';
-            $mail->Port = 587;
-
-            $mail->setFrom('@gmail.com', ''); //email + nombre
+            $mail->setFrom('@gmail.com', ''); // Tu email + nombre
             $mail->addAddress($usuario['email']); 
 
             $mail->isHTML(true);
             $mail->Subject = 'Recuperación de Contraseña';
-            $mail->Body = "Hola $nombre_cuenta Haz clic en el siguiente enlace para recuperar tu contraseña: <a href='$enlaceRecuperacion'>Recuperar Contraseña</a>";
+            $mail->Body = "Hola $nombre_cuenta, haz clic en el siguiente enlace para recuperar tu contraseña: <a href='$enlaceRecuperacion'>Recuperar Contraseña</a>";
 
             // Enviar el correo
             $mail->send();

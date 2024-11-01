@@ -56,8 +56,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         if (!$sqlVerificarUsuarioExistente) {
             error_log('Error en la consulta SQL de usuario');
             exit();
-            //preguntar si los errores de consultas sql se muestran en el front y cómo:
-            //location pag. "error en el servidor/base de datos bla bla"
         }
         $sqlVerificarUsuarioExistente->bindParam(':Username', $username, PDO::PARAM_STR);
         $sqlVerificarUsuarioExistente->bindParam(':Email', $email, PDO::PARAM_STR);
