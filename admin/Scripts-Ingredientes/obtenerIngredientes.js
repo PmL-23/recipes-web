@@ -21,7 +21,7 @@ export function obtenerIngredientes(){
         // Guarda la URL desde el inicio hasta la palabra "recipes-web/"
         let urlCortada = urlActual.substring(0, indice + palabraClave.length);
 
-        fetch(urlCortada + "admin/IngredientesPHP/obtenerIngredientes.php", {
+        fetch(urlCortada + "admin/Scripts-Ingredientes/obtenerIngredientes.php", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"

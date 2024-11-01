@@ -1,6 +1,7 @@
-import { obtenerCategorias } from "./ScriptsJS/obtenerCategorias.js";
-import { obtenerEtiquetas } from "./ScriptsJS/obtenerEtiquetas.js";
-import { obtenerIngredientes } from "./ScriptsJS/obtenerIngredientes.js";
+import { obtenerCategorias } from "./Scripts-Categorias/obtenerCategorias.js";
+import { obtenerEtiquetas } from "./Scripts-Etiquetas/obtenerEtiquetas.js";
+import { obtenerIngredientes } from "./Scripts-Ingredientes/obtenerIngredientes.js";
+import { obtenerUsuariosReportados } from "./Scripts-Usuarios/obtenerUsuariosReportados.js";
 
 //OBJETOS QUE USO PARA SIMULAR DATOS PROVENIENTES DE UNA BASE DE DATOS
 
@@ -132,7 +133,7 @@ document.addEventListener("DOMContentLoaded", function (){
 
     actualizarContadores();
 
-    document.querySelectorAll('.list-group a').forEach(item => {
+    /* document.querySelectorAll('.list-group a').forEach(item => {
 
         item.addEventListener('click', function() {
 
@@ -144,6 +145,11 @@ document.addEventListener("DOMContentLoaded", function (){
 
             if (seccion != "#") item.classList.add('item-activo');
         });
+    }); */
+
+    window.addEventListener('hashchange', function () {
+        limpiarDashboard();
+        manejarContenido(location.hash);
     });
 
     document.getElementById("btn-add-item").addEventListener("click", function (){
@@ -195,7 +201,7 @@ document.addEventListener("DOMContentLoaded", function (){
                 // Guarda la URL desde el inicio hasta la palabra "recipes-web/"
                 let urlCortada = urlActual.substring(0, indice + palabraClave.length);
 
-                fetch(urlCortada + "admin/CategoriasPHP/crearCategoria.php", {
+                fetch(urlCortada + "admin/Scripts-Categorias/crearCategoria.php", {
             
                     method: "POST",
                     body: new FormData(e.target)
@@ -225,7 +231,7 @@ document.addEventListener("DOMContentLoaded", function (){
                 // Guarda la URL desde el inicio hasta la palabra "recipes-web/"
                 let urlCortada = urlActual.substring(0, indice + palabraClave.length);
 
-                fetch(urlCortada + "admin/CategoriasPHP/editarCategoria.php", {
+                fetch(urlCortada + "admin/Scripts-Categorias/editarCategoria.php", {
             
                     method: "POST",
                     body: new FormData(e.target)
@@ -267,7 +273,7 @@ document.addEventListener("DOMContentLoaded", function (){
                 // Guarda la URL desde el inicio hasta la palabra "recipes-web/"
                 let urlCortada = urlActual.substring(0, indice + palabraClave.length);
 
-                fetch(urlCortada + "admin/EtiquetasPHP/crearEtiqueta.php", {
+                fetch(urlCortada + "admin/Scripts-Etiquetas/crearEtiqueta.php", {
             
                     method: "POST",
                     body: new FormData(e.target)
@@ -297,7 +303,7 @@ document.addEventListener("DOMContentLoaded", function (){
                 // Guarda la URL desde el inicio hasta la palabra "recipes-web/"
                 let urlCortada = urlActual.substring(0, indice + palabraClave.length);
 
-                fetch(urlCortada + "admin/EtiquetasPHP/editarEtiqueta.php", {
+                fetch(urlCortada + "admin/Scripts-Etiquetas/editarEtiqueta.php", {
             
                     method: "POST",
                     body: new FormData(e.target)
@@ -339,7 +345,7 @@ document.addEventListener("DOMContentLoaded", function (){
                 // Guarda la URL desde el inicio hasta la palabra "recipes-web/"
                 let urlCortada = urlActual.substring(0, indice + palabraClave.length);
 
-                fetch(urlCortada + "admin/IngredientesPHP/crearIngrediente.php", {
+                fetch(urlCortada + "admin/Scripts-Ingredientes/crearIngrediente.php", {
             
                     method: "POST",
                     body: new FormData(e.target)
@@ -369,7 +375,7 @@ document.addEventListener("DOMContentLoaded", function (){
                 // Guarda la URL desde el inicio hasta la palabra "recipes-web/"
                 let urlCortada = urlActual.substring(0, indice + palabraClave.length);
 
-                fetch(urlCortada + "admin/IngredientesPHP/editarIngrediente.php", {
+                fetch(urlCortada + "admin/Scripts-Ingredientes/editarIngrediente.php", {
             
                     method: "POST",
                     body: new FormData(e.target)
@@ -411,7 +417,7 @@ document.addEventListener("DOMContentLoaded", function (){
             let urlCortada = urlActual.substring(0, indice + palabraClave.length);
 
             if (location.hash == "#admin-categorias" || location.hash == "#" || location.hash == "") {
-                fetch(urlCortada + "admin/CategoriasPHP/eliminarCategoria.php", {
+                fetch(urlCortada + "admin/Scripts-Categorias/eliminarCategoria.php", {
         
                     method: "POST",
                     body: new FormData(e.target)
@@ -433,7 +439,7 @@ document.addEventListener("DOMContentLoaded", function (){
 
             }else if(location.hash == "#admin-etiquetas"){
 
-                fetch(urlCortada + "admin/EtiquetasPHP/eliminarEtiqueta.php", {
+                fetch(urlCortada + "admin/Scripts-Etiquetas/eliminarEtiqueta.php", {
         
                     method: "POST",
                     body: new FormData(e.target)
@@ -455,7 +461,7 @@ document.addEventListener("DOMContentLoaded", function (){
 
             }else if(location.hash == "#admin-ingredientes"){
 
-                fetch(urlCortada + "admin/IngredientesPHP/eliminarIngrediente.php", {
+                fetch(urlCortada + "admin/Scripts-Ingredientes/eliminarIngrediente.php", {
         
                     method: "POST",
                     body: new FormData(e.target)
@@ -474,11 +480,39 @@ document.addEventListener("DOMContentLoaded", function (){
                     modalBootstrapEliminarItem.hide();
     
                 });
+            }else if(location.hash == "#admin-usuarios"){
+
+                fetch('../admin/Scripts-Usuarios/ignorarReportesUsuario.php', {
+        
+                    method: "POST",
+                    body: new FormData(e.target)
+                })
+                .then(res => res.json())
+                .then(data => {
+    
+                    if (data.success == true) {
+                        console.log("Reportes de usuario eliminados con éxito");
+                    }else{
+                        console.log("Error al eliminar reportes de usuario");
+                    }
+    
+                    obtenerUsuariosReportados();
+    
+                    modalBootstrapEliminarItem.hide();
+    
+                });
             }
 
         } else {
             console.log("La cadena 'recipes-web/' no se encontró en la URL.");
         }
+    });
+
+    document.getElementById("formulario-ban").addEventListener("submit", function(e){
+
+        e.preventDefault();
+
+
     });
 
     document.getElementById("inputPermaBan").addEventListener("change", function (e){
@@ -499,7 +533,7 @@ function verificarSeccion(){
     if (seccion) {
         manejarContenido(seccion);
     }else{
-        manejarContenido('#admin-categorias');
+        manejarContenido('#');
     }
 
 };
@@ -517,79 +551,6 @@ function adaptarDashboard(href){
         }
     });
 };
-
-function obtenerUsuariosReportados(){
-
-    const panelContenido = document.querySelector(".panel-body");
-
-    const contenedorCards = document.createElement("div");
-    contenedorCards.classList.add('w-100', 'd-flex', 'flex-column', 'border', 'overflow-y-auto');
-
-    usuariosReportados.forEach((usuario) => {
-
-        contenedorCards.innerHTML += `
-            <div class="card m-5">
-                
-                <div class="card-body d-flex flex-row">
-
-                    <img class="w-25 m-2 rounded-circle" src="${usuario.fotoPerfil}"/>
-
-                    <div class="container-sm d-flex flex-column align-items-center">
-                        <h3>${usuario.nombreUsuario}</h3>
-
-                        <div class="w-100 p-2 mt-4 d-flex flex-row justify-content-around">
-
-                            <div class="d-flex flex-column align-items-center">
-                                <h4>${usuario.publicaciones}</h4>
-                                <h6>Publicaciones</h6>
-                            </div>
-
-                            <div class="d-flex flex-column align-items-center">
-                                <h4>${usuario.reportes}</h4>
-                                <h6>Reportes</h6>
-                            </div>
-
-                            <div class="d-flex flex-column align-items-center">
-                                <h4>${usuario.seguidores}</h4>
-                                <h6>Seguidores</h6>
-                            </div>
-
-                        </div>
-
-                        <div class="m-2 d-flex flex-row">
-
-                            <button class="btn btn-custom-bg btn-sm ms-1 m-2 btn-ver-usuario">Ir a perfil</button>
-                            <button class="btn btn-danger btn-sm ms-1 m-2 btn-suspender-usuario" data-bs-toggle="modal" data-bs-target="#modalSuspenderUsuario">Suspender usuario</button>
-                            <button class="btn btn-secondary btn-sm m-2 btn-ignorar-usuario" data-bs-toggle="modal" data-bs-target="#asdasd">Ignorar usuario</button>
-
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="card-footer">
-                    <div class="d-flex flex-row">
-
-                        <div class="w-100 p-2 d-flex flex-row align-items-center">
-
-                            <p class="text-secondary m-0">${usuario.email}</p>
-
-                        </div>
-
-						<div class="w-100 p-2 d-flex flex-column align-items-end justify-content-center">
-
-						    <span class="text-secondary">Miembro desde</span>
-						    <span class="text-body-tertiary">${usuario.fechaCreacionCuenta}</span>
-
-                        </div>
-					</div>
-                </div>
-            </div>
-        `;
-    });
-
-    panelContenido.appendChild(contenedorCards);
-}
 
 function obtenerComentariosReportados(){
 
@@ -709,7 +670,7 @@ function actualizarContadores(){
         })
         .then(data => {
 
-            const ContadorCategorias = document.getElementById("cont-categorias");
+            /* const ContadorCategorias = document.getElementById("cont-categorias");
             const ContadorEtiquetas = document.getElementById("cont-etiquetas");
             const ContadorIngredientes = document.getElementById("cont-ingredientes");
 
@@ -732,7 +693,7 @@ function actualizarContadores(){
                 ContadorIngredientes.innerText = data.totalIngredientes;
             }else{
                 ContadorIngredientes.classList.add("d-none");
-            }
+            } */
 
         });
 
@@ -766,7 +727,6 @@ function manejarContenido(seccion){
     const panelTitulo = document.querySelector(".panel-title");
     const panelBtn = document.querySelector(".btn-add-item");
     const panelContenido = document.querySelector(".panel-body");
-    const BotonAgregar = document.getElementById("btn-add-item");
 
     panelContenido.innerHTML = ``;
 
@@ -779,8 +739,8 @@ function manejarContenido(seccion){
             panelTitulo.textContent = "Categorías";
             panelBtn.classList.remove("d-none");
             panelBtn.textContent = "Añadir categoría";
+            panelBtn.setAttribute("data-bs-target", "#modalGestionCategoria");
             panelContenido.innerHTML = ``;
-            BotonAgregar.setAttribute("data-bs-target", "#modalGestionCategoria");
             
             obtenerCategorias();
             adaptarDashboard("#admin-categorias");
@@ -792,8 +752,8 @@ function manejarContenido(seccion){
             panelTitulo.textContent = "Etiquetas";
             panelBtn.classList.remove("d-none");
             panelBtn.textContent = "Añadir Etiqueta";
+            panelBtn.setAttribute("data-bs-target", "#modalGestionEtiqueta");
             panelContenido.innerHTML = ``;
-            BotonAgregar.setAttribute("data-bs-target", "#modalGestionEtiqueta");
             
             obtenerEtiquetas();
             adaptarDashboard("#admin-etiquetas");
@@ -815,8 +775,8 @@ function manejarContenido(seccion){
                     
         case '#admin-usuarios':
 
+            panelTitulo.textContent = "Gestión de usuarios reportados";
             panelBtn.classList.add("d-none");
-            panelTitulo.textContent = "Gestion de usuarios reportados";
             panelContenido.innerHTML = ``;
 
             obtenerUsuariosReportados();
@@ -835,7 +795,7 @@ function manejarContenido(seccion){
 
             break;
             
-            case '#admin-publicaciones':
+        case '#admin-publicaciones':
                 
             panelBtn.classList.add("d-none");
             panelTitulo.textContent = "Gestion de publicaciones reportadas";
@@ -848,14 +808,9 @@ function manejarContenido(seccion){
 
         default:
 
-            panelTitulo.textContent = "Categorías";
-            panelBtn.classList.remove("d-none");
-            panelBtn.textContent = "Añadir categoría";
-            panelContenido.innerHTML = ``;
-            BotonAgregar.setAttribute("data-bs-target", "#modalGestionCategoria");
-            
-            obtenerCategorias();
-            adaptarDashboard("#admin-categorias");
+            const firstItemDashboard = document.querySelector(".list-group-item");
+            const HashURL = firstItemDashboard.href.split("#")[1];
+            location.hash = HashURL;
 
             break;
     }

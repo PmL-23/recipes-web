@@ -21,7 +21,7 @@ export function obtenerEtiquetas(){
         // Guarda la URL desde el inicio hasta la palabra "recipes-web/"
         let urlCortada = urlActual.substring(0, indice + palabraClave.length);
 
-        fetch(urlCortada + "admin/EtiquetasPHP/obtenerEtiquetas.php", {
+        fetch(urlCortada + "admin/Scripts-Etiquetas/obtenerEtiquetas.php", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"

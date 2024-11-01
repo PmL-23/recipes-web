@@ -2,55 +2,45 @@ document.addEventListener("DOMContentLoaded", function (){
 
     document.getElementById("btn-favorito").addEventListener("click", function(){
 
-        let urlActual = window.location.href;
-        let palabraClave = "recipes-web/";
+        try {
 
-        // Encuentra el índice de la palabra "recipes-web/" en la URL
-        let indice = urlActual.indexOf(palabraClave);
+            const IDReceta = document.getElementById("id_publicacion_receta").value;
 
-        if (indice !== -1) {
-            // Guarda la URL desde el inicio hasta la palabra "recipes-web/"
-            let urlCortada = urlActual.substring(0, indice + palabraClave.length);
+            const btnFavorito = document.getElementById("btn-favorito");
 
-            try {
+            fetch('../recetas/Scripts-Favorito/postFavoritoReceta.php', {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: `id_publicacion_receta=${IDReceta}`
+            })
+            .then(res => res.json())
+            .then(data => {
 
-                const IDReceta = document.getElementById("id_publicacion_receta").value;
+                if ( (data.success == true) && (data.accion == "delete") ) {
 
-                const btnFavorito = document.getElementById("btn-favorito");
+                    console.log("Receta eliminada de favoritos..");
+                    btnFavorito.classList.remove("active");
 
-                fetch(urlCortada + "recetas/Scripts-Favorito/postFavoritoReceta.php", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                    body: `id_publicacion_receta=${IDReceta}`
-                })
-                .then(res => res.json())
-                .then(data => {
+                } else if( (data.success == true) && (data.accion == "insert") ){
 
-                    if ( (data.success == true) && (data.accion == "delete") ) {
+                    console.log("Receta agregada a favoritos..");
+                    btnFavorito.classList.add("active");
 
-                        console.log("Receta eliminada de favoritos..");
-                        btnFavorito.classList.remove("active");
+                }else{
 
-                    } else if( (data.success == true) && (data.accion == "insert") ){
+                    console.log(data.message);
 
-                        console.log("Receta agregada a favoritos..");
-                        btnFavorito.classList.add("active");
+                }
 
-                    }else{
+            })
+            .catch(error => {
+                console.error("Error al favear publicación: ", error);
+            });
 
-                        console.log(data.message);
-
-                    }
-
-                })
-                .catch(error => {
-                    console.error("Error al favear publicación: ", error);
-                });
-
-            } catch (error) {
-                console.log(error);
-            }
+        } catch (error) {
+            console.log(error);
         }
+        
     });
 
 });

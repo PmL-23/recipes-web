@@ -4,39 +4,26 @@ document.addEventListener("DOMContentLoaded", function (){
 
         e.preventDefault();
 
-        let urlActual = window.location.href;
-        let palabraClave = "recipes-web/";
+        fetch('../recetas/Scripts-Reportes/postReporteComentario.php', {
+            method: "POST",
+            body: new FormData(e.target)
+        })
+        .then(res => res.json())
+        .then(data => {
 
-        // Encuentra el índice de la palabra "recipes-web/" en la URL
-        let indice = urlActual.indexOf(palabraClave);
+            /* console.log(data); */
 
-        if (indice !== -1) {
-            // Guarda la URL desde el inicio hasta la palabra "recipes-web/"
-            let urlCortada = urlActual.substring(0, indice + palabraClave.length);
+            if (data.success == true) {
 
-            fetch(urlCortada + "recetas/Scripts-Reportes/postReporteComentario.php", {
-                method: "POST",
-                body: new FormData(e.target)
-            })
-            .then(res => res.json())
-            .then(data => {
+                console.log("Comentario reportado con éxito..");
 
-                /* console.log(data); */
+            }else{
+                
+                console.log(data);
 
-                if (data.success == true) {
+            }
 
-                    console.log("Comentario reportado con éxito..");
-
-                }else{
-                    
-                    console.log(data);
-
-                }
-
-            });
-        } else {
-            console.log("La palabra 'recipes-web/' no se encontró en la URL.");
-        }
+        });
     });
 
 });

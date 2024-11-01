@@ -38,7 +38,7 @@ include '../includes/permisos.php';
             <!-- Dashboard izquierdo -->
             <div class="col-md-4">
                 <div class="list-group">
-                    <a href="#" class="list-group-item custom-bg">Dashboard de administrador</a>
+                    <a href="#" class="custom-bg text-center text-decoration-none py-3 fw-bolder fs-5">Dashboard de administrador</a>
                     
                     <?php if (Permisos::tienePermiso('Gestionar Categorias', $_SESSION['id'])) 
                     {?>
@@ -210,7 +210,7 @@ include '../includes/permisos.php';
         <div class="modal-dialog">
           <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title fs-5" id="modalSuspenderUsuarioLabel">Penalización</h4>
+                    <h4 class="modal-title fs-5" id="modalSuspenderUsuarioTitle">Penalización</h4>
                 </div>
                 <div class="modal-body">
                     <form action="" id="formulario-ban">
@@ -221,7 +221,7 @@ include '../includes/permisos.php';
                             <div class="mt-2">
                                 <label for="inputPermaBan" class="form-label m-0">Suspender permanentemente</label>
                                 <input type="checkbox" class="form-check-input" name="inputPermaBan" id="inputPermaBan">
-                                <input type="hidden" id="itemID" name="itemID" value="" />
+                                <input type="hidden" id="cuentaID" name="cuentaID" value="" />
                             </div>
                         </div>
                     </form>
