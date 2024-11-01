@@ -44,9 +44,6 @@ if ($indexPosition !== false) {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Recetario</title>
-        
-
-
         <script src="../CarpetaPerfil/JSPerfil.js" defer></script>
         
         <?php include '../includes/head.php'?>
@@ -61,7 +58,7 @@ include '../includes/conec_db.php';?>
 
         <div class="col-8 d-inline p-3 mt-0">
             <div class="FotoDePerfil p-1 d-inline">
-                <img class="d-inline" alt="Texto si no ve imagen" src="../images/bondiola_lp.jpg"width="44" height="44" id="IDFotoPerfil">
+                <img class="d-inline" alt="Texto si no ve imagen" src="../images/bondiola_lp.jpg"width="50" height="50" id="IDFotoPerfil">
             </div>
             <p class="d-inline" id="IDNombreCompletoDeUsuario">Nombre & Apellido de Usuario</p>
             <p class="d-inline text-secondary" id="IDNombreDeUsuario">@NombreDeUsuario</p>

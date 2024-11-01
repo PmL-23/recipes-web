@@ -2,7 +2,7 @@
 
 include '../includes/conec_db.php';
 
-if (!isset($_GET['IDCategoria'])) {
+if (!isset($_GET['IDPublicacion'])) {
     echo json_encode([
         'success' => false,
         'error' => [
@@ -14,15 +14,15 @@ if (!isset($_GET['IDCategoria'])) {
     die();
 }
 
-$IDCategoria = $_GET['IDCategoria'];
-$query = "SELECT titulo FROM categorias WHERE id_categoria = :categoriaID";
+$IDPublicacion_ = $_GET['IDPublicacion'];
+$query = "SELECT ruta_imagen FROM imagenes WHERE id_publicacion = :PublicacionID";
 $stm = $conn->prepare($query);
-$stm->bindParam(':categoriaID', $IDCategoria);
+$stm->bindParam(':PublicacionID', $IDPublicacion_);
 $stm->execute();
-$Categoria = $stm->fetchAll(PDO::FETCH_ASSOC);
+$Imagenes = $stm->fetchAll(PDO::FETCH_ASSOC);
 
 
-echo json_encode($Categoria, JSON_PRETTY_PRINT);
+echo json_encode($Imagenes, JSON_PRETTY_PRINT);
 
 ?>
 

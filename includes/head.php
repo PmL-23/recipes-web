@@ -7,6 +7,7 @@ require_once '../includes/permisos.php';
         <link rel="stylesheet" href="../css/a-header.css">
         <link rel="stylesheet" href="../css/e-BarraLateral.css">
         <link rel="stylesheet" href="../css/d-slider.css">
+        <link rel="stylesheet" href="../css/p-slider.css">
         <link rel="stylesheet" href="../css/j-slider.css">
         <link rel="stylesheet" href="../css/f-recomendacion.css">
         <link rel="stylesheet" href="../css/recetas-banner.css">

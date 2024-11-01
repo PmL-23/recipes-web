@@ -11,7 +11,8 @@ let Usuario = {
     email: null,
     google_email: null,
     fecha_nacimiento: null,
-    id_pais: null
+    id_pais: null,
+    foto_usuario: null
 };
 
 //array de objetos para las publicaciones
@@ -24,7 +25,7 @@ const ProcesarInformacionLLenarEncabezado = function(data) {
     //console.log(data);
     let IDNombreCompletoDeUsuario = document.getElementById('IDNombreCompletoDeUsuario');
     let IDNombreDeUsuario = document.getElementById('IDNombreDeUsuario');
-
+    let IDFotoPerfil = document.getElementById('IDFotoPerfil');
 
     //faltaria actualizar lo de los seguidores
 
@@ -42,10 +43,11 @@ const ProcesarInformacionLLenarEncabezado = function(data) {
             Usuario.google_email = usuarioBDD.google_email;
             Usuario.fecha_nacimiento = usuarioBDD.fecha_nacimiento;
             Usuario.id_pais = usuarioBDD.id_pais;
-
+            Usuario.foto_usuario = usuarioBDD.foto_usuario;
             // actualizamos los <p>
             IDNombreCompletoDeUsuario.textContent = Usuario.nom_completo;
             IDNombreDeUsuario.textContent = '@' + Usuario.username;
+            IDFotoPerfil.src = Usuario.foto_usuario;
 
             //faltaria actualizar lo de los seguidores
         }
@@ -121,36 +123,70 @@ const TraerCantComentarios = async function (IDPublicacion, index) {
 }
 
 
-const ProcesarInformacionTraerCategoria = function(data, index) {
+const ProcesarInformacionTraerImagenes = function(data, index) {
     if (data.length === 0) {
-        console.log("No se encontró la categoria");
+        console.log("No se encontró la categoria en " + index );
     } else {
-        Publicacion[index].nom_categoria = data[0].titulo;  // Asegúrate de que se está asignando correctamente
-        //console.log("Categoria asignada:", Publicacion[index].nom_categoria);
+        let i =0;
+        for(publi  of data){
+            Publicacion[index].ruta_imagen[i] = publi.ruta_imagen;
+            i += 1;
+        }
     }
 }
 
 
-const TraerCategoria = async function (IDCategoria, index) {
-    let url = urlVariable + '/TraerCategoriaPublicacion.php?IDCategoria=' + IDCategoria;
+const TraerImagenes = async function (IDPublicacion, index) {
+    let url = urlVariable + '/TraerImagenesPublicacion.php?IDPublicacion=' + IDPublicacion;
     try {
         let respuesta = await fetch(url, {
             method: 'get',
         });
-        ProcesarInformacionTraerCategoria(await respuesta.json(), index);
+        ProcesarInformacionTraerImagenes(await respuesta.json(), index);
     } catch (error) {
-        console.log('FALLO FETCH DE TRAER CATEGORIAS!');
+        console.log('FALLO FETCH DE TRAER IMAGENES!');
+        console.log(error);
+    }
+}
+
+const ProcesarInformacionTraerEtiquetas = function(data, index) {
+    //console.log("me taje en el " + index + " ");
+    //console.log(data);
+    if (data.length === 0) {
+        console.log("No se encontró la etiqueta en " + index);
+    } else {
+        let i =0;
+        for(publi  of data){
+            Publicacion[index].etiquetas[i] = publi.nombre_etiqueta;
+            i += 1;
+        }
+    }
+}
+
+
+const TraerEtiquetas = async function (IDPublicacion, index) {
+    let url = urlVariable + '/TraerEtiquetas.php?IDPublicacion=' + IDPublicacion;
+    try {
+        let respuesta = await fetch(url, {
+            method: 'get',
+        });
+        ProcesarInformacionTraerEtiquetas(await respuesta.json(), index);
+    } catch (error) {
+        console.log('FALLO FETCH DE TRAER IMAGENES!');
         console.log(error);
     }
 }
 
 const ProcesarInformacionTraerPublicaciones = async function(data) {
+
+    //console.log(data);
     if (data.length === 0) {
         console.log("No se encontraron publicaciones");
     } else {
-        let promesasCategorias = [];
         let promesasComentarios = [];
         let promesasValoraciones = [];
+        let promesasImagenes = [];
+        let promesasEtiquetas = [];
         for (let publi of data) {
             Publicacion[CantidadPublicaciones] = {
                 id_publicacion: publi.id_publicacion,
@@ -160,22 +196,27 @@ const ProcesarInformacionTraerPublicaciones = async function(data) {
                 fecha_publicacion: publi.fecha_publicacion,
                 dificultad: publi.dificultad,
                 minutos_prep: publi.minutos_prep,
-                nom_categoria: null,
+                nom_categoria: publi.nombre_categoria,
                 cant_comentarios: null,
                 cant_valoraciones: null,
-                prom_valoracion: null
+                prom_valoracion: null,
+                ruta_imagen:[],
+                etiquetas:[]
             };
 
-            promesasCategorias.push(TraerCategoria(publi.id_categoria, CantidadPublicaciones)); //si usamos un away en el for, se rompe, por eso hacemos esto
+            
             promesasComentarios.push(TraerCantComentarios(publi.id_publicacion, CantidadPublicaciones));
             promesasValoraciones.push(TraerValoraciones(publi.id_publicacion, CantidadPublicaciones));
+            promesasImagenes.push(TraerImagenes(publi.id_publicacion, CantidadPublicaciones)); //si usamos un away en el for, se rompe, por eso hacemos esto
+            promesasEtiquetas.push(TraerEtiquetas(publi.id_publicacion, CantidadPublicaciones));
             CantidadPublicaciones += 1;
 
         }
         // Esperar a que todas las promesas se resuelvan
-        await Promise.all(promesasCategorias);
         await Promise.all(promesasComentarios);
         await Promise.all(promesasValoraciones);
+        await Promise.all(promesasImagenes);
+        await Promise.all(promesasEtiquetas);
         //console.log("en el for de las publicaciones");
         //console.log(CantidadPublicaciones);
         console.log(Publicacion);
@@ -263,37 +304,38 @@ function LLenarDivPublicaciones() {
     }
     
     else{
+
     for (let i = 0; i < CantidadPublicaciones; i++) {
-            //falta la logica para poner tantas imagenes como tenga la publicacion.
-            const fragmentoHTML =`
-                
-<div class="p-3 mt-2 col-xxl-4 col-xl-6 col-md-12 mx-auto" id="DivPublicacion${i}">
-    <div class="row">
-        <div class="col-1"></div>
-        <div class="col-10">
-        <div class="card">
-            <div class="DivEncabezadoPublicacion d-flex justify-content-between align-items-center">
-                <div class="d-flex align-items-center">
-                    <img class="d-inline" alt="Fperfil" src="" width="25" height="25">
-                    <p class="d-inline mb-0" id="IDNombreCompletoDeUsuarioEnPublicacion">${Usuario.nom_completo}</p>
-                    <p class="d-inline text-secondary mb-0" id="IDNombreDeUsuarioEnPublicacion">@${Usuario.username}</p>
-                </div>
-                <p class="text-secondary mb-0" id="IDFechaPublicacion">${Publicacion[i].fecha_publicacion}</p>
-            </div>
+        
+        let indicatorsCarrouselHTML = '';
+        let imagesCarrouselHTML = '';
+        // Solo se crea el carrusel si hay imágenes en ruta_imagen
+        if (Publicacion[i].ruta_imagen && Publicacion[i].ruta_imagen.length > 0) {
+            Publicacion[i].ruta_imagen.forEach((ruta, index) => {
+                // Crear indicadores
+                //hace un pequeño if es las lineas para saber si es el primero para poner distintos atributos
+                indicatorsCarrouselHTML += `
+                    <button type="button" data-bs-target="#carouselExampleIndicators${i}" data-bs-slide-to="${index}" 
+                            class="${index === 0 ? 'active' : ''}" aria-current="${index === 0 ? 'true' : 'false'}" aria-label="Slide ${index + 1}">
+                    </button>`;
+    
+            // Crear elementos de imagen en el carrusel
+            imagesCarrouselHTML += `
+                <div class="carousel-item ${index === 0 ? 'active' : ''}">
+                    <img src="${ruta}" class="d-block w-100 custom-carousel-image" alt="Imagen ${index + 1}">
+                </div>`;
 
-
+                    
+            });
+        }
+        // HTML del carrusel (solo se incluirá si hay imágenes)
+        const carouselHTML = (indicatorsCarrouselHTML && imagesCarrouselHTML) ? `
             <div id="carouselExampleIndicators${i}" class="carousel slide carouselPerfil bg-black">
                 <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselExampleIndicators${i}" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators${i}" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    ${indicatorsCarrouselHTML}
                 </div>
-                <div class="carousel-inner"> <!---buscar manera para que el tamaño de una imagen no perjudique la UX-->
-                    <div class="carousel-item active slide" data-background-image="">
-                        <img src="" class="d-block w-100" alt="...">
-                    </div>
-                    <div class="carousel-item slide" data-background-image="">
-                        <img src="" class="d-block w-100 " alt="...">
-                    </div>
+                <div class="carousel-inner">
+                    ${imagesCarrouselHTML}
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators${i}" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -303,84 +345,103 @@ function LLenarDivPublicaciones() {
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                 </button>
-            </div>
-            
-            <div class="card-body ">
-                <h5 class="card-title ">${Publicacion[i].titulo}</h5>
-                <p class="card-text">${Publicacion[i].descripcion}</p>
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item mt-3">
-                    <p class="categoria-style2 d-inline-flex mb-3 fw-semibold border border-success-subtle rounded-5">${Publicacion[i].nom_categoria}</p>
-                    <p class="etiqueta-style d-inline-flex mb-3 fw-semibold border border-success-subtle rounded-5">etiqueta nashe</p>
-                    <p class="etiqueta-style d-inline-flex mb-3 fw-semibold border border-success-subtle rounded-5">etiqueta nashe2</p>
-                    <p class="etiqueta-style d-inline-flex mb-3 fw-semibold border border-success-subtle rounded-5">etiqueta nashe3</p>
-                </li>
-                <li class="list-group-item">
-                        <div class="contenedor-detalles container text-center ">
-                        <div class="row align-items-start">
-                            <div class="col-4">
-                                <div class="align-items-center box-icons">
-                                    <img src="../svg/argentina.svg" alt="Bandera" width="35" class="bandera" id="bandera-receta">
-                                    <p class="TextoCaracteristicasPublicacion">Argentina</p> 
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="align-items-center box-icons">
-                                    <img src="../svg/bar-chart-line-fill.svg" width="25px" class="icono-item" alt="Dificultad icon">
-                                    <p class="TextoCaracteristicasPublicacion mb-0">Dificultad</p>
-                                    <p class="">Media</p>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="align-items-center box-icons">
-                                    <img src="../svg/alarm.svg" width="25px" class="icono-item" alt="Dificultad icon">
-                                    <p class="TextoCaracteristicasPublicacion mb-0">Tiempo</p>
-                                    <p class="tiempo">30 min</p>
-                                </div>
-                            </div>
-                        </div>
-                        </div>
-                </li>
+            </div>` : ''; // Dejar vacío si no hay imágenes
 
-            </ul>
-            <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center">
-                    <!-- Valoración y cantidad de valoraciones -->
-                    <div class="valoracion">
-                        <p> Valoracion ${Publicacion[i].prom_valoracion} (${Publicacion[i].cant_valoraciones} valoraciones)</p>
-                    </div>
-                    
-                    <!-- Cantidad de comentarios -->
-                    <div class="comentarios">
-                        <p> ${Publicacion[i].cant_comentarios} comentarios</p>
-                    </div>
-                </div>
-                
-                <!-- Botones de acción -->
-                <div class="d-flex justify-content-end mt-2">
-                    <!-- Botón para compartir -->
-                    <button class="btn btn-outline-primary me-2" type="button">
-                        Compartir
-                    </button>
-            
-                    <!-- Botón para guardar en favoritos -->
-                    <button class="btn btn btn-outline-dark" type="button">
-                        Guardar en Favoritos
-                    </button>
-                </div>
-                
-            </div>
-        </div>
-        </div>
-        <div class="col-1"></div>
-    </div>
-</div>
-
-            `;    
-    // Agregar el fragmento de HTML al contenedor
-    contenedor.innerHTML += fragmentoHTML;
+        let EtiquetaIndividualHTML = '';
+        // Solo se ponen las etiquetas si la publicacion las tiene 
+        if (Publicacion[i].etiquetas && Publicacion[i].etiquetas.length > 0) {
+            Publicacion[i].etiquetas.forEach((titulo, s) => {
+                EtiquetaIndividualHTML += `
+                    <p class="etiqueta-style d-inline-flex mb-3 fw-semibold border border-success-subtle rounded-5">${titulo}</p>`;
+            });
         }
+        /*// HTML del etiquetas (solo se incluirá si hay etiquetas)
+        const EtiquetasHTML = (EtiquetaIndividualHTML) ? `
+
+        ` : ''; // Dejar vacío si no hay etiquetas*/
+
+        const fragmentoHTML = `
+            <div class="p-3 mt-2 col-xxl-4 col-xl-6 col-md-12 mx-auto" id="DivPublicacion${i}">
+                <div class="row">
+                    <div class="col-1"></div>
+                    <div class="col-10">
+                        <div class="card">
+                            <div class="DivEncabezadoPublicacion d-flex justify-content-between align-items-center p-2">
+                                <div class="d-flex align-items-center">
+                                    <img class="d-inline" alt="Fperfil" src="${Usuario.foto_usuario}" width="35" height="35">
+                                    <p class="d-inline p-1 mb-0" id="IDNombreCompletoDeUsuarioEnPublicacion">${Usuario.nom_completo}</p>
+                                    <p class="d-inline text-secondary mb-0" id="IDNombreDeUsuarioEnPublicacion">  @${Usuario.username}</p>
+                                </div>
+                                <p class="text-secondary mb-0" id="IDFechaPublicacion">${Publicacion[i].fecha_publicacion}</p>
+                            </div>
+    
+                            ${carouselHTML} <!-- Solo se muestra el carrusel si hay imágenes -->
+    
+                            <div class="card-body ">
+                                <h5 class="card-title ">${Publicacion[i].titulo}</h5>
+                                <p class="card-text">${Publicacion[i].descripcion}</p>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item mt-3">
+                                    <p class="categoria-style2 d-inline-flex mb-3 fw-semibold border border-success-subtle rounded-5">${Publicacion[i].nom_categoria}</p>
+                                    ${EtiquetaIndividualHTML}
+
+
+
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="contenedor-detalles container text-center ">
+                                        <div class="row align-items-start">
+                                            <div class="col-4">
+                                                <div class="align-items-center box-icons">
+                                                    <img src="../svg/argentina.svg" alt="Bandera" width="35" class="bandera" id="bandera-receta">
+                                                    <p class="TextoCaracteristicasPublicacion">Argentina</p> 
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="align-items-center box-icons">
+                                                    <img src="../svg/bar-chart-line-fill.svg" width="25px" class="icono-item" alt="Dificultad icon">
+                                                    <p class="TextoCaracteristicasPublicacion mb-0">Dificultad</p>
+                                                    <p class="">${Publicacion[i].dificultad}</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="align-items-center box-icons">
+                                                    <img src="../svg/alarm.svg" width="25px" class="icono-item" alt="Dificultad icon">
+                                                    <p class="TextoCaracteristicasPublicacion mb-0">Tiempo</p>
+                                                    <p class="tiempo">${Publicacion[i].minutos_prep} min</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="valoracion">
+                                        <p> Valoracion ${Publicacion[i].prom_valoracion} (${Publicacion[i].cant_valoraciones} valoraciones)</p>
+                                    </div>
+                                    <div class="comentarios">
+                                        <p> ${Publicacion[i].cant_comentarios} comentarios</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-end mt-2">
+                                    <button class="btn btn-outline-primary me-2" type="button">Compartir</button>
+                                    <button class="btn btn btn-outline-dark" type="button">Guardar en Favoritos</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-1"></div>
+                </div>
+            </div>
+        `;
+    
+        // Agregar el fragmento de HTML al contenedor
+        contenedor.innerHTML += fragmentoHTML;
+    }
+    
+    
     }
 }
 document.addEventListener("DOMContentLoaded", async function () {
