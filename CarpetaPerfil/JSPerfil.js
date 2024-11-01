@@ -419,16 +419,32 @@ function LLenarDivPublicaciones() {
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="valoracion">
-                                        <p> Valoracion ${Publicacion[i].prom_valoracion} (${Publicacion[i].cant_valoraciones} valoraciones)</p>
+                                        <p>
+                                            <i class="bi bi-star-fill text-warning"></i> <!-- Ícono de estrella para la valoración -->
+                                            Valoración ${Publicacion[i].prom_valoracion} (${Publicacion[i].cant_valoraciones} valoraciones)
+                                        </p>
                                     </div>
                                     <div class="comentarios">
-                                        <p> ${Publicacion[i].cant_comentarios} comentarios</p>
+                                        <p>
+                                            <i class="bi bi-chat-fill text-primary"></i> <!-- Ícono de chat para comentarios -->
+                                            ${Publicacion[i].cant_comentarios} comentarios
+                                        </p>
                                     </div>
                                 </div>
-                                <div class="d-flex justify-content-end mt-2">
-                                    <button class="btn btn-outline-primary me-2" type="button">Compartir</button>
-                                    <button class="btn btn btn-outline-dark" type="button">Guardar en Favoritos</button>
-                                </div>
+<div class="d-flex justify-content-end mt-2">
+<!-- Botón de Guardar en Favoritos -->
+    <button class="btn btn-favorite" type="button">
+        <i class="bi bi-bookmark-heart fs-2 icon-favorite"></i> <!-- Ícono más grande -->
+        Guardar en Favoritos
+    </button>
+
+<!-- Botón de Compartir -->
+    <button class="btn btn-share " type="button">
+        <i class="bi bi-share-fill fs-2 icon-share"></i> <!-- Ícono centrado y más pequeño -->
+    </button>
+    
+</div>
+
                             </div>
                         </div>
                     </div>
