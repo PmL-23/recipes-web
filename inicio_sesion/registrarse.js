@@ -86,22 +86,36 @@ function validarPassword() {
     const password = document.getElementById("password");
     const errorPassword = document.getElementById("error-password");
     errorPassword.textContent = "";
+    const confirmar = document.getElementById("confirm_password");
+    const errorConfirmar = document.getElementById("error-confirm-password");
+    errorConfirmar.textContent= "";
 
     if (password.value.trim() === "") {
         errorPassword.textContent = "Debe ingresar una contraseña";
         password.classList.add("is-invalid");
+        confirmar.classList.add("is-invalid");
         return false;
         
     } else if (password.value.length < 5) {
         errorPassword.textContent = "Debe tener contener más de 5 caracteres";
         password.classList.add("is-invalid");
+        confirmar.classList.add("is-invalid");
         return false;
-    } else {
+    } else if (password.value !== confirmar.value) {
+        errorPassword.textContent = "Las contraseñas no coinciden";
+        password.classList.add("is-invalid");
+        errorConfirmar.textContent = "Las contraseñas no coinciden";
+        confirmar.classList.add("is-invalid");
+        return false; 
+    }else {
         password.classList.remove("is-invalid");
         password.classList.add("is-valid");
+        confirmar.classList.remove("is-invalid");
+        confirmar.classList.add("is-valid");
         return true;
     }
 }
+
 
 
 function validarNombre() {
@@ -165,7 +179,7 @@ function validarFecha()
 
     const fechaIngresada = new Date(fecha.value);
     const fechaRango = new Date(1900, 1, 1);
-    const fechaRango2 = new Date(2020, 1, 1);
+    const fechaRango2 = new Date(2020, 1, 1); //revisar rango de edad minima
     
 
     if ((fechaIngresada > fechaRango2) || fechaIngresada < fechaRango) {
@@ -203,6 +217,7 @@ function validar() {
     validarEmail();
     validarNombre();
     validarFecha();
+    validarPais();
 }
 
 const limpiarMensajes = function () {
@@ -250,14 +265,13 @@ function procesarRegistro(form) {
         })
         .then(response => response.json())
         .then(data => {
-
+            console.log("data",data);
             respuestaRegistro(data);
-            validar();
             
         })
-        /* .catch(error => {
-            
-        }); */
+        .catch(error => {
+            console.error("Error:", error);
+        });
     }
 }
 

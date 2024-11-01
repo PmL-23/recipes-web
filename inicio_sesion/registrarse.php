@@ -77,7 +77,8 @@ include '../includes/paises.php';
                           echo '<option value="'.$pais['id_pais'].'">'.$pais['nombre'].'</option>';
                           }
                          ?>
-                     </select><br>
+                     </select>
+                     <div class="form-text text-danger" id="error-pais"></div>
                 </div>
 
                 <div class="d-flex justify-content-between">

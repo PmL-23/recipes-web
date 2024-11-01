@@ -3,7 +3,7 @@ require_once '../includes/conec_db.php';
 
 session_start();
 
-$errors = [];
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") 
 {

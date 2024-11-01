@@ -50,7 +50,6 @@ if (!$queryResultsIngredientes) {
         
         <?php include '../includes/head.php'?>
         <link rel="stylesheet" href="../crearReceta/crear_receta_style.css">
-        <link rel="stylesheet" href="../crearReceta/temas.css">
         <script src="../crearReceta/crear_receta_script.js" defer></script>
         
     </head>
