@@ -32,6 +32,8 @@ const ProcesarInformacionLLenarEncabezado = function(data) {
     if (data.length === 0) {
         // mostrar warning
         console.log("No se encontró al Usuario");
+
+
     } else {
         for (let usuarioBDD of data) {
             // Actualiza las variables globales
@@ -332,10 +334,10 @@ function LLenarDivPublicaciones() {
     const contenedor = document.getElementById("IDContenedorPublicacionesPropias"); // Selecciona el contenedor
     if(CantidadPublicaciones==0){
         const fragmentoHTML =`
-        <div class="container-fluid row d-flex justify-content-center align-items-center">
+        <div class="container-fluid row d-flex justify-content-center align-items-center mt-5">
             <div class="col-1"></div>
-            <div class="col-10 text-center">
-                <p class="h2">Todavia no hay publicaciones!</p>
+            <div class="col-10 text-center mt-5">
+                <p class="h2 mt-5">Todavia no hay publicaciones!</p>
             </div>
             <div class="col-1"></div>
             <br>
@@ -499,6 +501,46 @@ function LLenarDivPublicaciones() {
     }
 }
 
+function showModal(message, isSuccess) {
+    const modalContent = document.getElementById('modalContent');
+    const modalMessage = document.getElementById('modalMessage');
+    const modalIcon = document.getElementById('modalIcon');
+
+    // Limpiar clases previas
+    modalContent.classList.remove('success', 'error');
+    modalIcon.classList.remove('success-icon', 'error-icon');
+
+    if (isSuccess) {
+        modalContent.classList.add('success');
+        modalIcon.classList.add('success-icon');
+    } else {
+        modalContent.classList.add('error');
+        modalIcon.classList.add('error-icon');
+    }
+
+    modalMessage.textContent = message;
+    
+    // Configurar el modal principal
+    const resultModal = new bootstrap.Modal(document.getElementById('resultModal'));
+    
+    // Cambia la opacidad del modal anterior y añade fondo oscuro
+    document.querySelectorAll('.modal.show').forEach(modal => {
+        modal.style.opacity = '0.76'; // Aplica opacidad al modal anterior
+    });
+
+    // Mostrar el modal con la opacidad del fondo
+    resultModal.show();
+
+    // Restablece la opacidad cuando se cierra el modal principal
+    document.getElementById('resultModal').addEventListener('hidden.bs.modal', () => {
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.style.opacity = ''; // Restaurar opacidad original
+        });
+        // Redirigir al usuario al index al cerrar el modal
+        window.location.href = urlVariable + '/../../index/index.php'; // Cambia 'index.php' a la ruta correcta si es necesario
+    });
+}
+
 document.getElementById("btn-SeguirPerfil").addEventListener("click", function () {
     this.classList.toggle("active");
     this.querySelector("span").textContent = this.classList.contains("active") ? "Siguiendo" : "Seguir";
@@ -509,14 +551,22 @@ document.addEventListener("DOMContentLoaded", async function () {
     Nombre_Usuario_Perfi = document.body.getAttribute('data-Nombre_Usuario');
     urlVariable = document.body.getAttribute('data-url-base');
     console.log(urlVariable);
-    /*let promesasDOM = [];
-    promesasDOM.push(LLenarEncabezado()); //si usamos un away en el for, se rompe, por eso hacemos esto
-    await Promise.all(promesasDOM);
-    let promesasDOM2 = [];// esperamos al encabezado para seguir
-    promesasDOM2.push(TraerPublicaciones()); 
-    await Promise.all(promesasDOM2);*/
 
-    await LLenarEncabezado();
-    await TraerPublicaciones();
+    //si no se especifico un username valido, mostramos modal de error y lo redirigimos.
+    if(Nombre_Usuario_Perfi === ""){
+        CantidadPublicaciones = 0;
+        LLenarDivPublicaciones();
+        console.log("el cant es " + CantidadPublicaciones);
+        showModal("Perfil no encontrado",false);
+        
+        
+    }
+    else{
+        await LLenarEncabezado();
+        await TraerPublicaciones();        
+
+
+    }
+
     
 });

@@ -89,3 +89,41 @@ h5{
     content: "Siguiendo";
 }
 
+/* Colores de éxito y error */
+#modalContent.success {
+    background-color: #d4edda; /* Verde claro */
+    color: #155724;
+}
+#modalContent.error {
+    background-color: #f8d7da; /* Rojo claro */
+    color: #721c24;
+}
+
+/* Íconos */
+#modalIcon.success-icon::before {
+    content: "✔️";
+    color: #28a745;
+    font-size: 2em;
+}
+#modalIcon.error-icon::before {
+    content: "❌";
+    color: #dc3545;
+    font-size: 2em;
+}
+
+/* Animación de entrada */
+.modal.fade .modal-dialog {
+    transform: translateY(-50px);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.modal.show .modal-dialog {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Estilos para bajar el modal */
+.custom-modal-position .modal-dialoggs {
+    margin-top: 5% !important; /* Ajusta el valor en porcentaje o píxeles según necesites */
+    transition: transform 0.3s ease-in-out !important; /* Agrega una transición suave */
+}

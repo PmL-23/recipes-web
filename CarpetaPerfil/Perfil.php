@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+include_once '../includes/conec_db.php';
 if (!isset($_GET['NombreDeUsuario'])) {
     echo json_encode([
         'success' => false,
@@ -13,7 +13,23 @@ if (!isset($_GET['NombreDeUsuario'])) {
     echo 'PERO PONE EL IDUSUARIO EN EL GET CAPO';
     die();
 }
+
+
 $Nombre_Usuario = $_GET['NombreDeUsuario'];
+
+$query = "SELECT 1 from usuarios where username = :NombreUsuario";
+$stm = $conn->prepare($query);
+$stm->bindParam(':NombreUsuario', $Nombre_Usuario);
+$stm->execute();
+$existUser = $stm->fetchAll(PDO::FETCH_ASSOC);
+
+if (count($existUser)  == 0){
+    $Nombre_Usuario ="";
+
+}
+/* if (count($existUser)  == 1){
+    
+} */
 
 //seccion en la que obtenemos la url actual.
 $scheme = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? "https" : "http";      
@@ -52,16 +68,16 @@ if ($indexPosition !== false) {
 <body data-Nombre_Usuario="<?php echo htmlspecialchars($Nombre_Usuario); ?>" data-url-base="<?php echo htmlspecialchars($urlVariable); ?>">
 
 <?php include '../includes/header.php';
-include '../includes/conec_db.php';?>
+?>
 
     <div class="container-fluid row mt-0"> <!-- el contenedor de un perfil tedrá el nombre, la foto, la cantidad de perfiles seguidos y los seguidores propios-->
 
         <div class="col-8 d-inline p-3 mt-0">
             <div class="FotoDePerfil p-1 d-inline">
-                <img class="d-inline" alt="Texto si no ve imagen" src="../images/bondiola_lp.jpg"width="50" height="50" id="IDFotoPerfil">
+                <img class="d-inline" alt="Foto de Perfil" src=""width="50" height="50" id="IDFotoPerfil">
             </div>
-            <p class="d-inline" id="IDNombreCompletoDeUsuario">Nombre & Apellido de Usuario</p>
-            <p class="d-inline text-secondary" id="IDNombreDeUsuario">@NombreDeUsuario</p>
+            <p class="d-inline" id="IDNombreCompletoDeUsuario"></p>
+            <p class="d-inline text-secondary" id="IDNombreDeUsuario"></p>
             <!-- Botón Seguir -->
             <div class="d-inline">
             <button id="btn-SeguirPerfil" class="btn btn-primary rounded-pill align-items-center gap-2">
@@ -228,12 +244,12 @@ include '../includes/conec_db.php';?>
         <div class="col-4 row mt-1 p-0">
             <div class="col-4 p-0 mt-0">
                 <p class="box p-0 d-flex justify-content-center align-items-center">Seguidores</p>
-                <p class="boxcantidad mt-0 p-0 d-flex justify-content-center align-items-center" id="IDCantidadSeguidores">44</p>
+                <p class="boxcantidad mt-0 p-0 d-flex justify-content-center align-items-center" id="IDCantidadSeguidores"></p>
             </div>
             
             <div class="col-5  p-0 mt-0">
                 <p class="box p-0 d-flex justify-content-center align-items-center">Siguiendo</p>
-                <p class="boxcantidad mt-0 p-0 d-flex justify-content-center align-items-center" id="IDCantidadSeguidos">1</p>
+                <p class="boxcantidad mt-0 p-0 d-flex justify-content-center align-items-center" id="IDCantidadSeguidos"></p>
             </div>
 
             <div class="col-2 p-0 mt-0 d-flex justify-content-center align-items-center">
@@ -371,5 +387,18 @@ Dios te ayude hermano
     <div>
     <?php include '../includes/footer.php'?>  
     </div>
+
+
+    <div class="modal fade custom-modal-position" id="resultModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialoggs">
+        <div class="modal-content" id="modalContent">
+            <div class="modal-body">
+                <span id="modalIcon" class="me-2"></span>
+                <span id="modalMessage"></span>
+            </div>
+        </div>
+    </div>
+    </div>
+
 </body>
 </html>
