@@ -39,8 +39,13 @@ h5{
     padding: 8px 16px; /* padding interno */
     border-radius: 30px;
 }
+
+
+.divSinMargen{
+    padding: 0px;
+}
 .categoria-style2 {
-    font-size: 18px;
+    font-size: 14px;
     background-color: #26533c !important;
     border-width: 2px solid;
     border-color: #183b29;
@@ -49,7 +54,7 @@ h5{
     border-radius: 30px;
 }
 .etiqueta-style {
-    font-size: 15px;
+    font-size: 13px;
     background-color: #274b74 !important;
     border-width: 2px solid;
     border-color: #183b29;
@@ -58,9 +63,11 @@ h5{
     border-radius: 30px;
 }
 .TextoCaracteristicasPublicacion{
-    font-size: 18px;
+    font-size: 13px;
     font-weight: bold;
 }
+
+
 .categoria-style ::after{
     background-color: #030303;
 }
@@ -69,5 +76,16 @@ h5{
 {   
     border-radius: 15px;
     background-color:#d4ffeb;
+}
+
+/* Estilos personalizados para el botón de seguir */
+#btn-SeguirPerfil {
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    background-color: #274b74 !important;
+}
+
+#btn-SeguirPerfil.active span {
+    content: "Siguiendo";
 }
 

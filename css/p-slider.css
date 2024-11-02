@@ -1,66 +1,15 @@
 /* Ajusta la altura del carrusel si es necesario */
 .carouselPerfil {
-    max-height: 50% !important;
+    max-height: 60% !important;
     overflow: hidden !important;
+    background-color: #ffffff !important; /* Color de fondo opcional para los bordes vacíos */
 }
 
 /* Ajuste de imagen para mostrarla completamente */
 .custom-carousel-image {
     object-fit: contain !important;
-    width: 50% !important;
-    height: 43% !important;
-    background-color: #000 ; /* Color de fondo opcional para los bordes vacíos */
+    width: 60% !important;
+    height: 52% !important;
+    background-color: #ffffff !important; /* Color de fondo opcional para los bordes vacíos */
 }
 
-/* Estilos para el botón de Compartir */
-.btn-share {
-    background-color: #130f03; /* Color de fondo */
-    color: #13795b;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    padding: 8px 16px;
-    border-radius: 8px;
-    border: none;
-    transition: background-color 0.3s ease;
-}
-
-.icon-share {
-    font-size: 1rem;
-    color:  #2160b1; /* Color azul específico para el icono */
-}
-
-.btn-share:hover .icon-share {
-    color: #15253a;; /* Color del ícono en hover */
-}
-
-/* Estilos para el botón de Favoritos */
-.btn-favorite {
-    background-color: #130f03; /* Color de fondo */
-    color: #13795b;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    padding: 8px 16px;
-    border-radius: 8px;
-    border: none;
-    transition: background-color 0.3s ease;
-}
-
-.icon-favorite {
-    font-size: 1rem;
-    color: #26533c; /* Color blanco inicial del icono */
-    margin-right: 8px;
-}
-
-.btn-favorite:hover .icon-favorite {
-    color: #000000;; /* Color del ícono en hover */
-}
-
-.btn-favorite:hover {
-    color: #15253a;; /* Color del ícono en hover */
-}
-
-.btn-share:hover {
-    color: #030303;; /* Color del ícono en hover */
-}

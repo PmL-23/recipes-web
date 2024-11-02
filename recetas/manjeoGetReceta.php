@@ -5,10 +5,11 @@ if (isset($_GET['id'])) {
     $id_receta = $_GET['id'];
 
     $sql = "SELECT p.*, u.username, u.foto_usuario, c.titulo AS categoria_titulo, 
-                    pa.id_pais, pe.ruta_imagen_pais, pi.nombre
+                    d.titulo AS etiqueta_titulo, pa.id_pais, pe.ruta_imagen_pais, pi.nombre
             FROM publicaciones_recetas p
             INNER JOIN usuarios u ON p.id_usuario_autor = u.id_usuario
             INNER JOIN categorias c ON p.id_categoria = c.id_categoria
+            LEFT JOIN etiquetas_recetas d ON p.id_publicacion = d.id_publicacion
             LEFT JOIN paises_recetas pa ON p.id_publicacion = pa.id_publicacion
             LEFT JOIN paises pe ON pa.id_pais = pe.id_pais
             LEFT JOIN paises pi ON pa.id_pais = pi.id_pais

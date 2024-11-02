@@ -62,7 +62,15 @@ include '../includes/conec_db.php';?>
             </div>
             <p class="d-inline" id="IDNombreCompletoDeUsuario">Nombre & Apellido de Usuario</p>
             <p class="d-inline text-secondary" id="IDNombreDeUsuario">@NombreDeUsuario</p>
-        <!-- Dropdown --><!--
+            <!-- Botón Seguir -->
+            <div class="d-inline">
+            <button id="btn-SeguirPerfil" class="btn btn-primary rounded-pill align-items-center gap-2">
+                <i class="bi bi-person-plus-fill"></i>
+                <span>Seguir</span>
+            </button>
+            </div>
+
+        <!-- Dropdown
         <div class="btn-group">
             <button type="button" class="btn btn-success dropdown-toggle btn-sm p-0" data-bs-toggle="dropdown" aria-expanded="false"></button>
             <ul class="dropdown-menu">
@@ -72,7 +80,7 @@ include '../includes/conec_db.php';?>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#modalEliminarCuenta">Eliminar Cuenta</a></li>
             </ul>
-        </div>-->
+</div>-->
 
         <!-- Modal Cambiar Contraseña -->
         <div class="modal fade" id="modalCambiarContrasena" tabindex="-1" aria-labelledby="modalCambiarContrasenaLabel" aria-hidden="true">
@@ -218,15 +226,22 @@ include '../includes/conec_db.php';?>
     </div>
         
         <div class="col-4 row mt-1 p-0">
-            <div class="col-6 p-0 mt-0">
+            <div class="col-4 p-0 mt-0">
                 <p class="box p-0 d-flex justify-content-center align-items-center">Seguidores</p>
                 <p class="boxcantidad mt-0 p-0 d-flex justify-content-center align-items-center" id="IDCantidadSeguidores">44</p>
             </div>
             
-            <div class="col-6  p-0 mt-0">
-                <p class="box p-0 d-flex justify-content-center align-items-center ">Siguiendo</p>
+            <div class="col-5  p-0 mt-0">
+                <p class="box p-0 d-flex justify-content-center align-items-center">Siguiendo</p>
                 <p class="boxcantidad mt-0 p-0 d-flex justify-content-center align-items-center" id="IDCantidadSeguidos">1</p>
             </div>
+
+            <div class="col-2 p-0 mt-0 d-flex justify-content-center align-items-center">
+                <button type="button" class="btn btn-outline-warning bg-none" id="btn-ReportarPerfil" data-bs-toggle="modal" data-bs-target="#modalReportarPublicacion">
+                    <i class="bi bi-flag-fill text-black"></i>
+                </button>
+            </div>
+
         </div>
     </div>
     <!-- espacio para cada publicacion, tendra la partes, pero todo dentro de un div

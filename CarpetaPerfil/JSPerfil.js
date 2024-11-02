@@ -125,7 +125,7 @@ const TraerCantComentarios = async function (IDPublicacion, index) {
 
 const ProcesarInformacionTraerImagenes = function(data, index) {
     if (data.length === 0) {
-        console.log("No se encontró la categoria en " + index );
+        console.log("No se encontró la imagen en " + index );
     } else {
         let i =0;
         for(publi  of data){
@@ -177,6 +177,43 @@ const TraerEtiquetas = async function (IDPublicacion, index) {
     }
 }
 
+const ProcesarInformacionTraerPaises = function(data, index) {
+    //console.log("me taje en el " + index + " ");
+    //console.log(data);
+    if (data.length === 0) {
+        console.log("No se encontró el pais en " + index);
+    } else {
+        let i = 0;
+        for (let publi of data) {
+            Publicacion[index].paises[i] = publi.ruta_imagen_pais;
+            i += 1;
+
+            // Asegúrate de que `Publicacion[index].paises` es un array y luego agrega el objeto en la posición `i`
+            /*Publicacion[index].paises[i] = {
+                nombre: publi.nombre,
+                ruta_imagen_pais: publi.ruta_imagen_pais
+            };
+            i += 1;*/
+        }
+        
+    }
+}
+
+
+const TraerPaises = async function (IDPublicacion, index) {
+    let url = urlVariable + '/TraerPaises.php?IDPublicacion=' + IDPublicacion;
+    try {
+        let respuesta = await fetch(url, {
+            method: 'get',
+        });
+        ProcesarInformacionTraerPaises(await respuesta.json(), index);
+    } catch (error) {
+        console.log('FALLO FETCH DE TRAER IMAGENES!');
+        console.log(error);
+    }
+}
+
+
 const ProcesarInformacionTraerPublicaciones = async function(data) {
 
     //console.log(data);
@@ -187,6 +224,7 @@ const ProcesarInformacionTraerPublicaciones = async function(data) {
         let promesasValoraciones = [];
         let promesasImagenes = [];
         let promesasEtiquetas = [];
+        let promesasPaises = [];
         for (let publi of data) {
             Publicacion[CantidadPublicaciones] = {
                 id_publicacion: publi.id_publicacion,
@@ -201,7 +239,8 @@ const ProcesarInformacionTraerPublicaciones = async function(data) {
                 cant_valoraciones: null,
                 prom_valoracion: null,
                 ruta_imagen:[],
-                etiquetas:[]
+                etiquetas:[],
+                paises:[]
             };
 
             
@@ -209,6 +248,7 @@ const ProcesarInformacionTraerPublicaciones = async function(data) {
             promesasValoraciones.push(TraerValoraciones(publi.id_publicacion, CantidadPublicaciones));
             promesasImagenes.push(TraerImagenes(publi.id_publicacion, CantidadPublicaciones)); //si usamos un away en el for, se rompe, por eso hacemos esto
             promesasEtiquetas.push(TraerEtiquetas(publi.id_publicacion, CantidadPublicaciones));
+            promesasPaises.push(TraerPaises(publi.id_publicacion, CantidadPublicaciones));
             CantidadPublicaciones += 1;
 
         }
@@ -217,6 +257,7 @@ const ProcesarInformacionTraerPublicaciones = async function(data) {
         await Promise.all(promesasValoraciones);
         await Promise.all(promesasImagenes);
         await Promise.all(promesasEtiquetas);
+        await Promise.all(promesasPaises);
         //console.log("en el for de las publicaciones");
         //console.log(CantidadPublicaciones);
         console.log(Publicacion);
@@ -330,7 +371,7 @@ function LLenarDivPublicaciones() {
         }
         // HTML del carrusel (solo se incluirá si hay imágenes)
         const carouselHTML = (indicatorsCarrouselHTML && imagesCarrouselHTML) ? `
-            <div id="carouselExampleIndicators${i}" class="carousel slide carouselPerfil bg-black">
+            <div id="carouselExampleIndicators${i}" class="carousel slide carouselPerfil">
                 <div class="carousel-indicators">
                     ${indicatorsCarrouselHTML}
                 </div>
@@ -355,10 +396,14 @@ function LLenarDivPublicaciones() {
                     <p class="etiqueta-style d-inline-flex mb-3 fw-semibold border border-success-subtle rounded-5">${titulo}</p>`;
             });
         }
-        /*// HTML del etiquetas (solo se incluirá si hay etiquetas)
-        const EtiquetasHTML = (EtiquetaIndividualHTML) ? `
-
-        ` : ''; // Dejar vacío si no hay etiquetas*/
+        let PaisesHTML = '';
+        // Solo se ponen las etiquetas si la publicacion las tiene 
+        if (Publicacion[i].paises && Publicacion[i].paises.length > 0) {
+            Publicacion[i].paises.forEach((ruta, s) => {
+                PaisesHTML += `
+                    <img src="../svg/${ruta}" alt="Bandera" width="27" class="bandera" id="bandera-receta">`;
+            });
+        }
 
         const fragmentoHTML = `
             <div class="p-3 mt-2 col-xxl-4 col-xl-6 col-md-12 mx-auto" id="DivPublicacion${i}">
@@ -378,29 +423,25 @@ function LLenarDivPublicaciones() {
                             ${carouselHTML} <!-- Solo se muestra el carrusel si hay imágenes -->
     
                             <div class="card-body ">
-                                <h5 class="card-title ">${Publicacion[i].titulo}</h5>
-                                <p class="card-text">${Publicacion[i].descripcion}</p>
+                                <h5 class="card-title fs-5">${Publicacion[i].titulo}</h5>
+                                <p class="">${Publicacion[i].descripcion}</p>
                             </div>
-                            <ul class="list-group list-group-flush">
+                            <ul class="list-group list-group-flush p-0">
                                 <li class="list-group-item mt-3">
                                     <p class="categoria-style2 d-inline-flex mb-3 fw-semibold border border-success-subtle rounded-5">${Publicacion[i].nom_categoria}</p>
                                     ${EtiquetaIndividualHTML}
-
-
-
                                 </li>
                                 <li class="list-group-item">
                                     <div class="contenedor-detalles container text-center ">
                                         <div class="row align-items-start">
                                             <div class="col-4">
-                                                <div class="align-items-center box-icons">
-                                                    <img src="../svg/argentina.svg" alt="Bandera" width="35" class="bandera" id="bandera-receta">
-                                                    <p class="TextoCaracteristicasPublicacion">Argentina</p> 
+                                                <div class="align-items-center box-paises mt-3">
+                                                    ${PaisesHTML}
                                                 </div>
                                             </div>
                                             <div class="col-4">
                                                 <div class="align-items-center box-icons">
-                                                    <img src="../svg/bar-chart-line-fill.svg" width="25px" class="icono-item" alt="Dificultad icon">
+                                                    <img src="../svg/bar-chart-line-fill.svg" width="20px" class="icono-item" alt="Dificultad icon">
                                                     <p class="TextoCaracteristicasPublicacion mb-0">Dificultad</p>
                                                     <p class="">${Publicacion[i].dificultad}</p>
                                                 </div>
@@ -433,16 +474,13 @@ function LLenarDivPublicaciones() {
                                 </div>
 <div class="d-flex justify-content-end mt-2">
 <!-- Botón de Guardar en Favoritos -->
-    <button class="btn btn-favorite" type="button">
-        <i class="bi bi-bookmark-heart fs-2 icon-favorite"></i> <!-- Ícono más grande -->
-        Guardar en Favoritos
-    </button>
 
-<!-- Botón de Compartir -->
-    <button class="btn btn-share " type="button">
-        <i class="bi bi-share-fill fs-2 icon-share"></i> <!-- Ícono centrado y más pequeño -->
+    <button type="button" id="btn-favorito" class="btn btn-outline-danger me-1">
+        <i class="bi bi-heart-fill fs-5"></i>
     </button>
-    
+    <button type="button" class="btn btn-outline-primary bg-none" id="btnCompartir">
+        <i class="bi bi-share-fill fs-5"></i>
+    </button>
 </div>
 
                             </div>
@@ -460,9 +498,17 @@ function LLenarDivPublicaciones() {
     
     }
 }
+
+document.getElementById("btn-SeguirPerfil").addEventListener("click", function () {
+    this.classList.toggle("active");
+    this.querySelector("span").textContent = this.classList.contains("active") ? "Siguiendo" : "Seguir";
+});
+
+
 document.addEventListener("DOMContentLoaded", async function () {
     Nombre_Usuario_Perfi = document.body.getAttribute('data-Nombre_Usuario');
     urlVariable = document.body.getAttribute('data-url-base');
+    console.log(urlVariable);
     /*let promesasDOM = [];
     promesasDOM.push(LLenarEncabezado()); //si usamos un away en el for, se rompe, por eso hacemos esto
     await Promise.all(promesasDOM);
