@@ -537,7 +537,11 @@ function showModal(message, isSuccess) {
             modal.style.opacity = ''; // Restaurar opacidad original
         });
         // Redirigir al usuario al index al cerrar el modal
-        window.location.href = urlVariable + '/../../index/index.php'; // Cambia 'index.php' a la ruta correcta si es necesario
+        //console.log(urlVariable + '/../index/index.php');
+        
+
+
+        window.location.href = urlVariable + '/../index/index.php'; // Cambia 'index.php' a la ruta correcta si es necesario
     });
 }
 

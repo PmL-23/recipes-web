@@ -70,6 +70,29 @@ try {
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage(); 
 }
+
+
+//seccion en la que obtenemos la url actual.
+$scheme = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? "https" : "http";      
+$host = $_SERVER['HTTP_HOST'];
+$requestUri = $_SERVER['REQUEST_URI'];
+$currentUrl = $scheme . "://" . $host . $requestUri;
+$indexPosition = strpos($currentUrl, 'perfil-usuario');
+$urlVariable = '';
+
+if ($indexPosition !== false) {
+    $urlVariable = substr($currentUrl, 0, $indexPosition + strlen('perfil-usuario'));
+} else {
+
+    $indexPosition = strpos($currentUrl, 'perfil-usuario/');
+    if ($indexPosition !== false) {
+        $urlVariable = substr($currentUrl, 0, $indexPosition + strlen('perfil-usuario/'));
+    } else {
+        // Fallback: usar el esquema y host si no se encuentran patrones
+        $urlVariable = $scheme . "://" . $host . '/';
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -85,7 +108,7 @@ try {
     <script src="boton_publicacion.js" defer></script>
     <script src="editar_descripcion.js" defer></script>
     <script src="boton_username.js" defer></script>
-
+    <script src="editar_contraseña.js" defer></script>
     <?php include '../includes/head.php'; ?>
 </head>
 <body>
@@ -99,6 +122,7 @@ try {
                 <div class="card-body">
                     <h1 class="card-title" id="usernameText">@<?php echo htmlspecialchars($usuario['username']); ?>
                     <button id="editUsernameBtn" class="btn btn-sm btn-primary" onclick="editarUsername()"><i class="bi bi-pencil-square"></i></button>
+                    <button id="editContraseñaBtn" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalEditContraseña"><i class="bi bi-lock-fill"></i></button>
                     </h1>
                     <textarea id="usernameInput" rows="3" class="form-control" style="display: none;"></textarea>
                     <div id="usernameButtons" style="display: none;">
@@ -202,6 +226,56 @@ try {
             </div>
         </div>
     </div>
+    <!-- Modal Cambiar Contraseña -->
+    <div class="modal fade" id="modalEditContraseña" tabindex="-1" aria-labelledby="modalEditContraseñaLabel"data-bs-backdrop="static" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title " id="modalEditContraseñaLabel">Cambiar Contraseña</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body container-fluid">
+                    <form id="FormCambiarContraseña" class="row" data-url-base="<?php echo htmlspecialchars($urlVariable); ?>" data-IDUsuario="<?php echo $id_usuario ?>">
+                        <div class="mb-3 col-12">
+                            <label for="ContraseñaActual" class="form-label">Contraseña Actual</label>
+                            <input type="text" class="form-control" id="ContraseñaActual" name="ContraseñaActual">
+                            <small class="text-danger" id="ContraseñaActualError"></small>
+                        </div>
+                        <div class="mb-3 col-lg-6">
+                            <label for="NuevaContraseña" class="form-label">Nueva Contraseña</label>
+                            <input type="text" class="form-control" id="NuevaContraseña" name="NuevaContraseña">
+                            <small class="text-danger" id="NuevaContraseñaError"></small>
+                        </div>
+                        <div class="mb-3 col-lg-6">
+                            <label for="ConfirmaciónNuevaContraseña" class="form-label">Confirmacion de Nueva
+                                Contraseña</label>
+                            <input type="text" class="form-control" id="ConfirmaciónNuevaContraseña" name="ConfirmaciónNuevaContraseña">
+                            <small class="text-danger" id="ConfirmaciónNuevaContraseñaError"></small>
+                        </div>
+                        <!--- footer--->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-target="#modalPerfil"
+                                data-bs-toggle="modal">Volver</button>
+                            <button type="submit" class="btn btn-danger" id="IDBotonEliminarCuenta">Confirmar Cambios</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade custom-modal-position" id="resultModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialoggs">
+        <div class="modal-content" id="modalContent">
+
+            <div class="modal-body">
+                <span id="modalIcon" class="me-2"></span>
+                <span id="modalMessage"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
     <?php include '../includes/footer.php'; ?>
 </body>
 </html>
