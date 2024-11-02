@@ -24,6 +24,19 @@
     border-radius: 50%; 
 }
 
+#usernameForm {
+    display: none; 
+    margin-top: 10px; 
+}
+
+#usernameInput {
+    display: none;
+    resize: none; 
+}
+
+#usernameButtons{
+    display: none;
+}
 
 #descripcionForm {
     display: none; 

@@ -10,7 +10,7 @@ function editarDescripcion() {
     descripcionButtons.style.display = 'block';
 }
 
-function cancelarEdicion() {
+function cancelarEdit() {
     const descripcionText = document.getElementById('descripcionText');
     const descripcionInput = document.getElementById('descripcionInput');
     const descripcionButtons = document.getElementById('descripcionButtons');
@@ -36,7 +36,7 @@ function guardarDescripcion(usuarioId) {
             const jsonData = JSON.parse(data);
             if (jsonData.success) {
                 document.getElementById('descripcionText').innerText = nuevaDescripcion;
-                cancelarEdicion();
+                cancelarEdit();
             } else {
                 alert('Error al guardar la descripción: ' + (jsonData.message || ''));
             }
