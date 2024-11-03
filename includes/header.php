@@ -1,16 +1,27 @@
+<?php
+include 'conec_db.php'; 
+include '../notificaciones/notificacion.php';
 
-<!-- header -->
+
+if (isset($_SESSION['id'])) {
+    $idUsuario = $_SESSION['id'];
+
+    $notificaciones = obtenerNotificacionesNoLeidas($conn, $idUsuario);
+}
+?>
+
+<!-- Header -->
 <header class="header">
+    <script src="../notificaciones/notificacion.js" defer></script>
     <nav class="navegacion-principal nav">
         <div class="container-fluid d-flex justify-content-between align-items-center">
-
             <div class="m-0 container d-flex flex-row align-items-center">
                 <a class="navbar-brand" href="../index/index.php"><img class="logo" src="../images/logo.png" alt="logo"></a>
 
                 <?php
                     if (isset($_SESSION['id']) && $_SESSION['id']) {
                         echo '<h2 class="ms-2 text-white">Bienvenido '.$_SESSION['nomCompleto'].'</h2>';
-                    }else{
+                    } else {
                         echo '<h2 class="ms-2 text-white">Bienvenido invitado :)</h2>';
                     }
                 ?>
@@ -40,34 +51,38 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <button class="notificaciones btn btn-outline-light boton-menu" href="#">
+                    <button id="btnNotificaciones" class="notificaciones btn btn-outline-light boton-menu" data-bs-toggle="dropdown">
                         <i class="bi bi-bell"></i>
+                        <span class="badge bg-danger"><?php echo isset($notificaciones) ? count($notificaciones) : 0; ?></span>
                     </button>
+                    <ul class="dropdown-menu">
+                    <?php
+                    if (!empty($notificaciones)) {
+                        foreach ($notificaciones as $notificacion) {
+                            echo "<li><a class='dropdown-item' href='#'>".$notificacion['username']." publicó una receta: ".$notificacion['titulo']." - ".$notificacion['fecha']."</a></li>";
+                       }
+                    } else {
+                        echo "<li><a class='dropdown-item' href='#'>No tienes notificaciones</a></li>";
+                    }
+                    ?>
+                    </ul>
                 </li>
                 <li class="nav-item">
-                    <!--barra lateral-->
-                    <button class="btn btn-outline-light boton-menu" type="button" data-bs-toggle="offcanvas"
-                        data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                        <!-- Icono de menú lateral -->
+                    <button class="btn btn-outline-light boton-menu" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
                         <i class="bi bi-list"></i>
                     </button>
 
-                    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
-                            aria-labelledby="offcanvasRightLabel">
+                    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
                         <div class="offcanvas-header">
                             <h5 class="offcanvas-title" id="offcanvasRightLabel">Menú Recetas de America</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                         </div>
 
                         <div class="offcanvas-body container">
-
-                                <div class="row DivConLogIn" id="IDDivConLogIn">
-                                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-0 ">
-
+                            <div class="row DivConLogIn" id="IDDivConLogIn">
+                                <ul class="navbar-nav justify-content-end flex-grow-1 pe-0 ">
                                     <?php
-
-                                    if(isset($_SESSION['id']) && $_SESSION['id']){ 
-
+                                    if (isset($_SESSION['id']) && $_SESSION['id']) { 
                                         echo '<li class="nav-item justify-content-center">
                                             <a class="nav-link mt-5" href="../perfil-usuario/mi_perfil.php">Perfil</a>
                                         </li>
@@ -81,40 +96,39 @@
                                         </li>
                                         <hr>';
 
-                                            if (isset($_SESSION['id']) && Permisos::tienePermiso('Acceder a Administración', $_SESSION['id'])) {
-                                                echo '<li class="nav-item justify-content-center mt-2">
-                                                    <a class="nav-link" href="../admin/index.php">Administración</a>
-                                                </li>';
-                                            }
-                                        
+                                        if (isset($_SESSION['id']) && Permisos::tienePermiso('Acceder a Administración', $_SESSION['id'])) {
+                                            echo '<li class="nav-item justify-content-center mt-2">
+                                                <a class="nav-link" href="../admin/index.php">Administración</a>
+                                            </li>';
+                                        }
 
-                                        echo'<li class="nav-item justify-content-center mt-5 text-center">
+                                        echo '<li class="nav-item justify-content-center mt-5 text-center">
                                                 <a class="btn btn-outline-danger" href="../inicio_sesion/cerrarSesion.php">Cerrar Sesion</a>
                                             </li>'; 
-                                        
-                                    }else{
-                                        
+                                    } else {
                                         echo '<li class="nav-item justify-content-center">
                                             <a class="boton-login col-6" href="../inicio_sesion/iniciarSesion.php">Iniciar Sesion</a>
                                         </li>
-
                                         <li class="nav-item justify-content-center">
                                             <a class="boton-login col-6" href="../inicio_sesion/registrarse.php">Registrarse</a>
                                         </li>
-
                                         <li class="nav-item justify-content-center">
                                             <a class="boton-login col-6" href="#"><img alt="logo-google" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/480px-Google_%22G%22_logo.svg.png"/>Ingresar con Google</a>
                                         </li>'; 
-                                        
                                     }
-
                                     ?>
-
-                                    </ul>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </li>
             </ul>
         </div>
     </nav>
+
+
 </header>
+
+
+
+

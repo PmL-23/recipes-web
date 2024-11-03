@@ -12,9 +12,6 @@ include '../includes/permisos.php'
     <title>Recetario</title>
 
     <link rel="stylesheet" href="../css/c-countries.css">
-    <link rel="stylesheet" href="a.css">
-    <script src="a.js" defer></script>
-    <script src="../buscador/buscador_script.js" defer></script>
     <script src="mostrarSegunFecha.js"></script>
     <script src="receta_paises.js" defer></script>
     <!-- Link custom script -->

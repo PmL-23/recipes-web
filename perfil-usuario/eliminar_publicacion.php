@@ -14,6 +14,7 @@ if (isset($_POST['id'])) {
     
     try {
         $queries = [
+            "DELETE FROM notificaciones WHERE id_publicacion = :id_publicacion",
             "DELETE FROM ingredientes_recetas WHERE id_publicacion = :id_publicacion",
             "DELETE FROM etiquetas_recetas WHERE id_publicacion = :id_publicacion",
             "DELETE FROM paises_recetas WHERE id_publicacion = :id_publicacion",

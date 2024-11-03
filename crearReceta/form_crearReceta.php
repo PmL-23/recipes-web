@@ -2,6 +2,9 @@
 session_start();
 
 require_once('../includes/conec_db.php');
+require_once('../notificaciones/notificacion.php');
+require_once('../includes/seguidores.php'); 
+
 
 $id_usuario_autor = $_SESSION["id"];
 
@@ -20,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     
     $sqlQueryPublicacion = "INSERT INTO publicaciones_recetas(titulo, descripcion, dificultad, minutos_prep, id_usuario_autor, id_categoria) VALUES (:titulo, :descripcion, :dificultad, :tiempo, :id_usuario_autor, :categoria)";
-    
+
     $QueryPublicacion = $conn->prepare($sqlQueryPublicacion);
     
     $QueryPublicacion->bindParam(':titulo', $titulo, PDO::PARAM_STR);
@@ -34,6 +37,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($QueryPublicacion->execute()) {
 
         $id_publicacion = $conn->lastInsertId();
+
+        $seguidores = obtenerSeguidores($conn, $id_usuario_autor);
+
+        foreach ($seguidores as $seguidor) {
+            agregarNotificacion($conn, $seguidor['id_seguidor'], $id_publicacion, $id_usuario_autor, 'nueva receta');
+        }
 
         if (isset($_FILES['imagenes'])){
 

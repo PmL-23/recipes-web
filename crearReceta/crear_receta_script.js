@@ -78,7 +78,8 @@ const inicio = function ()
                                             console.log("Receta creada con éxito");
                                             window.location.href = "../recetas/receta-plantilla.php?id=" + data.nueva_receta_id;
                                         }else{
-                                            console.log("Error al crear receta");
+                                                console.log("Error al crear receta:", data.msj_error); 
+
                                         }
                         
                                 });
