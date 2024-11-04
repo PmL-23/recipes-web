@@ -1,3 +1,4 @@
+<?php include '../includes/conec_db.php' ?>
 <?php
 require_once('./Scripts-Valoracion/getValoracionActual.php');
 require_once('./Scripts-Favorito/getEstadoDeFavorito.php');
@@ -25,13 +26,31 @@ require_once('../includes/razonesReporte.php');
 
     <?php
     include '../includes/head.php';
-    include 'manjeoGetReceta.php'; //aca esta en manejo de las recetas
     ?>
 
 </head>
 
 <body>
     <?php include '../includes/header.php' ?>
+    <?php include '../recetas/manejoGetReceta.php'?>
+    <?php 
+
+
+
+        if ($autor == $_SESSION['id']) { ?>
+    <div class="d-flex justify-content-end p-3">
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        Ver
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="#">Editar publicación</a></li>
+            <li><a class="dropdown-item" href="#">Eliminar publicación</a></li>
+        </ul>
+    </div>
+    <?php } ?>     
+	
+
+
 
     <div class="contenido-principal container my-5 ps-5">
         <div class="container">
@@ -40,22 +59,16 @@ require_once('../includes/razonesReporte.php');
                     <div class="col-md-1 col-sm-6">
                         <div>
                             <!-- Aca va la foto del usuario -->
-                            <img class="mt-3 rounded" src="<?php
-                                                            if (empty($fotoUsuario)) {
-                                                                echo '../images/default-image.png'; // Imagen por defecto
-                                                            } else {
-                                                                echo $fotoUsuario; // Foto del usuario
-                                                            }
-                                                            ?>" alt="Imagen del usuario" id="portada-receta" height="80">
+                            <img class="mt-3 rounded" src="<?php echo $fotoAutor;?>" alt="Perfil del usuario" id="portada-receta" height="80">
                         </div>
                     </div>
 
                     <div class="col-md-4 col-sm-1">
                         <a class="text-decoration-none text-dark" href="../CarpetaPerfil/Perfil.php?NombreDeUsuario=<?php echo "$nombreUsuario"; ?>">
-                        <h5 id="nombre-usuario">
-                            <!-- Aca va el nombre del usuario -->
-                            <?php echo "@$nombreUsuario"; ?>
-                        </h5>
+                            <h5 id="nombre-usuario">
+                                <!-- Aca va el nombre del usuario -->
+                                <?php echo "@$nombreAutor"; ?>
+                            </h5>
                         </a>
                     </div>
                     <div class="col-md-7 col-sm-2 text-end">
@@ -74,7 +87,15 @@ require_once('../includes/razonesReporte.php');
             <div class="datos-receta row align-items-start">
                 <div class="contenedor-img d-flex col-md-6 col-sm-12">
                     <!-- Aca va la imagen de la receta -->
-                    <img src="<?php echo $imagen; ?>" alt="Receta" class="portada rounded img-fluid" id="portada-receta">
+                    <?php
+                        if (!empty($imagenes)) {
+                            foreach ($imagenes as $imagen) {
+                                echo '<img src="' . $imagen["ruta_imagen"] . '" alt="Receta" class="portada rounded img-fluid" id="portada-receta">';
+                            }
+                        } else {
+                            echo 'No hay etiquetas';
+                        }
+                    ?>
                 </div>
                 <div class="content-info col-md-6 col-sm-12 my-5 d-flex flex-column justify-content-between">
 
@@ -96,13 +117,13 @@ require_once('../includes/razonesReporte.php');
                             <?php
                             if (!empty($etiquetas)) {
                                 foreach ($etiquetas as $etiqueta) {
-                                    echo '<span class="etiqueta">' . $etiqueta . '</span> ';
+                                    echo '<span class="etiqueta">' . $etiqueta["titulo"] . '</span> ';
                                 }
                             } else {
                                 echo 'No hay etiquetas';
                             }
                             ?>
-                            <!-- ni idea que va aca -->
+                            
                         </p>
 
                     </div>
@@ -167,23 +188,19 @@ require_once('../includes/razonesReporte.php');
         <div class="row align-items-start">
             <div class="col-4">
                 <div class="align-items-center box-icons">
-                    <!-- imagen del pais al que pertenece la receta -->
-
+                    <!-- pais -->
                     <?php
-                    if (!empty($paisRecetas)) {
-                        foreach ($paisRecetas as $paisReceta) {
-                            echo '<img src="../svg/' . $paisReceta . '" alt="Bandera" width="35" class="bandera" id="bandera-receta"> ';
+                    if (!empty($paises)) {
+                        foreach ($paises as $pais) {
+                            echo '<img src="../svg/' . $pais["ruta_imagen_pais"] . '" alt="Bandera" width="35" class="bandera" id="bandera-receta"> ';
+                            echo '<p>'.$pais["nombre"].'</p>';
                         }
                     } else {
-                        echo 'No hay banderas disponibles';
+                        echo 'No hay paises disponibles';
                     }
                     ?>
 
-                    <h5 id="nombrePaisRecetaDB">
-                        <?php
-                        echo 'origen';
-                        ?>
-                    </h5>
+         
                 </div>
             </div>
             <div class="col-4">
@@ -216,7 +233,7 @@ require_once('../includes/razonesReporte.php');
                 <?php
                 if (!empty($ingredientes)) {
                     foreach ($ingredientes as $ingrediente) {
-                        echo '<li class="list-group-item bg-transparent border-0 p-0">' . $ingrediente . '</li> ';
+                        echo '<li class="list-group-item bg-transparent border-0 p-0">' . $ingrediente["nombre"] . ': ' . $ingrediente["cantidad"] . '</li> ';
                     }
                 } else {
                     echo 'No hay ingredientes';
@@ -234,15 +251,15 @@ require_once('../includes/razonesReporte.php');
                     <?php if (!empty($paso['imagenes'])): ?>
                         <div class="imagenes-pasos d-flex flex-wrap mt-2">
                             <?php foreach ($paso['imagenes'] as $imagenPaso): ?>
-                                <img src="<?php echo $imagenPaso; ?>" alt="Imagen del paso" class="img-fluid mb-2" style="width: 40%; height: 40%;">
+                                <img src="<?php echo $imagenPaso; ?>" alt="Imagen del paso" class="img-fluid mb-2" style="width: 40%; height: auto;">
                             <?php endforeach; ?>
                         </div>
                     <?php endif; ?>
                 </li>
             <?php endforeach; ?>
         </ol>
-
     </div>
+
 
     <div class="container mt-5 d-flex flex-row justify-content-around">
 

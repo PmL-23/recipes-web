@@ -6,7 +6,7 @@ require_once('../notificaciones/notificacion.php');
 require_once('../includes/seguidores.php'); 
 
 
-$id_usuario_autor = $_SESSION["id"];
+$id_usuario_autor = $_SESSION['id'];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -94,29 +94,53 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         foreach ($etiquetas as $etiqueta) {
             if(!empty($etiqueta)){
 
-                $sqlQueryEtiqueta = "INSERT INTO etiquetas_recetas(id_publicacion,titulo) VALUES (:id_publicacion, :titulo_etiqueta)";
+                $sqlQueryEtiqueta = "INSERT INTO etiquetas_recetas(id_publicacion, id_etiqueta) VALUES (:id_publicacion, :id_etiqueta)";
     
                 $QueryEtiqueta = $conn->prepare($sqlQueryEtiqueta);
                 $QueryEtiqueta->bindParam(':id_publicacion', $id_publicacion, PDO::PARAM_INT);
-                $QueryEtiqueta->bindParam(':titulo_etiqueta', $etiqueta, PDO::PARAM_STR);
+                $QueryEtiqueta->bindParam(':id_etiqueta', $etiqueta, PDO::PARAM_STR);
                 $QueryEtiqueta->execute();
             }
         }
 
-        //Tabla ingredientes
-        $ingredientes = isset($_POST["ingrediente"]) ? $_POST["ingrediente"] : []; 
-        
-        foreach ($ingredientes as $ingrediente) {
-            if (!empty($ingrediente)) {
+        // Tabla ingredientes
+        $ingredientes = isset($_POST["ingrediente"]) ? $_POST["ingrediente"] : [];
+        $cantidades = isset($_POST["cantidad"]) ? $_POST["cantidad"] : [];  
 
-                $sqlQueryIngrediente = "INSERT INTO ingredientes_recetas(id_publicacion, ingrediente) VALUES (:id_publicacion, :ingrediente)";
+        foreach ($ingredientes as $index => $ingrediente) {
+            if (!empty($ingrediente) && !empty($cantidades[$index])) {
+
+                // veo si el ingrediente existe
+                $sqlVerIngrediente = "SELECT id_ingrediente FROM ingredientes WHERE nombre = :ingrediente_ingresado";
+                $stmtVerIngrediente = $conn->prepare($sqlVerIngrediente);
+                $stmtVerIngrediente->bindParam(':ingrediente_ingresado', $ingrediente, PDO::PARAM_STR);
+                $stmtVerIngrediente->execute();
+                $rowVerIng = $stmtVerIngrediente->fetch(PDO::FETCH_ASSOC); //obtengo el id
+
+                if (!$rowVerIng) {
+                    // si no existe se ingresa el nuevo
+                    $sqlInsertarIngrediente = "INSERT INTO ingredientes(nombre) VALUES (:ingrediente_ingresado)";
+                    $stmtInsertarIngrediente = $conn->prepare($sqlInsertarIngrediente);
+                    $stmtInsertarIngrediente->bindParam(':ingrediente_ingresado', $ingrediente, PDO::PARAM_STR);
+                    $stmtInsertarIngrediente->execute();
+                    $id_ingrediente = $conn->lastInsertId(); //id del nuevo ingrediente
+                } else {
+                    // si ya existe se usa el id existente
+                    $id_ingrediente = $rowVerIng['id_ingrediente'];
+                }
+
+                // datos en la tabla intermedia:
+                $sqlQueryIngrediente = "INSERT INTO ingredientes_recetas(id_publicacion, id_ingrediente, cantidad) VALUES (:id_publicacion, :id_ingrediente, :cantidad)";
                 
                 $QueryIngrediente = $conn->prepare($sqlQueryIngrediente);
                 $QueryIngrediente->bindParam(':id_publicacion', $id_publicacion, PDO::PARAM_INT);
-                $QueryIngrediente->bindParam(':ingrediente', $ingrediente, PDO::PARAM_STR);
+                $QueryIngrediente->bindParam(':id_ingrediente', $id_ingrediente, PDO::PARAM_INT);
+                $QueryIngrediente->bindParam(':cantidad', $cantidades[$index], PDO::PARAM_STR);
                 $QueryIngrediente->execute();
             }
         }
+
+        
 
         //Tabla paises
         $paises = isset($_POST["pais"]) ? $_POST["pais"] : []; 

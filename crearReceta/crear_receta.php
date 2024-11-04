@@ -31,14 +31,6 @@ if (!$queryResultsEtiquetas) {
     exit();
 }
 
-$ingredientesQuery = "SELECT * FROM ingredientes ORDER BY ingredientes.id_ingrediente DESC";
-$queryResultsIngredientes = $conn->prepare($ingredientesQuery);
-$queryResultsIngredientes->execute(); 
-
-if (!$queryResultsIngredientes) {
-    echo "Error en la consulta SQL";
-    exit();
-}
 ?>
 
 <!DOCTYPE html>
@@ -50,7 +42,9 @@ if (!$queryResultsIngredientes) {
         
         <?php include '../includes/head.php'?>
         <link rel="stylesheet" href="../crearReceta/crear_receta_style.css">
-        <script src="../crearReceta/crear_receta_script.js" defer></script>
+        <script src="crear_receta_script.js" defer></script>
+      
+        
         
     </head>
     
@@ -143,9 +137,9 @@ if (!$queryResultsIngredientes) {
                     <label for="dificultad" class="h6 form-label">Dificultad de elaboración</label>
                     <select class="form-select" aria-label="Select dificultad" id="dificultad" name="dificultad" required>
                         <option selected disabled>Elegí la dificultad de tu platillo</option>
-                        <option value="facil">Fácil</option>
-                        <option value="media">Media</option>
-                        <option value="dificil">Difícil</option>
+                        <option value="Fácil">Fácil</option>
+                        <option value="Media">Media</option>
+                        <option value="Dificil">Difícil</option>
                     </select>
                     <small class="text-danger" id="error-dificultad"></small>
                 </div>
@@ -194,16 +188,30 @@ if (!$queryResultsIngredientes) {
         </div>
     </div>                   
 
-    <div class="contenido-ingredientes container  w-100 w-lg-75 p-5  mt-5 seccion">
-        <h5 class="h5 form-label">Ingredientes</h5>
-        <div id="ingredientes">
-            <div class="un_ingrediente d-grid gap-2 d-flex justify-content-md-end" id="item-ingrediente">
-                <input type="text" class="form-control" name="ingrediente[]" placeholder="Ej: 400gr de harina..." id="primer-ingrediente" required>
-                <button class="boton-secundario d-flex" type="button" id="quitar-ing" disabled><i class="bi bi-trash me-1"></i>Quitar</button>
+    <div class="contenido-ingredientes container  w-100 w-lg-75 ps-5 pe-4 pb-5 pt-4  mt-5 seccion">
+        <div  id="ingredientes">
+            <div class="row container-fluid">
+                <div class="col-md-6 mt-4">
+                    <label for="ingrediente" class="h5 form-label">Ingrediente</label>
+                    <input type="text" class="ingrediente-input form-control" name="ingrediente[]" placeholder="Harina, Sal..." id="ingrediente" required>
+                    <div class="search-ingrediente" id="search-ingrediente-0"></div>
+                    <div>
+                        <small class="text-danger" id="error-ingrediente"></small>
+                    </div>
+                </div>
+                <div class="col-md-4 mt-4">
+                    <label for="cantidad" class="h6 form-label">Cantidad</label>
+                    <input type="text" class="form-control" name="cantidad[]" placeholder="400gr, una pizca..." id="cantidad">
+                    <div>
+                        <small class="text-danger" id="error-ingrediente-cantidad"></small>
+                    </div>
+                </div>
+                <div class="col-md-2 mt-md-4 d-flex justify-content-end">
+                    <button class="boton-secundario mt-4" type="button" id="quitar-ing" disabled><i class="bi bi-trash me-1"></i>Quitar</button>
+                </div>
             </div>
-            <small class="text-danger" id="error-ingrediente"></small>
-        </div>
-        <div class="d-flex justify-content-center mt-3">
+        </div>                
+        <div class="d-flex justify-content-center mt-5">
             <button class="boton-item" type="button" id="agregar-ing">+ Agregar Ingrediente</button>
         </div>
     </div>
