@@ -1,6 +1,6 @@
 export function obtenerEtiquetas(){
 
-    let contadorDeEtiquetas = 0;
+    /* let contadorDeEtiquetas = 0; */
 
     const panelContenido = document.querySelector(".panel-body");
 
@@ -10,18 +10,9 @@ export function obtenerEtiquetas(){
     panelContenido.innerHTML = ``;
     contenedorCards.id = "contenedor-etiquetas";
 
-    let urlActual = window.location.href;
-    let palabraClave = "recipes-web/";
-
-    // Encuentra el índice de la palabra "recipes-web/" en la URL
-    let indice = urlActual.indexOf(palabraClave);
-
-    if (indice !== -1) {
-
-        // Guarda la URL desde el inicio hasta la palabra "recipes-web/"
-        let urlCortada = urlActual.substring(0, indice + palabraClave.length);
-
-        fetch(urlCortada + "admin/Scripts-Etiquetas/obtenerEtiquetas.php", {
+    try {
+        
+        fetch('../admin/Scripts-Etiquetas/obtenerEtiquetas.php', {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -32,23 +23,23 @@ export function obtenerEtiquetas(){
             if (!res.ok) {
                 throw new Error('Error en la solicitud: ' + res.status);
             }
-
+    
             // Verifico si hay contenido en la respuesta
             if (res.headers.get('content-length') === '0') {
                 return null; // No hay contenido
             }
-
+    
             // Convierto a JSON
             return res.json();
         })
         .then(data => {
         
             /* console.log(data); */
-
+    
             const ContenedorDeEtiquetas = document.getElementById('contenedor-etiquetas');
-
+    
             ContenedorDeEtiquetas.classList.add("pb-3");
-
+    
             if (data.length > 0) {
                 
                 data.forEach( (e) => {
@@ -101,22 +92,22 @@ export function obtenerEtiquetas(){
         
                     ContenedorDeEtiquetas.appendChild(divPadre);
     
-                    contadorDeEtiquetas++;
+                    /* contadorDeEtiquetas++; */
     
                 });
                 
             }else{
-
+    
                 ContenedorDeEtiquetas.innerHTML = `<h3 class="align-self-center mt-3">No hay etiquetas</h3>`;
-
+    
             }
             
-            document.getElementById("cont-etiquetas").textContent = contadorDeEtiquetas;
-
+            /* document.getElementById("cont-etiquetas").textContent = contadorDeEtiquetas; */
+    
         });
 
-    } else {
-        console.log("La cadena 'recipes-web/' no se encontró en la URL.");
+    } catch (error) {
+        console.log(error);
     }
 
     panelContenido.appendChild(contenedorCards);

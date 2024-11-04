@@ -572,5 +572,46 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     }
 
+    document.getElementById("formReportarUsuario").addEventListener("submit", function (e){
+
+        e.preventDefault();
+
+        try {
+
+            fetch('../CarpetaPerfil/reportarUsuario.php', {
+                method: "POST",
+                body: new FormData(e.target)
+            })
+            .then(res => res.json())
+            .then(data => {
     
+                /* console.log(data); */
+
+                if (data.success == true) {
+
+                    e.target.reset();
+                    console.log("Usuario reportado con éxito..");
+                    document.getElementById("toast-success-msg").textContent = "Usuario reportado con éxito..";
+    
+                    var toastElement = document.getElementById('formToastSuccess');
+                    var toast = new bootstrap.Toast(toastElement);
+                    toast.show();
+    
+                }else{
+                    
+                    console.log(data);
+                    document.getElementById("toast-error-msg").textContent = "Error al reportar usuario..";
+    
+                    var toastElement = document.getElementById('formToastError');
+                    var toast = new bootstrap.Toast(toastElement);
+                    toast.show();
+                }
+    
+            });
+
+        } catch (error) {
+            console.error(error);
+        }
+
+    });
 });

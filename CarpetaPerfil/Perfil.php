@@ -1,4 +1,5 @@
 <?php
+require_once('../includes/razonesReporte.php');
 session_start();
 include_once '../includes/conec_db.php';
 if (!isset($_GET['NombreDeUsuario'])) {
@@ -239,6 +240,77 @@ if ($indexPosition !== false) {
             </div>
         </div>
 
+        <!-- MODAL REPORTAR PUBLICACIÓN -->
+
+        <div class="modal fade p-0" id="modalReportarUsuario" tabindex="-1" aria-labelledby="modalReportarUsuarioLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalReportarUsuarioLabel">Reportar usuario</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <form id="formReportarUsuario">
+
+                            <div class="mb-3">
+                                <label for="motivo" class="form-label">Motivo</label>
+                                <select class="form-select" id="motivo" name="motivo" required>
+                                    <option value="">Seleccione un motivo</option>
+                                    <?php if (!empty($razonesReporte)) {
+                                        foreach ($razonesReporte as $razon) {
+                                            echo '<option value=' . $razon['id_razon'] . '>' . $razon['descripcion'] . '</option>';
+                                        }
+                                    } ?>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="observacion" class="form-label">Descripción</label>
+                                <textarea class="form-control" name="observacion" id="observacion" rows="7" placeholder="Detalles sobre el motivo del reporte.." required></textarea>
+                            </div>
+
+                            <input type="hidden" name="usuario_reportado" value="<?php if (isset($_GET['NombreDeUsuario'])) echo $_GET['NombreDeUsuario']; ?>">
+
+                            <button type="submit" class="btn btn-dark" data-bs-dismiss="modal" aria-label="Close">Enviar Reporte</button>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TOAST PARA NOTIFICAR MENSAJES DE ÉXITO -->
+        <div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1055;">
+
+            <div id="formToastSuccess" class="toast align-items-center text-bg-success" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                <div  id="toast-success-msg" class="toast-body">
+                    -Mensaje exitoso correspondiente-
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- TOAST PARA NOTIFICAR MENSAJES DE ERROR -->
+        <div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1055;">
+
+            <div id="formToastError" class="toast align-items-center text-bg-danger" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div id="toast-error-msg" class="toast-body">
+                        -Mensaje de error correspondiente-
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+
+        </div>
+
     </div>
         
         <div class="col-4 row mt-1 p-0">
@@ -253,7 +325,7 @@ if ($indexPosition !== false) {
             </div>
 
             <div class="col-2 p-0 mt-0 d-flex justify-content-center align-items-center">
-                <button type="button" class="btn btn-outline-warning bg-none" id="btn-ReportarPerfil" data-bs-toggle="modal" data-bs-target="#modalReportarPublicacion">
+                <button type="button" class="btn btn-outline-warning bg-none" id="btn-ReportarPerfil" data-bs-toggle="modal" data-bs-target="#modalReportarUsuario">
                     <i class="bi bi-flag-fill text-black"></i>
                 </button>
             </div>

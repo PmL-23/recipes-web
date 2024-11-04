@@ -1,4 +1,4 @@
-export function obtenerUsuariosReportados(){
+export function obtenerComentariosReportados(){
 
     const panelContenido = document.querySelector(".panel-body");
     panelContenido.innerHTML = ``;
@@ -7,10 +7,11 @@ export function obtenerUsuariosReportados(){
     contenedorCards.classList.add('w-100', 'd-flex', 'flex-column', 'overflow-y-auto');
 
     panelContenido.innerHTML = ``;
-    contenedorCards.id = "contenedor-usuarios";
+    contenedorCards.id = "contenedor-comentarios";
 
     try {
-        fetch('../admin/Scripts-Usuarios/obtenerUsuariosReportados.php', {
+
+        fetch('../admin/Scripts-Comentarios/obtenerComentariosReportados.php', {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -34,112 +35,100 @@ export function obtenerUsuariosReportados(){
 
             /* console.log(data); */
         
-            const ContenedorDeUsuarios = document.getElementById('contenedor-usuarios');
+            const ContenedorDeComentarios = document.getElementById('contenedor-comentarios');
 
-            ContenedorDeUsuarios.classList.add("pb-3");
+            ContenedorDeComentarios.classList.add("pb-3");
 
-            if (data.usuarios.length > 0) {
+            if (data.comentarios.length > 0) {
                 
-                data.usuarios.forEach( (usuario) => {
+                data.comentarios.forEach( (comentario) => {
+
+                    const fechaHora = comentario.fecha_comentario;
+                    const [fecha] = fechaHora.split(" "); // Extrae solo la parte de la fecha
+                    const [year, month, day] = fecha.split("-"); // Divide en año, mes y día
+                    const fechaFormateada = `${day}-${month}-${year}`; // Reordena a formato DD-MM-YYYY
 
                     const divPadre = document.createElement('div');
                     divPadre.classList.add('card', 'm-5');
         
                         divPadre.innerHTML = `
-                            <div class="card-body d-flex flex-row">
-    
-                                <img class="w-25 h-25 m-2 rounded-circle border" src="${usuario.foto_usuario}"/>
-    
-                                <div class="container-sm d-flex flex-column align-items-center">
-                                    <h3>${usuario.nombre_usuario}</h3>
-    
-                                    <div class="w-100 p-2 mt-4 d-flex flex-row justify-content-around">
-    
-                                        <div class="d-flex flex-column align-items-center">
-                                            <h4>${usuario.cant_publicaciones}</h4>
-                                            <h6>Publicaciones</h6>
-                                        </div>
-    
-                                        <div class="d-flex flex-column align-items-center">
-                                            <h4>${usuario.cant_reportes}</h4>
-                                            <h6>Reportes</h6>
-                                        </div>
-    
-                                        <div class="d-flex flex-column align-items-center">
-                                            <h4>${usuario.cant_seguidores}</h4>
-                                            <h6>Seguidores</h6>
-                                        </div>
-    
-                                    </div>
-    
-                                    <div class="m-2 d-flex flex-row btns-${usuario.id_usuario}">
-    
-                                        <a href="../CarpetaPerfil/Perfil.php?NombreDeUsuario=${usuario.nombre_usuario}" target="_blank"><button class="btn btn-custom-bg btn-sm ms-1 m-2 btn-ver-usuario">Ir a perfil</button></a>
-    
-                                    </div>
-                                </div>
-    
-                            </div>
-    
-                            <div class="card-footer">
+                            <div class="card-header">
                                 <div class="d-flex flex-row">
-    
+
                                     <div class="w-100 p-2 d-flex flex-row align-items-center">
-    
-                                        <span class="text-secondary">${usuario.nombre_completo}</span>
-    
+
+                                        <img class="w-25 img-thumbnail rounded-circle" src="${comentario.foto_usuario}"/>
+                                        <h5 class="text-secondary ms-3">${comentario.nombre_usuario}</h5>
+
                                     </div>
-    
+
                                     <div class="w-100 p-2 d-flex flex-column align-items-end justify-content-center">
-    
-                                        
-                                        <p class="text-secondary m-0">${usuario.correo}</p>
-    
+
+                                        <span class="text-secondary">${fechaFormateada}</span>
+                                        <span class="text-body-tertiary">${ (comentario.fecha_comentario.split(" ")[1]).slice(0, 5) }</span>
+
                                     </div>
                                 </div>
+                            </div>
+
+                            <div class="card-body">
+                                <blockquote class="blockquote mb-0 m-3">
+                                    <h4>"${comentario.texto_comentario}"</h4>
+                                </blockquote>
+                            </div>
+
+                            <div class="card-body">
+                                <blockquote class="blockquote mb-0 ms-2">
+                                    <p>Cantidad de reportes: ${comentario.cant_reportes}</p>
+                                </blockquote>
+                                
+                            </div>
+
+                            <div class="card-footer d-flex flex-row justify-content-evenly btns-${comentario.id_comentario}">
+                                <a href="../recetas/receta-plantilla.php?id=${comentario.id_publicacion}" target="_blank" ><button class="btn btn-custom-bg btn-sm ms-1 m-2">Ver en publicacion</button></a>
                             </div>
                         `;
-                        
-                    const btnSuspenderUsuario = document.createElement("button");
-                    btnSuspenderUsuario.type = "submit";
-                    btnSuspenderUsuario.className = "btn btn-danger btn-sm ms-1 m-2 btn-suspender-usuario";
-                    btnSuspenderUsuario.setAttribute("data-bs-toggle", "modal");
-                    btnSuspenderUsuario.setAttribute("data-bs-target", "#modalSuspenderUsuario");
-                    btnSuspenderUsuario.textContent = "Suspender usuario";
+                    const btnEliminar = document.createElement("button");
+                    btnEliminar.type = "submit";
+                    btnEliminar.className = "btn btn-danger btn-sm ms-1 m-2";
+                    btnEliminar.setAttribute("data-bs-toggle", "modal");
+                    btnEliminar.setAttribute("data-bs-target", "#modalEliminarObj");
+                    btnEliminar.textContent = "Eliminar comentario";
         
-                    btnSuspenderUsuario.addEventListener("click", function (){
-                        document.getElementById("modalSuspenderUsuarioTitle").innerHTML = `Aplicar suspensión a "<strong>${usuario.nombre_usuario}</strong>"`;
-                        document.getElementById("cuentaID").value = usuario.id_usuario;
+                    btnEliminar.addEventListener("click", function (){
+                        document.getElementById("modalEliminarObjTitulo").innerHTML = `¿Eliminar comentario del sistema?`;
+                        document.getElementById("modalEliminarObjMensaje").innerHTML = `Comentario: "<strong>${comentario.texto_comentario}</strong>".`;
+                        document.getElementById("ObjID").value = comentario.id_comentario;
                     });
 
                     const btnListarReportes = document.createElement("button");
                     btnListarReportes.type = "submit";
-                    btnListarReportes.className = "btn btn-primary btn-sm ms-1 m-2 btn-listar-reportes";
+                    btnListarReportes.className = "btn btn-primary btn-sm m-2 btn-listar-reportes";
                     btnListarReportes.setAttribute("data-bs-toggle", "modal");
                     btnListarReportes.setAttribute("data-bs-target", "#modalListaReportes");
-                    btnListarReportes.setAttribute("data-id", usuario.id_usuario);
+                    btnListarReportes.setAttribute("data-id", comentario.id_comentario);
                     btnListarReportes.textContent = "Ver reportes";
 
                     const btnIgnorarReportes = document.createElement("button");
                     btnIgnorarReportes.type = "submit";
-                    btnIgnorarReportes.className = "btn btn-secondary btn-sm m-2 btn-ignorar-usuario";
+                    btnIgnorarReportes.className = "btn btn-secondary btn-sm m-2";
                     btnIgnorarReportes.setAttribute("data-bs-toggle", "modal");
                     btnIgnorarReportes.setAttribute("data-bs-target", "#modalEliminarItem");
                     btnIgnorarReportes.textContent = "Ignorar reportes";
     
                     btnIgnorarReportes.addEventListener("click", function (){
-                        document.getElementById("modalEliminarItemTitulo").textContent = "Ignorar reportes";
-                        document.getElementById("modalEliminarItemMensaje").innerHTML = `¿Está seguro de NO penalizar a '<strong>${usuario.nombre_usuario}</strong>' y eliminar reportes?`;
-                        document.getElementById("ItemID").value = usuario.id_usuario;
+                        document.getElementById("modalEliminarItemTitulo").textContent = "Ignorar reportes de comentario";
+                        document.getElementById("modalEliminarItemMensaje").innerHTML = `¿Está seguro de eliminar los reportes y conservar el comentario "<strong>${comentario.texto_comentario}</strong>" ?`;
+                        document.getElementById("ItemID").value = comentario.id_comentario;
                     });
                     
-                    ContenedorDeUsuarios.appendChild(divPadre);
+                    ContenedorDeComentarios.appendChild(divPadre);
 
-                    const reportesContainer = document.querySelector(`.btns-${usuario.id_usuario}`);
+                    const buttonsContainer = document.querySelector(`.btns-${comentario.id_comentario}`);
 
-                    reportesContainer.appendChild(btnSuspenderUsuario);
-                    reportesContainer.appendChild(btnListarReportes);
-                    reportesContainer.appendChild(btnIgnorarReportes);
+                    buttonsContainer.appendChild(btnEliminar);
+                    buttonsContainer.appendChild(btnListarReportes);
+                    buttonsContainer.appendChild(btnIgnorarReportes);
 
                 });
 
@@ -147,30 +136,33 @@ export function obtenerUsuariosReportados(){
 
                     e.addEventListener("click", function(){
             
-                        listarReportesUsuario(e.dataset.id);
+                        listarReportesComentarios(e.dataset.id);
                     });
 
                 });
 
             }else{
 
-                ContenedorDeUsuarios.innerHTML = `<h3 class="w-100 text-center py-5">No hay usuarios reportados</h3>`;
+                ContenedorDeComentarios.innerHTML = `<h3 class="w-100 text-center py-5">No hay comentarios reportados</h3>`;
 
             }
 
         });
+
     } catch (error) {
+
         console.error(error);
+
     }
 
     panelContenido.appendChild(contenedorCards);
 }
 
-function listarReportesUsuario(id_usuario){
+function listarReportesComentarios(id_comentario){
 
     try {
                 
-        fetch('../admin/Scripts-Usuarios/listarReportesUsuario.php?id_usuario=' + id_usuario, {
+        fetch('../admin/Scripts-Comentarios/listarReportesComentarios.php?id_comentario=' + id_comentario, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"

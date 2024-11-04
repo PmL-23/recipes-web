@@ -6,9 +6,9 @@ require_once('../../includes/conec_db.php');  //todos los archivos que se necesi
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
     $sqlQuery = "SELECT 
-  (SELECT COUNT(*) FROM categorias) AS totalCategorias,
-  (SELECT COUNT(*) FROM etiquetas) AS totalEtiquetas,
-  (SELECT COUNT(*) FROM ingredientes) AS totalIngredientes";
+    (SELECT COUNT(*) FROM categorias) AS totalCategorias,
+    (SELECT COUNT(*) FROM etiquetas) AS totalEtiquetas,
+    (SELECT COUNT(*) FROM ingredientes) AS totalIngredientes";
     $queryResults = $conn->prepare($sqlQuery); //Preparo la consulta que me trae la cantidad de campos en las tablas gestionadas por admin
 
     if (!$queryResults) {

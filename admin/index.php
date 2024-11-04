@@ -23,8 +23,8 @@ include '../includes/permisos.php';
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Recetario</title>
 
-        <link rel="stylesheet" href="../css/e-admin.css">
         <?php include '../includes/head.php'?>
+        <link rel="stylesheet" href="../css/e-admin.css">
     </head>
     
 <body>
@@ -32,7 +32,7 @@ include '../includes/permisos.php';
 <?php include '../includes/header.php'?>
 
     <!-- Main container -->
-    <div class="container">
+    <div class="container mt-5">
         <div class="row admin-container">
             
             <!-- Dashboard izquierdo -->
@@ -212,26 +212,102 @@ include '../includes/permisos.php';
                 <div class="modal-header">
                     <h4 class="modal-title fs-5" id="modalSuspenderUsuarioTitle">Penalización</h4>
                 </div>
-                <div class="modal-body">
-                    <form action="" id="formulario-ban">
-                        <div class="d-flex flex-column align-items-start">
-                            <label for="inputDuracionBan" class="form-label">Días de penalización</label>
-                            <input type="number" name="inputDuracionBan" id="inputDuracionBan" min="1" max="30">
+                <form action="" id="formulario-ban">
 
-                            <div class="mt-2">
-                                <label for="inputPermaBan" class="form-label m-0">Suspender permanentemente</label>
-                                <input type="checkbox" class="form-check-input" name="inputPermaBan" id="inputPermaBan">
+                    <div class="modal-body">
+                        <div class="d-flex flex-column align-items-start">
+    
+                            <label for="inputDuracionBan" class="form-label fs-5">Suspender usuario hasta:</label>
+                            <input class="fs-5" type="datetime-local" name="inputDuracionBan" id="inputDuracionBan">
+    
+                            <hr>
+    
+                            <div class="mt-2 d-flex flex-row align-items-center">
+                                <label for="inputPermaBan" class="form-label m-0 me-3 fs-5">Suspender permanentemente</label>
+                                <input type="checkbox" class="form-check-input m-0 border border-danger shadow-none fs-3" name="inputPermaBan" id="inputPermaBan">
                                 <input type="hidden" id="cuentaID" name="cuentaID" value="" />
                             </div>
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-danger">Penalizar</button>
-                </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-danger">Penalizar</button>
+                    </div>
+
+                </form>
           </div>
         </div>
+    </div>
+
+    <!-- Modal para eliminar obj reportado -->
+    <div class="modal fade" id="modalEliminarObj" tabindex="-1" aria-labelledby="" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="modalEliminarObjTitulo">Eliminar obj</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <span id="modalEliminarObjMensaje">¿Está seguro de que desea eliminar el obj: "" ?</span>
+                </div>
+
+                <div class="modal-footer">
+                    <form action="" id="formulario-eliminar-obj" class="w-100">
+                        <input type="hidden" id="ObjID" name="ObjID" value=""/>
+                        <div class="d-flex justify-content-between">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-danger">Si, eliminar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para visualizar reportes y observaciones -->
+    <div class="modal fade" id="modalListaReportes" tabindex="-1" aria-labelledby="modalListaReportesLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg">
+            <div class="modal-content h-75" data-dmode>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalListaReportesLabel">Lista de reportes</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <ul id="listadoDeReportes" class="m-3 mt-5"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST PARA NOTIFICAR MENSAJES DE ÉXITO -->
+    <div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1055;">
+
+        <div id="formToastSuccess" class="toast align-items-center text-bg-success" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+              <div  id="toast-success-msg" class="toast-body">
+                -Mensaje exitoso correspondiente-
+              </div>
+              <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+
+    </div>
+    
+    <!-- TOAST PARA NOTIFICAR MENSAJES DE ERROR -->
+    <div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1055;">
+
+        <div id="formToastError" class="toast align-items-center text-bg-danger" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+              <div id="toast-error-msg" class="toast-body">
+                -Mensaje de error correspondiente-
+              </div>
+              <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+
     </div>
 
     <!-- Scripts de bootstrap -->

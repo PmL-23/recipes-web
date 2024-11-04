@@ -51,15 +51,20 @@ require_once('../includes/razonesReporte.php');
                     </div>
 
                     <div class="col-md-4 col-sm-1">
+                        <a class="text-decoration-none text-dark" href="../CarpetaPerfil/Perfil.php?NombreDeUsuario=<?php echo "$nombreUsuario"; ?>">
                         <h5 id="nombre-usuario">
                             <!-- Aca va el nombre del usuario -->
                             <?php echo "@$nombreUsuario"; ?>
                         </h5>
+                        </a>
                     </div>
                     <div class="col-md-7 col-sm-2 text-end">
-                        <p class="text-muted">Fecha de publicación:
+                        <p class="text-muted d-flex flex-column">
                             <span>
-                                <?php echo $fecha; ?>
+                                <?php echo explode(" ", (new DateTime($fecha))->format('d-m-Y'))[0]; ?>
+                            </span>
+                            <span>
+                                <?php echo substr(explode(" ", $fecha)[1], 0, 5); ?>
                             </span>
                         </p>
                     </div>
@@ -340,6 +345,35 @@ require_once('../includes/razonesReporte.php');
 
     </div>
 
+    <!-- MODAL ELIMINAR COMENTARIO PROPIO -->
+
+    <div class="p-0 modal fade" id="modalEliminarComentario" tabindex="-1" aria-labelledby="" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="tituloModalEliminarComentario">Eliminar comentario</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <span id="mensajeModalEliminarComentario">¿Está seguro de que deseas eliminar tu comentario: "" ?</span>
+                </div>
+
+                <div class="modal-footer">
+                    <form action="" id="formulario-eliminar-comentario" class="w-100">
+                        <input type="hidden" id="ComentarioID" name="ComentarioID" value=""/>
+                        <div class="d-flex justify-content-between">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">Si, eliminar</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
     <!-- MODAL REPORTAR COMENTARIO -->
 
     <div class="modal fade p-0" id="modalReportarComentario" tabindex="-1" aria-labelledby="modalReportarComentarioLabel" aria-hidden="true">
@@ -372,7 +406,7 @@ require_once('../includes/razonesReporte.php');
 
                         <input type="hidden" name="id_comentario" id="id_comentario" value="">
 
-                        <button type="submit" class="btn btn-dark">Enviar Reporte</button>
+                        <button type="submit" class="btn btn-dark" data-bs-dismiss="modal" aria-label="Close">Enviar Reporte</button>
 
                     </form>
 
@@ -412,8 +446,9 @@ require_once('../includes/razonesReporte.php');
                         </div>
 
                         <input type="hidden" name="id_publicacion_receta" value="<?php if (isset($_GET['id'])) echo $_GET['id']; ?>">
+                        <input type="hidden" id="logged_in_user" value="<?php if (isset($_SESSION['nomUsuario'])) echo $_SESSION['nomUsuario']; ?>">
 
-                        <button type="submit" class="btn btn-dark">Enviar Reporte</button>
+                        <button type="submit" class="btn btn-dark" data-bs-dismiss="modal" aria-label="Close">Enviar Reporte</button>
 
                     </form>
 
@@ -437,6 +472,35 @@ require_once('../includes/razonesReporte.php');
             </div>
         </div>
     </div>
+
+    <!-- TOAST PARA NOTIFICAR MENSAJES DE ÉXITO -->
+    <div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1055;">
+
+        <div id="formToastSuccess" class="toast align-items-center text-bg-success" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+              <div  id="toast-success-msg" class="toast-body">
+                -Mensaje exitoso correspondiente-
+              </div>
+              <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+
+    </div>
+    
+    <!-- TOAST PARA NOTIFICAR MENSAJES DE ERROR -->
+    <div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1055;">
+
+        <div id="formToastError" class="toast align-items-center text-bg-danger" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+              <div id="toast-error-msg" class="toast-body">
+                -Mensaje de error correspondiente-
+              </div>
+              <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+
+    </div>
+
     <!-- PUBLICACIONES similares -->
     <div class="container">
         <h1 class="">Publicaciones similares</h1>

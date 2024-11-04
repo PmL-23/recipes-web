@@ -26,13 +26,3 @@ function toggleMenu(event) {
 
     }
 }
-
-function reportarComentario(IDComentario) {
-
-    document.getElementById("id_comentario").value = IDComentario;
-
-}
-
-function eliminarComentario(IDComentario) {
-    alert(`Comentario ${IDComentario} eliminado!!!!!`);
-}
