@@ -13,13 +13,16 @@ $loginOK = null;
 
 <body>
     <?php include '../includes/header.php' ?>
-    <h1>COMPLETE EL SIGUIENTE FORMULARIO</h1>
-    <BR>
-    <form action="enviar_token.php" method="POST">
-        <label for="email">Ingresa tu correo electrónico:</label>
-        <input type="email" id="email" name="email" required>
-        <button type="submit">Recuperar Contraseña</button>
-    </form>
+    <div class="container mt-5">
+        <h1 class="mb-4">COMPLETE EL SIGUIENTE FORMULARIO</h1>
+        <form action="enviar_token.php" method="POST">
+            <div class="form-group">
+                <label for="email">Ingresa tu correo electrónico:</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Coloque su email acá" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Recuperar Contraseña</button>
+        </form>
+    </div>
     <?php include '../includes/footer.php' ?>
 </body>
 </html>
