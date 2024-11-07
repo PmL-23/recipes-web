@@ -2,118 +2,10 @@ import { obtenerCategorias } from "./Scripts-Categorias/obtenerCategorias.js";
 import { obtenerEtiquetas } from "./Scripts-Etiquetas/obtenerEtiquetas.js";
 import { obtenerIngredientes } from "./Scripts-Ingredientes/obtenerIngredientes.js";
 import { obtenerUsuariosReportados } from "./Scripts-Usuarios/obtenerUsuariosReportados.js";
+import { obtenerComentariosReportados } from "./Scripts-Comentarios/obtenerComentariosReportados.js";
+import { obtenerPublicacionesReportadas } from "./Scripts-Publicaciones/obtenerPublicacionesReportadas.js";
 
-//OBJETOS QUE USO PARA SIMULAR DATOS PROVENIENTES DE UNA BASE DE DATOS
-
-const usuariosReportados = [
-    {
-        id: 1,
-        email: "PmL23@gmail.com",
-        nombreUsuario: "PatriMJ23",
-        fotoPerfil: "https://i.pinimg.com/564x/d5/83/be/d583beeae1f9def909f332224247f3a6.jpg",
-        fechaCreacionCuenta: "11-04-2010",
-        publicaciones: 7,
-        reportes: 120,
-        seguidores: 54
-    },
-    {
-        id: 2,
-        email: "mati_amongus@gmail.com",
-        nombreUsuario: "mati777",
-        fotoPerfil: "https://i.redd.it/aozj4qmgq0o51.jpg",
-        fechaCreacionCuenta: "19-02-2016",
-        publicaciones: 30,
-        reportes: 87,
-        seguidores: 40
-    },
-    {
-        id: 3,
-        email: "pepe_lol@gmail.com",
-        nombreUsuario: "pepe87",
-        fotoPerfil: "https://tr.rbxcdn.com/d1bfa838115f5643d1d2946f9aae0095/420/420/Hat/Webp",
-        fechaCreacionCuenta: "06-08-2001",
-        publicaciones: 10,
-        reportes: 15,
-        seguidores: 5430
-    },
-    {
-        id: 4,
-        email: "sash_medina@gmail.com",
-        nombreUsuario: "sash4321",
-        fotoPerfil: "https://www.66autocolor.com/cdn/shop/products/11.GRA0898SleekGray_838x.jpg?v=1630091688",
-        fechaCreacionCuenta: "02-08-2010",
-        publicaciones: 6,
-        reportes: 19,
-        seguidores: 63
-    },
-    {
-        id: 5,
-        email: "mati_camara@gmail.com",
-        nombreUsuario: "mat1_camara_YT",
-        fotoPerfil: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMaJ7xOt3ipD13Dhc0FW09PILR5KamQ7xv5w&s",
-        fechaCreacionCuenta: "12-12-2012",
-        publicaciones: 1,
-        reportes: "+999",
-        seguidores: 5
-    }
-];
-
-const comentariosReportados = [
-    {
-        id: 1,
-        usuarioAutor: "Tomas75",
-        fotoPerfil: "https://i.pinimg.com/736x/94/39/0b/94390b50e16145523416e45d1924e296.jpg",
-        fechaPublicacion: "23-09-2024",
-        horaPublicacion: "03:50:12",
-        texto: "Hola",
-        cantidadReportes: 54
-    },
-    {
-        id: 2,
-        usuarioAutor: "Emilio777",
-        fotoPerfil: "https://avatarfiles.alphacoders.com/130/thumb-1920-130018.jpg",
-        fechaPublicacion: "11-03-2021",
-        horaPublicacion: "17:53:18",
-        texto: "Buenas soy nuevo",
-        cantidadReportes: 21
-    },
-    {
-        id: 3,
-        usuarioAutor: "NicoGarrido24",
-        fotoPerfil: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Netflix_icon.svg/2048px-Netflix_icon.svg.png",
-        fechaPublicacion: "20-09-2024",
-        horaPublicacion: "11:42:33",
-        texto: "Buenas tardes, La clase de hoy comenzará a las 18:15 hs",
-        cantidadReportes: 82
-    }
-];
-
-const publicacionesReportadas = [
-    {
-        id: 1,
-        titulo: "Pizza con anana",
-        fotoPortada: "https://hacermasapizza.com/img/foto-pizza-hawaiana-icon-pina-936.webp",
-        descripcion: "Es una delicia, queda con un contraste de sabores sorprendente y además es facilísima de preparar. Si te gustan las pizzas y ya has probado nuestra pizza carbonara, hoy nueva receta, pizza con sabor tropical con piña.",
-        fecha: "05-04-2023",
-        cantidadReportes: 213
-    },
-    {
-        id: 2,
-        titulo: "Helado de menta",
-        fotoPortada: "https://danzadefogones.com/wp-content/uploads/2018/09/Helado-de-chocolate-y-menta-vegano-4-1.jpg",
-        descripcion: "En esta semana donde solo he subido helados estoy absolutamente feliz de los resultados. Eso quiere decir que el helado, como ya sabíamos, nos hace felices, jaja. Este helado de menta con chocolate es increíble. El sabor de la menta es 100% natural de menta fresca y queda muy bueno.",
-        fecha: "01-02-2021",
-        cantidadReportes: 85
-    },
-    {
-        id: 3,
-        titulo: "Locro",
-        fotoPortada: "https://www.196flavors.com/wp-content/uploads/2023/01/Locro-1.jpg",
-        descripcion: "Para todas las fechas patrias, los platos típicos de nuestro floclore nos llaman a celebrar. El locro, también en esta época del año, resulta una buena opción. Hay muchísimas formas de hacer el locro, una comida típicamente argentina, originaria del norte del país.",
-        fecha: "05-09-2024",
-        cantidadReportes: 132
-    }
-];
+//Modales que muestro durante la gestión administrativa
 
 const modalElement1 = document.getElementById('modalGestionCategoria');
 const modalBootstrapCategorias = new bootstrap.Modal(modalElement1);
@@ -127,25 +19,17 @@ const modalBootstrapIngredientes = new bootstrap.Modal(modalElement3);
 const modalElement4 = document.getElementById('modalEliminarItem');
 const modalBootstrapEliminarItem = new bootstrap.Modal(modalElement4);
 
+const modalElement5 = document.getElementById('modalEliminarObj');
+const modalBootstrapEliminarObj = new bootstrap.Modal(modalElement5);
+
+const modalElement6 = document.getElementById('modalSuspenderUsuario');
+const modalBootstrapBaneos = new bootstrap.Modal(modalElement6);
+
+//Listeners y lógica general
+
 document.addEventListener("DOMContentLoaded", function (){
 
     verificarSeccion();
-
-    actualizarContadores();
-
-    /* document.querySelectorAll('.list-group a').forEach(item => {
-
-        item.addEventListener('click', function() {
-
-            limpiarDashboard();
-
-            const seccion = item.getAttribute('href');
-
-            manejarContenido(seccion);
-
-            if (seccion != "#") item.classList.add('item-activo');
-        });
-    }); */
 
     window.addEventListener('hashchange', function () {
         limpiarDashboard();
@@ -196,136 +80,98 @@ document.addEventListener("DOMContentLoaded", function (){
 
         if (e.target.dataset.accion == "crear") {
 
-            if (indice !== -1) {
-
-                // Guarda la URL desde el inicio hasta la palabra "recipes-web/"
-                let urlCortada = urlActual.substring(0, indice + palabraClave.length);
-
-                fetch(urlCortada + "admin/Scripts-Categorias/crearCategoria.php", {
+            fetch('../admin/Scripts-Categorias/crearCategoria.php', {
             
-                    method: "POST",
-                    body: new FormData(e.target)
-                })
-                .then(res => res.json())
-                .then(data => {
+                method: "POST",
+                body: new FormData(e.target)
+            })
+            .then(res => res.json())
+            .then(data => {
 
-                    if (data.success == true) {
-                        console.log("Categoria creada con éxito");
-                    }else{
-                        console.log("Error al crear categoría");
-                    }
+                if (data.success == true) {
+                    console.log("Categoria creada con éxito");
+                }else{
+                    console.log("Error al crear categoría");
+                }
 
-                    obtenerCategorias();
+                obtenerCategorias();
 
-                    modalBootstrapCategorias.hide();
+                modalBootstrapCategorias.hide();
 
-                });
+            });
 
-            } else {
-                console.log("La cadena 'recipes-web/' no se encontró en la URL.");
-            }
         }else if(e.target.dataset.accion == "editar"){
 
-            if (indice !== -1) {
-
-                // Guarda la URL desde el inicio hasta la palabra "recipes-web/"
-                let urlCortada = urlActual.substring(0, indice + palabraClave.length);
-
-                fetch(urlCortada + "admin/Scripts-Categorias/editarCategoria.php", {
+            fetch('../admin/Scripts-Categorias/editarCategoria.php', {
             
-                    method: "POST",
-                    body: new FormData(e.target)
-                })
-                .then(res => res.json())
-                .then(data => {
+                method: "POST",
+                body: new FormData(e.target)
+            })
+            .then(res => res.json())
+            .then(data => {
 
-                    if (data.success == true) {
-                        console.log("Categoria editada con éxito");
-                    }else{
-                        console.log("Error al editar categoría");
-                    }
+                if (data.success == true) {
+                    console.log("Categoria editada con éxito");
+                }else{
+                    console.log("Error al editar categoría");
+                }
 
-                    obtenerCategorias();
+                obtenerCategorias();
 
-                    modalBootstrapCategorias.hide();
+                modalBootstrapCategorias.hide();
 
-                });
-
-            } else {
-                console.log("La cadena 'recipes-web/' no se encontró en la URL.");
-            }
+            });
         }
     });
 
     document.getElementById("formulario-gestion-etiquetas").addEventListener("submit", function (e){
+
         e.preventDefault();
-
-        let urlActual = window.location.href;
-        let palabraClave = "recipes-web/";
-
-            // Encuentra el índice de la palabra "recipes-web/" en la URL
-        let indice = urlActual.indexOf(palabraClave);
 
         if (e.target.dataset.accion == "crear") {
 
-            if (indice !== -1) {
-
-                // Guarda la URL desde el inicio hasta la palabra "recipes-web/"
-                let urlCortada = urlActual.substring(0, indice + palabraClave.length);
-
-                fetch(urlCortada + "admin/Scripts-Etiquetas/crearEtiqueta.php", {
+            fetch('../admin/Scripts-Etiquetas/crearEtiqueta.php', {
             
-                    method: "POST",
-                    body: new FormData(e.target)
-                })
-                .then(res => res.json())
-                .then(data => {
+                method: "POST",
+                body: new FormData(e.target)
+            })
+            .then(res => res.json())
+            .then(data => {
 
-                    if (data.success == true) {
-                        console.log("Etiqueta creada con éxito");
-                    }else{
-                        console.log("Error al crear etiqueta");
-                    }
+                if (data.success == true) {
+                    console.log("Etiqueta creada con éxito");
+                }else{
+                    console.log("Error al crear etiqueta");
+                }
 
-                    obtenerEtiquetas();
+                obtenerEtiquetas();
 
-                    modalBootstrapEtiquetas.hide();
+                modalBootstrapEtiquetas.hide();
 
-                });
+            });
 
-            } else {
-                console.log("La cadena 'recipes-web/' no se encontró en la URL.");
-            }
         }else if(e.target.dataset.accion == "editar"){
 
-            if (indice !== -1) {
-
-                // Guarda la URL desde el inicio hasta la palabra "recipes-web/"
-                let urlCortada = urlActual.substring(0, indice + palabraClave.length);
-
-                fetch(urlCortada + "admin/Scripts-Etiquetas/editarEtiqueta.php", {
+            fetch('../admin/Scripts-Etiquetas/editarEtiqueta.php', {
             
-                    method: "POST",
-                    body: new FormData(e.target)
-                })
-                .then(res => res.json())
-                .then(data => {
+                method: "POST",
+                body: new FormData(e.target)
+            })
+            .then(res => res.json())
+            .then(data => {
 
-                    if (data.success == true) {
-                        console.log("Etiqueta editada con éxito");
-                    }else{
-                        console.log("Error al editar etiqueta");
-                    }
+                if (data.success == true) {
+                    console.log("Etiqueta editada con éxito");
+                }else{
+                    console.log("Error al editar etiqueta");
+                }
 
-                    obtenerEtiquetas();
+                obtenerEtiquetas();
 
-                    modalBootstrapEtiquetas.hide();
+                modalBootstrapEtiquetas.hide();
 
-                });
+            });
 
-            } else {
-                console.log("La cadena 'recipes-web/' no se encontró en la URL.");
-            }
         }
     });
 
@@ -340,64 +186,48 @@ document.addEventListener("DOMContentLoaded", function (){
 
         if (e.target.dataset.accion == "crear") {
 
-            if (indice !== -1) {
-
-                // Guarda la URL desde el inicio hasta la palabra "recipes-web/"
-                let urlCortada = urlActual.substring(0, indice + palabraClave.length);
-
-                fetch(urlCortada + "admin/Scripts-Ingredientes/crearIngrediente.php", {
+            fetch('../admin/Scripts-Ingredientes/crearIngrediente.php', {
             
-                    method: "POST",
-                    body: new FormData(e.target)
-                })
-                .then(res => res.json())
-                .then(data => {
+                method: "POST",
+                body: new FormData(e.target)
+            })
+            .then(res => res.json())
+            .then(data => {
 
-                    if (data.success == true) {
-                        console.log("Ingrediente añadido con éxito");
-                    }else{
-                        console.log("Error al añadir ingrediente");
-                    }
+                if (data.success == true) {
+                    console.log("Ingrediente añadido con éxito");
+                }else{
+                    console.log("Error al añadir ingrediente");
+                }
 
-                    obtenerIngredientes();
+                obtenerIngredientes();
 
-                    modalBootstrapIngredientes.hide();
+                modalBootstrapIngredientes.hide();
 
-                });
+            });
 
-            } else {
-                console.log("La cadena 'recipes-web/' no se encontró en la URL.");
-            }
         }else if(e.target.dataset.accion == "editar"){
 
-            if (indice !== -1) {
-
-                // Guarda la URL desde el inicio hasta la palabra "recipes-web/"
-                let urlCortada = urlActual.substring(0, indice + palabraClave.length);
-
-                fetch(urlCortada + "admin/Scripts-Ingredientes/editarIngrediente.php", {
+            fetch('../admin/Scripts-Ingredientes/editarIngrediente.php', {
             
-                    method: "POST",
-                    body: new FormData(e.target)
-                })
-                .then(res => res.json())
-                .then(data => {
+                method: "POST",
+                body: new FormData(e.target)
+            })
+            .then(res => res.json())
+            .then(data => {
 
-                    if (data.success == true) {
-                        console.log("Ingrediente editado con éxito");
-                    }else{
-                        console.log("Error al editar ingrediente");
-                    }
+                if (data.success == true) {
+                    console.log("Ingrediente editado con éxito");
+                }else{
+                    console.log("Error al editar ingrediente");
+                }
 
-                    obtenerIngredientes();
+                obtenerIngredientes();
 
-                    modalBootstrapIngredientes.hide();
+                modalBootstrapIngredientes.hide();
 
-                });
+            });
 
-            } else {
-                console.log("La cadena 'recipes-web/' no se encontró en la URL.");
-            }
         }
     });
 
@@ -405,121 +235,347 @@ document.addEventListener("DOMContentLoaded", function (){
 
         e.preventDefault();
 
-        let urlActual = window.location.href;
-        let palabraClave = "recipes-web/";
+        if (location.hash == "#admin-categorias" || location.hash == "#" || location.hash == "") {
 
-            // Encuentra el índice de la palabra "recipes-web/" en la URL
-        let indice = urlActual.indexOf(palabraClave);
+            fetch('../admin/Scripts-Categorias/eliminarCategoria.php', {
+    
+                method: "POST",
+                body: new FormData(e.target)
+            })
+            .then(res => res.json())
+            .then(data => {
 
-        if (indice !== -1) {
+                if (data.success == true) {
+                    console.log("Categoria eliminada con éxito..");
+                    document.getElementById("toast-success-msg").textContent = "Categoria eliminada con éxito..";
 
-            // Guarda la URL desde el inicio hasta la palabra "recipes-web/"
-            let urlCortada = urlActual.substring(0, indice + palabraClave.length);
+                    var toastElement = document.getElementById('formToastSuccess');
+                    var toast = new bootstrap.Toast(toastElement);
+                    toast.show();
+                }else{
+                    console.log("Error al eliminar categoría..");
+                    document.getElementById("toast-error-msg").textContent = "Error al eliminar categoría..";
 
-            if (location.hash == "#admin-categorias" || location.hash == "#" || location.hash == "") {
-                fetch(urlCortada + "admin/Scripts-Categorias/eliminarCategoria.php", {
-        
-                    method: "POST",
-                    body: new FormData(e.target)
-                })
-                .then(res => res.json())
-                .then(data => {
-    
-                    if (data.success == true) {
-                        console.log("Categoria eliminada con éxito");
-                    }else{
-                        console.log("Error al eliminar categoría");
-                    }
-    
-                    obtenerCategorias();
-    
-                    modalBootstrapEliminarItem.hide();
-    
-                });
+                    var toastElement = document.getElementById('formToastError');
+                    var toast = new bootstrap.Toast(toastElement);
+                    toast.show();
+                }
 
-            }else if(location.hash == "#admin-etiquetas"){
+                obtenerCategorias();
 
-                fetch(urlCortada + "admin/Scripts-Etiquetas/eliminarEtiqueta.php", {
-        
-                    method: "POST",
-                    body: new FormData(e.target)
-                })
-                .then(res => res.json())
-                .then(data => {
-    
-                    if (data.success == true) {
-                        console.log("Etiqueta eliminada con éxito");
-                    }else{
-                        console.log("Error al eliminar etiqueta");
-                    }
-    
-                    obtenerEtiquetas();
-    
-                    modalBootstrapEliminarItem.hide();
-    
-                });
+                modalBootstrapEliminarItem.hide();
 
-            }else if(location.hash == "#admin-ingredientes"){
+            });
 
-                fetch(urlCortada + "admin/Scripts-Ingredientes/eliminarIngrediente.php", {
-        
-                    method: "POST",
-                    body: new FormData(e.target)
-                })
-                .then(res => res.json())
-                .then(data => {
-    
-                    if (data.success == true) {
-                        console.log("Ingrediente eliminado con éxito");
-                    }else{
-                        console.log("Error al eliminar ingrediente");
-                    }
-    
-                    obtenerIngredientes();
-    
-                    modalBootstrapEliminarItem.hide();
-    
-                });
-            }else if(location.hash == "#admin-usuarios"){
+        }else if(location.hash == "#admin-etiquetas"){
 
-                fetch('../admin/Scripts-Usuarios/ignorarReportesUsuario.php', {
-        
-                    method: "POST",
-                    body: new FormData(e.target)
-                })
-                .then(res => res.json())
-                .then(data => {
+            fetch('../admin/Scripts-Etiquetas/eliminarEtiqueta.php', {
     
-                    if (data.success == true) {
-                        console.log("Reportes de usuario eliminados con éxito");
-                    }else{
-                        console.log("Error al eliminar reportes de usuario");
-                    }
-    
-                    obtenerUsuariosReportados();
-    
-                    modalBootstrapEliminarItem.hide();
-    
-                });
-            }
+                method: "POST",
+                body: new FormData(e.target)
+            })
+            .then(res => res.json())
+            .then(data => {
 
-        } else {
-            console.log("La cadena 'recipes-web/' no se encontró en la URL.");
+                if (data.success == true) {
+                    console.log("Etiqueta eliminada con éxito..");
+                    document.getElementById("toast-success-msg").textContent = "Etiqueta eliminada con éxito..";
+
+                    var toastElement = document.getElementById('formToastSuccess');
+                    var toast = new bootstrap.Toast(toastElement);
+                    toast.show();
+                }else{
+                    console.log("Error al eliminar etiqueta..");
+                    document.getElementById("toast-error-msg").textContent = "Error al eliminar etiqueta..";
+
+                    var toastElement = document.getElementById('formToastError');
+                    var toast = new bootstrap.Toast(toastElement);
+                    toast.show();
+                }
+
+                obtenerEtiquetas();
+
+                modalBootstrapEliminarItem.hide();
+
+            });
+
+        }else if(location.hash == "#admin-ingredientes"){
+
+            fetch('../admin/Scripts-Ingredientes/eliminarIngrediente.php', {
+    
+                method: "POST",
+                body: new FormData(e.target)
+            })
+            .then(res => res.json())
+            .then(data => {
+
+                if (data.success == true) {
+                    console.log("Ingrediente eliminado con éxito..");
+                    document.getElementById("toast-success-msg").textContent = "Ingrediente eliminado con éxito..";
+
+                    var toastElement = document.getElementById('formToastSuccess');
+                    var toast = new bootstrap.Toast(toastElement);
+                    toast.show();
+                }else{
+                    console.log("Error al eliminar ingrediente..");
+                    document.getElementById("toast-error-msg").textContent = "Error al eliminar ingrediente..";
+
+                    var toastElement = document.getElementById('formToastError');
+                    var toast = new bootstrap.Toast(toastElement);
+                    toast.show();
+                }
+
+                obtenerIngredientes();
+
+                modalBootstrapEliminarItem.hide();
+
+            });
+
+        }else if(location.hash == "#admin-usuarios"){
+
+            fetch('../admin/Scripts-Usuarios/ignorarReportesUsuario.php', {
+    
+                method: "POST",
+                body: new FormData(e.target)
+            })
+            .then(res => res.json())
+            .then(data => {
+
+                if (data.success == true) {
+                    console.log("Reportes de usuario eliminados con éxito..");
+                    document.getElementById("toast-success-msg").textContent = "Reportes de usuario eliminados con éxito..";
+
+                    var toastElement = document.getElementById('formToastSuccess');
+                    var toast = new bootstrap.Toast(toastElement);
+                    toast.show();
+                }else{
+                    console.log("Error al eliminar reportes de usuario..");
+                    document.getElementById("toast-error-msg").textContent = "Error al eliminar reportes de usuario..";
+
+                    var toastElement = document.getElementById('formToastError');
+                    var toast = new bootstrap.Toast(toastElement);
+                    toast.show();
+                }
+
+                obtenerUsuariosReportados();
+
+                modalBootstrapEliminarItem.hide();
+
+            });
+
+        }else if(location.hash == "#admin-comentarios"){
+
+            fetch('../admin/Scripts-Comentarios/ignorarReportesComentario.php', {
+    
+                method: "POST",
+                body: new FormData(e.target)
+            })
+            .then(res => res.json())
+            .then(data => {
+
+                if (data.success == true) {
+                    console.log("Reportes de comentario eliminados con éxito..");
+                    document.getElementById("toast-success-msg").textContent = "Reportes de comentario eliminados con éxito..";
+
+                    var toastElement = document.getElementById('formToastSuccess');
+                    var toast = new bootstrap.Toast(toastElement);
+                    toast.show();
+                }else{
+                    console.log("Error al eliminar reportes de comentario..");
+                    document.getElementById("toast-error-msg").textContent = "Error al eliminar reportes de comentario..";
+
+                    var toastElement = document.getElementById('formToastError');
+                    var toast = new bootstrap.Toast(toastElement);
+                    toast.show();
+                }
+
+                obtenerComentariosReportados();
+
+                modalBootstrapEliminarItem.hide();
+
+            });
+
+        }else if(location.hash == "#admin-publicaciones"){
+
+            fetch('../admin/Scripts-Publicaciones/ignorarReportesPublicacion.php', {
+    
+                method: "POST",
+                body: new FormData(e.target)
+            })
+            .then(res => res.json())
+            .then(data => {
+
+                if (data.success == true) {
+                    console.log("Reportes de publicacion eliminados con éxito..");
+                    document.getElementById("toast-success-msg").textContent = "Reportes de publicacion eliminados con éxito..";
+
+                    var toastElement = document.getElementById('formToastSuccess');
+                    var toast = new bootstrap.Toast(toastElement);
+                    toast.show();
+                }else{
+                    console.log("Error al eliminar reportes de publicación..");
+                    document.getElementById("toast-error-msg").textContent = "Error al eliminar reportes de publicación..";
+
+                    var toastElement = document.getElementById('formToastError');
+                    var toast = new bootstrap.Toast(toastElement);
+                    toast.show();
+                }
+
+                obtenerPublicacionesReportadas();
+
+                modalBootstrapEliminarItem.hide();
+
+            });
         }
+    });
+    
+    document.getElementById("formulario-eliminar-obj").addEventListener("submit", function(e){
+
+        e.preventDefault();
+
+        if(location.hash == "#admin-comentarios"){
+
+            fetch('../admin/Scripts-Comentarios/eliminarComentario.php', {
+    
+                method: "POST",
+                body: new FormData(e.target)
+            })
+            .then(res => res.json())
+            .then(data => {
+
+                if (data.success == true) {
+                    console.log("Comentario eliminado con éxito..");
+                    document.getElementById("toast-success-msg").textContent = "Comentario eliminado con éxito..";
+
+                    var toastElement = document.getElementById('formToastSuccess');
+                    var toast = new bootstrap.Toast(toastElement);
+                    toast.show();
+
+                }else{
+                    console.log("Error al eliminar comentario..");
+
+                    document.getElementById("toast-error-msg").textContent = "Error al eliminar comentario..";
+
+                    var toastElement = document.getElementById('formToastError');
+                    var toast = new bootstrap.Toast(toastElement);
+                    toast.show();
+                }
+
+                obtenerComentariosReportados();
+
+                modalBootstrapEliminarObj.hide();
+
+            });
+
+        }else if(location.hash == "#admin-publicaciones"){
+
+            fetch('../admin/Scripts-Publicaciones/eliminarPublicacion.php', {
+    
+                method: "POST",
+                body: new FormData(e.target)
+            })
+            .then(res => res.json())
+            .then(data => {
+
+                if (data.success == true) {
+                    console.log("Publicación eliminada con éxito..");
+                    document.getElementById("toast-success-msg").textContent = "Publicación eliminada con éxito..";
+
+                    var toastElement = document.getElementById('formToastSuccess');
+                    var toast = new bootstrap.Toast(toastElement);
+                    toast.show();
+                }else{
+                    console.log("Error al eliminar publicación..");
+                    document.getElementById("toast-error-msg").textContent = "Error al eliminar publicación..";
+
+                    var toastElement = document.getElementById('formToastError');
+                    var toast = new bootstrap.Toast(toastElement);
+                    toast.show();
+                }
+
+                obtenerPublicacionesReportadas();
+
+                modalBootstrapEliminarObj.hide();
+
+            });
+        }
+
     });
 
     document.getElementById("formulario-ban").addEventListener("submit", function(e){
 
         e.preventDefault();
 
+        fetch('../admin/Scripts-Usuarios/suspenderUsuario.php', {
+    
+            method: "POST",
+            body: new FormData(e.target)
+        })
+        .then(res => res.json())
+        .then(data => {
 
+            /* console.log(data); */
+            const inputDuracionBan = document.getElementById("inputDuracionBan");
+            const inputPermaBan = document.getElementById("inputPermaBan");
+
+            if (data.success == true) {
+
+                e.target.reset();
+                inputDuracionBan.removeAttribute('disabled');
+                inputPermaBan.classList.add("bg-light");
+                inputPermaBan.classList.remove("bg-danger");
+
+                if (data.ban_permanente == true) {
+                    
+                    console.log("Usuario suspendido permanentemente..");
+                    document.getElementById("toast-success-msg").textContent = "Usuario suspendido permanentemente..";
+
+                    var toastElement = document.getElementById('formToastSuccess');
+                    var toast = new bootstrap.Toast(toastElement);
+                    toast.show();
+                    
+                }else{
+
+                    console.log("Usuario suspendido temporalmente..");
+                    document.getElementById("toast-success-msg").textContent = "Usuario suspendido temporalmente..";
+
+                    var toastElement = document.getElementById('formToastSuccess');
+                    var toast = new bootstrap.Toast(toastElement);
+                    toast.show();
+                }
+
+                modalBootstrapBaneos.hide();
+
+            }else{
+                console.log("Error al suspender usuario: " + data.message);
+                document.getElementById("toast-error-msg").textContent = "Error al suspender usuario..";
+
+                var toastElement = document.getElementById('formToastError');
+                var toast = new bootstrap.Toast(toastElement);
+                toast.show();
+            }
+
+            obtenerUsuariosReportados();
+
+        });
     });
 
     document.getElementById("inputPermaBan").addEventListener("change", function (e){
 
         const inputDuracionBan = document.getElementById("inputDuracionBan");
+        const inputPermaBan = document.getElementById("inputPermaBan");
 
-        e.target.checked ?inputDuracionBan.setAttribute('disabled', '') :inputDuracionBan.removeAttribute('disabled');
+        if (e.target.checked) {
+            inputDuracionBan.value = '';
+            inputDuracionBan.setAttribute('disabled', '');
+            inputPermaBan.classList.remove("bg-light");
+            inputPermaBan.classList.add("bg-danger");
+        }else{
+            inputDuracionBan.removeAttribute('disabled');
+            inputPermaBan.classList.add("bg-light");
+            inputPermaBan.classList.remove("bg-danger");
+        }
+        
     });
 
 });
@@ -552,174 +608,58 @@ function adaptarDashboard(href){
     });
 };
 
-function obtenerComentariosReportados(){
-
-    const panelContenido = document.querySelector(".panel-body");
-
-    const contenedorCards = document.createElement("div");
-    contenedorCards.classList.add('w-100', 'd-flex', 'flex-column', 'border', 'overflow-y-auto');
-
-    comentariosReportados.forEach((comentario) => {
-
-        contenedorCards.innerHTML += `
-            <div class="card m-5">
-                <div class="card-header">
-                    <div class="d-flex flex-row">
-
-                        <div class="w-100 p-2 d-flex flex-row align-items-center">
-
-                            <img class="w-25 img-thumbnail rounded-circle" src="${comentario.fotoPerfil}"/>
-                            <h5 class="text-secondary ms-3">${comentario.usuarioAutor}</h5>
-
-                        </div>
-
-						<div class="w-100 p-2 d-flex flex-column align-items-end justify-content-center">
-
-						    <span class="text-secondary">Fecha ${comentario.fechaPublicacion}</span>
-						    <span class="text-body-tertiary">Hora ${comentario.horaPublicacion}</span>
-
-                        </div>
-					</div>
-                </div>
-                <div class="card-body">
-                    <blockquote class="blockquote mb-0 m-3">
-                        <h4>"${comentario.texto}"</h4>
-                    </blockquote>
-                </div>
-                <div class="card-body">
-                    <blockquote class="blockquote mb-0 ms-2">
-                        <p>Cantidad de reportes: ${comentario.cantidadReportes}</p>
-                    </blockquote>
-
-                    <button class="btn btn-custom-bg btn-sm ms-1 m-2 btn-ver-comentario">Ver en publicacion</button>
-                    <button class="btn btn-danger btn-sm ms-1 m-2 btn-eliminar-comentario">Eliminar comentario</button>
-                    <button class="btn btn-secondary btn-sm m-2 btn-ignorar-comentario" data-bs-toggle="modal" data-bs-target="#asdasd">Ignorar comentario</button>
-                </div>
-            </div>
-        `;
-    });
-
-    panelContenido.appendChild(contenedorCards);
-}
-
-function obtenerPublicacionesReportadas(){
-
-    const panelContenido = document.querySelector(".panel-body");
-
-    const contenedorCards = document.createElement("div");
-    contenedorCards.classList.add('w-100', 'd-flex', 'flex-column', 'border', 'overflow-y-auto');
-
-    publicacionesReportadas.forEach((publicacion) => {
-        contenedorCards.innerHTML += `
-            <div class="card m-5">
-                <div class="row g-0">
-                    <div class="col-md-4">
-                        <img src="${publicacion.fotoPortada}" class="img-fluid rounded-start" alt="${publicacion.titulo}">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h4 class="card-title">${publicacion.titulo}</h4>
-                            <p class="card-text">${publicacion.descripcion}</p>
-                            <p class="card-text"><small class="text-body-secondary">${publicacion.fecha}</small></p>
-                            <h5 class="card-title">Cantidad de reportes: ${publicacion.cantidadReportes}</h5>
-                            <button class="btn btn-custom-bg btn-sm ms-1 m-2 btn-ver-publicacion">Ir a publicacion</button>
-                            <button class="btn btn-danger btn-sm ms-1 m-2 btn-eliminar-publicacion">Eliminar publicación</button>
-                            <button class="btn btn-secondary btn-sm m-2 btn-ignorar-publicacion" data-bs-toggle="modal" data-bs-target="#asdasd">Ignorar publicación</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-    });
-
-    panelContenido.appendChild(contenedorCards);
-}
-
 function actualizarContadores(){
 
-    let urlActual = window.location.href;
-    let palabraClave = "recipes-web/";
-
-    // Encuentra el índice de la palabra "recipes-web/" en la URL
-    let indice = urlActual.indexOf(palabraClave);
-
-    if (indice !== -1) {
-
-        // Guarda la URL desde el inicio hasta la palabra "recipes-web/"
-        let urlCortada = urlActual.substring(0, indice + palabraClave.length);
-
-        fetch(urlCortada + "admin/PHPextras/contador.php", {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-        .then(res => {
-            // Verifico si la respuesta fue exitosa
-            if (!res.ok) {
-                throw new Error('Error en la solicitud: ' + res.status);
-            }
-
-            // Verifico si hay contenido en la respuesta
-            if (res.headers.get('content-length') === '0') {
-                return null; // No hay contenido
-            }
-
-            // Convierto a JSON
-            return res.json();
-        })
-        .then(data => {
-
-            /* const ContadorCategorias = document.getElementById("cont-categorias");
-            const ContadorEtiquetas = document.getElementById("cont-etiquetas");
-            const ContadorIngredientes = document.getElementById("cont-ingredientes");
-
-            if (data.totalCategorias > 0) {
-                ContadorCategorias.classList.remove("d-none");
-                ContadorCategorias.innerText = data.totalCategorias;
-            }else{
-                ContadorCategorias.classList.add("d-none");
-            }
-
-            if (data.totalEtiquetas > 0) {
-                ContadorEtiquetas.classList.remove("d-none");
-                ContadorEtiquetas.innerText = data.totalEtiquetas;
-            }else{
-                ContadorEtiquetas.classList.add("d-none");
-            }
-
-            if (data.totalIngredientes > 0) {
-                ContadorIngredientes.classList.remove("d-none");
-                ContadorIngredientes.innerText = data.totalIngredientes;
-            }else{
-                ContadorIngredientes.classList.add("d-none");
-            } */
-
-        });
-
-    } else {
-        console.log("La cadena 'recipes-web/' no se encontró en la URL.");
-    }
-}
-
-function actualizarContadoresAnterior() {
-
-    const contadores = [
-        { element: document.getElementById("cont-usuarios-report"), items: usuariosReportados },
-        { element: document.getElementById("cont-comentarios-report"), items: comentariosReportados },
-        { element: document.getElementById("cont-publicaciones-report"), items: publicacionesReportadas }
-    ];
-    
-    contadores.forEach( (contador) => {
-
-        if (contador.items.length > 0) {
-            contador.element.classList.remove("d-none");
-            contador.element.innerText = contador.items.length;
-        } else {
-            contador.element.classList.add("d-none");
+    fetch('../admin/PHPextras/contador.php', {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
         }
+    })
+    .then(res => {
+        // Verifico si la respuesta fue exitosa
+        if (!res.ok) {
+            throw new Error('Error en la solicitud: ' + res.status);
+        }
+
+        // Verifico si hay contenido en la respuesta
+        if (res.headers.get('content-length') === '0') {
+            return null; // No hay contenido
+        }
+
+        // Convierto a JSON
+        return res.json();
+    })
+    .then(data => {
+
+        console.log(data);
+
+        /* const ContadorCategorias = document.getElementById("cont-categorias");
+        const ContadorEtiquetas = document.getElementById("cont-etiquetas");
+        const ContadorIngredientes = document.getElementById("cont-ingredientes");
+
+        if (data.totalCategorias > 0) {
+            ContadorCategorias.classList.remove("d-none");
+            ContadorCategorias.innerText = data.totalCategorias;
+        }else{
+            ContadorCategorias.classList.add("d-none");
+        }
+
+        if (data.totalEtiquetas > 0) {
+            ContadorEtiquetas.classList.remove("d-none");
+            ContadorEtiquetas.innerText = data.totalEtiquetas;
+        }else{
+            ContadorEtiquetas.classList.add("d-none");
+        }
+
+        if (data.totalIngredientes > 0) {
+            ContadorIngredientes.classList.remove("d-none");
+            ContadorIngredientes.innerText = data.totalIngredientes;
+        }else{
+            ContadorIngredientes.classList.add("d-none");
+        } */
+
     });
-    
 }
 
 function manejarContenido(seccion){
@@ -766,7 +706,7 @@ function manejarContenido(seccion){
             panelBtn.classList.remove("d-none");
             panelBtn.textContent = "Añadir Ingrediente";
             panelContenido.innerHTML = ``;
-            BotonAgregar.setAttribute("data-bs-target", "#modalGestionIngrediente");
+            panelBtn.setAttribute("data-bs-target", "#modalGestionIngrediente");
             
             obtenerIngredientes();
             adaptarDashboard("#admin-ingredientes");

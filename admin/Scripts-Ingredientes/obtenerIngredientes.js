@@ -1,6 +1,6 @@
 export function obtenerIngredientes(){
 
-    let contadorDeIngredientes = 0;
+    /* let contadorDeIngredientes = 0; */
 
     const panelContenido = document.querySelector(".panel-body");
 
@@ -10,18 +10,9 @@ export function obtenerIngredientes(){
     panelContenido.innerHTML = ``;
     contenedorCards.id = "contenedor-ingredientes";
 
-    let urlActual = window.location.href;
-    let palabraClave = "recipes-web/";
-
-    // Encuentra el índice de la palabra "recipes-web/" en la URL
-    let indice = urlActual.indexOf(palabraClave);
-
-    if (indice !== -1) {
-
-        // Guarda la URL desde el inicio hasta la palabra "recipes-web/"
-        let urlCortada = urlActual.substring(0, indice + palabraClave.length);
-
-        fetch(urlCortada + "admin/Scripts-Ingredientes/obtenerIngredientes.php", {
+    try {
+        
+        fetch('../admin/Scripts-Ingredientes/obtenerIngredientes.php', {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -32,23 +23,23 @@ export function obtenerIngredientes(){
             if (!res.ok) {
                 throw new Error('Error en la solicitud: ' + res.status);
             }
-
+    
             // Verifico si hay contenido en la respuesta
             if (res.headers.get('content-length') === '0') {
                 return null; // No hay contenido
             }
-
+    
             // Convierto a JSON
             return res.json();
         })
         .then(data => {
         
             /* console.log(data); */
-
+    
             const ContenedorDeIngredientes = document.getElementById('contenedor-ingredientes');
-
+    
             ContenedorDeIngredientes.classList.add("pb-3");
-
+    
             if (data.length > 0) {
                 
                 data.forEach( (e) => {
@@ -101,22 +92,22 @@ export function obtenerIngredientes(){
         
                     ContenedorDeIngredientes.appendChild(divPadre);
     
-                    contadorDeIngredientes++;
+                    /* contadorDeIngredientes++; */
     
                 });
                 
             }else{
-
+    
                 ContenedorDeIngredientes.innerHTML = `<h3 class="align-self-center mt-3">No hay ingredientes</h3>`;
-
+    
             }
             
-            document.getElementById("cont-ingredientes").textContent = contadorDeIngredientes;
-
+            /* document.getElementById("cont-ingredientes").textContent = contadorDeIngredientes; */
+    
         });
 
-    } else {
-        console.log("La cadena 'recipes-web/' no se encontró en la URL.");
+    } catch (error) {
+        console.error(error);
     }
 
     panelContenido.appendChild(contenedorCards);

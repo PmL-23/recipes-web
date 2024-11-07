@@ -28,11 +28,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if ($row) {
             if (password_verify($password, $row['password'])) {
-                $_SESSION['nomCompleto'] = $row['nom_completo'];
-                $_SESSION['nomUsuario'] = $row['username'];
-                $_SESSION['id'] = $row['id_usuario'];
-                echo json_encode(['success' => true]);
-                exit;
+
+                $fechaYHoraActual = new DateTime('now', new DateTimeZone('America/Argentina/Buenos_Aires'));
+                $FechaHoraFormateada = $fechaYHoraActual->format('Y-m-d H:i:s');
+
+                if ( ($row['estad_suspendido'] == NULL) || (($row['estad_suspendido'] < $FechaHoraFormateada) && ($row['estad_suspendido'] != '0000-00-00 00:00:00')) ) {
+
+                    $_SESSION['nomCompleto'] = $row['nom_completo'];
+                    $_SESSION['nomUsuario'] = $row['username'];
+                    $_SESSION['id'] = $row['id_usuario'];
+                    echo json_encode(['success' => true]);
+                    exit;
+
+                }else if ($row['estad_suspendido'] == '0000-00-00 00:00:00'){
+
+                    $errors[] = "Su cuenta se encuentra suspendida de forma permanente.";
+
+                }else{
+
+                    $errors[] = "Su cuenta se encuentra suspendida hasta el ".$row['estad_suspendido'];
+                }
+                
+
             } else {
                 $errors[] = "Acceso inválido. Email, usuario o contraseña no válidos"; 
                 //no dar info precisa

@@ -2,10 +2,149 @@ const inicio = function ()
 {
         visualizarPortada();
         agregarEtiqueta();
-        agregarIngrediente();
         agregarPaso();
         subirImagenPaso();
         mostrarCategoria();
+
+        const agregarIngrediente = function () {
+                const agregarBoton = document.getElementById("agregar-ing");
+                const ingredientesContainer = document.getElementById("ingredientes");
+                let ingredienteContador = 0; 
+        
+
+                const primerInput = document.querySelector(".ingrediente-input");
+                if (primerInput) {
+                        primerInput.addEventListener('keyup', function () {
+                        obtenerSugerencias(this.value, primerInput.nextElementSibling);
+                        });
+                }
+                
+                agregarBoton.addEventListener("click", function () {
+                        ingredienteContador++; 
+                
+                        const rowIngrediente = document.createElement("div");
+                        rowIngrediente.classList.add("row", "container-fluid");
+                
+                        const colIngrediente = document.createElement("div");
+                        colIngrediente.classList.add("col-md-6", "mt-4");
+                
+                        const inputIngrediente = document.createElement("input");
+                        inputIngrediente.type = "text";
+                        inputIngrediente.classList.add("form-control", "ingrediente-input");
+                        inputIngrediente.name = "ingrediente[]";
+                        inputIngrediente.placeholder = "Harina, Sal...";
+                        
+                        const searchDiv = document.createElement("div");
+                        searchDiv.classList.add("search-ingrediente");
+                        searchDiv.id = `search-ingrediente-${ingredienteContador}`; 
+                
+                        const colCantidad = document.createElement("div");
+                        colCantidad.classList.add("col-md-4", "mt-4");
+                
+                        const inputCantidad = document.createElement("input");
+                        inputCantidad.classList.add("form-control");
+                        inputCantidad.type = "text";
+                        inputCantidad.name = "cantidad[]";
+                        inputCantidad.placeholder = "400gr, una pizca...";
+                
+                        const colQuitar = document.createElement("div");
+                        colQuitar.classList.add("col-md-2", "mt-4","d-flex", "justify-content-end");
+                
+                        const quitarBoton = document.createElement("button");
+                        quitarBoton.classList.add("boton-secundario");
+                        quitarBoton.type = "button";
+                        quitarBoton.innerHTML = "<i class='bi bi-trash me-1'></i> Quitar";
+                
+                        quitarBoton.addEventListener("click", function () {
+                        rowIngrediente.remove();
+                        });
+                
+                        rowIngrediente.appendChild(colIngrediente);
+                        colIngrediente.appendChild(inputIngrediente);
+                        colIngrediente.appendChild(searchDiv);
+                
+                        rowIngrediente.appendChild(colCantidad);
+                        colCantidad.appendChild(inputCantidad);
+                
+                        rowIngrediente.appendChild(colQuitar);
+                        colQuitar.appendChild(quitarBoton);
+                
+                        ingredientesContainer.appendChild(rowIngrediente);
+                
+
+
+                        inputIngrediente.addEventListener('keyup', function () {
+                        obtenerSugerencias(this.value, searchDiv);
+                        });
+
+                        inputIngrediente.addEventListener("keydown", function (e) {
+                                if (e.key === 'Enter') {
+                                e.preventDefault(); 
+                                limpiarDiv(searchDiv.id); 
+                                }
+                        });
+                });
+        }
+        
+        
+        function limpiarDiv(searchDiv) {
+                searchDiv.innerHTML = ""; //limpiar los divs
+        }
+        
+        const mostrarIngredientes = function (data, searchDiv) {
+                limpiarDiv(searchDiv);
+                let selectIng = document.createElement("select");
+                selectIng.classList.add("form-select");
+                selectIng.size = 3;
+                
+                if (data.length > 0) {
+                        for (let i = 0; i < data.length; i++) {
+                        let opcionIng = document.createElement("option");
+                        opcionIng.textContent = data[i].nombre;
+                        opcionIng.value = data[i].id_ingrediente;
+                        selectIng.appendChild(opcionIng);
+                        }
+                } else {
+                        selectIng.classList.add("d-none");
+                }
+        
+                searchDiv.appendChild(selectIng); //agregar al div el select
+                
+
+                //si cambia el select poner la opción en el input
+                selectIng.addEventListener('change', function () {
+                        let selectedValue = this.value;        
+                        let inputIngrediente = searchDiv.previousElementSibling; 
+                        if (inputIngrediente) {
+                                inputIngrediente.value = this.options[this.selectedIndex].textContent;
+                                inputIngrediente.data = selectedValue;
+                                inputIngrediente.setAttribute('data-id', selectedValue); 
+                                limpiarDiv(searchDiv); 
+                                }
+                        });
+        }
+        
+        
+        function obtenerSugerencias(ingreso, searchDiv) {
+                if (ingreso.length === 0) {
+                        limpiarDiv(searchDiv);
+                        return;
+                }
+                
+                fetch("obtener_ingredientes.php?ing=" + encodeURIComponent(ingreso))
+                        .then(response => response.json())
+                        .then(data => {
+                                mostrarIngredientes(data, searchDiv);
+                        })
+                        .catch(error => {
+                                console.error('Error:', error);
+                        });
+        }
+        
+        //agrego los ingredientes después de darle las funcionalidades
+        agregarIngrediente();
+        
+        
 
         // Evento para actualizar la bandera al seleccionar un país
         document.querySelectorAll('.select-pais').forEach(select => {
@@ -50,24 +189,30 @@ const inicio = function ()
                 document.getElementById('input-paises').appendChild(nuevoPaisContainer);
         });
 
+        document.getElementById("frm-receta").addEventListener("keydown", function (e) {
+                if (e.key === 'Enter') {
+                e.preventDefault(); 
+                }
+        });
+
         document.getElementById("frm-receta").addEventListener("submit", function (e){
                 e.preventDefault();
 
                 let urlActual = window.location.href;
                 let palabraClave = "recipes-web/";
 
-                // Encuentra el índice de la palabra "UIE/" en la URL
+        
                 let indice = urlActual.indexOf(palabraClave);
 
                 if (indice !== -1) {
 
-                        // Guarda la URL desde el inicio hasta la palabra "UIE/"
+
                         let urlCortada = urlActual.substring(0, indice + palabraClave.length);
 
                         if(validar() == true){
 
                                 fetch(urlCortada + "crearReceta/form_crearReceta.php", {
-                            
+                        
                                         method: "POST",
                                         body: new FormData(e.target)
                                 })
@@ -75,8 +220,8 @@ const inicio = function ()
                                 .then(data => {
                         
                                         if (data.success == true) {
-                                            console.log("Receta creada con éxito");
-                                            window.location.href = "../recetas/receta-plantilla.php?id=" + data.nueva_receta_id;
+                                        console.log("Receta creada con éxito");
+                                        window.location.href = "../recetas/receta-plantilla.php?id=" + data.nueva_receta_id;
                                         }else{
                                                 console.log("Error al crear receta:", data.msj_error); 
 
@@ -186,8 +331,7 @@ function validarDescripcion() {
         
         descripcion.addEventListener("change", function(){   
 
-                if (palabras.length > 3 || palabras.length < 50){
-
+                if (palabras.length > 2 || palabras.length < 50){
                         errorDescripcion.textContent = "";
                         descripcion.classList.remove("is-invalid");
                         descripcion.classList.add("is-valid");
@@ -209,9 +353,9 @@ function validarDescripcion() {
 
                 FlagValidacion = false;
 
-        } else if (palabras.length < 3 ||palabras.length > 100) {
+        } else if (palabras.length < 2 ||palabras.length > 100) {
 
-                errorDescripcion.textContent = "Debe ingresar entre 3 a 100 palabras.";
+                errorDescripcion.textContent = "Debe ingresar entre 2 a 100 palabras.";
                 descripcion.classList.add("is-invalid");
                 descripcion.classList.remove("is-valid");
 
@@ -226,7 +370,7 @@ function validarIngrediente() {
 
         let FlagValidacion = true;
 
-        const ingrediente = document.getElementById("primer-ingrediente");
+        const ingrediente = document.getElementById("ingrediente");
         const ingredientev = ingrediente.value.trim(); 
         const errorIngrediente = document.getElementById("error-ingrediente");
                 
@@ -234,7 +378,7 @@ function validarIngrediente() {
         
         ingrediente.addEventListener("change", function(){   
 
-                if (palabras.length > 2 || palabras.length < 15){
+                if (palabras.length > 0 || palabras.length < 15){
 
                         errorIngrediente.textContent = "";
                         ingrediente.classList.remove("is-invalid");
@@ -258,20 +402,16 @@ function validarIngrediente() {
 
                 FlagValidacion = false;
         
-        } else if (palabras.length < 2 || palabras.length > 15) {
+        } else if (palabras.length > 15) {
         
-                errorIngrediente.textContent = "Debe ingresar entre 2 a 15 palabras. Podes escribir el nombre del ingrediente y la cantidad que utilizaste";
-        
+                errorIngrediente.textContent = "Debe ingresar menos de 15 palabras"; 
                 ingrediente.classList.add("is-invalid");
-        
                 ingrediente.classList.remove("is-valid");
 
-                FlagValidacion = false;
-        
+                FlagValidacion = false;     
         }            
 
-        return FlagValidacion;
-                
+        return FlagValidacion;            
 }
 
 function validarPaso() {
@@ -381,7 +521,7 @@ function validarDificultad() {
         const errorDificultad = document.getElementById("error-dificultad");
         const dificultadv = dificultad.value;
         
-        if (dificultadv !== "facil" && dificultadv !== "media" && dificultadv !== "dificil") {
+        if (dificultadv !== "Fácil" && dificultadv !== "Media" && dificultadv !== "Dificil") {
 
                 errorDificultad.textContent = "Debes seleccionar la dificultad de elaboración.";
                 dificultad.classList.add("is-invalid");
@@ -512,32 +652,6 @@ const agregarEtiqueta = function()
 
 //Ingredientes
 
-const agregarIngrediente = function()
-{
-        const agregarBoton = document.getElementById("agregar-ing");
-        const ingredientesContainer = document.getElementById("ingredientes");
-
-        agregarBoton.addEventListener("click", function () {
-                const newIngrediente = document.createElement("div");
-                newIngrediente.classList.add("un_ingrediente", "d-grid", "gap-2", "d-flex", "justify-content-md-end");
-                
-                newIngrediente.innerHTML= '<input type="text" class="form-control" name="ingrediente[]" placeholder="Ej: 400gr de harina..." id="primer-ingrediente" required></input>'
-                
-                const quitarBoton = document.createElement("button");
-                quitarBoton.classList.add("boton-secundario", "d-flex");
-                quitarBoton.type = "button";
-                quitarBoton.innerHTML = "<i class='bi bi-trash me-1'></i> Quitar";
-        
-                //borrar ingredientes (solo los creados por la función)
-                quitarBoton.addEventListener("click", function () {
-                        newIngrediente.remove();
-                });
-                
-                newIngrediente.appendChild(quitarBoton);
-                ingredientesContainer.appendChild(newIngrediente);
-        });
-
-}
 
 
 //Pasos

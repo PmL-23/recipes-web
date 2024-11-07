@@ -21,10 +21,22 @@ document.addEventListener("DOMContentLoaded", function (){
                     console.log("Receta eliminada de favoritos..");
                     btnFavorito.classList.remove("active");
 
+                    document.getElementById("toast-success-msg").textContent = "Receta eliminada de favoritos..";
+
+                    var toastElement = document.getElementById('formToastSuccess');
+                    var toast = new bootstrap.Toast(toastElement);
+                    toast.show();
+
                 } else if( (data.success == true) && (data.accion == "insert") ){
 
                     console.log("Receta agregada a favoritos..");
                     btnFavorito.classList.add("active");
+
+                    document.getElementById("toast-success-msg").textContent = "Receta agregada a favoritos..";
+
+                    var toastElement = document.getElementById('formToastSuccess');
+                    var toast = new bootstrap.Toast(toastElement);
+                    toast.show();
 
                 }else{
 

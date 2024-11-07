@@ -3,22 +3,22 @@ require_once('../../includes/conec_db.php');  //todos los archivos que se necesi
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $IDUsuario = isset($_POST["ItemID"]) ? $_POST["ItemID"] : NULL;
+    $PublicacionID = isset($_POST["ItemID"]) ? $_POST["ItemID"] : NULL;
 
     if (empty($_POST["ItemID"])) {
         echo "Datos incompletos.";
         exit();
     }//verifico que todos los campos estén presentes antes.
 
-    $sqlQuery = "DELETE FROM reportes WHERE id_obj_reportado = :IDUsuario AND tipo_obj_reportado = 'usuario'";
-    $QueryLlamado = $conn->prepare($sqlQuery); //Preparo la consulta que me elimina reportes hechos a un usuario
+    $sqlQuery = "DELETE FROM reportes WHERE id_obj_reportado = :ID_Publicacion AND tipo_obj_reportado = 'publicacion'";
+    $QueryLlamado = $conn->prepare($sqlQuery); //Preparo la consulta que me elimina reportes hechos a una publicación
 
     if (!$QueryLlamado) {
         echo "Error en la consulta SQL";
         exit();
     }
 
-    $QueryLlamado->bindParam(':IDUsuario', $IDUsuario, PDO::PARAM_INT);
+    $QueryLlamado->bindParam(':ID_Publicacion', $PublicacionID, PDO::PARAM_INT);
 
     if ($QueryLlamado->execute()) { //si se pudo eliminar, devuelvo true como señal al frontend
         

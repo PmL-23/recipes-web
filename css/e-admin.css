@@ -3,14 +3,11 @@
 } */
 body{
     background-color: #f8f8f8 !important;
+    /* background: radial-gradient(#d6efd7, #cfcfcf); */
 }
 
 .header{
     position: relative !important;
-}
-
-.container{
-    margin-top: 2.5rem !important;
 }
 
 .admin-container > nav{
@@ -80,3 +77,8 @@ body{
     max-width: 4rem !important;
 }
 
+.btn-listar-reportes:hover{
+    color: #fff !important;
+    background-color: #1c7275 !important;
+    border-color: #1c7275 !important;
+}

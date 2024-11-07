@@ -146,29 +146,70 @@ function cargarPromedioValoraciones(){
                         contadorValoraciones.textContent = "0 valoraciones";
                     }
 
+                    //Modifico barra de porcentaje para valoraciones de 5 estrellas
                     let cincoEstrellasPorcentaje = (resultado.cantCincoEstrellas / resultado.cantTotalValoraciones) * 100;
-                    document.querySelector(".contenedor-porcentaje-cinco-estrellas").setAttribute("aria-valuenow", cincoEstrellasPorcentaje);
-                    document.querySelector(".barra-porcentaje-cinco-estrellas").style.width = cincoEstrellasPorcentaje + "%";
-                    document.querySelector(".cant-val-cinco-estrellas").textContent = resultado.cantCincoEstrellas;
 
+                    if (cincoEstrellasPorcentaje > 0) {
+                        document.querySelector(".contenedor-porcentaje-cinco-estrellas").setAttribute("aria-valuenow", cincoEstrellasPorcentaje);
+                        document.querySelector(".barra-porcentaje-cinco-estrellas").style.width = cincoEstrellasPorcentaje + "%";
+                    }else{
+                        document.querySelector(".contenedor-porcentaje-cinco-estrellas").setAttribute("aria-valuenow", "0");
+                        document.querySelector(".barra-porcentaje-cinco-estrellas").style.width = "0%";
+                        
+                    }
+
+                    document.querySelector(".cant-val-cinco-estrellas").textContent = resultado.cantCincoEstrellas;
+                    
+                    //Modifico barra de porcentaje para valoraciones de 4 estrellas
                     let cuatroEstrellasPorcentaje = (resultado.cantCuatroEstrellas / resultado.cantTotalValoraciones) * 100;
-                    document.querySelector(".contenedor-porcentaje-cuatro-estrellas").setAttribute("aria-valuenow", cuatroEstrellasPorcentaje);
-                    document.querySelector(".barra-porcentaje-cuatro-estrellas").style.width = cuatroEstrellasPorcentaje + "%";
+
+                    if (cuatroEstrellasPorcentaje > 0) {
+                        document.querySelector(".contenedor-porcentaje-cuatro-estrellas").setAttribute("aria-valuenow", cuatroEstrellasPorcentaje);
+                        document.querySelector(".barra-porcentaje-cuatro-estrellas").style.width = cuatroEstrellasPorcentaje + "%";
+                    }else{
+                        document.querySelector(".contenedor-porcentaje-cuatro-estrellas").setAttribute("aria-valuenow", "0");
+                        document.querySelector(".barra-porcentaje-cuatro-estrellas").style.width = "0%";
+                    }
+
                     document.querySelector(".cant-val-cuatro-estrellas").textContent = resultado.cantCuatroEstrellas;
 
+                    //Modifico barra de porcentaje para valoraciones de 3 estrellas
                     let tresEstrellasPorcentaje = (resultado.cantTresEstrellas / resultado.cantTotalValoraciones) * 100;
-                    document.querySelector(".contenedor-porcentaje-tres-estrellas").setAttribute("aria-valuenow", tresEstrellasPorcentaje);
-                    document.querySelector(".barra-porcentaje-tres-estrellas").style.width = tresEstrellasPorcentaje + "%";
+
+                    if (tresEstrellasPorcentaje > 0) {
+                        document.querySelector(".contenedor-porcentaje-tres-estrellas").setAttribute("aria-valuenow", tresEstrellasPorcentaje);
+                        document.querySelector(".barra-porcentaje-tres-estrellas").style.width = tresEstrellasPorcentaje + "%";
+                    }else{
+                        document.querySelector(".contenedor-porcentaje-tres-estrellas").setAttribute("aria-valuenow", "0");
+                        document.querySelector(".barra-porcentaje-tres-estrellas").style.width = "0%";
+                    }
+
                     document.querySelector(".cant-val-tres-estrellas").textContent = resultado.cantTresEstrellas;
 
+                    //Modifico barra de porcentaje para valoraciones de 2 estrellas
                     let dosEstrellasPorcentaje = (resultado.cantDosEstrellas / resultado.cantTotalValoraciones) * 100;
-                    document.querySelector(".contenedor-porcentaje-dos-estrellas").setAttribute("aria-valuenow", dosEstrellasPorcentaje);
-                    document.querySelector(".barra-porcentaje-dos-estrellas").style.width = dosEstrellasPorcentaje + "%";
+
+                    if (dosEstrellasPorcentaje > 0) {
+                        document.querySelector(".contenedor-porcentaje-dos-estrellas").setAttribute("aria-valuenow", dosEstrellasPorcentaje);
+                        document.querySelector(".barra-porcentaje-dos-estrellas").style.width = dosEstrellasPorcentaje + "%";
+                    }else{
+                        document.querySelector(".contenedor-porcentaje-dos-estrellas").setAttribute("aria-valuenow", "0");
+                        document.querySelector(".barra-porcentaje-dos-estrellas").style.width = "0%";
+                    }
+
                     document.querySelector(".cant-val-dos-estrellas").textContent = resultado.cantDosEstrellas;
 
+                    //Modifico barra de porcentaje para valoraciones de 1 estrella
                     let unaEstrellaPorcentaje = (resultado.cantUnaEstrella / resultado.cantTotalValoraciones) * 100;
-                    document.querySelector(".contenedor-porcentaje-una-estrella").setAttribute("aria-valuenow", unaEstrellaPorcentaje);
-                    document.querySelector(".barra-porcentaje-una-estrella").style.width = unaEstrellaPorcentaje + "%";
+                    
+                    if (unaEstrellaPorcentaje > 0) {
+                        document.querySelector(".contenedor-porcentaje-una-estrella").setAttribute("aria-valuenow", unaEstrellaPorcentaje);
+                        document.querySelector(".barra-porcentaje-una-estrella").style.width = unaEstrellaPorcentaje + "%";
+                    }else{
+                        document.querySelector(".contenedor-porcentaje-una-estrella").setAttribute("aria-valuenow", "0");
+                        document.querySelector(".barra-porcentaje-una-estrella").style.width = "0%";
+                    }
+                    
                     document.querySelector(".cant-val-una-estrella").textContent = resultado.cantUnaEstrella;
 
                 })

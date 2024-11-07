@@ -1,6 +1,6 @@
 export function obtenerCategorias(){
 
-    let contadorDeCategorias = 0;
+    /* let contadorDeCategorias = 0; */
 
     const panelContenido = document.querySelector(".panel-body");
 
@@ -10,18 +10,9 @@ export function obtenerCategorias(){
     panelContenido.innerHTML = ``;
     contenedorCards.id = "contenedor-categorias";
 
-    let urlActual = window.location.href;
-    let palabraClave = "recipes-web/";
-
-    // Encuentra el índice de la palabra "recipes-web/" en la URL
-    let indice = urlActual.indexOf(palabraClave);
-
-    if (indice !== -1) {
-
-        // Guarda la URL desde el inicio hasta la palabra "recipes-web/"
-        let urlCortada = urlActual.substring(0, indice + palabraClave.length);
-
-        fetch(urlCortada + "admin/Scripts-Categorias/obtenerCategorias.php", {
+    try {
+        
+        fetch('../admin/Scripts-Categorias/obtenerCategorias.php', {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -32,23 +23,23 @@ export function obtenerCategorias(){
             if (!res.ok) {
                 throw new Error('Error en la solicitud: ' + res.status);
             }
-
+    
             // Verifico si hay contenido en la respuesta
             if (res.headers.get('content-length') === '0') {
                 return null; // No hay contenido
             }
-
+    
             // Convierto a JSON
             return res.json();
         })
         .then(data => {
         
             /* console.log(data); */
-
+    
             const ContenedorDeCategorias = document.getElementById('contenedor-categorias');
-
+    
             ContenedorDeCategorias.classList.add("pb-3");
-
+    
             if (data.length > 0) {
                 
                 data.forEach( (e) => {
@@ -112,22 +103,22 @@ export function obtenerCategorias(){
         
                     ContenedorDeCategorias.appendChild(divPadre);
     
-                    contadorDeCategorias++;
+                    /* contadorDeCategorias++; */
     
                 });
-
+    
             }else{
-
+    
                 ContenedorDeCategorias.innerHTML = `<h3 class="align-self-center mt-3">No hay categorias</h3>`;
                 
             }
             
-            document.getElementById("cont-categorias").textContent = contadorDeCategorias;
-
+            /* document.getElementById("cont-categorias").textContent = contadorDeCategorias; */
+    
         });
 
-    } else {
-        console.log("La cadena 'recipes-web/' no se encontró en la URL.");
+    } catch (error) {
+        console.error(error);
     }
 
     panelContenido.appendChild(contenedorCards);
