@@ -13,10 +13,12 @@ require_once('../includes/razonesReporte.php');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recetario</title>
 
-    <link rel="stylesheet" href="../css/recetas.css">
+    <!-- CSS -->
     <link rel="stylesheet" href="../css/recetas-banner.css">
+    <link rel="stylesheet" href="../css/recetas.css">
     <link rel="stylesheet" href="../css/carrousel.css">
     <link rel="stylesheet" href="estilos.css">
+    <!-- Scripts -->
     <script src="recetas.js" defer></script>
     <script src="./Scripts-Favorito/favoritoReceta.js" defer></script>
     <script src="./Scripts-Reportes/reporteReceta.js" defer></script>
@@ -33,11 +35,7 @@ require_once('../includes/razonesReporte.php');
 <body>
     <?php include '../includes/header.php' ?>
     <?php include '../recetas/manejoGetReceta.php'?>
-    <?php 
-
-
-
-        if ($autor == $_SESSION['id']) { ?>
+    <?php if ($autor == $_SESSION['id']) { ?>
     <div class="d-flex justify-content-end p-3">
         <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
         Ver
@@ -52,9 +50,9 @@ require_once('../includes/razonesReporte.php');
 
 
 
-    <div class="contenido-principal container my-5 ps-5">
-        <div class="container">
-            <div class="perfil-usuario my-3">
+    <div class="contenido-principal container my-5 ps-md-2">
+        <div class="">
+            <div class="perfil-usuario">
                 <div class="row align-items-center">
                     <div class="col-md-1 col-sm-6">
                         <div>
@@ -85,23 +83,34 @@ require_once('../includes/razonesReporte.php');
             </div>
 
             <div class="datos-receta row align-items-start">
-                <div class="contenedor-img d-flex col-md-6 col-sm-12">
+                <div class="col-md-6 col-sm-12 row">
+                    
                     <!-- Aca va la imagen de la receta -->
                     <?php
-                        if (!empty($imagenes)) {
-                            foreach ($imagenes as $imagen) {
-                                echo '<img src="' . $imagen["ruta_imagen"] . '" alt="Receta" class="portada rounded img-fluid" id="portada-receta">';
+                        if (!empty($imagenes)) 
+                        {   echo '<div class="">';
+                            echo '<img src="' . $imagenes[0]. '" alt="Receta" class="portada rounded img-fluid" id="portada-receta">';
+                            echo'</div>';
+                            if (count($imagenes)>1)
+                            {
+                                echo '<div class="w-25 d-flex">';
+                                for ($i = 1; $i < count($imagenes); $i++)
+                                {
+                                    echo '<img src="' . $imagenes[$i]. '" alt="Receta" class="rounded img-fluid">';
+                                }
+                                echo '</div>';
                             }
                         } else {
-                            echo 'No hay etiquetas';
+                            echo 'No hay portada';
                         }
                     ?>
                 </div>
+
                 <div class="content-info col-md-6 col-sm-12 my-5 d-flex flex-column justify-content-between">
 
                     <div>
 
-                        <h2>
+                        <h2 class="titulo-receta">
                             <!-- titulo de la receta -->
                             <?php echo $titulo; ?>
                         </h2>
@@ -249,9 +258,10 @@ require_once('../includes/razonesReporte.php');
                 <li class="mb-4 bg-transparent border-0 p-0">
                     <strong>Paso <?php echo $paso['num_paso']; ?>:</strong> <?php echo $paso['texto']; ?>
                     <?php if (!empty($paso['imagenes'])): ?>
-                        <div class="imagenes-pasos d-flex flex-wrap mt-2">
+                        <div class="imagenes-pasos row mt-2">
                             <?php foreach ($paso['imagenes'] as $imagenPaso): ?>
-                                <img src="<?php echo $imagenPaso; ?>" alt="Imagen del paso" class="img-fluid mb-2" style="width: 40%; height: auto;">
+                                <div class="imagenes-pasos col-md-6 mt-2"></div>
+                                <img src="<?php echo $imagenPaso; ?>" class="w-50 m-2" alt="Imagen del paso" class="img-fluid mb-2">
                             <?php endforeach; ?>
                         </div>
                     <?php endif; ?>
