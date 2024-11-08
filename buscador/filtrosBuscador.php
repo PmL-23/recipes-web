@@ -1,7 +1,6 @@
 <?php
 require '../includes/conec_db.php';
 
-// Consultas existentes para dificultades y categorías
 $query = "SELECT DISTINCT dificultad FROM publicaciones_recetas WHERE dificultad IS NOT NULL";
 $stm = $conn->prepare($query);
 $stm->execute();
@@ -12,5 +11,9 @@ $stmCategorias = $conn->prepare($queryCategorias);
 $stmCategorias->execute();
 $categorias = $stmCategorias->fetchAll(PDO::FETCH_ASSOC);
 
+$queryEtiquetas = "SELECT titulo FROM etiquetas_recetas";
+$stmEtiquetas = $conn->prepare($queryEtiquetas);
+$stmEtiquetas->execute();
+$etiquetas = $stmEtiquetas->fetchAll(PDO::FETCH_ASSOC);
 
-echo json_encode(['dificultades' => $dificultades, 'categorias' => $categorias]);
+echo json_encode(['dificultades' => $dificultades, 'categorias' => $categorias, 'etiquetas' => $etiquetas]);

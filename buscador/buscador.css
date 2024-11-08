@@ -29,6 +29,14 @@
     margin: 0 5px;
 }
 
+/* filtrar por ingrediente */
+#buscarIngrediente {
+    background-color: #26533c !important;
+    color: white;
+    border-radius: 25px;
+    font-weight: bold;
+}
+
 /* filtro chico */
 .filtroTamanio {
     display: flex;
@@ -44,6 +52,24 @@
 
     #resultados {
         flex: 1;
+    }
+}
+/* para el limpiar filtro*/
+@media (min-width: 576px) {
+    #limpiarFiltros {
+        margin-top: 0.5rem;
+    }
+    .ms-2 {
+        margin-left: 0rem !important;
+    }
+}
+@media (min-width: 1400px) {
+    #limpiarFiltros {
+        margin-top: 0rem;
+    }
+    .botonesFiltros {
+        display: flex;
+        justify-content: space-between;
     }
 }
 
@@ -138,6 +164,10 @@
         flex: 0 0 auto;
         width: 100%;
     }
+    #botonesChicos{
+        padding-top: 2rem;
+    }
+    
 }
 
 @media (min-width: 992px) {
@@ -146,6 +176,7 @@
         flex: 0 0 25%;
         max-width: 50%;
     }
+
 }
 
 @media (max-width: 991px) {

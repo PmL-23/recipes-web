@@ -38,20 +38,23 @@ if (isset($_GET['id'])) {
         } 
 
 
-        $sqlImagen = "SELECT ruta_imagen FROM imagenes WHERE id_publicacion = :id";
-        $stmtImagen = $conn->prepare($sqlImagen);
-        $stmtImagen->bindParam(':id', $idPublicacion, PDO::PARAM_INT);
-        $stmtImagen->execute();
-        $imagenData = $stmtImagen->fetch(PDO::FETCH_ASSOC); 
         
-        $imagenes = []; 
-
-        if ($imagenData) { 
     
-            $imagenes[] = [
-                'ruta_imagen' => htmlspecialchars($imagenData["ruta_imagen"], ENT_QUOTES, 'UTF-8'),
-            ];
+    $sqlImagen = "SELECT ruta_imagen FROM imagenes WHERE id_publicacion = :id";
+    $stmtImagen = $conn->prepare($sqlImagen);
+    $stmtImagen->bindParam(':id', $idPublicacion, PDO::PARAM_INT);
+    $stmtImagen->execute();
+    $imagenData = $stmtImagen->fetchAll(PDO::FETCH_ASSOC);
+
+    $imagenes = [];
+
+    foreach ($imagenData as $imagen) {
+        if (!empty($imagen['ruta_imagen'])) {
+            $imagenes[] = htmlspecialchars($imagen["ruta_imagen"], ENT_QUOTES, 'UTF-8');
         }
+    }
+
+
 
         
 
@@ -120,71 +123,71 @@ if (isset($_GET['id'])) {
         }
 
 
-        $sqlIngredienteReceta = "SELECT id_ingrediente, cantidad FROM ingredientes_recetas WHERE id_publicacion = :id";
-        $stmtIngredienteReceta = $conn->prepare($sqlIngredienteReceta);
-        $stmtIngredienteReceta->bindParam(':id', $idPublicacion, PDO::PARAM_INT);
-        $stmtIngredienteReceta->execute();
-        $ingredienteRecetaData = $stmtIngredienteReceta->fetchAll(PDO::FETCH_ASSOC); 
-        
-        $ingredientes = [];
-        foreach ($ingredienteRecetaData as $ingrediente) {
-            $idIngrediente = $ingrediente['id_ingrediente']; 
-            $cantidadIngrediente = $ingrediente['cantidad'];
-            
-            
-            $sqlIngrediente = "SELECT nombre FROM ingredientes WHERE id_ingrediente = :id_ingrediente";
-            $stmtIngrediente = $conn->prepare($sqlIngrediente);
-            $stmtIngrediente->bindParam(':id_ingrediente', $idIngrediente, PDO::PARAM_INT);
-            $stmtIngrediente->execute();
-            $ingredienteData = $stmtIngrediente->fetch(PDO::FETCH_ASSOC); 
-        
-            if ($ingredienteData) { 
-                $ingredienteNombre = $ingredienteData['nombre'];
-        
-                $ingredientes[] = [
-                    'nombre' => htmlspecialchars($ingredienteNombre, ENT_QUOTES, 'UTF-8'),
-                    'cantidad' => htmlspecialchars($cantidadIngrediente, ENT_QUOTES, 'UTF-8'),
-                ];
-            }
-        }
-
-
-
-
-// Obtener los pasos de la base de datos
-$sqlPaso = "SELECT id_paso, num_paso, texto FROM pasos_recetas WHERE id_publicacion = :id";
-$stmtPaso = $conn->prepare($sqlPaso);
-$stmtPaso->bindParam(':id', $idPublicacion, PDO::PARAM_INT);
-$stmtPaso->execute();
-$pasoData = $stmtPaso->fetchAll(PDO::FETCH_ASSOC); 
-
-$pasos = [];
-foreach ($pasoData as $paso) {
-    $idPaso = $paso['id_paso']; 
-    $numeroPaso = $paso['num_paso'];
-    $textoPaso = $paso['texto'];
+    $sqlIngredienteReceta = "SELECT id_ingrediente, cantidad FROM ingredientes_recetas WHERE id_publicacion = :id";
+    $stmtIngredienteReceta = $conn->prepare($sqlIngredienteReceta);
+    $stmtIngredienteReceta->bindParam(':id', $idPublicacion, PDO::PARAM_INT);
+    $stmtIngredienteReceta->execute();
+    $ingredienteRecetaData = $stmtIngredienteReceta->fetchAll(PDO::FETCH_ASSOC); 
     
-    // Obtener imágenes asociadas a cada paso
-    $sqlPasoImagen = "SELECT ruta_imagen_paso FROM imagenes_pasos WHERE id_paso = :id_paso";
-    $stmtPasoImagen = $conn->prepare($sqlPasoImagen);
-    $stmtPasoImagen->bindParam(':id_paso', $idPaso, PDO::PARAM_INT);
-    $stmtPasoImagen->execute();
-    $pasoImagenData = $stmtPasoImagen->fetchAll(PDO::FETCH_ASSOC); // Cambiar a fetchAll para obtener todas las imágenes
-
-    $imagenesPaso = []; // Inicializa como array vacío
-    foreach ($pasoImagenData as $imagenPaso) {
-        if (!empty($imagenPaso['ruta_imagen_paso'])) {
-            $imagenesPaso[] = htmlspecialchars($imagenPaso['ruta_imagen_paso'], ENT_QUOTES, 'UTF-8'); // Guarda cada ruta
+    $ingredientes = [];
+    foreach ($ingredienteRecetaData as $ingrediente) {
+        $idIngrediente = $ingrediente['id_ingrediente']; 
+        $cantidadIngrediente = $ingrediente['cantidad'];
+        
+        
+        $sqlIngrediente = "SELECT nombre FROM ingredientes WHERE id_ingrediente = :id_ingrediente";
+        $stmtIngrediente = $conn->prepare($sqlIngrediente);
+        $stmtIngrediente->bindParam(':id_ingrediente', $idIngrediente, PDO::PARAM_INT);
+        $stmtIngrediente->execute();
+        $ingredienteData = $stmtIngrediente->fetch(PDO::FETCH_ASSOC); 
+    
+        if ($ingredienteData) { 
+            $ingredienteNombre = $ingredienteData['nombre'];
+    
+            $ingredientes[] = [
+                'nombre' => htmlspecialchars($ingredienteNombre, ENT_QUOTES, 'UTF-8'),
+                'cantidad' => htmlspecialchars($cantidadIngrediente, ENT_QUOTES, 'UTF-8'),
+            ];
         }
     }
 
-    $pasos[] = [
-        'num_paso' => htmlspecialchars($numeroPaso, ENT_QUOTES, 'UTF-8'),
-        'texto' => htmlspecialchars($textoPaso, ENT_QUOTES, 'UTF-8'),
-        'imagenes' => $imagenesPaso // Asigna las imágenes al paso
-    ];
-}
 
 
+
+
+    $sqlPaso = "SELECT id_paso, num_paso, texto FROM pasos_recetas WHERE id_publicacion = :id";
+    $stmtPaso = $conn->prepare($sqlPaso);
+    $stmtPaso->bindParam(':id', $idPublicacion, PDO::PARAM_INT);
+    $stmtPaso->execute();
+    $pasoData = $stmtPaso->fetchAll(PDO::FETCH_ASSOC); 
+
+    $pasos = [];
+    foreach ($pasoData as $paso) {
+        $idPaso = $paso['id_paso']; 
+        $numeroPaso = $paso['num_paso'];
+        $textoPaso = $paso['texto'];
+        
     
+        $sqlPasoImagen = "SELECT ruta_imagen_paso FROM imagenes_pasos WHERE id_paso = :id_paso";
+        $stmtPasoImagen = $conn->prepare($sqlPasoImagen);
+        $stmtPasoImagen->bindParam(':id_paso', $idPaso, PDO::PARAM_INT);
+        $stmtPasoImagen->execute();
+        $pasoImagenData = $stmtPasoImagen->fetchAll(PDO::FETCH_ASSOC); 
+
+        $imagenesPaso = []; 
+        foreach ($pasoImagenData as $imagenPaso) {
+            if (!empty($imagenPaso['ruta_imagen_paso'])) {
+                $imagenesPaso[] = htmlspecialchars($imagenPaso['ruta_imagen_paso'], ENT_QUOTES, 'UTF-8'); 
+            }
+        }
+
+        $pasos[] = [
+            'num_paso' => htmlspecialchars($numeroPaso, ENT_QUOTES, 'UTF-8'),
+            'texto' => htmlspecialchars($textoPaso, ENT_QUOTES, 'UTF-8'),
+            'imagenes' => $imagenesPaso 
+        ];
+    }
+
+
+
 }
