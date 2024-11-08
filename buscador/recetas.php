@@ -12,7 +12,7 @@ $col = [
     'publicaciones_recetas.fecha_publicacion',
     'publicaciones_recetas.dificultad',
     'publicaciones_recetas.minutos_prep',
-    'valoraciones.puntuacion AS valoracion_puntaje'
+    'AVG(valoraciones.puntuacion) AS valoracion_puntaje' // promedio
 ];
 
 $campo = isset($_POST['campo']) ? $_POST['campo'] : (isset($_GET['campo']) ? $_GET['campo'] : null);
