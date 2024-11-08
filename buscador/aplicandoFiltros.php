@@ -6,7 +6,10 @@ $col = [
     'publicaciones_recetas.id_publicacion',
     'categorias.titulo AS categoria_titulo',
     'valoraciones.puntuacion AS valoracion_puntaje',
-    'etiquetas_recetas.titulo AS etiquetas_recetas_titulos',
+    'etiquetas_recetas.id_publicacion AS etiquetas_recetas_id_publicacion',
+    'etiquetas_recetas.id_etiqueta  AS etiquetas_recetas_id_etiqueta',
+    'etiquetas.titulo  AS etiquetas_titulo',
+    'etiquetas.id_etiqueta  AS etiquetas_id_etiqueta',
     'publicaciones_recetas.id_usuario_autor',
     'publicaciones_recetas.titulo',
     'publicaciones_recetas.descripcion',
@@ -53,14 +56,14 @@ if ($tiempo === 'menos30') {
 // valoraciones (en estrellas)
 $order = '';
 if ($valoraciones === 'menosValoradas') {
-    $order = 'ORDER BY valoraciones.puntuacion ASC';
+    $order = 'ORDER BY valoracion_puntaje ASC'; //uso el valoracion_puntaje que calcula el AVG
 } elseif ($valoraciones === 'masValoradas') {
-    $order = 'ORDER BY valoraciones.puntuacion DESC';
+    $order = 'ORDER BY valoracion_puntaje DESC';
 }
 
 // todas las etiquetas segun las publicaciones que hay
 if ($etiquetas != null) {
-    $conditions[] = 'etiquetas_recetas.titulo = :etiqueta';
+    $conditions[] = 'etiquetas.titulo = :etiqueta';
     $params[':etiqueta'] = $etiquetas;
 }
 
@@ -74,19 +77,21 @@ if ($ingredientes === 'masIngredientes') {
 if (!empty($conditions) || !empty($order)) {
 
     $sql = "SELECT " . implode(", ", $col) . ",
-               COUNT(ingredientes_recetas.ingrediente) AS cantidad_ingredientes,
-               AVG(valoraciones.puntuacion) AS valoracion_puntaje
-        FROM $tabla
-        INNER JOIN categorias ON publicaciones_recetas.id_categoria = categorias.id_categoria
-        INNER JOIN valoraciones ON publicaciones_recetas.id_publicacion = valoraciones.id_publicacion
-        INNER JOIN etiquetas_recetas ON publicaciones_recetas.id_publicacion = etiquetas_recetas.id_publicacion
-        INNER JOIN ingredientes_recetas ON publicaciones_recetas.id_publicacion = ingredientes_recetas.id_publicacion";
+    COUNT(ingredientes_recetas.cantidad) AS cantidad_ingredientes,
+    AVG(valoraciones.puntuacion) AS valoracion_puntaje
+    FROM $tabla
+    INNER JOIN categorias ON publicaciones_recetas.id_categoria = categorias.id_categoria
+    INNER JOIN valoraciones ON publicaciones_recetas.id_publicacion = valoraciones.id_publicacion
+    INNER JOIN etiquetas_recetas ON publicaciones_recetas.id_publicacion = etiquetas_recetas.id_publicacion
+    INNER JOIN etiquetas ON etiquetas_recetas.id_etiqueta = etiquetas.id_etiqueta
+    INNER JOIN ingredientes_recetas ON publicaciones_recetas.id_publicacion = ingredientes_recetas.id_publicacion";
 
     if (!empty($conditions)) {
         $sql .= " WHERE " . implode(" AND ", $conditions);
     }
-    $sql .= " GROUP BY publicaciones_recetas.id_publicacion $order"; // agrego el agrupamiento y orden
-    
+    $sql .= " GROUP BY publicaciones_recetas.id_publicacion $order";
+    // agrego el agrupamiento y orden
+
     // praparo las consultas
     $stmt = $conn->prepare($sql);
     foreach ($params as $key => $value) {
@@ -94,7 +99,8 @@ if (!empty($conditions) || !empty($order)) {
     }
     $stmt->execute();
     $num_rows = $stmt->rowCount();
-
+    // echo $sql;
+    // die();
     // mostrar las cards
     if ($num_rows > 0) {
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -116,11 +122,11 @@ if (!empty($conditions) || !empty($order)) {
             $html .= '</div>';
             $html .= '</div></a>';
             $html .= '<div class="card-body text-left">';
-            
+
             // título y valoración
             $html .= '<div class="d-flex justify-content-between align-items-center">';
             $html .= '<h5 class="card-title receta-titulo m-0">' . htmlspecialchars($row['titulo'], ENT_QUOTES, 'UTF-8') . '</h5>';
-            
+
             // estrellas de valoración
             $puntuacion = (int) round($row['valoracion_puntaje']);
             $html .= '<div class="rating d-flex mb-2">';
@@ -143,4 +149,3 @@ if (!empty($conditions) || !empty($order)) {
 }
 
 echo $html;
-

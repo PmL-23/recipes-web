@@ -260,8 +260,6 @@ const ProcesarInformacionTraerPublicaciones = async function(data) {
         await Promise.all(promesasImagenes);
         await Promise.all(promesasEtiquetas);
         await Promise.all(promesasPaises);
-        //console.log("en el for de las publicaciones");
-        //console.log(CantidadPublicaciones);
         console.log(Publicacion);
     }
     LLenarDivPublicaciones();
@@ -320,15 +318,24 @@ function previewImage(event) {
     }
 }
 
-//funcion para copiar en enlace para compartir el perfil.
-function CopiarEnlacePerfil() {
-    const profileLink = 'https://RecetasDeAmerica.com/MiPerfil';
-    navigator.clipboard.writeText(profileLink).then(() => {
-    }).catch(err => {
-        console.error('Error al copiar el enlace: ', err);
-    });
-}
 
+
+const Redireccionar = function (TipoDePestaña, url) {
+
+    //    let redireccion =  '/../recetas/receta-plantilla.php?id=' + IDPublicacionRedireccionar;
+        //console.log(url);
+        try {
+    if(TipoDePestaña=='EnMismaVentana'){
+        window.location.href = url;
+    }
+    if(TipoDePestaña=='EnOtraVentana'){
+        window.open(url, '_blank');
+    }
+        }
+        catch (error) {
+    
+        }
+    }
 //funcion para copiar en enlace para compartir el perfil.
 function LLenarDivPublicaciones() {
     const contenedor = document.getElementById("IDContenedorPublicacionesPropias"); // Selecciona el contenedor
@@ -425,7 +432,7 @@ function LLenarDivPublicaciones() {
                             ${carouselHTML} <!-- Solo se muestra el carrusel si hay imágenes -->
     
                             <div class="card-body ">
-                                <h5 class="card-title fs-5">${Publicacion[i].titulo}</h5>
+                                <h5 class="card-title fs-5 aparecer-cursor d-inline" onclick="Redireccionar('EnMismaVentana','../recetas/receta-plantilla.php?id=${Publicacion[i].id_publicacion}')">${Publicacion[i].titulo}</h5>
                                 <p class="">${Publicacion[i].descripcion}</p>
                             </div>
                             <ul class="list-group list-group-flush p-0">
@@ -562,8 +569,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         LLenarDivPublicaciones();
         console.log("el cant es " + CantidadPublicaciones);
         showModal("Perfil no encontrado",false);
-        
-        
     }
     else{
         await LLenarEncabezado();

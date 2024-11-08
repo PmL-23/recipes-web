@@ -11,7 +11,7 @@ $stmCategorias = $conn->prepare($queryCategorias);
 $stmCategorias->execute();
 $categorias = $stmCategorias->fetchAll(PDO::FETCH_ASSOC);
 
-$queryEtiquetas = "SELECT titulo FROM etiquetas_recetas";
+$queryEtiquetas = "SELECT titulo FROM etiquetas";
 $stmEtiquetas = $conn->prepare($queryEtiquetas);
 $stmEtiquetas->execute();
 $etiquetas = $stmEtiquetas->fetchAll(PDO::FETCH_ASSOC);

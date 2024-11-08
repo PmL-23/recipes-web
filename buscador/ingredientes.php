@@ -13,7 +13,10 @@ $col = [
     'publicaciones_recetas.dificultad',
     'publicaciones_recetas.minutos_prep',
     'valoraciones.puntuacion AS valoracion_puntaje',
-    'ingredientes_recetas.ingrediente AS ingrediente_nombre'
+    'ingredientes.nombre AS ingrediente_nombre',
+    'ingredientes.id_ingrediente AS ingrediente_id_ingrediente',
+    'ingredientes_recetas.id_publicacion AS ingredienteReceta_id_publicacion',
+    'ingredientes_recetas.id_ingrediente AS ingredienteReceta_id_ingrediente',
 ];
 
 // todos los campos
@@ -36,7 +39,7 @@ if (!empty($filtros)) {
 
     // agrego las condiciones para cada ingrediente
     foreach ($filtros as $key => $value) {
-        $condiciones[] = "ingredientes_recetas.ingrediente LIKE :$key";
+        $condiciones[] = "ingredientes.nombre LIKE :$key";
         $parametros[":$key"] = "%" . $value . "%";
     }
 
@@ -47,7 +50,8 @@ if (!empty($filtros)) {
     $sql = "SELECT " . implode(", ", $col) . "
             FROM $tabla
             LEFT JOIN valoraciones ON publicaciones_recetas.id_publicacion = valoraciones.id_publicacion
-            LEFT JOIN ingredientes_recetas ON publicaciones_recetas.id_publicacion = ingredientes_recetas.id_publicacion
+            INNER JOIN ingredientes_recetas ON publicaciones_recetas.id_publicacion = ingredientes_recetas.id_publicacion
+            INNER JOIN ingredientes ON ingredientes_recetas.id_ingrediente = ingredientes.id_ingrediente
             WHERE $condicionSQL
             GROUP BY publicaciones_recetas.id_publicacion";
     
