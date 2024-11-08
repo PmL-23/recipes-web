@@ -117,26 +117,28 @@ if ($indexPosition !== false) {
         <div class="row">
             <div class="col-md-4">
                 <div class="card text-center position-relative">
-                    <img src="<?= htmlspecialchars($usuario['foto_usuario']) ?>" class="card-img-top" alt="Foto de Perfil" id="imagenPerfil">
-                    <?php echo '<button class="notificaciones btn btn-outline-light boton-menu" id="btnCambiarImagen" aria-label="Cambiar imagen" style="display: none;">Cambiar imagen</button>'; ?>
+                    <img src="<?= htmlspecialchars($usuario['foto_usuario']) ?>" class="card-img-top" alt="Foto de Perfil" id="imagenPerfil"><br>
+                    <small class="text-danger" id="imagenError"></small>
+                    <button class="notificaciones btn btn-outline-light boton-menu" id="btnCambiarImagen" aria-label="Cambiar imagen">Cambiar imagen</button>
                 <div class="card-body">
                     <h1 class="card-title" id="usernameText">@<?php echo htmlspecialchars($usuario['username']); ?>
                     <button id="editUsernameBtn" class="btn btn-sm btn-primary" onclick="editarUsername()"><i class="bi bi-pencil-square"></i></button>
                     <button id="editContraseñaBtn" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalEditContraseña"><i class="bi bi-lock-fill"></i></button>
                     </h1>
-                    <textarea id="usernameInput" rows="3" class="form-control" style="display: none;"></textarea>
-                    <div id="usernameButtons" style="display: none;">
+                    <textarea id="usernameInput" rows="3" class="form-control"></textarea>
+                    <div id="usernameButtons">
                         <button class="btn btn-success mt-2" onclick="guardarUsername(<?= $usuario['id_usuario']; ?>)">Guardar</button>
-                        <button class="btn btn-secondary mt-2" onclick="cancelarEdicion()">Cancelar</button>
+                        <button class="btn btn-secondary mt-2" onclick="cancelarEdicion()">Cancelar</button><br>
+                        <small class="text-danger" id="usernameError"></small>
                     </div>
-                    <div class="form-text text-danger" id="error-username"></div>
                     <h3 class="card-title">Nombre: <?php echo htmlspecialchars($usuario['nom_completo']); ?></h3>
                     <p class="card-text"> Descripción: <span id="descripcionText"><?php echo htmlspecialchars($usuario['descripcion']); ?></span>
                         <button id="editDescripcionBtn" class="btn btn-sm btn-primary" onclick="editarDescripcion()"><i class="bi bi-pencil-square"></i></button>
                         <textarea id="descripcionInput" rows="3" class="form-control"></textarea>
                         <div id="descripcionButtons">
                             <button class="btn btn-success mt-2" onclick="guardarDescripcion(<?= $usuario['id_usuario']; ?>)">Guardar</button>
-                            <button class="btn btn-secondary mt-2" onclick="cancelarEdit()">Cancelar</button>
+                            <button class="btn btn-secondary mt-2" onclick="cancelarEdit()">Cancelar</button><br>
+                            <small class="text-danger" id="descripcionError"></small>
                         </div>
                     </p>
                 </div>

@@ -2,8 +2,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const imagenUsuario = document.getElementById('imagenPerfil');
     const btnCambiar = document.getElementById('btnCambiarImagen');
     const modal = new bootstrap.Modal(document.getElementById('modalCambiarImagen'));
+    const imagenError = document.getElementById('imagenError'); 
 
-    //Para que el botón aparezca oculto
+    // Para que el botón aparezca oculto
     btnCambiar.style.display = 'none';
 
     // Mostrar / ocultar boton "cambiar imagen"
@@ -40,10 +41,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const btnConfirmar = document.getElementById('btnConfirmar');
 
-    //Confirmación del cambio de foto
     btnConfirmar.addEventListener('click', () => {
         const form = document.getElementById('formCambiarImagen');
         const formData = new FormData(form);
+
+        imagenError.textContent = '';
 
         fetch('cambiar_imagen.php', { // ruta a donde se envía la imagen cargada en el modal
             method: 'POST',
@@ -52,15 +54,17 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                //actualiza el url de la imagen de perfil
+                // Actualiza el URL de la imagen de perfil
                 imagenUsuario.src = '../fotos_usuario/' + data.foto_usuario;
                 modal.hide(); 
             } else {
-                alert(data.error || 'Error desconocido');
+                imagenError.textContent = data.error || 'Error desconocido al cambiar la imagen.';
             }
         })
         .catch(error => {
+
             console.error('Error:', error);
+            imagenError.textContent = 'Error en la comunicación con el servidor.';
         });
     });
 });
