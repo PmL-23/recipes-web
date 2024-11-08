@@ -69,12 +69,6 @@ h5{
     background-color: #030303;
 }
 
-.contenido-principal
-{   
-    border-radius: 15px;
-    background-color:#d4ffeb;
-}
-
 /* Estilos personalizados para el botón de seguir */
 #btn-SeguirPerfil {
     font-weight: bold;

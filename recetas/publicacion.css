@@ -1,7 +1,114 @@
+/* imagenes debajo de la portada: */
+.scroll {
+    overflow-x: auto;
+    white-space: nowrap;
+    width: 100%;
+    padding-bottom: 10px;
+}
+
+.contenedor-imagenes {
+    display: flex;
+    flex-wrap: nowrap;
+    width: max-content;
+}
+
+.imagen {
+    flex: 0 0 auto;
+    width: calc(35% - 10px);
+    margin-right: 10px;
+}
+
+.contenedor-img-portada {
+    
+    width: 100%;
+    max-width: 500px;
+    max-height: 300px; 
+    
+}
+
+.img-portada {
+    width: 100%; 
+    max-height: 300px; 
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 10px; 
+}
+
+
+.contenedor-paso-img {
+    flex-direction: column; 
+    align-items: flex-start; 
+    width: 100%;
+    max-width: 200px;
+    margin: 10px 0;
+}
+
+.img-paso {
+    width: 100%; 
+    max-height: 250px; 
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 10px; 
+}
+
+.btn-editar
+{
+    background-color: transparent;
+    border: none;
+
+}
+
 .titulo-receta
 {
     font-family: "Quicksand", serif;
     font-optical-sizing: auto;
     font-weight: bolder;
     font-style: normal;
+}
+
+.contenido-principal
+{   
+    border-radius: 15px;
+    background-color: #ffff !important; 
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.contenedor-perfil {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid gainsboro;
+    background-color: gainsboro;
+}
+
+#perfil-autor {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+#nombre-usuario
+{
+    font-size: 20px;
+}
+
+.etiqueta
+{
+    color: green;
+}
+
+
+@media (max-width: 576px) {
+
+    .contenido-principal
+    {
+        box-shadow: none;
+    }
+
 }
