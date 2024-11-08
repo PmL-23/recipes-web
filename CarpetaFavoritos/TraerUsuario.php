@@ -14,7 +14,7 @@ if (!isset($_GET['IDUsuario'])) {
     die();
 }
 $idusuario_ = $_GET['IDUsuario'];
-$query = "SELECT * FROM usuarios WHERE id_usuario = :ID_Usuario";
+$query = "SELECT username, nom_completo, foto_usuario FROM usuarios WHERE id_usuario = :ID_Usuario";
 $stm = $conn->prepare($query);
 $stm->bindParam(':ID_Usuario', $idusuario_);
 $stm->execute();
