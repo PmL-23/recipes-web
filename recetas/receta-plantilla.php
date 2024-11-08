@@ -26,7 +26,7 @@ require_once('../includes/razonesReporte.php');
     <!--   <link rel="stylesheet" href="estilos.css"> -->
     <!-- Scripts -->
     <script src="recetas.js" defer></script>
-    <script src="abc.js" defer></script>
+    <script src="compartir.js" defer></script>
     <script src="./Scripts-Favorito/favoritoReceta.js" defer></script>
     <script src="./Scripts-Reportes/reporteReceta.js" defer></script>
     <script src="./Scripts-Reportes/reporteComentario.js" defer></script>
