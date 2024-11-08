@@ -10,6 +10,7 @@ require_once '../includes/permisos.php';
         <link rel="stylesheet" href="../css/p-slider.css">
         <link rel="stylesheet" href="../css/j-slider.css">
         <link rel="stylesheet" href="../css/f-recomendacion.css">
+        <link rel="stylesheet" href="../css/recetas-banner.css">
         <link rel="stylesheet" href="../css/temas.css">
 
         <!-- link SwiperJS CSS biblioteca para sliders -->
