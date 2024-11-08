@@ -1,6 +1,6 @@
 <?php
 
-include '../includes/conec_db.php';
+require_once '../includes/conec_db.php';
 
 if (!isset($_GET['IDUsuario'])) {
     echo json_encode([
