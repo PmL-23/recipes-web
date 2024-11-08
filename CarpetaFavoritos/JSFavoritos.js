@@ -263,6 +263,77 @@ const ProcesarInformacionTraerPublicaciones = async function(data) {
 }
 
 
+const TraerPublicaciones = async function () {
+
+    let url = urlVariable + '/TraerPublicacionesFavoritas.php?IDUsuario=' + id_usuario;
+    //console.log(url);
+    try {
+        let respuesta = await fetch (url, {
+        method : 'get',
+    });
+    ProcesarInformacionTraerPublicaciones(await respuesta.json());
+    }
+    catch (error) {
+        console.log('FALLO FETCH!');
+        console.log(error);
+    }
+}
+
+const Redireccionar = function (TipoDePestaña, url) {
+
+//    let redireccion =  '/../recetas/receta-plantilla.php?id=' + IDPublicacionRedireccionar;
+    //console.log(url);
+    try {
+if(TipoDePestaña=='EnMismaVentana'){
+    window.location.href = url;
+}
+if(TipoDePestaña=='EnOtraVentana'){
+    window.open(url, '_blank');
+}
+    }
+    catch (error) {
+
+    }
+}
+
+async function toggleFavorito(idPublicacion, index) {
+    const btnFavorito = document.getElementById(`btn-favorito-${index}`);
+    const esFavorito = btnFavorito.classList.contains("favorito-activo");
+    const accion = esFavorito ? "eliminar" : "agregar";
+
+    // Alternar visualmente el estado del botón
+    btnFavorito.classList.toggle("favorito-activo");
+
+    try {
+        // Llamada a la base de datos usando fetch
+        let url = urlVariable + '/TraerPublicacionesFavoritas.php'  
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                accion: accion, // `agregar` o `eliminar`
+                idPublicacion: idPublicacion, // El ID de la publicación
+                
+            }),
+        });
+
+        const result = await response.json();
+
+        if (!result.success) {
+            // Revertir visualmente si ocurre un error
+            btnFavorito.classList.toggle("favorito-activo");
+            alert("Error al actualizar el favorito.");
+        }
+    } catch (error) {
+        // Revertir visualmente si la solicitud falla
+        btnFavorito.classList.toggle("favorito-activo");
+        console.error("Error:", error);
+        alert("No se pudo actualizar el estado del favorito.");
+    }
+}
+
 function LLenarPagina() {
 
     const contenedor = document.getElementById("IDContenedorPublicacionesFavoritas"); // Selecciona el contenedor
@@ -351,18 +422,18 @@ function LLenarPagina() {
                     <div class="col-10">
                         <div class="card">
                             <div class="DivEncabezadoPublicacion d-flex justify-content-between align-items-center p-2">
-                                <div class="d-flex align-items-center">
+                                <div class="d-flex align-items-center aparecer-cursor" onclick="Redireccionar('EnMismaVentana','../CarpetaPerfil/Perfil.php?NombreDeUsuario=${Usuario[i].username}')">
                                     <img class="d-inline" alt="Fperfil" src="${Usuario[i].foto_usuario}" width="35" height="35">
                                     <p class="d-inline p-1 mb-0" id="IDNombreCompletoDeUsuarioEnPublicacion">${Usuario[i].nom_completo}</p>
-                                    <p class="d-inline text-secondary mb-0" id="IDNombreDeUsuarioEnPublicacion">  @${Usuario[i].username}</p>
+                                    <p class="d-inline text-secondary mb-0" id="IDNombreDeUsuarioEnPublicacion">@${Usuario[i].username}</p>
                                 </div>
                                 <p class="text-secondary mb-0" id="IDFechaPublicacion">${Publicacion[i].fecha_publicacion}</p>
                             </div>
     
                             ${carouselHTML} <!-- Solo se muestra el carrusel si hay imágenes -->
     
-                            <div class="card-body ">
-                                <h5 class="card-title fs-5">${Publicacion[i].titulo}</h5>
+                            <div class="card-body d-flex">
+                                <h5 class="card-title fs-5 aparecer-cursor d-inline" onclick="Redireccionar('EnMismaVentana','../recetas/receta-plantilla.php?id=${Publicacion[i].id_publicacion}')">${Publicacion[i].titulo}</h5>
                                 <p class="">${Publicacion[i].descripcion}</p>
                             </div>
                             <ul class="list-group list-group-flush p-0">
@@ -371,7 +442,7 @@ function LLenarPagina() {
                                     ${EtiquetaIndividualHTML}
                                 </li>
                                 <li class="list-group-item">
-                                    <div class="contenedor-detalles container text-center ">
+                                    <div class="contenedor-detalles container text-center">
                                         <div class="row align-items-start">
                                             <div class="col-4">
                                                 <div class="align-items-center box-paises mt-3">
@@ -414,7 +485,7 @@ function LLenarPagina() {
 <div class="d-flex justify-content-end mt-2">
 <!-- Botón de Guardar en Favoritos -->
 
-    <button type="button" id="btn-favorito" class="btn btn-outline-danger me-1">
+    <button type="button" id="btn-favorito" class="btn btn-outline-danger me-1 favorito" onclick="toggleFavorito(${Publicacion[i].id_publicacion}, ${i})">
         <i class="bi bi-heart-fill fs-5"></i>
     </button>
     <button type="button" class="btn btn-outline-primary bg-none" id="btnCompartir">
@@ -438,21 +509,6 @@ function LLenarPagina() {
 }
 
 
-const TraerPublicaciones = async function () {
-
-    let url = urlVariable + '/TraerPublicacionesFavoritas.php?IDUsuario=' + id_usuario;
-    //console.log(url);
-    try {
-        let respuesta = await fetch (url, {
-        method : 'get',
-    });
-    ProcesarInformacionTraerPublicaciones(await respuesta.json());
-    }
-    catch (error) {
-        console.log('FALLO FETCH!');
-        console.log(error);
-    }
-}
 
 
 document.addEventListener("DOMContentLoaded", async function () {

@@ -22,6 +22,9 @@ function cancelarEdit() {
 
 function guardarDescripcion(usuarioId) {
     const nuevaDescripcion = document.getElementById('descripcionInput').value;
+    const descripcionError = document.getElementById('descripcionError');
+
+    descripcionError.textContent = '';
 
     fetch('guardar_descripcion.php', {
         method: 'POST',
@@ -38,13 +41,17 @@ function guardarDescripcion(usuarioId) {
                 document.getElementById('descripcionText').innerText = nuevaDescripcion;
                 cancelarEdit();
             } else {
-                alert('Error al guardar la descripción: ' + (jsonData.message || ''));
+                descripcionError.textContent = jsonData.message || 'Error al guardar la descripción.';
             }
         } catch (error) {
             console.error('Error al parsear JSON:', error);
-            alert('Error inesperado.'); 
+            descripcionError.textContent = 'Error inesperado al guardar la descripción.';
         }
     })
-    .catch(error => console.error('Error:', error));
+    .catch(error => {
+        console.error('Error:', error);
+        descripcionError.textContent = 'Error en la comunicación con el servidor.';
+    });
 }
+
 

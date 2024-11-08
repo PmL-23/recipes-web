@@ -21,7 +21,9 @@ function cancelarEdicion() {
 
 function guardarUsername(usuarioId) {
     const nuevoUsername = document.getElementById('usernameInput').value;
-    const error_username = document.getElementById('error-username');
+    const usernameError = document.getElementById('usernameError');
+
+    usernameError.textContent = '';
 
     fetch('guardar_username.php', {
         method: 'POST',
@@ -30,20 +32,25 @@ function guardarUsername(usuarioId) {
         },
         body: JSON.stringify({ id: usuarioId, username: nuevoUsername }) 
     })
-    .then(response => response.text())
+    .then(response => response.text()) 
     .then(data => {
         try {
             const jsonData = JSON.parse(data);
             if (jsonData.success) {
-                document.getElementById('usernameText').innerText = '@' + nuevoUsername; 
+                document.getElementById('usernameText').innerText = '@' + nuevoUsername;
                 cancelarEdicion();
             } else {
-                alert('Error al guardar el nombre de usuario: ' + (jsonData.message || ''));
+                usernameError.textContent = jsonData.message || 'Error al guardar el nombre de usuario.';
             }
         } catch (error) {
             console.error('Error al parsear JSON:', error);
-            alert('Error inesperado.'); 
+            usernameError.textContent = 'Error inesperado al guardar el nombre de usuario.';
         }
     })
-    .catch(error => console.error('Error:', error));
+    .catch(error => {
+        console.error('Error:', error);
+        usernameError.textContent = 'Error en la comunicación con el servidor.';
+    });
 }
+
+

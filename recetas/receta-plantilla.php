@@ -19,7 +19,6 @@ require_once('../includes/razonesReporte.php');
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=New+Rocker&family=Noto+Sans+Display:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
     <!-- CSS -->
-    <!-- <link rel="stylesheet" href="../css/recetas-banner.css"> -->
     <link rel="stylesheet" href="publicacion.css">
     <link rel="stylesheet" href="../css/recetas.css">
     <link rel="stylesheet" href="../css/carrousel.css">
@@ -32,6 +31,8 @@ require_once('../includes/razonesReporte.php');
     <script src="./Scripts-Reportes/reporteComentario.js" defer></script>
     <script src="./Scripts-Comentarios/comentariosReceta.js" type="module" defer></script>
     <script src="./Scripts-Valoracion/valoracionReceta.js" type="module" defer></script>
+    <!-- Modales -->
+
 
     <?php
     include '../includes/head.php';
@@ -41,18 +42,20 @@ require_once('../includes/razonesReporte.php');
 
 <body>
     <?php include '../includes/header.php' ?>
-    <?php include '../recetas/manejoGetReceta.php' ?>
+    <?php include '../recetas/manejoGetReceta.php'?>
     <?php if ($usuarioID === $autor) { ?>
-        <div class="d-flex justify-content-end p-3">
-            <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                Ver
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="#">Editar publicación</a></li>
-                <li><a class="dropdown-item" href="#">Eliminar publicación</a></li>
-            </ul>
-        </div>
-    <?php } ?>
+    <div class="d-flex justify-content-end p-3">
+        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        Ver
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="#">Editar publicación</a></li>
+            <li><a class="dropdown-item" href="#">Eliminar publicación</a></li>
+        </ul>
+    </div>
+    <?php } ?>     
+	
+
 
 
     <div class="contenido-principal container my-5 ps-md-2">
@@ -62,87 +65,85 @@ require_once('../includes/razonesReporte.php');
                     <div class="col-md-1 col-sm-6">
                         <div>
                             <!-- Aca va la foto del usuario -->
-                            <img class="mt-3 rounded" src="<?php echo $fotoAutor; ?>" alt="Perfil del usuario" id="portada-receta" height="80">
+                            <img class="mt-3 rounded" src="<?php echo $fotoAutor;?>" alt="Perfil del usuario" id="portada-receta" height="80">
                         </div>
                     </div>
-
-                    <div class="col-md-4 col-sm-1">
+                    <div class="d-flex flex-column">
                         <a class="text-decoration-none text-dark" href="../CarpetaPerfil/Perfil.php?NombreDeUsuario=<?php echo "$nombreAutor"; ?>">
-                            <h5 id="nombre-usuario">
-                                <!-- Aca va el nombre del usuario -->
+                            <span class="h4" id="nombre-usuario">
                                 <?php echo "@$nombreAutor"; ?>
-                            </h5>
+                            </span>
+                            <small class="text-muted" id="pais-usuario">
+                                <?php // echo $paisAutor; ?>
+                            </small>
                         </a>
-                    </div>
-                    <div class="col-md-7 col-sm-2 text-end">
-                        <p class="text-muted d-flex flex-column">
-                            <span>
-                                <?php echo explode(" ", (new DateTime($fecha))->format('d-m-Y'))[0]; ?>
-                            </span>
-                            <span>
-                                <?php echo substr(explode(" ", $fecha)[1], 0, 5); ?>
-                            </span>
-                        </p>
+                    </div>  
+                </div>
+
+                    <div class="col  d-flex justify-content-end mt-lg-2">
+                        <!-- <span class="text-muted d-flex flex-column"> -->
+                        <small class="text-muted">
+                                <?php echo explode(" ", (new DateTime($fecha))->format('d/m/Y'))[0]; ?>
+                        </small>
+                            <small>
+                                <?php // echo substr(explode(" ", $fecha)[1], 0, 5); ?>
+                            </small>
+                        <!--  </span> -->
                     </div>
                 </div>
             </div>
 
             <div class="datos-receta row align-items-start">
                 <div class="col-md-6 col-sm-12 row">
-
+                    
                     <!-- Aca va la imagen de la receta -->
                     <?php
-                    if (!empty($imagenes)) {
-                        echo '<div class="">';
-                        echo '<img src="' . $imagenes[0] . '" alt="Receta" class="portada rounded img-fluid" id="portada-receta">';
-                        echo '</div>';
-                        if (count($imagenes) > 1) {
-                            echo '<div class="w-25 d-flex">';
-                            for ($i = 1; $i < count($imagenes); $i++) {
-                                echo '<img src="' . $imagenes[$i] . '" alt="Receta" class="rounded img-fluid">';
+                        if (!empty($imagenes)) 
+                        {   echo '<div class="">';
+                            echo '<img src="' . $imagenes[0]. '" alt="Receta" class="portada rounded img-fluid" id="portada-receta">';
+                            echo'</div>';
+                            if (count($imagenes)>1)
+                            {
+                                echo '<div class="w-25 d-flex">';
+                                for ($i = 1; $i < count($imagenes); $i++)
+                                {
+                                    echo '<img src="' . $imagenes[$i]. '" alt="Receta" class="rounded img-fluid">';
+                                }
+                                echo '</div>';
                             }
-                            echo '</div>';
+                        } else {
+                            echo 'No hay portada';
                         }
-                    } else {
-                        echo 'No hay portada';
-                    }
                     ?>
                 </div>
 
-                <div class="content-info col-md-6 col-sm-12 my-5 d-flex flex-column justify-content-between">
-
-                    <div class="ms-md-5">
-
+                <div class="content-info col-lg-6  my-5 d-flex flex-column justify-content-end">
+                    <div class="ms-md-4 ms-3">
                         <h1 class="titulo-receta">
-                            <!-- titulo de la receta -->
                             <?php echo $titulo; ?>
                         </h1>
                         <p>
-                            <!-- descripcion de la receta -->
                             <?php echo $descripcion; ?>
-                        </p><br>
-                        <p class="categoria-style d-inline-flex mb-3 fw-semibold border border-success-subtle rounded-5">
-                            <?php echo $categoriaTitulo; ?>
-                            <!-- todas las categorias -->
                         </p>
-                        <p class="estilosCategorias">
+                        <div class="mb-3">
                             <?php
                             if (!empty($etiquetas)) {
                                 foreach ($etiquetas as $etiqueta) {
-                                    echo '<span class="etiqueta">' . $etiqueta["titulo"] . '</span> ';
+                                //#=pagina de etiquetas o a buscador
+                                    echo '<a class="etiqueta text-decoration-none" href="#">' . $etiqueta["titulo"] . '</a> ';
                                 }
                             } else {
                                 echo 'No hay etiquetas';
                             }
                             ?>
-
+                            
                         </p>
 
                     </div>
 
                     <div class="mt-3 d-flex flex-row justify-content-between">
 
-                        <div class="acciones my-2">
+                        <div class="acciones my-2 ms-md-4 ms-3">
 
                             <button type="button" class="btn btn-outline-warning bg-none" id="btn-reportar" data-bs-toggle="modal" data-bs-target="#modalReportarPublicacion">
                                 <i class="bi bi-flag-fill text-black"></i>
@@ -194,10 +195,9 @@ require_once('../includes/razonesReporte.php');
                     </div>
                 </div>
             </div>
-        </div>
     </div>
 
-    <div class="contenedor-detalles container text-center w-75">
+    <div class="contenedor-detalles container text-center w-75 mt-5">
         <div class="row align-items-start">
             <div class="col-4">
                 <div class="align-items-center box-icons">
@@ -206,20 +206,20 @@ require_once('../includes/razonesReporte.php');
                     if (!empty($paises)) {
                         foreach ($paises as $pais) {
                             echo '<img src="../svg/' . $pais["ruta_imagen_pais"] . '" alt="Bandera" width="35" class="bandera" id="bandera-receta"> ';
-                            echo '<p>' . $pais["nombre"] . '</p>';
+                            echo '<p>'.$pais["nombre"].'</p>';
                         }
                     } else {
                         echo 'No hay paises disponibles';
                     }
                     ?>
 
-
+         
                 </div>
             </div>
             <div class="col-4">
                 <div class="align-items-center box-icons">
                     <img src="../svg/bar-chart-line-fill.svg" width="25px" class="icono-item" alt="Dificultad icon">
-                    <!-- <h5>Dificultad</h5> -->
+                    <h6>Dificultad</h6>
                     <p id="dificultadRecetaDB" class="dificultad">
                         <?php echo $dificultad; ?>
                     </p>
@@ -228,9 +228,8 @@ require_once('../includes/razonesReporte.php');
             <div class="col-4">
                 <div class="align-items-center box-icons">
                     <img src="../svg/alarm.svg" width="25px" class="icono-item" alt="Dificultad icon">
-                    <!-- <h5>Tiempo</h5> -->
+                    <h6>Tiempo</h6>
                     <p id="tiempoRecetaDB" class="tiempo">
-                        <!-- tiempo en minutos de la receta -->
                         <?php echo $minutos_prep . 'min'; ?>
                     </p>
                 </div>
@@ -242,7 +241,6 @@ require_once('../includes/razonesReporte.php');
         <h3>Ingredientes</h3>
         <div class="">
             <ol class="list-group">
-                <!-- todos los ingredientes como una lista -->
                 <?php
                 if (!empty($ingredientes)) {
                     foreach ($ingredientes as $ingrediente) {
@@ -262,10 +260,11 @@ require_once('../includes/razonesReporte.php');
                 <li class="mb-4 bg-transparent border-0 p-0">
                     <strong>Paso <?php echo $paso['num_paso']; ?>:</strong> <?php echo $paso['texto']; ?>
                     <?php if (!empty($paso['imagenes'])): ?>
-                        <div class="imagenes-pasos row mt-2">
+                        <div class="imagenes-pasos row mt-2 w-75">
                             <?php foreach ($paso['imagenes'] as $imagenPaso): ?>
-                                <div class="imagenes-pasos col-md-6 mt-2"></div>
-                                <img src="<?php echo $imagenPaso; ?>" class="w-50 m-2" alt="Imagen del paso" class="img-fluid mb-2">
+                                <div class="col-md-6 mb-2 contenedor-paso-img">
+                                    <img src="<?php echo $imagenPaso; ?>" class="img-fluid img-paso" alt="Imagen del paso">
+                                </div>
                             <?php endforeach; ?>
                         </div>
                     <?php endif; ?>
@@ -275,106 +274,85 @@ require_once('../includes/razonesReporte.php');
     </div>
 
 
-    <div class="container mt-5 d-flex flex-row justify-content-around">
-
-        <div class="w-75 mt-2 mb-5">
-
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 order-md-1 order-1">
             <div class="comentarios d-flex flex-column" id="seccionComentarios">
-
                 <div>
                     <div class="d-flex flex-row justify-content-between">
-
                         <h5 id="comentariosContador" class="m-0 w-50">Comentarios</h5>
                         <span class="w-100 d-block me-3 text-danger text-end" id="comment-error-msg"></span>
-
                     </div>
-
                     <form action="" method="post" id="form-comentario" class="my-3">
-
                         <textarea id="comentarioText" class="form-control border border-success" name="texto_comentario" maxlength="255" rows="4" cols="50" placeholder="Escribe tu comentario..." required></textarea>
                         <input type="hidden" name="id_publicacion_receta" id="id_publicacion_receta" value="<?php if (isset($_GET['id'])) echo $_GET['id']; ?>">
-
                         <div class="d-flex justify-content-between align-items-center">
-
                             <p id="contadorCaracteres" class="ms-3 m-0">Límite de caracteres: 0/255</p>
                             <button type="submit" class="btn btn-success mt-2" id="btnPublicarComentario">Publicar comentario</button>
-
                         </div>
-
                     </form>
-
                 </div>
-
                 <ul class="list-group mt-3 w-100" id="listaComentarios"></ul>
-
             </div>
         </div>
 
-        <div class="valoraciones w-25 m-5 text-center">
-
-            <h5 id="numPromedioValoraciones" class=""></h5>
-
-            <div id="estrellasPromedioValoraciones" class="d-flex flex-row justify-content-center"></div>
-
-            <span class="fw-medium" id="valoracionesContador"></span>
-
-            <div class="w-100 porc-valoraciones m-5 ms-0 text-center">
-
-                <span class="d-flex">
-                    <p class="w-100 m-0 me-2">5 estrellas</p>
-
-                    <div class="w-100 progress my-2 contenedor-porcentaje-cinco-estrellas" role="progressbar" aria-label="Warning example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar barra-porcentaje-cinco-estrellas" style="width: 0%"></div>
-                    </div>
-
-                    <p class="ms-2 cant-val-cinco-estrellas">1</p>
-                </span>
-
-                <span class="d-flex">
-                    <p class="w-100 m-0 me-2">4 estrellas</p>
-
-                    <div class="w-100 progress my-2 contenedor-porcentaje-cuatro-estrellas" role="progressbar" aria-label="Warning example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar barra-porcentaje-cuatro-estrellas" style="width: 0%"></div>
-                    </div>
-
-                    <p class="ms-2 cant-val-cuatro-estrellas">0</p>
-                </span>
-
-                <span class="d-flex">
-                    <p class="w-100 m-0 me-2">3 estrellas</p>
-
-                    <div class="w-100 progress my-2 contenedor-porcentaje-tres-estrellas" role="progressbar" aria-label="Warning example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar barra-porcentaje-tres-estrellas" style="width: 0%"></div>
-                    </div>
-
-                    <p class="ms-2 cant-val-tres-estrellas">2</p>
-                </span>
-
-                <span class="d-flex">
-                    <p class="w-100 m-0 me-2">2 estrellas</p>
-
-                    <div class="w-100 progress my-2 contenedor-porcentaje-dos-estrellas" role="progressbar" aria-label="Warning example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar barra-porcentaje-dos-estrellas" style="width: 0%"></div>
-                    </div>
-
-                    <p class="ms-2 cant-val-dos-estrellas">0</p>
-                </span>
-
-                <span class="d-flex">
-                    <p class="w-100 m-0 me-2">1 estrella</p>
-
-                    <div class="w-100 progress my-2 contenedor-porcentaje-una-estrella" role="progressbar" aria-label="Warning example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar barra-porcentaje-una-estrella" style="width: 0%"></div>
-                    </div>
-
-                    <p class="ms-2 cant-val-una-estrella">0</p>
-                </span>
-
+        <div class="col-md-4 order-md-2 order-2 mt-4 mt-md-0">
+            <div class="valoraciones w-100 text-center">
+                <h5 id="numPromedioValoraciones"></h5>
+                <div id="estrellasPromedioValoraciones" class="d-flex flex-row justify-content-center"></div>
+                <span class="fw-medium" id="valoracionesContador"></span>
+                <div class="w-100 porc-valoraciones m-5 ms-0 text-center">
+                    <span class="d-flex">
+                        <p class="w-100 m-0 me-2">5 estrellas</p>
+                        <div class="w-100 progress my-2 contenedor-porcentaje-cinco-estrellas" role="progressbar" aria-label="Warning example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar barra-porcentaje-cinco-estrellas" style="width: 0%"></div>
+                        </div>
+                        <p class="ms-2 cant-val-cinco-estrellas">1</p>
+                    </span>
+                    <span class="d-flex">
+                        <p class="w-100 m-0 me-2">4 estrellas</p>
+                        <div class="w-100 progress my-2 contenedor-porcentaje-cuatro-estrellas" role="progressbar" aria-label="Warning example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar barra-porcentaje-cuatro-estrellas" style="width: 0%"></div>
+                        </div>
+                        <p class="ms-2 cant-val-cuatro-estrellas">0</p>
+                    </span>
+                    <span class="d-flex">
+                        <p class="w-100 m-0 me-2">3 estrellas</p>
+                        <div class="w-100 progress my-2 contenedor-porcentaje-tres-estrellas" role="progressbar" aria-label="Warning example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar barra-porcentaje-tres-estrellas" style="width: 0%"></div>
+                        </div>
+                        <p class="ms-2 cant-val-tres-estrellas">2</p>
+                    </span>
+                    <span class="d-flex">
+                        <p class="w-100 m-0 me-2">2 estrellas</p>
+                        <div class="w-100 progress my-2 contenedor-porcentaje-dos-estrellas" role="progressbar" aria-label="Warning example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar barra-porcentaje-dos-estrellas" style="width: 0%"></div>
+                        </div>
+                        <p class="ms-2 cant-val-dos-estrellas">0</p>
+                    </span>
+                    <span class="d-flex">
+                        <p class="w-100 m-0 me-2">1 estrella</p>
+                        <div class="w-100 progress my-2 contenedor-porcentaje-una-estrella" role="progressbar" aria-label="Warning example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar barra-porcentaje-una-estrella" style="width: 0%"></div>
+                        </div>
+                        <p class="ms-2 cant-val-una-estrella">0</p>
+                    </span>
+                </div>
             </div>
-
         </div>
-
     </div>
+</div>
+
+
+    <!-- MODAL PARA VER IMAGENES DE LA GALERIA -->
+    <div tabindex="-1" aria-labelledby="modalImagenLabel" aria-hidden="true" class="modal fade p-0" id="modalImagen">                        
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-content-imagen ">
+                <?php echo '<img src="' . $imagenes[0]. '" alt="Receta">'; ?>                
+            </div>
+        </div>                    
+    </div>
+
 
     <!-- MODAL ELIMINAR COMENTARIO PROPIO -->
 

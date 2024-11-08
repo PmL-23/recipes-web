@@ -69,12 +69,6 @@ h5{
     background-color: #030303;
 }
 
-.contenido-principal
-{   
-    border-radius: 15px;
-    background-color:#d4ffeb;
-}
-
 /* Estilos personalizados para el botón de seguir */
 #btn-SeguirPerfil {
     font-weight: bold;
@@ -123,4 +117,21 @@ h5{
 .custom-modal-position .modal-dialoggs {
     margin-top: 5% !important; /* Ajusta el valor en porcentaje o píxeles según necesites */
     transition: transform 0.3s ease-in-out !important; /* Agrega una transición suave */
+}
+
+.aparecer-cursor {
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.aparecer-cursor:active {
+    background-color: #cce5ff; /* Color de fondo al presionar */
+    transform: scale(0.98); /* Efecto de pequeña reducción para simular presión */
+    color: #004085; /* Color del texto o contenido al presionar */
+}
+
+.favorito-activo {
+    background-color: #ff4d4d !important; /* Rojo intenso */
+    color: white !important; /* Color del ícono */
+    border-color: #ff4d4d; /* Borde rojo */
 }
