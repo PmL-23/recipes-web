@@ -260,8 +260,6 @@ const ProcesarInformacionTraerPublicaciones = async function(data) {
         await Promise.all(promesasImagenes);
         await Promise.all(promesasEtiquetas);
         await Promise.all(promesasPaises);
-        //console.log("en el for de las publicaciones");
-        //console.log(CantidadPublicaciones);
         console.log(Publicacion);
     }
     LLenarDivPublicaciones();
@@ -562,8 +560,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         LLenarDivPublicaciones();
         console.log("el cant es " + CantidadPublicaciones);
         showModal("Perfil no encontrado",false);
-        
-        
     }
     else{
         await LLenarEncabezado();
