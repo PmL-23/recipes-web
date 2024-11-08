@@ -1,10 +1,11 @@
 <?php
-
 session_start();
-
 require_once('../includes/conec_db.php');
 
-$usuarioID = $_SESSION['id'];//establezco el usuario id con el id de la sesion
+if(isset($_SESSION['id']))
+{
+    $usuarioID = $_SESSION['id'];//establezco el usuario id con el id de la sesion
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
 

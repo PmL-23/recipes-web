@@ -1,5 +1,6 @@
 <?php include '../includes/conec_db.php' ?>
 <?php
+
 require_once('./Scripts-Valoracion/getValoracionActual.php');
 require_once('./Scripts-Favorito/getEstadoDeFavorito.php');
 require_once('../includes/razonesReporte.php');
@@ -12,12 +13,16 @@ require_once('../includes/razonesReporte.php');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recetario</title>
-
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=New+Rocker&family=Noto+Sans+Display:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
     <!-- CSS -->
-    <link rel="stylesheet" href="../css/recetas-banner.css">
+    <!-- <link rel="stylesheet" href="../css/recetas-banner.css"> -->
+    <link rel="stylesheet" href="publicacion.css">
     <link rel="stylesheet" href="../css/recetas.css">
     <link rel="stylesheet" href="../css/carrousel.css">
-    <link rel="stylesheet" href="estilos.css">
+    <!--   <link rel="stylesheet" href="estilos.css"> -->
     <!-- Scripts -->
     <script src="recetas.js" defer></script>
     <script src="./Scripts-Favorito/favoritoReceta.js" defer></script>
@@ -35,7 +40,7 @@ require_once('../includes/razonesReporte.php');
 <body>
     <?php include '../includes/header.php' ?>
     <?php include '../recetas/manejoGetReceta.php'?>
-    <?php if ($autor == $_SESSION['id']) { ?>
+    <?php if ($usuarioID === $autor) { ?>
     <div class="d-flex justify-content-end p-3">
         <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
         Ver
@@ -62,7 +67,7 @@ require_once('../includes/razonesReporte.php');
                     </div>
 
                     <div class="col-md-4 col-sm-1">
-                        <a class="text-decoration-none text-dark" href="../CarpetaPerfil/Perfil.php?NombreDeUsuario=<?php echo "$nombreUsuario"; ?>">
+                        <a class="text-decoration-none text-dark" href="../CarpetaPerfil/Perfil.php?NombreDeUsuario=<?php echo "$nombreAutor"; ?>">
                             <h5 id="nombre-usuario">
                                 <!-- Aca va el nombre del usuario -->
                                 <?php echo "@$nombreAutor"; ?>
@@ -108,12 +113,12 @@ require_once('../includes/razonesReporte.php');
 
                 <div class="content-info col-md-6 col-sm-12 my-5 d-flex flex-column justify-content-between">
 
-                    <div>
+                    <div class="ms-md-5">
 
-                        <h2 class="titulo-receta">
+                        <h1 class="titulo-receta">
                             <!-- titulo de la receta -->
                             <?php echo $titulo; ?>
-                        </h2>
+                        </h1>
                         <p>
                             <!-- descripcion de la receta -->
                             <?php echo $descripcion; ?>
@@ -168,20 +173,21 @@ require_once('../includes/razonesReporte.php');
                             </span>
 
                             <div id="valoracion" data-value="<?php if (!empty($ValoracionDeReceta['puntuacion']) && is_numeric($ValoracionDeReceta['puntuacion'])) echo $ValoracionDeReceta['puntuacion'];
-                                                                else echo "0"; ?>">
+                                else echo "0"; ?>">
                                 <?php
                                 for ($i = 1; $i <= 5; $i++) {
                                     if (!empty($ValoracionDeReceta['puntuacion']) && is_numeric($ValoracionDeReceta['puntuacion'])) {
                                         if ($i <= $ValoracionDeReceta['puntuacion']) {
-                                ?><span class="estrella hover" data-value="<?php echo $i ?>">&#9733;</span><?php
-                                                                                                        } else {
-                                                                                                            ?><span class="estrella" data-value="<?php echo $i ?>">&#9733;</span><?php
-                                                                                                                                                                                }
-                                                                                                                                                                            } else {
-                                                                                                                                                                                    ?><span class="estrella" data-value="<?php echo $i ?>">&#9733;</span><?php
-                                                                                                                                                                                                                                                        }
-                                                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                                                            ?>
+                                ?>
+                                <span class="estrella hover" data-value="<?php echo $i ?>">&#9733;</span><?php
+                                    } else {
+                                    ?><span class="estrella" data-value="<?php echo $i ?>">&#9733;</span><?php
+                                    }
+                                    } else {
+                                    ?><span class="estrella" data-value="<?php echo $i ?>">&#9733;</span><?php
+                                    }
+                                    }
+                                    ?>
                             </div>
 
                             <input type="hidden" name="valoracion" value="0">
