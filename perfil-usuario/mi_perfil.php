@@ -105,7 +105,7 @@ if ($indexPosition !== false) {
     <link rel="stylesheet" href="boton_publicacion.css">
     
     <script src="cambiar_imagen.js" defer></script>
-    <script src="boton_publicacion.js" defer></script>
+    <script src="boton_publicacionn.js" defer></script>
     <script src="editar_descripcion.js" defer></script>
     <script src="boton_username.js" defer></script>
     <script src="editar_contraseña.js" defer></script>

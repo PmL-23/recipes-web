@@ -37,7 +37,7 @@ function eliminarPublicacion(id) {
 }
 
 function compartirReceta(idPublicacion) {
-    const enlaceReceta = `http://localhost/xampp/proyecto_final/recipes-web/recetas/receta.php?id=${idPublicacion}`;  //Link de la receta
+    const enlaceReceta = `http://localhost/xampp/proyecto_final/recipes-web/recetas/receta-plantilla.php?id=${idPublicacion}`;  //Link de la receta
     
     navigator.clipboard.writeText(enlaceReceta) //Para copiar el link en el portapapeles
         .then(() => {

@@ -3,7 +3,7 @@ require '../includes/conec_db.php';
 
 if (isset($_GET['id'])) {
         $idPublicacion= $_GET['id'];
-            
+
         $sql = "SELECT * FROM publicaciones_recetas WHERE id_publicacion = :id_get"; 
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':id_get', $idPublicacion);

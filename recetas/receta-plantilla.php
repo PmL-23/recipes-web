@@ -10,6 +10,7 @@ require_once('../includes/razonesReporte.php');
 <html lang="es">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recetario</title>
@@ -25,6 +26,7 @@ require_once('../includes/razonesReporte.php');
     <!--   <link rel="stylesheet" href="estilos.css"> -->
     <!-- Scripts -->
     <script src="recetas.js" defer></script>
+    <script src="abc.js" defer></script>
     <script src="./Scripts-Favorito/favoritoReceta.js" defer></script>
     <script src="./Scripts-Reportes/reporteReceta.js" defer></script>
     <script src="./Scripts-Reportes/reporteComentario.js" defer></script>
@@ -39,20 +41,18 @@ require_once('../includes/razonesReporte.php');
 
 <body>
     <?php include '../includes/header.php' ?>
-    <?php include '../recetas/manejoGetReceta.php'?>
+    <?php include '../recetas/manejoGetReceta.php' ?>
     <?php if ($usuarioID === $autor) { ?>
-    <div class="d-flex justify-content-end p-3">
-        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-        Ver
-        </button>
-        <ul class="dropdown-menu dropdown-menu-end">
-            <li><a class="dropdown-item" href="#">Editar publicación</a></li>
-            <li><a class="dropdown-item" href="#">Eliminar publicación</a></li>
-        </ul>
-    </div>
-    <?php } ?>     
-	
-
+        <div class="d-flex justify-content-end p-3">
+            <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                Ver
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="#">Editar publicación</a></li>
+                <li><a class="dropdown-item" href="#">Eliminar publicación</a></li>
+            </ul>
+        </div>
+    <?php } ?>
 
 
     <div class="contenido-principal container my-5 ps-md-2">
@@ -62,7 +62,7 @@ require_once('../includes/razonesReporte.php');
                     <div class="col-md-1 col-sm-6">
                         <div>
                             <!-- Aca va la foto del usuario -->
-                            <img class="mt-3 rounded" src="<?php echo $fotoAutor;?>" alt="Perfil del usuario" id="portada-receta" height="80">
+                            <img class="mt-3 rounded" src="<?php echo $fotoAutor; ?>" alt="Perfil del usuario" id="portada-receta" height="80">
                         </div>
                     </div>
 
@@ -89,25 +89,23 @@ require_once('../includes/razonesReporte.php');
 
             <div class="datos-receta row align-items-start">
                 <div class="col-md-6 col-sm-12 row">
-                    
+
                     <!-- Aca va la imagen de la receta -->
                     <?php
-                        if (!empty($imagenes)) 
-                        {   echo '<div class="">';
-                            echo '<img src="' . $imagenes[0]. '" alt="Receta" class="portada rounded img-fluid" id="portada-receta">';
-                            echo'</div>';
-                            if (count($imagenes)>1)
-                            {
-                                echo '<div class="w-25 d-flex">';
-                                for ($i = 1; $i < count($imagenes); $i++)
-                                {
-                                    echo '<img src="' . $imagenes[$i]. '" alt="Receta" class="rounded img-fluid">';
-                                }
-                                echo '</div>';
+                    if (!empty($imagenes)) {
+                        echo '<div class="">';
+                        echo '<img src="' . $imagenes[0] . '" alt="Receta" class="portada rounded img-fluid" id="portada-receta">';
+                        echo '</div>';
+                        if (count($imagenes) > 1) {
+                            echo '<div class="w-25 d-flex">';
+                            for ($i = 1; $i < count($imagenes); $i++) {
+                                echo '<img src="' . $imagenes[$i] . '" alt="Receta" class="rounded img-fluid">';
                             }
-                        } else {
-                            echo 'No hay portada';
+                            echo '</div>';
                         }
+                    } else {
+                        echo 'No hay portada';
+                    }
                     ?>
                 </div>
 
@@ -137,7 +135,7 @@ require_once('../includes/razonesReporte.php');
                                 echo 'No hay etiquetas';
                             }
                             ?>
-                            
+
                         </p>
 
                     </div>
@@ -173,21 +171,21 @@ require_once('../includes/razonesReporte.php');
                             </span>
 
                             <div id="valoracion" data-value="<?php if (!empty($ValoracionDeReceta['puntuacion']) && is_numeric($ValoracionDeReceta['puntuacion'])) echo $ValoracionDeReceta['puntuacion'];
-                                else echo "0"; ?>">
+                                                                else echo "0"; ?>">
                                 <?php
                                 for ($i = 1; $i <= 5; $i++) {
                                     if (!empty($ValoracionDeReceta['puntuacion']) && is_numeric($ValoracionDeReceta['puntuacion'])) {
                                         if ($i <= $ValoracionDeReceta['puntuacion']) {
                                 ?>
-                                <span class="estrella hover" data-value="<?php echo $i ?>">&#9733;</span><?php
-                                    } else {
-                                    ?><span class="estrella" data-value="<?php echo $i ?>">&#9733;</span><?php
-                                    }
-                                    } else {
-                                    ?><span class="estrella" data-value="<?php echo $i ?>">&#9733;</span><?php
-                                    }
-                                    }
-                                    ?>
+                                            <span class="estrella hover" data-value="<?php echo $i ?>">&#9733;</span><?php
+                                                                                                                    } else {
+                                                                                                                        ?><span class="estrella" data-value="<?php echo $i ?>">&#9733;</span><?php
+                                                                                                                                                                                            }
+                                                                                                                                                                                        } else {
+                                                                                                                                                                                                ?><span class="estrella" data-value="<?php echo $i ?>">&#9733;</span><?php
+                                                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                                        ?>
                             </div>
 
                             <input type="hidden" name="valoracion" value="0">
@@ -208,14 +206,14 @@ require_once('../includes/razonesReporte.php');
                     if (!empty($paises)) {
                         foreach ($paises as $pais) {
                             echo '<img src="../svg/' . $pais["ruta_imagen_pais"] . '" alt="Bandera" width="35" class="bandera" id="bandera-receta"> ';
-                            echo '<p>'.$pais["nombre"].'</p>';
+                            echo '<p>' . $pais["nombre"] . '</p>';
                         }
                     } else {
                         echo 'No hay paises disponibles';
                     }
                     ?>
 
-         
+
                 </div>
             </div>
             <div class="col-4">
@@ -395,7 +393,7 @@ require_once('../includes/razonesReporte.php');
 
                 <div class="modal-footer">
                     <form action="" id="formulario-eliminar-comentario" class="w-100">
-                        <input type="hidden" id="ComentarioID" name="ComentarioID" value=""/>
+                        <input type="hidden" id="ComentarioID" name="ComentarioID" value="" />
                         <div class="d-flex justify-content-between">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                             <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">Si, eliminar</button>
@@ -426,7 +424,7 @@ require_once('../includes/razonesReporte.php');
                                 <option value="">Seleccione un motivo</option>
                                 <?php if (!empty($razonesReporte)) {
                                     foreach ($razonesReporte as $razon) {
-                                        echo '<option value='.$razon['id_razon'].'>'.$razon['descripcion'].'</option>';
+                                        echo '<option value=' . $razon['id_razon'] . '>' . $razon['descripcion'] . '</option>';
                                     }
                                 } ?>
                             </select>
@@ -491,16 +489,29 @@ require_once('../includes/razonesReporte.php');
     </div>
 
     <!-- MODAL COMPARTIR PUBLICACIÓN -->
+    <?php
 
+    ?>
     <div id="modalCompartir" class="modal">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 <h2>Compartir</h2>
                 <div class="redes my-5">
-                    <a href="https://www.facebook.com" target="_blank"><i class="bi bi-facebook"></i></a>
-                    <a href="https://www.instagram.com" target="_blank"><i class="bi bi-instagram"></i></a>
-                    <a href="https://twitter.com" target="_blank"><i class="bi bi-twitter"></i></a>
+                    <!-- compartir en fc -->
+                    <a href="#" onclick="compartirPorFacebook(<?php echo $idPublicacion; ?>)"><i class="bi bi-facebook"></i></a>
+
+                    <!-- compartir en ig -->
+                    <a href="#" onclick="compartirPorInstagram(<?php echo $idPublicacion; ?>)"><i class="bi bi-instagram"></i></a>
+                    
+                    <!-- compartir en x -->
+                    <a href="https://www.instagram.com/" onclick="compartirPorTwitter(<?php echo $idPublicacion; ?>)"><i class="bi bi-twitter"></i></a>
+                    
+                    <!-- compartir por link -->
+                    <a href="#" onclick="compartirReceta(<?php echo $idPublicacion; ?>)"><i class="bi bi-link-45deg"></i></a>
+                    
+                    <!-- compartir por wsp -->
+                    <a href="#" onclick="compartirPorWhatsApp(<?php echo $idPublicacion; ?>)"><i class="bi bi-whatsapp"></i></a>
                 </div>
             </div>
         </div>
@@ -511,24 +522,24 @@ require_once('../includes/razonesReporte.php');
 
         <div id="formToastSuccess" class="toast align-items-center text-bg-success" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="d-flex">
-              <div  id="toast-success-msg" class="toast-body">
-                -Mensaje exitoso correspondiente-
-              </div>
-              <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                <div id="toast-success-msg" class="toast-body">
+                    -Mensaje exitoso correspondiente-
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
         </div>
 
     </div>
-    
+
     <!-- TOAST PARA NOTIFICAR MENSAJES DE ERROR -->
     <div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1055;">
 
         <div id="formToastError" class="toast align-items-center text-bg-danger" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="d-flex">
-              <div id="toast-error-msg" class="toast-body">
-                -Mensaje de error correspondiente-
-              </div>
-              <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                <div id="toast-error-msg" class="toast-body">
+                    -Mensaje de error correspondiente-
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
         </div>
 
