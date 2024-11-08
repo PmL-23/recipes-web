@@ -29,8 +29,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
         $protocolo = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
         $host = $_SERVER['HTTP_HOST'];
-        $enlaceRecuperacion = "$protocolo://$host/xampp/proyecto_final/recipes-web/inicio_sesion/nueva_contrasena.php?token=$token";
-
+        $base = dirname($_SERVER['SCRIPT_NAME']) . '/nueva_contrasena.php';
+        $enlaceRecuperacion = "$protocolo://$host$base?token=$token";
 
         $nombre_cuenta = $usuario['nom_completo'];
 

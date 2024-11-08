@@ -54,17 +54,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cambiar contraseña</title>
+    <?php include '../includes/head.php'?>
     
 </head>
 <body>
     <?php include '../includes/header.php' ?>
-    <form action="" method="POST">
-        <label for="newpass1">Contraseña nueva:</label>
-        <input type="password" id="newpass1" name="newpass1" required>
-        <label for="newpass2">Repetir contraseña nueva:</label>
-        <input type="password" name="newpass2" id="newpass2" required>
-        <button type="submit" id="botonConfirmar">CONFIRMAR</button>
-    </form>
+    <div class="container mt-5">
+        <form action="" method="POST">
+            <div class="form-group">
+                <label for="newpass1">Contraseña nueva:</label>
+                <input type="password" class="form-control" id="newpass1" name="newpass1" placeholder="Escriba su nueva contraseña" required>
+            </div>
+            <div class="form-group">
+                <label for="newpass2">Repetir contraseña nueva:</label>
+                <input type="password" class="form-control" name="newpass2" id="newpass2" placeholder="Repita su nueva contraseña" required>
+            </div>
+            <button type="submit" class="btn btn-success btn-block" id="botonConfirmar">CONFIRMAR</button>
+        </form>
+    </div>
     <?php include '../includes/footer.php'?>
 </body>
 </html>
