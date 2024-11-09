@@ -66,37 +66,47 @@ if (!empty($filtros)) {
     if ($num_rows > 0) {
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
-            $imagen = '../html_paises/img/imgArg/' . $row['titulo'] . '.jpg';
-            if (!file_exists($imagen)) {
-                $imagen = '../html_paises/img/imgArg/default.jpg';
+            // consulta para obtener las rutas de las imágenes
+            $sqlImagen = "SELECT ruta_imagen FROM imagenes WHERE id_publicacion = :id";
+            $stmtImagen = $conn->prepare($sqlImagen);
+            $stmtImagen->bindParam(':id', $row['id_publicacion'], PDO::PARAM_INT);
+            $stmtImagen->execute();
+            $imagenData = $stmtImagen->fetchAll(PDO::FETCH_ASSOC);
+
+            $imagenes = [];
+            foreach ($imagenData as $imagen) {
+                if (!empty($imagen['ruta_imagen'])) {
+                    $imagenes[] = htmlspecialchars($imagen["ruta_imagen"], ENT_QUOTES, 'UTF-8');
+                }
             }
 
             $html .= '<div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion desayuno">';
             $html .= '<div class="card h-100 cursor-pointer">';
             $html .= '<a href="../recetas/receta-plantilla.php?id=' . $row['id_publicacion'] . '">';
-            $html .= '<div class="card-img-wrapper">';
-            $html .= '<img src="' . $imagen . '" class="card-img-top" alt="' . htmlspecialchars($row['titulo'], ENT_QUOTES, 'UTF-8') . '">';
+            
+            $html .= '<div class="card-img-wrapper d-flex justify-content-center align-items-center">'; // Contenedor para centrar la imagen
+            $html .= '<img src="' . (empty($imagenes) ? "../html_paises/img/imgArg/default.jpg" : $imagenes[0]) . '" class="card-img-top img-fluid" alt="' . htmlspecialchars($row['titulo'], ENT_QUOTES, 'UTF-8') . '" style="object-fit: cover; height: 200px; width: 100%;">';
             $html .= '<div class="card-overlay">';
             $html .= '<div class="card-details">';
             $html .= '<p class="card-text dificultad">' . htmlspecialchars($row['dificultad'], ENT_QUOTES, 'UTF-8') . '</p>';
             $html .= '<p class="card-text minutos">' . htmlspecialchars($row['minutos_prep'], ENT_QUOTES, 'UTF-8') . ' min</p>';
             $html .= '</div>';
             $html .= '</div>';
-            $html .= '</div></a>';
+            $html .= '</div>';
+            
+            $html .= '</a>';
             $html .= '<div class="card-body text-left">';
             $html .= '<div class="d-flex justify-content-between align-items-center">';
             $html .= '<h5 class="card-title receta-titulo m-0">' . htmlspecialchars($row['titulo'], ENT_QUOTES, 'UTF-8') . '</h5>';
+            
             $puntuacion = (int)$row['valoracion_puntaje'];
             $html .= '<div class="rating d-flex mb-2">';
             for ($i = 1; $i <= 5; $i++) {
-                if ($i <= $puntuacion) {
-                    $html .= '<i class="bi bi-star-fill text-warning"></i>';
-                } else {
-                    $html .= '<i class="bi bi-star-fill text-secondary"></i>';
-                }
+                $html .= '<i class="bi bi-star-fill ' . ($i <= $puntuacion ? 'text-warning' : 'text-secondary') . '"></i>';
             }
             $html .= '</div>';
             $html .= '</div>';
+            
             $html .= '</div></div></div>';
         }
     } else {

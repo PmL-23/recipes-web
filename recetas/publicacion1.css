@@ -112,3 +112,30 @@
     }
 
 }
+
+.card-img-wrapper {
+    position: relative; /* Asegura que los elementos dentro de la imagen puedan posicionarse de manera absoluta */
+}
+
+.overlay {
+    position: absolute;
+    bottom: 2px; /* Posiciona los elementos cerca de la parte inferior de la imagen */
+    left: 10px;
+    right: 10px;
+    display: flex;
+    justify-content: space-between; /* Distribuye los elementos de manera que estén a la izquierda y derecha */
+    align-items: center;
+    color: white; /* Cambia el color de texto según el contraste que desees */
+    font-size: 20px; /* Ajusta el tamaño de fuente según lo necesites */
+    padding-bottom: 0px;
+}
+.card {
+    border-color: white !important;
+}
+.dificultad {
+    margin: 0;
+}
+
+.minutos {
+    margin: 0;
+}

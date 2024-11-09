@@ -172,9 +172,8 @@
 
 @media (min-width: 992px) {
 
-    #resultados .col-lg-4 {
-        flex: 0 0 25%;
-        max-width: 50%;
+    .card{
+        border-color: #fff !important;
     }
 
 }
@@ -324,6 +323,13 @@
 
 .oculto {
     display: none;
+}
+
+@media (max-width: 1991px) and (min-width: 1200px) {
+    #resultados .col-lg-4 {
+        flex: 0 0 25%;
+        max-width: 25%;
+    }
 }
 
 @media (max-width: 1024px) {
