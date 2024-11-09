@@ -99,9 +99,6 @@ session_start();
                                     </div>
                                 </div>
 
-                                <!-- <div class="form-group botonesFiltros mt-3">
-                                <button type="submit" class="btn btn-primary">Aplicar Filtros</button>
-                            </div> -->
                                 <div class="form-group mt-3">
                                     <button type="submit" id="aplicarModalFiltros" class="btn btn-primary mt-3">Aplicar Filtros</button>
                                     <button type="button" id="limpiarFiltrosModal" class="btn btn-danger mt-3">Limpiar Filtros</button>
@@ -175,7 +172,7 @@ session_start();
                     </div>
                 </div>
 
-                <!-- RECETAS     -->
+                <!-- RECETAS-->
                 <div class="col-lg-9 col-md-8 col-sm-12">
                     <div id="resultados" class="row mt-4 text-center">
                         <!-- aca va todo -->

@@ -24,7 +24,8 @@ if ($campo != null) {
     $sql = "SELECT " . implode(", ", $col) . " 
             FROM $tabla 
             LEFT JOIN valoraciones ON publicaciones_recetas.id_publicacion = valoraciones.id_publicacion 
-            WHERE publicaciones_recetas.titulo LIKE :campo";
+            WHERE publicaciones_recetas.titulo LIKE :campo
+            GROUP BY publicaciones_recetas.id_publicacion";//para que el AVG solo calcule el promedio de cada id_publicacion existente
     $stmt = $conn->prepare($sql);
     $campo = "%" . $campo . "%";
     $stmt->bindParam(':campo', $campo, PDO::PARAM_STR);
