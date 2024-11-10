@@ -11,6 +11,13 @@
     z-index: 1; 
 }
 
+@media (max-width: 576px) {
+    #btnCambiarImagen {
+        font-size: 12px;
+        padding: 8px 12px;
+    }
+}
+
 
 .seguidores-container {
     max-height: 300px; 

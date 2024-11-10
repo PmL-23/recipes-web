@@ -109,40 +109,44 @@ if ($indexPosition !== false) {
     <script src="editar_descripcion.js" defer></script>
     <script src="boton_username.js" defer></script>
     <script src="editar_contraseña.js" defer></script>
+    <script src="borrar_cuenta.js" defer></script>
     <?php include '../includes/head.php'; ?>
 </head>
 <body>
     <?php include '../includes/header.php'; ?>
     <div class="container mt-5 min-vh-100">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-12 col-md-4">
                 <div class="card text-center position-relative">
-                    <img src="<?= htmlspecialchars($usuario['foto_usuario']) ?>" class="card-img-top" alt="Foto de Perfil" id="imagenPerfil"><br>
-                    <small class="text-danger" id="imagenError"></small>
-                    <button class="notificaciones btn btn-outline-light boton-menu" id="btnCambiarImagen" aria-label="Cambiar imagen">Cambiar imagen</button>
-                <div class="card-body">
-                    <h1 class="card-title" id="usernameText">@<?php echo htmlspecialchars($usuario['username']); ?>
-                    <button id="editUsernameBtn" class="btn btn-sm btn-primary" onclick="editarUsername()"><i class="bi bi-pencil-square"></i></button>
-                    <button id="editContraseñaBtn" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalEditContraseña"><i class="bi bi-lock-fill"></i></button>
-                    </h1>
-                    <textarea id="usernameInput" rows="3" class="form-control"></textarea>
-                    <div id="usernameButtons">
-                        <button class="btn btn-success mt-2" onclick="guardarUsername(<?= $usuario['id_usuario']; ?>)">Guardar</button>
-                        <button class="btn btn-secondary mt-2" onclick="cancelarEdicion()">Cancelar</button><br>
-                        <small class="text-danger" id="usernameError"></small>
+                    <div class="card-img-wrapper position-relative">
+                        <img src="<?= htmlspecialchars($usuario['foto_usuario']) ?>" class="card-img-top" alt="Foto de Perfil" id="imagenPerfil"><br>
+                        <small class="text-danger" id="imagenError"></small>
+                        <button class="notificaciones btn btn-outline-light boton-menu" id="btnCambiarImagen" aria-label="Cambiar imagen">Cambiar imagen</button>
                     </div>
-                    <h3 class="card-title">Nombre: <?php echo htmlspecialchars($usuario['nom_completo']); ?></h3>
-                    <p class="card-text"> Descripción: <span id="descripcionText"><?php echo htmlspecialchars($usuario['descripcion']); ?></span>
-                        <button id="editDescripcionBtn" class="btn btn-sm btn-primary" onclick="editarDescripcion()"><i class="bi bi-pencil-square"></i></button>
-                        <textarea id="descripcionInput" rows="3" class="form-control"></textarea>
-                        <div id="descripcionButtons">
-                            <button class="btn btn-success mt-2" onclick="guardarDescripcion(<?= $usuario['id_usuario']; ?>)">Guardar</button>
-                            <button class="btn btn-secondary mt-2" onclick="cancelarEdit()">Cancelar</button><br>
-                            <small class="text-danger" id="descripcionError"></small>
+                    <div class="card-body">
+                        <h1 class="card-title" id="usernameText">@<?php echo htmlspecialchars($usuario['username']); ?>
+                            <button id="editUsernameBtn" class="btn btn-sm btn-primary" onclick="editarUsername()"><i class="bi bi-pencil-square"></i></button>
+                            <button id="editContraseñaBtn" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalEditContraseña"><i class="bi bi-lock-fill"></i></button>
+                        </h1>
+                        <textarea id="usernameInput" rows="3" class="form-control"></textarea>
+                        <div id="usernameButtons">
+                            <button class="btn btn-success mt-2" onclick="guardarUsername(<?= $usuario['id_usuario']; ?>)">Guardar</button>
+                            <button class="btn btn-secondary mt-2" onclick="cancelarEdicion()">Cancelar</button><br>
+                            <small class="text-danger" id="usernameError"></small>
                         </div>
-                    </p>
+                        <h3 class="card-title">Nombre: <?php echo htmlspecialchars($usuario['nom_completo']); ?></h3>
+                        <p class="card-text"> Descripción: <span id="descripcionText"><?php echo htmlspecialchars($usuario['descripcion']); ?></span>
+                            <button id="editDescripcionBtn" class="btn btn-sm btn-primary" onclick="editarDescripcion()"><i class="bi bi-pencil-square"></i></button>
+                            <textarea id="descripcionInput" rows="3" class="form-control"></textarea>
+                            <div id="descripcionButtons">
+                                <button class="btn btn-success mt-2" onclick="guardarDescripcion(<?= $usuario['id_usuario']; ?>)">Guardar</button>
+                                <button class="btn btn-secondary mt-2" onclick="cancelarEdit()">Cancelar</button><br>
+                                <small class="text-danger" id="descripcionError"></small>
+                            </div>
+                        </p>
+                        <button id="borrarCuenta" type="button" class="btn btn-outline-danger">BORRAR CUENTA</button>
+                    </div>
                 </div>
-            </div>
 
                 <h5 class="mt-5">Seguidores (<?= count($seguidores); ?>)</h5>
                 <div class="seguidores-container">
@@ -161,7 +165,7 @@ if ($indexPosition !== false) {
                 </div>
             </div>
 
-            <div class="col-md-8">
+            <div class="col-12 col-md-8">
                 <h2>Publicaciones de <?php echo htmlspecialchars($usuario['nom_completo']); ?></h2>
                 <ul class="list-group">
                     <?php foreach ($publicaciones as $publicacion): ?>
@@ -196,7 +200,7 @@ if ($indexPosition !== false) {
                                     <span class="visually-hidden">Siguiente</span>
                                 </button>
                             </div>
-                            <div class="mt-3"> <!--Botones de guardar/compartir-->
+                            <div class="mt-3"> 
                                 <button class="btn btn-success" onclick="guardarReceta(<?php echo $publicacion['id_publicacion']; ?>)"><i class="bi bi-save"></i></button>
                                 <button class="btn btn-info" onclick="compartirReceta(<?php echo $publicacion['id_publicacion']; ?>)"><i class="bi bi-share-fill"></i></button>
                             </div>
@@ -206,70 +210,68 @@ if ($indexPosition !== false) {
             </div>
         </div>
     </div>
-                                    <!-- Modal para editar la foto perfil -->
-    <div class="modal fade" id="modalCambiarImagen" tabindex="-1" aria-labelledby="modalCambiarImagenLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalCambiarImagenLabel">Cambiar Imagen de Perfil</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="formCambiarImagen" action="cambiar_imagen.php" method="POST" enctype="multipart/form-data">
-                        <input type="hidden" name="id_usuario" value="<?= $usuario['id_usuario'] ?>">
-                        <div class="mb-3">
-                            <label for="inputImagen" class="form-label">Seleccionar nueva imagen</label>
-                            <input type="file" class="form-control" id="inputImagen" name="imagen" accept="image/*">
-                            <div id="nombreImagen" class="mt-2"></div>
-                        </div>
-                        <button type="button" class="btn btn-primary" id="btnConfirmar">Confirmar</button>
-                    </form>
-                </div>
+<!-- Modal para editar la foto perfil -->
+<div class="modal fade" id="modalCambiarImagen" tabindex="-1" aria-labelledby="modalCambiarImagenLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm"> 
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalCambiarImagenLabel">Cambiar Imagen de Perfil</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="formCambiarImagen" action="cambiar_imagen.php" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="id_usuario" value="<?= $usuario['id_usuario'] ?>">
+                    <div class="mb-3">
+                        <label for="inputImagen" class="form-label">Seleccionar nueva imagen</label>
+                        <input type="file" class="form-control" id="inputImagen" name="imagen" accept="image/*">
+                        <div id="nombreImagen" class="mt-2"></div>
+                    </div>
+                    <button type="button" class="btn btn-primary" id="btnConfirmar">Confirmar</button>
+                </form>
             </div>
         </div>
     </div>
-    <!-- Modal Cambiar Contraseña -->
-    <div class="modal fade" id="modalEditContraseña" tabindex="-1" aria-labelledby="modalEditContraseñaLabel"data-bs-backdrop="static" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title " id="modalEditContraseñaLabel">Cambiar Contraseña</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body container-fluid">
-                    <form id="FormCambiarContraseña" class="row" data-url-base="<?php echo htmlspecialchars($urlVariable); ?>" data-IDUsuario="<?php echo $id_usuario ?>">
-                        <div class="mb-3 col-12">
-                            <label for="ContraseñaActual" class="form-label">Contraseña Actual</label>
-                            <input type="text" class="form-control" id="ContraseñaActual" name="ContraseñaActual">
-                            <small class="text-danger" id="ContraseñaActualError"></small>
-                        </div>
-                        <div class="mb-3 col-lg-6">
-                            <label for="NuevaContraseña" class="form-label">Nueva Contraseña</label>
-                            <input type="text" class="form-control" id="NuevaContraseña" name="NuevaContraseña">
-                            <small class="text-danger" id="NuevaContraseñaError"></small>
-                        </div>
-                        <div class="mb-3 col-lg-6">
-                            <label for="ConfirmaciónNuevaContraseña" class="form-label">Confirmacion de Nueva
-                                Contraseña</label>
-                            <input type="text" class="form-control" id="ConfirmaciónNuevaContraseña" name="ConfirmaciónNuevaContraseña">
-                            <small class="text-danger" id="ConfirmaciónNuevaContraseñaError"></small>
-                        </div>
-                        <!--- footer--->
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-target="#modalPerfil"
-                                data-bs-toggle="modal">Volver</button>
-                            <button type="submit" class="btn btn-danger" id="IDBotonEliminarCuenta">Confirmar Cambios</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="modal fade custom-modal-position" id="resultModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialoggs">
-        <div class="modal-content" id="modalContent">
+</div>
 
+<!-- Modal Cambiar Contraseña -->
+<div class="modal fade" id="modalEditContraseña" tabindex="-1" aria-labelledby="modalEditContraseñaLabel" data-bs-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalEditContraseñaLabel">Cambiar Contraseña</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body container-fluid">
+                <form id="FormCambiarContraseña" class="row" data-url-base="<?php echo htmlspecialchars($urlVariable); ?>" data-IDUsuario="<?php echo $id_usuario ?>">
+                    <div class="mb-3 col-12">
+                        <label for="ContraseñaActual" class="form-label">Contraseña Actual</label>
+                        <input type="text" class="form-control" id="ContraseñaActual" name="ContraseñaActual">
+                        <small class="text-danger" id="ContraseñaActualError"></small>
+                    </div>
+                    <div class="mb-3 col-lg-6 col-12">
+                        <label for="NuevaContraseña" class="form-label">Nueva Contraseña</label>
+                        <input type="text" class="form-control" id="NuevaContraseña" name="NuevaContraseña">
+                        <small class="text-danger" id="NuevaContraseñaError"></small>
+                    </div>
+                    <div class="mb-3 col-lg-6 col-12">
+                        <label for="ConfirmaciónNuevaContraseña" class="form-label">Confirmación de Nueva Contraseña</label>
+                        <input type="text" class="form-control" id="ConfirmaciónNuevaContraseña" name="ConfirmaciónNuevaContraseña">
+                        <small class="text-danger" id="ConfirmaciónNuevaContraseñaError"></small>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Volver</button>
+                        <button type="submit" class="btn btn-danger" id="IDBotonEliminarCuenta">Confirmar Cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para mostrar resultados -->
+<div class="modal fade custom-modal-position" id="resultModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" id="modalContent">
             <div class="modal-body">
                 <span id="modalIcon" class="me-2"></span>
                 <span id="modalMessage"></span>
@@ -278,7 +280,26 @@ if ($indexPosition !== false) {
     </div>
 </div>
 
-    <?php include '../includes/footer.php'; ?>
+<!-- Modal para confirmar borrar cuenta -->
+<div class="modal fade" id="confirmBorrarModal" tabindex="-1" aria-labelledby="confirmBorrarModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered"> 
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmBorrarModalLabel">Confirmar Borrado</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h5>¿Estás seguro de que deseas borrar tu cuenta? Esta acción es irreversible.</h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" id="confirmarBorrarBtn">Sí, estoy seguro</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php include '../includes/footer.php'; ?>
 </body>
 </html>
 
