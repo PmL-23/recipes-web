@@ -19,7 +19,7 @@ require_once('../includes/razonesReporte.php');
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=New+Rocker&family=Noto+Sans+Display:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
     <!-- CSS -->
-     <link rel="stylesheet" href="publicacion1.css">
+     <link rel="stylesheet" href="publicacion.css">
     <link rel="stylesheet" href="../css/recetas.css">
     <link rel="stylesheet" href="../css/carrousel.css">
     <!--   <link rel="stylesheet" href="estilos.css"> -->
@@ -43,101 +43,109 @@ require_once('../includes/razonesReporte.php');
 <body>
     <?php include '../includes/header.php' ?>
     <?php include '../recetas/manejoGetReceta.php' ?>
-    <?php if ($usuarioID === $autor) { ?>
-        <div class="d-flex justify-content-end p-3">
-            <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                Ver
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="#">Editar publicación</a></li>
-                <li><a class="dropdown-item" href="#">Eliminar publicación</a></li>
-            </ul>
-        </div>
-    <?php } ?>
+  
 
+    <div class="contenido-principal container w-100 my-md-3 my-2 px-4 py-3">
+        <?php if ($usuarioID === $autor) { ?> 
+            <div class="d-flex justify-content-end">
+                <button type="button" class="btn btn-editar" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-three-dots"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="editar-receta.php?id=<?php echo $idPublicacion; ?>">Editar publicación</a></li>
+                    <li><a class="dropdown-item" href="#">Eliminar publicación</a></li>
+                </ul>
+            </div>
+        <?php } ?>
 
-
-
-    <div class="contenido-principal container my-5 ps-md-2">
-        <div class="">
-            <div class="perfil-usuario">
-                <div class="row align-items-center">
-                    <div class="col-md-1 col-sm-6">
-                        <div>
-                            <!-- Aca va la foto del usuario -->
-                            <img class="mt-3 rounded" src="<?php echo $fotoAutor; ?>" alt="Perfil del usuario" id="portada-receta" height="80">
-                        </div>
+            <div class="perfil-usuario  mx-md-4 mx-3">    
+                <div class="row">
+                <div class="col d-flex align-items-center mt-2 mb-3">
+                    <div class="contenedor-perfil d-flex">
+                        <a class="text-decoration-none text-dark" href="../CarpetaPerfil/Perfil.php?NombreDeUsuario=<?php echo "$nombreAutor"; ?>">
+                            <img class="img-fluid perfil-img" src="<?php echo $fotoAutor;?>" alt="Perfil del usuario" id="perfil-autor">
+                        </a>
                     </div>
-                    <div class="d-flex flex-column">
+                    <div class="d-flex flex-column ms-3">
                         <a class="text-decoration-none text-dark" href="../CarpetaPerfil/Perfil.php?NombreDeUsuario=<?php echo "$nombreAutor"; ?>">
                             <span class="h4" id="nombre-usuario">
                                 <?php echo "@$nombreAutor"; ?>
                             </span>
                             <small class="text-muted" id="pais-usuario">
-                                <?php // echo $paisAutor; 
-                                ?>
+                                <?php // echo $paisAutor; ?>
                             </small>
                         </a>
+                    </div>  
+                </div>
+
+                    <div class="col  d-flex justify-content-end">
+                        <!-- <span class="text-muted d-flex flex-column"> -->
+                        <small class="text-muted">
+                                <?php echo explode(" ", (new DateTime($fecha))->format('d/m/Y'))[0]; ?>
+                        </small>
+                            <small>
+                                <?php // echo substr(explode(" ", $fecha)[1], 0, 5); ?>
+                            </small>
+                        <!--  </span> -->
                     </div>
                 </div>
-
-                <div class="col  d-flex justify-content-end mt-lg-2">
-                    <!-- <span class="text-muted d-flex flex-column"> -->
-                    <small class="text-muted">
-                        <?php echo explode(" ", (new DateTime($fecha))->format('d/m/Y'))[0]; ?>
-                    </small>
-                    <small>
-                        <?php // echo substr(explode(" ", $fecha)[1], 0, 5); 
-                        ?>
-                    </small>
-                    <!--  </span> -->
-                </div>
             </div>
-        </div>
 
-        <div class="datos-receta row align-items-start">
-            <div class="col-md-6 col-sm-12 row">
-
-                <!-- Aca va la imagen de la receta -->
+            <div class="datos-receta row d-flex">
+                <div class="col-lg-6  d-flex flex-column  justify-content-start mb-md-4">
+                    <div class="justify-content-sm-center">
                 <?php
                 if (!empty($imagenes)) {
-                    echo '<div class="">';
-                    echo '<img src="' . $imagenes[0] . '" alt="Receta" class="portada rounded img-fluid" id="portada-receta">';
+                    // portada
+                    echo '<div class="ms-md-4 ms-3 contenedor-img-portada">';
+                    echo '<a href="#!" data-bs-toggle="modal" data-bs-target="#modalImagen">'; 
+                    echo '<img src="' . $imagenes[0]. '" alt="Receta" class="img-portada portada-receta rounded img-fluid" id="portada-receta">';
+                    echo '</a>';
                     echo '</div>';
+
                     if (count($imagenes) > 1) {
-                        echo '<div class="w-25 d-flex">';
+                        // demás imágenes con desplazamiento horizontal
+                        echo '<div class="w-75 d-flex ms-md-4 ms-3 scroll">';
+                        echo '<div class="contenedor-imagenes d-flex">';
                         for ($i = 1; $i < count($imagenes); $i++) {
-                            echo '<img src="' . $imagenes[$i] . '" alt="Receta" class="rounded img-fluid">';
+                            echo '<img src="' . $imagenes[$i]. '" alt="Receta" class="rounded img-fluid me-1 my-2 imagen">';
                         }
+                        echo '</div>';
                         echo '</div>';
                     }
                 } else {
                     echo 'No hay portada';
                 }
                 ?>
-            </div>
+                    </div>
+                </div>
 
-            <div class="content-info col-lg-6  my-5 d-flex flex-column justify-content-end">
-                <div class="ms-md-4 ms-3">
-                    <h1 class="titulo-receta">
-                        <?php echo $titulo; ?>
-                    </h1>
-                    <p>
+                <div class="content-info col-lg-6 my-5 flex-column justify-content-end">
+                    <div class="ms-md-4 ms-lg-3">
+                        <h1 class="titulo-receta">
+                            <?php echo $titulo; ?>
+                        </h1>
+                        <p>
                         <?php echo $descripcion; ?>
-                    </p>
-                    <div class="mb-3">
-                        <?php
-                        if (!empty($etiquetas)) {
-                            foreach ($etiquetas as $etiqueta) {
-                                //#=pagina de etiquetas o a buscador
-                                echo '<a class="etiqueta text-decoration-none" href="#">' . $etiqueta["titulo"] . '</a> ';
-                            }
-                        } else {
-                            echo 'No hay etiquetas';
-                        }
-                        ?>
-
                         </p>
+                        <div class="mb-3">
+                            <?php
+                            if (!empty($etiquetas)) {
+                                foreach ($etiquetas as $etiqueta) {
+                                //#=pagina de etiquetas o a buscador
+                                    echo '<a class="etiqueta text-decoration-none" href="#">' . $etiqueta["titulo"] . '</a> ';
+                                }
+                            } else {
+                                echo 'No hay etiquetas';
+                            }
+                            ?>
+                            
+                        </div>
+                        <a class="text-decoration-none" href="#">   
+                            <p class="categoria-style d-inline-flex mb-3 fw-semibold border border-success-subtle rounded-5">
+                                    <?php echo $categoriaTitulo; ?>
+                            </p>
+                        </a>
 
                     </div>
 
@@ -147,7 +155,6 @@ require_once('../includes/razonesReporte.php');
 
                             <button type="button" class="btn btn-outline-warning bg-none" id="btn-reportar" data-bs-toggle="modal" data-bs-target="#modalReportarPublicacion">
                                 <i class="bi bi-flag-fill text-black"></i>
-                            </button>
 
                             <button type="button" class="btn btn-outline-secondary bg-none" id="btnCompartir" data-bs-toggle="modal" data-bs-target="#modalCompartir">
                                 <i class="bi bi-share-fill"></i>
@@ -178,64 +185,63 @@ require_once('../includes/razonesReporte.php');
                                     if (!empty($ValoracionDeReceta['puntuacion']) && is_numeric($ValoracionDeReceta['puntuacion'])) {
                                         if ($i <= $ValoracionDeReceta['puntuacion']) {
                                 ?>
-                                            <span class="estrella hover" data-value="<?php echo $i ?>">&#9733;</span><?php
-                                                                                                                    } else {
-                                                                                                                        ?><span class="estrella" data-value="<?php echo $i ?>">&#9733;</span><?php
-                                                                                                                                                                                            }
-                                                                                                                                                                                        } else {
-                                                                                                                                                                                                ?><span class="estrella" data-value="<?php echo $i ?>">&#9733;</span><?php
-                                                                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                                                        ?>
-                            </div>
+                                <span class="estrella hover" data-value="<?php echo $i ?>">&#9733;</span><?php
+                                } else {
+                                ?><span class="estrella" data-value="<?php echo $i ?>">&#9733;</span><?php
+                                }
+                                } else {
+                                ?><span class="estrella" data-value="<?php echo $i ?>">&#9733;</span><?php
+                                }
+                                }
+                                ?>
 
-                            <input type="hidden" name="valoracion" value="0">
+                                <input type="hidden" name="valoracion" value="0">
 
+                       
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="contenedor-detalles container text-center w-75 mt-5">
-            <div class="row align-items-start">
-                <div class="col-4">
-                    <div class="align-items-center box-icons">
-                        <!-- pais -->
-                        <?php
-                        if (!empty($paises)) {
-                            foreach ($paises as $pais) {
-                                echo '<img src="../svg/' . $pais["ruta_imagen_pais"] . '" alt="Bandera" width="35" class="bandera" id="bandera-receta"> ';
-                                echo '<p>' . $pais["nombre"] . '</p>';
-                            }
-                        } else {
-                            echo 'No hay paises disponibles';
+    <div class="contenedor-detalles container text-center w-75 mt-5">
+        <div class="row align-items-start">
+            <div class="col-4">
+                <div class="align-items-center box-icons">
+                    <?php
+                    if (!empty($paises)) {
+                        foreach ($paises as $pais) {
+                            echo '<img src="../svg/' . $pais["ruta_imagen_pais"] . '" alt="Bandera" width="35" class="bandera" id="bandera-receta"> ';
+                           // echo '<p>'.$pais["nombre"].'</p>';
                         }
-                        ?>
+                    } else {
+                        echo 'No hay paises disponibles';
+                    }
+                    ?>
 
-
-                    </div>
                 </div>
-                <div class="col-4">
-                    <div class="align-items-center box-icons">
-                        <img src="../svg/bar-chart-line-fill.svg" width="25px" class="icono-item" alt="Dificultad icon">
-                        <h6>Dificultad</h6>
-                        <p id="dificultadRecetaDB" class="dificultad">
-                            <?php echo $dificultad; ?>
-                        </p>
-                    </div>
+            </div>
+            <div class="col-4">
+                <div class="align-items-center box-icons">
+                    <img src="../svg/bar-chart-line-fill.svg" width="25px" class="icono-item" alt="Dificultad icon">
+                    <h6 class="detalles">Dificultad</h6>
+                    <p id="dificultadRecetaDB" class="dificultad">
+                        <?php echo $dificultad; ?>
+                    </p>
                 </div>
-                <div class="col-4">
-                    <div class="align-items-center box-icons">
-                        <img src="../svg/alarm.svg" width="25px" class="icono-item" alt="Dificultad icon">
-                        <h6>Tiempo</h6>
-                        <p id="tiempoRecetaDB" class="tiempo">
-                            <?php echo $minutos_prep . 'min'; ?>
-                        </p>
-                    </div>
+            </div>
+            <div class="col-4">
+                <div class="align-items-center box-icons">
+                    <img src="../svg/alarm.svg" width="25px" class="icono-item" alt="Dificultad icon">
+                    <h6 class="detalles">Tiempo</h6>
+                    <p id="tiempoRecetaDB" class="tiempo">
+                        <?php echo $minutos_prep . ' minutos'; ?>
+                    </p>
                 </div>
             </div>
         </div>
+    </div>
 
         <div class="container mt-5">
             <h3>Ingredientes</h3>
@@ -263,7 +269,7 @@ require_once('../includes/razonesReporte.php');
                             <div class="imagenes-pasos row mt-2 w-75">
                                 <?php foreach ($paso['imagenes'] as $imagenPaso): ?>
                                     <div class="col-md-6 mb-2 contenedor-paso-img">
-                                        <img src="<?php echo $imagenPaso; ?>" class="img-fluid img-paso" alt="Imagen del paso">
+                                        <img src="<?php echo $imagenPaso; ?>" class="img-fluid rounded img-paso" alt="Imagen del paso">
                                     </div>
                                 <?php endforeach; ?>
                             </div>
@@ -347,7 +353,7 @@ require_once('../includes/razonesReporte.php');
         <!-- MODAL PARA VER IMAGENES DE LA GALERIA -->
         <div tabindex="-1" aria-labelledby="modalImagenLabel" aria-hidden="true" class="modal fade p-0" id="modalImagen">
             <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content modal-content-imagen ">
+                <div class="modal-content modal-content-imagen p-0">
                     <?php echo '<img src="' . $imagenes[0] . '" alt="Receta">'; ?>
                 </div>
             </div>
@@ -551,7 +557,6 @@ require_once('../includes/razonesReporte.php');
 
 
 
-    </div>
     <?php include '../includes/footer.php' ?>
 </body>
 

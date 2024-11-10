@@ -55,8 +55,18 @@
 {
     background-color: transparent;
     border: none;
-
+    padding: 0 !important;
 }
+
+/* .btn-accion
+{
+    background-color: transparent;
+}
+
+.icon-accion
+{
+    font-size: 3rem !important;
+} */
 
 .titulo-receta
 {
@@ -68,11 +78,10 @@
 
 .contenido-principal
 {   
-    border-radius: 15px;
+    border-radius: 30px;
     background-color: #ffff !important; 
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
-
 
 .contenedor-perfil {
     width: 80px;
@@ -92,7 +101,6 @@
     object-fit: cover;
 }
 
-
 #nombre-usuario
 {
     font-size: 20px;
@@ -103,8 +111,21 @@
     color: green;
 }
 
+.detalles
+{
+    font-size: 18px;
+    font-weight: bold;
+}
 
-@media (max-width: 576px) {
+.dificultad {
+    margin: 0;
+}
+
+.minutos {
+    margin: 0;
+}
+
+@media (max-width: 768px) {
 
     .contenido-principal
     {
@@ -114,28 +135,22 @@
 }
 
 .card-img-wrapper {
-    position: relative; /* Asegura que los elementos dentro de la imagen puedan posicionarse de manera absoluta */
+    position: relative; 
 }
 
 .overlay {
     position: absolute;
-    bottom: 2px; /* Posiciona los elementos cerca de la parte inferior de la imagen */
+    bottom: 2px; 
     left: 10px;
     right: 10px;
     display: flex;
-    justify-content: space-between; /* Distribuye los elementos de manera que estén a la izquierda y derecha */
+    justify-content: space-between; 
     align-items: center;
-    color: white; /* Cambia el color de texto según el contraste que desees */
-    font-size: 20px; /* Ajusta el tamaño de fuente según lo necesites */
+    color: white;
+    font-size: 20px; 
     padding-bottom: 0px;
 }
 .card {
     border-color: white !important;
 }
-.dificultad {
-    margin: 0;
-}
 
-.minutos {
-    margin: 0;
-}
