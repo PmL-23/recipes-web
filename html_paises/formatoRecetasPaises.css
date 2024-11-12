@@ -1,0 +1,25 @@
+.card-img-wrapper {
+    position: relative;
+}
+
+.card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: 0; /* Fondo oscuro semi-transparente */
+    color: #fff; /* Texto blanco */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1px 10px;
+}
+.card-details {
+    display: flex;
+    justify-content: space-between;
+}
+@media (max-width: 767.98px) {
+    div.card-details {
+        font-size: 1rem;
+    }
+}

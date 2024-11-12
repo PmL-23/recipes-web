@@ -12,6 +12,7 @@ include '../includes/permisos.php'
     <title>Recetario</title>
 
     <link rel="stylesheet" href="../css/c-countries.css">
+    <link rel="stylesheet" href="carrousel.css">
     <script src="mostrarSegunFecha.js"></script>
     <script src="receta_paises.js" defer></script>
     <!-- Link custom script -->
@@ -41,13 +42,21 @@ include '../includes/permisos.php'
 
     <!-- primer Slider -->
 
-    <div id="carouselExampleIndicators" class="carousel slide">
-        <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
-        </div>
+    <div id="carouselExampleIndicators" class="carousel slide"  data-bs-interval="2000" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1">
+            <span class="timer"></span>
+        </button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2">
+            <span class="timer"></span>
+        </button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3">
+            <span class="timer"></span>
+        </button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4">
+            <span class="timer"></span>
+        </button>
+    </div>
         <div class="carousel-inner">
 
             <div class="carousel-item active d-item"> <!-- solo en esta linea tiene que estar el active-->

@@ -1,0 +1,40 @@
+.carousel-indicators button {
+    position: relative;
+}
+
+.timer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: transparent;
+    display: none; 
+    animation: none;
+}
+
+.carousel-indicators button.active .timer {
+    display: block;
+    background-color: #007bff;
+    animation: countdown 2s linear infinite;
+}
+
+@keyframes countdown {
+    0% {
+        background-color: #007bff;
+        width: 20px;
+        height: 20px;
+    }
+    50% {
+        background-color: #ff5733;
+        width: 15px;
+        height: 15px;
+    }
+    100% {
+        background-color: transparent;
+        width: 20px;
+        height: 20px;
+    }
+}
