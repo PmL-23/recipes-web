@@ -165,10 +165,10 @@ include '../includes/permisos.php'
 
     <!-- MOSTRAR RECETAS SEGUN HORA -->
     <div class="container mt-5">
-        <div id="saludoDia" class="saludo-dia my-4 text-start display-4 fw-bold text-primary">
+        <div id="saludoDia" class="saludo-dia my-4 text-start display-4 fw-bold" style="color: #198754;">
             <!-- saludo dinamico -->
         </div>
-        <div id="mensajeRecetas" class="mt-2 text-start display-6 fw-bold text-primary"></div>
+        <div id="mensajeRecetas" class="mt-2 text-start display-6 fw-bold" style="color: #198754;"></div>
 
         <div class="container mt-3">
             <div class="row">
