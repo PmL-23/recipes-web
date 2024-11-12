@@ -12,11 +12,15 @@ include '../includes/permisos.php'
     <title>Recetario</title>
 
     <link rel="stylesheet" href="../css/c-countries.css">
-    <link rel="stylesheet" href="carrousel.css">
+    <link rel="stylesheet" href="./carrousell.css">
+    <link rel="stylesheet" href="../html_paises/formatoRecetasPaises.css">
+    <link rel="stylesheet" href="./carrouselRecetasMasValoradas.css">
     <script src="mostrarSegunFecha.js"></script>
     <script src="receta_paises.js" defer></script>
+    <script src="./recetasSlider.js" defer></script>
     <!-- Link custom script -->
     <script src="../index/manejarModal.js" defer></script>
+
 
     <?php include '../includes/head.php' ?>
 </head>
@@ -26,7 +30,8 @@ include '../includes/permisos.php'
     <?php include '../includes/header.php' ?>
     <!-- BUSCADOR -->
     <?php include '../includes/conec_db.php';
-    include '../includes/paises.php' ?>
+    include '../includes/paises.php';
+    include 'mejoresRecetas.php'; ?>
 
 
 
@@ -42,21 +47,21 @@ include '../includes/permisos.php'
 
     <!-- primer Slider -->
 
-    <div id="carouselExampleIndicators" class="carousel slide"  data-bs-interval="2000" data-bs-ride="carousel">
-    <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1">
-            <span class="timer"></span>
-        </button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2">
-            <span class="timer"></span>
-        </button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3">
-            <span class="timer"></span>
-        </button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4">
-            <span class="timer"></span>
-        </button>
-    </div>
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-interval="2000" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1">
+                <span class="timer"></span>
+            </button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2">
+                <span class="timer"></span>
+            </button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3">
+                <span class="timer"></span>
+            </button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4">
+                <span class="timer"></span>
+            </button>
+        </div>
         <div class="carousel-inner">
 
             <div class="carousel-item active d-item"> <!-- solo en esta linea tiene que estar el active-->
@@ -109,126 +114,57 @@ include '../includes/permisos.php'
 
     </div>
 
+    <!-- MEJORES RECETAS -->
+
     <div class="pt-7"></div>
     <div class="container">
-        <div class="my-4 text-start display-4 fw-bold text-primary">Las mejores recetas!</div>
+        <div class="my-4 text-start display-4 fw-bold" style="color: #198754;">Las mejores recetas!</div>
     </div>
 
-    <!-- slider -->
-    <div id="custom">
-        <div id="carouselExample" class="carousel slide">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="receta-item card">
-                        <div class="card_landing" style="background-image: url(../images/milanesas_lp.jpg);">
-                            <h6>Milanesas</h6>
-                        </div>
-                        <div class="card_info">
-                            <div class="head">
-                                <p class="title">Milanesas</p>
-                                <div class="description">
-                                    <div class="item">
-                                        <i class="fas fa-clock"></i>
-                                        <p>30 min</p>
+    <div class="container">
+        <div class="swiper-container" id="swiperRecetas">
+            <div class="swiper-wrapper">
+                <?php foreach ($masValoradas as $receta): ?>
+                    <?php
+                    $stmt = $conn->prepare("SELECT ruta_imagen FROM imagenes WHERE id_publicacion = :id_publicacion");
+                    $stmt->execute(['id_publicacion' => $receta['id_publicacion']]);
+                    $imagenes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    ?>
+                    <div class="swiper-slide">
+                        <div class="card h-100 cursor-pointer" style="border-radius: 15px; overflow: hidden;">
+                            <a href="../recetas/receta-plantilla.php?id=<?= $receta['id_publicacion'] ?>">
+                                <div class="card-img-wrapper position-relative d-flex justify-content-center align-items-center" style="aspect-ratio: 16/9; border-radius: 15px 15px 0 0;">
+                                    <img src="<?= !empty($imagenes) ? htmlspecialchars($imagenes[0]['ruta_imagen'], ENT_QUOTES, 'UTF-8') : "../html_paises/img/imgArg/default.jpg" ?>"
+                                        class="card-img-top img-fluid"
+                                        alt="<?= htmlspecialchars($receta['titulo'], ENT_QUOTES, 'UTF-8') ?>"
+                                        style="object-fit: cover; width: 100%; height: 100%;">
+                                    <div class="card-overlay">
+                                        <div class="card-details d-flex justify-content-between w-100">
+                                            <p class="card-text dificultad m-0"><?= htmlspecialchars($receta['dificultad'], ENT_QUOTES, 'UTF-8') ?></p>
+                                            <p class="card-text minutos m-0"><?= htmlspecialchars($receta['minutos_prep'], ENT_QUOTES, 'UTF-8') ?> min</p>
+                                        </div>
                                     </div>
-                                    <div class="item">
-                                        <i class="fas fa-user"></i>
-                                        <p>4</p>
+                                </div>
+                            </a>
+                            <div class="card-body text-left">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="card-title receta-titulo m-0"><?= htmlspecialchars($receta['titulo'], ENT_QUOTES, 'UTF-8') ?></h5>
+                                    <div class="rating d-flex mb-2">
+                                        <?php $puntuacion = (int)$receta['valoracion_puntaje']; ?>
+                                        <?php for ($i = 1; $i <= 5; $i++): ?>
+                                            <i class="bi bi-star-fill <?= $i <= $puntuacion ? 'text-warning' : 'text-secondary' ?>"></i>
+                                        <?php endfor; ?>
                                     </div>
                                 </div>
                             </div>
-                            <div class="content">
-                                <p class="title">Ingredientes:</p>
-                                <ul class="list">
-                                    <li>500g de carne</li>
-                                    <li>1 taza de pan rallado</li>
-                                    <li>2 huevos</li>
-                                    <li>Sal y pimienta al gusto</li>
-                                </ul>
-                            </div>
-                            <div class="action">
-                                <a href="../recetas/recetas.php" class="btn">Quiero la receta!</a>
-                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="receta-item card">
-                        <div class="card_landing" style="background-image: url(../images/empanadas_lp.jpg);">
-                            <h6>Empanadas</h6>
-                        </div>
-                        <div class="card_info">
-                            <div class="head">
-                                <p class="title">Empanadas</p>
-                                <div class="description">
-                                    <div class="item">
-                                        <i class="fas fa-clock"></i>
-                                        <p>45 min</p>
-                                    </div>
-                                    <div class="item">
-                                        <i class="fas fa-user"></i>
-                                        <p>6</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="content">
-                                <p class="title">Ingredientes:</p>
-                                <ul class="list">
-                                    <li>500g de carne picada</li>
-                                    <li>1 cebolla</li>
-                                    <li>2 huevos</li>
-                                    <li>1 paquete de masa para empanadas</li>
-                                </ul>
-                            </div>
-                            <div class="action">
-                                <a href="..//recetas/recetas.html" class="btn">Quiero la receta!</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="receta-item card">
-                        <div class="card_landing" style="background-image: url(../images/nioquis_lp.jpg);">
-                            <h6>Ñoquis</h6>
-                        </div>
-                        <div class="card_info">
-                            <div class="head">
-                                <p class="title">Ñoquis</p>
-                                <div class="description">
-                                    <div class="item">
-                                        <i class="fas fa-clock"></i>
-                                        <p>50 min</p>
-                                    </div>
-                                    <div class="item">
-                                        <i class="fas fa-user"></i>
-                                        <p>6</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="content">
-                                <p class="title">Ingredientes:</p>
-                                <ul class="list">
-                                    <li>Harina unos g</li>
-                                    <li>3kg de queso para rallar</li>
-                                    <li>2 huevos</li>
-                                    <li>1 paquete de masa para empanadas</li>
-                                </ul>
-                            </div>
-                            <div class="action">
-                                <a href="../recetas/recetas.html" class="btn">Quiero la receta!</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <?php endforeach; ?>
+
             </div>
-            <button class="carousel-control-prev custom-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next custom-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
+            <!-- flechas de navegacion -->
+            <div class="swiper-button-next" id="swiperButtonNextRecetas" style="margin-top: 42rem;color: #198754;"></div>
+            <div class="swiper-button-prev" id="swiperButtonPrevRecetas" style="margin-top: 42rem;color: #198754;"></div>
         </div>
     </div>
 
@@ -768,4 +704,9 @@ include '../includes/permisos.php'
         </div>
     </div>
 
-    <?php include '../includes/footer.php' ?>
+
+
+</body>
+<?php include '../includes/footer.php' ?>
+
+</html>

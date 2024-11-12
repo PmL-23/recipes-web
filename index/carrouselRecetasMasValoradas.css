@@ -1,0 +1,9 @@
+.swiper-container {
+    width: 100%; 
+    overflow: hidden;
+}
+@media (max-width: 991px) {
+    .swiper-button-next, .swiper-button-prev {
+        display: none !important;
+    }
+}
