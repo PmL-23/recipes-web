@@ -66,7 +66,7 @@ include '../includes/permisos.php'
         <div class="carousel-inner">
 
             <div class="carousel-item active d-item">
-                <img src="../img/aprender.jpg" class="d-block w-100 d-img" alt="Bienvenida">
+                <img src="./img/aprender.jpg" class="d-block w-100 d-img" alt="Bienvenida">
                 <div class="carousel-caption top-0 mt-4">
                     <p class="mt-5 fs-3 text-uppercase">Tu mejor sitio de Recetas!</p>
                     <h1 class="display-1 fw-bolder text-capitalize">¡Bienvenido!</h1>
@@ -74,7 +74,7 @@ include '../includes/permisos.php'
             </div>
 
             <div class="carousel-item d-item">
-                <img src="../img/saludables.jpg" class="d-block w-100 d-img" alt="saludables">
+                <img src="./img/saludables.jpg" class="d-block w-100 d-img" alt="saludables">
                 <div class="carousel-caption top-0 mt-4">
                     <p class="mt-5 fs-3 text-uppercase">Descubre nuestrar recetas mas saludables</p>
                     <h1 class="display-1 fw-bolder text-capitalize">¡Nos importa tu salud!</h1>
@@ -82,7 +82,7 @@ include '../includes/permisos.php'
             </div>
 
             <div class="carousel-item d-item">
-                <img src="../img/amasar.jpg" class="d-block w-100 d-img" alt="masas">
+                <img src="./img/amasar.jpg" class="d-block w-100 d-img" alt="masas">
                 <div class="carousel-caption top-0 mt-4">
                     <p class="mt-5 fs-3 text-uppercase">Se un experto con las masas</p>
                     <h1 class="display-1 fw-bolder text-capitalize">¡Aprende a Amasar!</h1>
@@ -90,7 +90,7 @@ include '../includes/permisos.php'
             </div>
 
             <div class="carousel-item d-item">
-                <img src="../img/comidasyhoras.jpg" class="d-block w-100 d-img" alt="masas">
+                <img src="./img/comidasyhoras.jpg" class="d-block w-100 d-img" alt="masas">
                 <div class="carousel-caption top-0 mt-4">
                     <p class="mt-5 fs-3 text-uppercase">Hay recetas para cada momento de tu dia</p>
                     <h1 class="display-1 fw-bolder text-capitalize">¡Elige tu momento!</h1>
