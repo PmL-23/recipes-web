@@ -19,3 +19,12 @@ $queryEspecial = "SELECT publicaciones_recetas.*, valoraciones.puntuacion AS val
 $stmEspecial = $conn->prepare($queryEspecial);
 $stmEspecial->execute();
 $especiales = $stmEspecial->fetchAll(PDO::FETCH_ASSOC);
+
+$queryDulce = "SELECT publicaciones_recetas.*, valoraciones.puntuacion AS valoracion_puntaje, AVG(valoraciones.puntuacion)
+ AS promedio_valoracion FROM publicaciones_recetas INNER JOIN valoraciones ON publicaciones_recetas.id_publicacion = valoraciones.id_publicacion 
+ INNER JOIN etiquetas_recetas ON publicaciones_recetas.id_publicacion = etiquetas_recetas.id_publicacion 
+ INNER JOIN etiquetas ON etiquetas_recetas.id_etiqueta = etiquetas.id_etiqueta WHERE etiquetas.titulo LIKE '%#teamdulce%' 
+ GROUP BY publicaciones_recetas.id_publicacion;";
+$stmDulce = $conn->prepare($queryDulce);
+$stmDulce->execute();
+$dulces = $stmDulce->fetchAll(PDO::FETCH_ASSOC);
