@@ -38,9 +38,11 @@ include '../includes/permisos.php'
     <!-- BANDERAS -->
     <div class="paises-contenedor">
         <?php foreach ($paises as $pais): ?>
-            <div class="bandera-container" onclick="abrirRecetas(<?= $pais['id_pais'] ?>)">
-                <img src="../svg/<?= $pais['ruta_imagen_pais'] ?>" alt="<?= $pais['nombre'] ?>" title="<?= $pais['nombre'] ?>" class="bandera" width="100" height="auto">
-            </div>
+            <a href="#">
+                <div class="bandera-container" onclick="abrirRecetas(<?= $pais['id_pais'] ?>)">
+                    <img src="../svg/<?= $pais['ruta_imagen_pais'] ?>" alt="<?= $pais['nombre'] ?>" title="<?= $pais['nombre'] ?>" class="bandera" width="100" height="auto">
+                </div>
+            </a>
         <?php endforeach; ?>
     </div>
 

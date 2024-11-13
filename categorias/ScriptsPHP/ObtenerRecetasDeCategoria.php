@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         $consulta->execute();
 
         $recetasDeCategoria = $consulta->fetchAll(\PDO::FETCH_ASSOC);
-
+        echo $consulta;
     } else {
         $categoriaTitulo = null;
         $recetasDeCategoria = [];
