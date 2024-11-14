@@ -23,3 +23,11 @@
         font-size: 1rem;
     }
 }
+html, body {
+    height: 100%; /* Asegura que el html y body ocupen el 100% del alto de la ventana */
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+}

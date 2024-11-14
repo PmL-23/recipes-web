@@ -10,7 +10,7 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Filtrar</title>
     <?php include '../includes/head.php'; ?>
-    <link rel="stylesheet" href="buscador1.css">
+    <link rel="stylesheet" href="./buscador1.css">
     <script src="buscar.js" defer></script>
     <script src="filtross.js" defer></script>
     <script src="manejarCampos.js" defer></script>
