@@ -24,5 +24,12 @@ document.addEventListener("DOMContentLoaded", function() {
         saludoDiv.textContent = "Ya es de madrugada!";
         mensajeRecetasDiv.textContent = "Estas son nuestras recetas para ti >";
     }
+    // Función para mostrar las secciones correctas
+    function mostrarSecciones(comida) {
+        const seccionesComida = document.querySelectorAll(`.seccion.${comida}`);
+        seccionesComida.forEach(seccion => {
+            seccion.classList.remove('oculto');
+        });
+    }
 
 });

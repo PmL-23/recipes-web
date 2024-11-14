@@ -16,7 +16,7 @@ include '../includes/permisos.php'
     <link rel="stylesheet" href="../html_paises/formatoRecetasPaises.css">
     <link rel="stylesheet" href="./sliders/carrouselRecetasMasValoradas.css">
     <!-- JS -->
-    <script src="./recetasSegunHora/mostrarPorFecha.js" defer></script>
+     <script src="./recetasSegunHora/mostrarPorFecha1.js" defer></script>
     <script src="receta_paises.js" defer></script>
     <script src="./sliders/recetasSlider.js" defer></script>
     <!-- HEAD -->
