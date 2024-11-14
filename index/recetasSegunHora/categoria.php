@@ -1,5 +1,5 @@
 <?php
-include '../../includes/conec_db.php';
+require '../includes/conec_db.php';
 
 function obtenerRecetasPorHora($conn)
 {
@@ -17,7 +17,6 @@ function obtenerRecetasPorHora($conn)
     } else {
         $categoriaId = 4; // madrugada
     }
-    echo $categoriaId;
     // sql
     $query = "SELECT publicaciones_recetas.*, valoraciones.puntuacion AS valoracion_puntaje,
         AVG(valoraciones.puntuacion) AS promedio_valoracion FROM publicaciones_recetas

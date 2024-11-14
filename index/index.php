@@ -13,7 +13,7 @@ include '../includes/permisos.php'
     <!-- CSS -->
     <link rel="stylesheet" href="../css/c-countries.css">
     <link rel="stylesheet" href="./sliders/carrousell.css">
-    <link rel="stylesheet" href="../html_paises/formatoRecetasPaises.css">
+    <link rel="stylesheet" href="./recetas.css">
     <link rel="stylesheet" href="./sliders/carrouselRecetasMasValoradas.css">
     <!-- JS -->
      <script src="./recetasSegunHora/mostrarPorFecha1.js" defer></script>
@@ -29,11 +29,9 @@ include '../includes/permisos.php'
     include '../includes/header.php';
     include '../includes/conec_db.php';
     include '../includes/paises.php';
-    include 'mejoresRecetas.php';
-    include './recetasSegunHora/categoria.php'
+    include './mejoresRecetas.php';
+    include './recetasSegunHora/categoria.php';
     ?>
-
-
 
     <!-- BANDERAS -->
     <div class="paises-contenedor">
