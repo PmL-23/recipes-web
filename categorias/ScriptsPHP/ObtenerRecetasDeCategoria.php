@@ -1,6 +1,6 @@
 <?php
 
-require_once('../includes/conec_db.php');  //todos los archivos que se necesitan
+require_once('../../includes/conec_db.php');  //todos los archivos que se necesitan
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
