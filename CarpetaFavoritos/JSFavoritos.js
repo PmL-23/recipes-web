@@ -220,6 +220,7 @@ const ProcesarInformacionTraerPublicaciones = async function(data) {
         let promesasImagenes = [];
         let promesasEtiquetas = [];
         let promesasPaises = [];
+
         let promesasUsuario = [];
         for (let publi of data) {
             Publicacion[CantidadPublicaciones] = {
@@ -306,7 +307,7 @@ async function toggleFavorito(idPublicacion, index) {
 
     try {
         // Llamada a la base de datos usando fetch
-        let url = urlVariable + '/TraerPublicacionesFavoritas.php'  
+        let url = urlVariable + '/Agregar-Sacar-fav.php'  
         const response = await fetch(url, {
             method: "POST",
             headers: {
@@ -314,7 +315,8 @@ async function toggleFavorito(idPublicacion, index) {
             },
             body: JSON.stringify({
                 accion: accion, // `agregar` o `eliminar`
-                idPublicacion: idPublicacion, // El ID de la publicación
+                iDPublicacion: idPublicacion, // El ID de la publicación
+                iDUsuario: id_usuario,
                 
             }),
         });
@@ -324,13 +326,13 @@ async function toggleFavorito(idPublicacion, index) {
         if (!result.success) {
             // Revertir visualmente si ocurre un error
             btnFavorito.classList.toggle("favorito-activo");
-            alert("Error al actualizar el favorito.");
+            console.log("disculpe las molestias, no se pudo actualizar el registro");
         }
     } catch (error) {
         // Revertir visualmente si la solicitud falla
         btnFavorito.classList.toggle("favorito-activo");
-        console.error("Error:", error);
-        alert("No se pudo actualizar el estado del favorito.");
+        console.log("disculpe las molestias, ocurrio un error");
+        
     }
 }
 
@@ -485,7 +487,7 @@ function LLenarPagina() {
 <div class="d-flex justify-content-end mt-2">
 <!-- Botón de Guardar en Favoritos -->
 
-    <button type="button" id="btn-favorito" class="btn btn-outline-danger me-1 favorito" onclick="toggleFavorito(${Publicacion[i].id_publicacion}, ${i})">
+    <button type="button" id="btn-favorito-${i}" class="btn btn-outline-danger me-1 favorito favorito-activo" onclick="toggleFavorito(${Publicacion[i].id_publicacion}, ${i})">
         <i class="bi bi-heart-fill fs-5"></i>
     </button>
     <button type="button" class="btn btn-outline-primary bg-none" id="btnCompartir">

@@ -29,5 +29,4 @@ $Publicacion = $stm->fetchAll(PDO::FETCH_ASSOC);
 
 
 
-echo json_encode($Publicacion, JSON_PRETTY_PRINT);
 ?>
