@@ -12,8 +12,8 @@ require_once('./ScriptsPHP/ObtenerRecetasDeCategoria.php');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recetario</title>
 
-    <link rel="stylesheet" href="categorias1.css">
-
+    <link rel="stylesheet" href="./categoriass.css">
+    <link rel="stylesheet" href="../index//recetas.css">
     <link rel="stylesheet" href="../html_paises/formatoRecetasPaises.css">
     <script src="./categoriass.js" defer></script>
 
