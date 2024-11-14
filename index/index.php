@@ -174,7 +174,7 @@ include '../includes/permisos.php'
 
         <div class="container mt-3">
             <div class="row">
-                <?php foreach ($recetas as $receta): ?>
+                <?php foreach ($recetas2 as $receta): ?>
                     <?php
                     $stmt = $conn->prepare("SELECT ruta_imagen FROM imagenes WHERE id_publicacion = :id_publicacion");
                     $stmt->execute(['id_publicacion' => $receta['id_publicacion']]);

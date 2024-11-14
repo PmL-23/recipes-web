@@ -1,9 +1,10 @@
 <?php
-include '../includes/conec_db.php';
+include '../../includes/conec_db.php';
 
-function obtenerRecetasPorHora($conn) {
-
-    $hora = (int)date("H");//hora actual
+function obtenerRecetasPorHora($conn)
+{
+    date_default_timezone_set('America/Argentina/Buenos_Aires'); // Asegura la zona horaria correcta
+    $hora = (int)date("H"); //hora actual
 
     if ($hora >= 6 && $hora < 11) {
         $categoriaId = 1; // desayuno
@@ -16,7 +17,7 @@ function obtenerRecetasPorHora($conn) {
     } else {
         $categoriaId = 4; // madrugada
     }
-
+    echo $categoriaId;
     // sql
     $query = "SELECT publicaciones_recetas.*, valoraciones.puntuacion AS valoracion_puntaje,
         AVG(valoraciones.puntuacion) AS promedio_valoracion FROM publicaciones_recetas
@@ -28,10 +29,8 @@ function obtenerRecetasPorHora($conn) {
     $stm = $conn->prepare($query);
     $stm->bindParam(':categoriaId', $categoriaId, PDO::PARAM_INT);
     $stm->execute();
-    $recetas = $stm->fetchAll(PDO::FETCH_ASSOC);
-
-    return $recetas;
+    $recetas2 = $stm->fetchAll(PDO::FETCH_ASSOC);
+    return $recetas2;
 }
 
-$recetas = obtenerRecetasPorHora($conn);
-
+$recetas2 = obtenerRecetasPorHora($conn);
