@@ -2,29 +2,27 @@
     
 require '../includes/conec_db.php';
 
-$querySaladas = "SELECT publicaciones_recetas.*, valoraciones.puntuacion AS valoracion_puntaje, AVG(valoraciones.puntuacion)
-AS promedio_valoracion FROM publicaciones_recetas INNER JOIN valoraciones ON publicaciones_recetas.id_publicacion = valoraciones.id_publicacion 
-INNER JOIN ingredientes_recetas ON publicaciones_recetas.id_publicacion = ingredientes_recetas.id_publicacion 
-INNER JOIN ingredientes ON ingredientes_recetas.id_ingrediente = ingredientes.id_ingrediente 
-WHERE ingredientes.nombre LIKE '%Sal%' GROUP BY publicaciones_recetas.id_publicacion;";
+$querySaladas = "SELECT * FROM categorias WHERE seccion = 'saladas'";
 $stmSaladas = $conn->prepare($querySaladas);
 $stmSaladas->execute();
 $saladas = $stmSaladas->fetchAll(PDO::FETCH_ASSOC);
 
-$queryEspecial = "SELECT publicaciones_recetas.*, valoraciones.puntuacion AS valoracion_puntaje, AVG(valoraciones.puntuacion)
- AS promedio_valoracion FROM publicaciones_recetas INNER JOIN valoraciones ON publicaciones_recetas.id_publicacion = valoraciones.id_publicacion 
- INNER JOIN etiquetas_recetas ON publicaciones_recetas.id_publicacion = etiquetas_recetas.id_publicacion 
- INNER JOIN etiquetas ON etiquetas_recetas.id_etiqueta = etiquetas.id_etiqueta WHERE etiquetas.titulo LIKE '%#enFamilia%' 
- GROUP BY publicaciones_recetas.id_publicacion;";
+$queryEspecial = "SELECT * FROM categorias WHERE seccion = 'ocasiones-especiales'";
 $stmEspecial = $conn->prepare($queryEspecial);
 $stmEspecial->execute();
 $especiales = $stmEspecial->fetchAll(PDO::FETCH_ASSOC);
 
-$queryDulce = "SELECT publicaciones_recetas.*, valoraciones.puntuacion AS valoracion_puntaje, AVG(valoraciones.puntuacion)
- AS promedio_valoracion FROM publicaciones_recetas INNER JOIN valoraciones ON publicaciones_recetas.id_publicacion = valoraciones.id_publicacion 
- INNER JOIN etiquetas_recetas ON publicaciones_recetas.id_publicacion = etiquetas_recetas.id_publicacion 
- INNER JOIN etiquetas ON etiquetas_recetas.id_etiqueta = etiquetas.id_etiqueta WHERE etiquetas.titulo LIKE '%#teamdulce%' 
- GROUP BY publicaciones_recetas.id_publicacion;";
+$queryDieta = "SELECT * FROM categorias WHERE seccion = 'dietas-especiales'";
+$stmDieta = $conn->prepare($queryDieta);
+$stmDieta->execute();
+$dietas = $stmDieta->fetchAll(PDO::FETCH_ASSOC);
+
+$queryBebida = "SELECT * FROM categorias WHERE seccion = 'bebidas'";
+$stmBebida = $conn->prepare($queryBebida);
+$stmBebida->execute();
+$bebidas = $stmBebida->fetchAll(PDO::FETCH_ASSOC);
+
+$queryDulce = "SELECT * FROM categorias WHERE seccion = 'dulces'";
 $stmDulce = $conn->prepare($queryDulce);
 $stmDulce->execute();
 $dulces = $stmDulce->fetchAll(PDO::FETCH_ASSOC);
