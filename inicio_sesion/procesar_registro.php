@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             $errors[] = 'Debe ingresar un correo electronico';
         }
 
-        $sqlUsuarioExistente = "SELECT id_usuario FROM usuarios WHERE username = :Username OR email = :Email";
+        $sqlUsuarioExistente = "SELECT id_usuario FROM usuarios WHERE username = :Username OR email = :Email OR google_email = :Email";
         $sqlVerificarUsuarioExistente = $conn->prepare($sqlUsuarioExistente);
         if (!$sqlVerificarUsuarioExistente) {
             error_log('Error en la consulta SQL de usuario');

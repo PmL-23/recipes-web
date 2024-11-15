@@ -1,7 +1,13 @@
 <?php
 include 'conec_db.php'; 
 include '../notificaciones/notificacion.php';
+require_once("../inicio_sesion/GoogleOAuth.php");
 
+if (isset($client) && $client->getAccessToken()) {
+    // Obtener la información del usuario si está autenticado
+    $oauth2 = new Google_Service_Oauth2($client);
+    $userInfo = $oauth2->userinfo->get();
+}
 
 if (isset($_SESSION['id'])) {
     $idUsuario = $_SESSION['id'];
@@ -111,10 +117,14 @@ if (isset($_SESSION['id'])) {
                                         </li>
                                         <li class="nav-item justify-content-center">
                                             <a class="boton-login col-6" href="../inicio_sesion/registrarse.php">Registrarse</a>
-                                        </li>
-                                        <li class="nav-item justify-content-center">
-                                            <a class="boton-login col-6" href="#"><img alt="logo-google" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/480px-Google_%22G%22_logo.svg.png"/>Ingresar con Google</a>
-                                        </li>'; 
+                                        </li>';
+
+                                        if (isset($authUrl)) {
+                                            echo '<li class="nav-item justify-content-center">
+                                                    <a class="boton-login col-6" href="' . $authUrl . '"><img alt="logo-google" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/480px-Google_%22G%22_logo.svg.png"/>Ingresar con Google</a>
+                                                </li>'; 
+                                        }
+                                        
                                     }
                                     ?>
                                 </ul>
