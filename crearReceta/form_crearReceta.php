@@ -8,6 +8,8 @@ require_once('../includes/seguidores.php');
 
 $id_usuario_autor = $_SESSION['id'];
 
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $titulo = isset($_POST["titulo"]) ? $_POST["titulo"] : NULL;
@@ -15,6 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $categoria = isset($_POST["categoria"]) ? $_POST["categoria"] : NULL;
     $dificultad = isset($_POST["dificultad"]) ? $_POST["dificultad"] : NULL;
     $tiempo = isset($_POST["minutos_prep"]) ? $_POST["minutos_prep"] : NULL;
+    $unidad_tiempo = isset($_POST["tiempo_unidad"]) ? $_POST["tiempo_unidad"] : NULL;
 
     if (empty($titulo) || empty($descripcion) || empty($dificultad) || empty($tiempo) || empty($id_usuario_autor) || empty($categoria)) {
 
@@ -22,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
     
-    $sqlQueryPublicacion = "INSERT INTO publicaciones_recetas(titulo, descripcion, dificultad, minutos_prep, id_usuario_autor, id_categoria) VALUES (:titulo, :descripcion, :dificultad, :tiempo, :id_usuario_autor, :categoria)";
+    $sqlQueryPublicacion = "INSERT INTO publicaciones_recetas(titulo, descripcion, dificultad, minutos_prep, id_usuario_autor, id_categoria, unidad_tiempo) VALUES (:titulo, :descripcion, :dificultad, :tiempo, :id_usuario_autor, :categoria, :unidad_tiempo)";
 
     $QueryPublicacion = $conn->prepare($sqlQueryPublicacion);
     
@@ -30,6 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $QueryPublicacion->bindParam(':descripcion', $descripcion, PDO::PARAM_STR);
     $QueryPublicacion->bindParam(':dificultad', $dificultad, PDO::PARAM_STR);
     $QueryPublicacion->bindParam(':tiempo', $tiempo, PDO::PARAM_INT);
+    $QueryPublicacion->bindParam(':unidad_tiempo', $unidad_tiempo, PDO::PARAM_STR);
     $QueryPublicacion->bindParam(':id_usuario_autor', $id_usuario_autor, PDO::PARAM_INT);    
     $QueryPublicacion->bindParam(':categoria', $categoria, PDO::PARAM_STR);
     
@@ -157,72 +161,72 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         }
 
-        //Tabla pasos        
+        //Tabla Pasos
         $pasos = isset($_POST["paso"]) ? $_POST["paso"] : []; 
 
         foreach ($pasos as $num_paso => $texto) {
 
+            $numero_paso = $num_paso + 1; 
+
             if (!empty($texto)) { 
-                $sqlQueryPaso = "INSERT INTO pasos_recetas(id_publicacion, num_paso, texto) VALUES (:id_publicacion, :numero_paso + 1, :texto_paso)";
+                $sqlQueryPaso = "INSERT INTO pasos_recetas(id_publicacion, num_paso, texto) VALUES (:id_publicacion, :numero_paso, :texto_paso)";
                 
                 $QueryPaso = $conn->prepare($sqlQueryPaso);
                 $QueryPaso->bindParam(':id_publicacion', $id_publicacion, PDO::PARAM_INT);
-                $QueryPaso->bindParam(':numero_paso', $num_paso, PDO::PARAM_INT);
+                $QueryPaso->bindParam(':numero_paso', $numero_paso, PDO::PARAM_INT);
                 $QueryPaso->bindParam(':texto_paso', $texto, PDO::PARAM_STR);
 
                 if ($QueryPaso->execute()) {
 
                     $id_paso = $conn->lastInsertId();
 
-                    if (isset($_FILES['imagenes_paso'.($num_paso + 1).''])){
 
-                        $contadorImagenes = count($_FILES['imagenes_paso'.($num_paso + 1).'']['name']);
+                    if (isset($_FILES['imagenes_paso'.$numero_paso.'']) && !empty($_FILES['imagenes_paso'.$numero_paso.'']['name'][0])){
+
+                        $contadorImagenes = count($_FILES['imagenes_paso'.$numero_paso.'']['name']);
                         $carpetaDestino = '../recetas/galeria/';
                 
-                        // Procesar cada archivo individualmente
+                    
                         for ($i = 0; $i < $contadorImagenes; $i++) {
 
-                            // Obtener información del archivo
-                            $fileName = $_FILES['imagenes_paso'.($num_paso + 1).'']['name'][$i];
-                            $fileTmpName = $_FILES['imagenes_paso'.($num_paso + 1).'']['tmp_name'][$i];
-                            $fileError = $_FILES['imagenes_paso'.($num_paso + 1).'']['error'][$i];
+                            
+                            $fileName = $_FILES['imagenes_paso'.$numero_paso.'']['name'][$i];
+                            $fileTmpName = $_FILES['imagenes_paso'.$numero_paso.'']['tmp_name'][$i];
+                            $fileError = $_FILES['imagenes_paso'.$numero_paso.'']['error'][$i];
                 
-                            // Verificar si no hubo errores al subir el archivo
+                        
                             if ($fileError === UPLOAD_ERR_OK) {
-                                // Crear la ruta completa
+                                
                                 $imagenIDUnico = uniqid() . '_' . basename($fileName);
                                 $fileDestination = $carpetaDestino . $imagenIDUnico;
                 
-                                // Mover el archivo desde la carpeta temporal al destino final
+                            
                                 if (move_uploaded_file($fileTmpName, $fileDestination)) {
-            
+
                                     $sqlQueryImagenPaso = "INSERT INTO imagenes_pasos(id_paso, ruta_imagen_paso) VALUES (:id_paso, :ruta_imagen_paso)";
-            
+
                                     $QueryImagenPaso = $conn->prepare($sqlQueryImagenPaso);
                                     $QueryImagenPaso->bindParam(':id_paso', $id_paso, PDO::PARAM_INT);
                                     $QueryImagenPaso->bindParam(':ruta_imagen_paso', $fileDestination, PDO::PARAM_STR);
                                     $QueryImagenPaso->execute();
-            
+
                                 } else {
                                     echo json_encode(['success' => false, 'msj_error' => 'Error al guardar el archivo '.$fileName]);
                                 }
                 
                             } else {
-                                echo json_encode(['success' => false, 'msj_error' => 'Error en el archivo '.$nombreArchivo.'; Código de error '.$fileError]);
+                                echo json_encode(['success' => false, 'msj_error' => 'Error en el archivo '.$fileName.'; Código de error '.$fileError]);
                             }
                         }
-            
-            
-                    } else {
-                        echo json_encode(['success' => false, 'msj_error' => 'Imagenes para paso no seleccionadas..']);
-                    }
-
-                }else{
+                
+                    } 
+                
+                } else {
                     echo json_encode(['success' => false, 'msj_error' => 'Error al guardar paso..']);
                 }
             }
-
         }
+
 
         echo json_encode([
             'success' => true,

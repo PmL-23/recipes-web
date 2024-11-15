@@ -17,6 +17,8 @@ if (isset($_GET['id'])) {
     $fecha = $recetaData["fecha_publicacion"];
     $dificultad = $recetaData["dificultad"];
     $minutos_prep = $recetaData["minutos_prep"];
+    $unidad_tiempo = $recetaData["unidad_tiempo"];
+
 
     //ids
     $autor = $recetaData["id_usuario_autor"];
@@ -55,7 +57,10 @@ if (isset($_GET['id'])) {
     }
 
 
-
+    if ($unidad_tiempo === "hora")
+    {
+        $minutos_prep = $minutos_prep * 60;
+    }
 
 
 

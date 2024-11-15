@@ -25,10 +25,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 //contraseña
         if ((empty($password)) || (trim($password) === '') || (empty($confirm_password)) || (trim($confirm_password) === '')) {
             $errors[] = 'Debe completar el campo de contaseña y confirmar contraseña';
-        }
-
-        if ($password != $confirm_password) {
-            $errors[] = 'Las contraseñas ingresadas no coinciden.';
+        }else{
+        
+            if (strlen($password) < 8 || strlen($password) > 16 )
+            {
+                $errors[] = 'Las contraseñas deben ser de 8 a 16 carateres.';
+            }
+            if ($password != $confirm_password) {
+                $errors[] = 'Las contraseñas ingresadas no coinciden.';
+            }
         }
 
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
@@ -47,8 +52,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 
         if ((empty($username)) || (trim($username) === '')) {
             $errors[] = 'Debe ingresar un nombre de usuario';
-        }else if ((empty($email)) || (trim($email) === '')){
+        }else{
+
+            if (strlen($username) < 6 || strlen($username) > 12)
+            {
+                $errors[] = 'El campo username debe tener entre 6 a 12 caracteres';
+            }
+
+            $usernameRegex = "/^[a-z-0-9]+$/"; 
+
+            if (!preg_match($usernameRegex, $username)) {
+                $errors[] = 'El username solo permite letras y numeros';
+            } 
+        }
+
+        if ((empty($email)) || (trim($email) === '')){
             $errors[] = 'Debe ingresar un correo electronico';
+        }else{
+            $emailRegex = "/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/";
+
+            if (!preg_match($emailRegex, $email)) {
+                $errors[] = 'Formato de mail invalido';
+            }
         }
 
         $sqlUsuarioExistente = "SELECT id_usuario FROM usuarios WHERE username = :Username OR email = :Email";
@@ -100,10 +125,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             if ($stmtUsuario->execute()) {
 
                 $id_usuario = $conn->lastInsertId();
+
                 $_SESSION['id'] = $id_usuario;
                 $_SESSION['nomCompleto'] = $nomCompleto;
                 $_SESSION['nomUsuario'] = $username;
-            //    $_SESSION['rol'] = $row;
+                $rol= 1;
+
+                $sqlUsuarioRol = "INSERT INTO roles_usuarios(id_rol, id_usuario) VALUES (:id_rol, :id_usuario)";
+                $stmtUsuarioRol = $conn->prepare($sqlUsuarioRol);
+                $stmtUsuarioRol->bindParam(':id_rol', $rol, PDO::PARAM_STR);
+                $stmtUsuarioRol->bindParam(':id_usuario', $id_usuario, PDO::PARAM_STR);
+                $stmtUsuarioRol->execute();
+
+                $_SESSION['rol'] = $rol;
+                
 
                 echo json_encode([
                     'success' => true,

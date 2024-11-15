@@ -1,10 +1,28 @@
 const inicio = function ()
 {
-        visualizarPortada();
         agregarEtiqueta();
         agregarPaso();
         subirImagenPaso();
         mostrarCategoria();
+
+        const visualizarPortada = function (){   
+                const imgPreview = document.getElementById("preview-portada");
+                const filePortada = document.getElementById("foto-portada");   
+                
+                        filePortada.addEventListener("change", () => {
+                        if (filePortada.files && filePortada.files.length > 0) {
+                                
+                                imgPreview.src = URL.createObjectURL(filePortada.files[0]);
+                                imgPreview.classList.add("preview");
+                        } else {
+        
+                                imgPreview.src = "default-image.png";
+                                imgPreview.classList.remove("preview");
+                        }
+                        });
+                };
+                
+                visualizarPortada();
 
         const agregarIngrediente = function () {
                 const agregarBoton = document.getElementById("agregar-ing");
@@ -146,48 +164,160 @@ const inicio = function ()
         
         
 
-        // Evento para actualizar la bandera al seleccionar un país
-        document.querySelectorAll('.select-pais').forEach(select => {
-                select.addEventListener('change', function() {
-                        actualizarBandera(this);
+        const agregarPaisBtn = document.getElementById('agregar-pais');
+        let paisesSeleccionados = []; 
+        let valorAnterior = null;
+        
+                
+                function actualizarOpciones() {
+                const selectPaises = document.querySelectorAll('.select-pais');
+                selectPaises.forEach(select => {
+                        const opciones = select.querySelectorAll('option');
+                        opciones.forEach(opcion => {
+                        
+                        if (opcion.value !== "" && paisesSeleccionados.includes(opcion.value)) {
+                                opcion.classList.add("d-none");
+                        } else {
+                                opcion.classList.remove("d-none");
+                        }
+                        });
                 });
-        });
-
-        // Función para clonar el select con la funcionalidad de la bandera
-        document.getElementById('agregar-pais').addEventListener('click', function() {
+                }
+                
+                
+                function manejarCambioSelect(event) {
+                const select = event.target;
+                const valorSeleccionado = select.value;
+                
+                
+                if (valorAnterior !== "" && paisesSeleccionados.includes(valorAnterior)) {
+                        const index = paisesSeleccionados.indexOf(valorAnterior);
+                        if (index >= 0) {
+                        paisesSeleccionados.splice(index, 1);
+                        }
+                }
+                
+                
+                if (valorSeleccionado !== "" && !paisesSeleccionados.includes(valorSeleccionado)) {
+                        paisesSeleccionados.push(valorSeleccionado);
+                }
+                
+                
+                actualizarBandera(select);
+                actualizarOpciones();
+                valorAnterior = valorSeleccionado;
+                actualizarBotonAgregarPais();
+                }
+                
+                
+                function actualizarBandera(select) {
+                const bandera = select.parentNode.querySelector('.bandera');
+                const opcionSeleccionada = select.options[select.selectedIndex];
+                if (opcionSeleccionada && opcionSeleccionada.dataset.pais) {
+                        bandera.src = opcionSeleccionada.dataset.pais;
+                        bandera.classList.remove('d-none');
+                        bandera.alt = "Bandera de " + opcionSeleccionada.text;
+                } else {
+                        bandera.src = "";
+                        bandera.classList.add('d-none');
+                        bandera.alt = "";
+                }
+                }
+                
+                
+                function actualizarBotonAgregarPais() {
+                const selectPaises = document.querySelectorAll('.select-pais');
+                agregarPaisBtn.classList.toggle('d-none', selectPaises.length >= 3); 
+                }
+                
+                
+                const selectPaises = document.querySelectorAll('.select-pais');
+                selectPaises.forEach(select => {
+                select.addEventListener('focus', function () {
+                        valorAnterior = select.value;
+                });
+                select.addEventListener('change', manejarCambioSelect);
+                });
+                
+                
+                agregarPaisBtn.addEventListener('click', function () {
+                if (document.querySelectorAll('.select-pais').length >= 3) return; // Limitar a 3 selects
+                
                 const paisContainerOriginal = document.querySelector('.pais-container');
                 const nuevoPaisContainer = paisContainerOriginal.cloneNode(true);
-
-                // Limpia el nuevo select y la imagen
                 const nuevoSelect = nuevoPaisContainer.querySelector('.select-pais');
-                nuevoSelect.value = "";  // Restablece la selección
                 const nuevaBandera = nuevoPaisContainer.querySelector('.bandera');
+                
+
+                nuevoSelect.value = ""; 
                 nuevaBandera.src = "";
+                nuevaBandera.classList.add('d-none');
+                
 
-                nuevaBandera.classList.add("d-none")// Oculta la bandera en el nuevo select
+                nuevoSelect.addEventListener('focus', function () {
+                        valorAnterior = nuevoSelect.value;
+                });
+                nuevoSelect.addEventListener('change', manejarCambioSelect);
+                
+                
+                nuevoPaisContainer.appendChild(crearBotonQuitar(nuevoPaisContainer));
+                document.getElementById('input-paises').appendChild(nuevoPaisContainer);
+                
+                
+                actualizarOpciones();
+                actualizarBotonAgregarPais();
 
-                // Agrega el evento de cambio al nuevo select
-                nuevoSelect.addEventListener('change', function() {
-                        actualizarBandera(this);
+                
                 });
 
-                //Agrego boton para quitar cada input de pais
+                function verTodosLosValores() {
+        const selectPaises = document.querySelectorAll('.select-pais');
+        selectPaises.forEach(select => {
+                console.log("Valor del select", select, select.value); 
+        });
+        }
+
+
+        agregarPaisBtn.addEventListener('click', function() {
+        verTodosLosValores(); 
+        });
+                
+                
+                function crearBotonQuitar(container) {
                 const quitarBoton = document.createElement("button");
                 quitarBoton.classList.add("boton-secundario", "d-flex", "ms-2");
                 quitarBoton.type = "button";
                 quitarBoton.innerHTML = "<i class='bi bi-trash me-1'></i> Quitar";
-
-
-                //borrar ingredientes (solo los creados por la función)
+                
                 quitarBoton.addEventListener("click", function () {
-                        nuevoPaisContainer.remove();
+                        const select = container.querySelector('.select-pais');
+                        const valorSeleccionado = select.value;
+                
+                        
+                        if (valorSeleccionado) {
+                        const index = paisesSeleccionados.indexOf(valorSeleccionado);
+                        if (index >= 0) {
+                                paisesSeleccionados.splice(index, 1);
+                        }
+                        }
+                
+                
+                        container.remove();
+                
+                
+                        actualizarOpciones();
+                        actualizarBotonAgregarPais();
                 });
-
-                nuevoPaisContainer.appendChild(quitarBoton);
-
-                // Agrega el nuevo select al container
-                document.getElementById('input-paises').appendChild(nuevoPaisContainer);
-        });
+                
+                return quitarBoton;
+                }
+        
+        
+        actualizarBotonAgregarPais();
+        
+                
+        
+        
 
         document.getElementById("frm-receta").addEventListener("keydown", function (e) {
                 if (e.key === 'Enter') {
@@ -571,17 +701,7 @@ function validar() {
 
 
 
-const visualizarPortada = function (){   
-        
-        const img_preview = document.getElementById("preview-portada");
-        const file_portada = document.getElementById("foto-portada");   
 
-        file_portada.addEventListener("change",() => {
-                img_preview.src = URL.createObjectURL(file_portada.files[0]);
-                img_preview.classList.add("preview");      
-        });
-
-}
         
 //Pais
 
@@ -593,9 +713,9 @@ function actualizarBandera(select) {
 
         if (imgUrl) {
                 bandera.src = imgUrl;
-                bandera.classList.remove("d-none")// Muestra la imagen si tiene URL
+                bandera.classList.remove("d-none");
         } else {
-                bandera.classList.add("d-none")// Oculta la imagen si no hay selección
+                bandera.classList.add("d-none");
         }
 }
 
@@ -650,7 +770,6 @@ const agregarEtiqueta = function()
         });
 }
 
-//Ingredientes
 
 
 

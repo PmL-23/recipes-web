@@ -1,4 +1,5 @@
 function inicio() {
+
     const formulario=  document.getElementById("frm-usuario");
     formulario.addEventListener("submit", function (e) {
         e.preventDefault();
@@ -7,6 +8,8 @@ function inicio() {
         procesarRegistro(e.target);
     });
 }
+
+
 
 function validarSoloLetras(campo) {
     for (let index = 0; index < campo.length; index++) {
@@ -34,7 +37,7 @@ function validarNumText(campo) {
     
     for (let index = 0; index < campo.length; index++) {
         const caracter = campo[index];
-        if ((caracter >= 'A' && caracter <= 'Z') || (caracter >= 'a' && caracter <= 'z')) {
+        if ((caracter >= 'a' && caracter <= 'z')) {
             tieneLetra = true;
         } else if (caracter >= '0' && caracter <= '9') {
             tieneNumero = true;
@@ -65,11 +68,11 @@ function validarUsername() {
         username.classList.add("is-invalid");
         return false;
     } else if (!validarNumText(username.value)) {
-        errorUsername.textContent = "EL nombre de usuario debe tener al menos una letra y solo puede contener letras y numeros";
+        errorUsername.textContent = "EL nombre de usuario debe tener al menos una letra y solo puede contener letras minusculas y numeros";
         username.classList.add("is-invalid");
         return false;
-    } else if (username.value.length < 7 || username.value.length > 10) {
-        errorUsername.textContent = "Debe tener entre 7 y 10 caracteres";
+    } else if (username.value.length < 6 || username.value.length > 12) {
+        errorUsername.textContent = "Debe tener entre 6 y 12 caracteres";
         username.classList.add("is-invalid");
         return false;
     } else {
@@ -106,14 +109,20 @@ function validarPassword() {
         password.classList.add("is-invalid");
         errorConfirmar.textContent = "Las contraseñas no coinciden";
         confirmar.classList.add("is-invalid");
-        return false; 
-    }else {
+        return false;
+    } else if  (password.value.includes(" ")) {
+        errorPassword.textContent = "La contraseña no debe contener espacios";
+        password.classList.add("is-invalid");
+        confirmar.classList.add("is-invalid");
+        return false;
+    } else {
         password.classList.remove("is-invalid");
         password.classList.add("is-valid");
         confirmar.classList.remove("is-invalid");
         confirmar.classList.add("is-valid");
         return true;
     }
+
 }
 
 

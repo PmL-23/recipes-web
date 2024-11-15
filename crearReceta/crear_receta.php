@@ -2,6 +2,20 @@
 
 session_start();
 
+include '../includes/permisos.php';
+
+if (!isset($_SESSION['id'])) {
+    header('Location: ../index/index.php'); 
+    exit();
+
+}else{
+    
+    if (! Permisos::tienePermiso('Subir Receta', $_SESSION['id'])) {
+        header('Location: ../index/index.php'); 
+        exit();
+    }
+}
+
 require_once('../includes/conec_db.php');
 
 $categoriaQuery = "SELECT * FROM categorias ORDER BY categorias.id_categoria DESC";
@@ -60,9 +74,10 @@ if (!$queryResultsEtiquetas) {
             </div>
             <div class="mt-3">
                 <label for="foto-portada" class="h5 form-label mt-3">Foto de portada</label>
-                <input type="file" name="imagenes[]" id="foto-portada" multiple>
+                <input type="file" name="imagenes[]" id="foto-portada" accept="image/*" multiple>
                 <small class="text-danger" id="errorPortada"></small>
             </div>
+
     
             <div class="mt-3">
                 <label class="h5 form-label mt-3" for="titulo">TÍtulo</label>
@@ -85,15 +100,15 @@ if (!$queryResultsEtiquetas) {
                         <h4 for="select-pais" class="h6 form-label mt-3">País</h4>
             
                         <div class="pais-container my-2 d-flex flex-row">
-                            <select class="w-50 select-pais form-select" aria-label="Select pais" name="pais[]" required>
-                                <option value="" selected>Receta sin país</option>
-                                <?php
-                                    while ($paisRow = $queryResultsPais->fetch(PDO::FETCH_ASSOC)) {
-                                        $rutaBandera = "../svg/" . $paisRow['ruta_imagen_pais'];
-                                        echo '<option value="'.$paisRow['id_pais'].'" data-pais="'.$rutaBandera.'">'.$paisRow['nombre'].'</option>';
-                                    }
-                                ?>
-                            </select>
+                        <select class="w-50 select-pais form-select" aria-label="Select pais" name="pais[]" id="pais" required>
+                <option value="" selected>Receta sin país</option>
+                <?php
+                    while ($paisRow = $queryResultsPais->fetch(PDO::FETCH_ASSOC)) {
+                        $rutaBandera = "../svg/" . $paisRow['ruta_imagen_pais'];
+                        echo '<option class="option-pais" value="'.$paisRow['id_pais'].'" data-pais="'.$rutaBandera.'">'.$paisRow['nombre'].'</option>';
+                    }
+                ?>
+                        </select>
     
                             <small class="text-danger" id="error-pais"></small>
                             <img class="ms-2 bandera mini-bandera d-none" src="" alt="Bandera">
@@ -158,7 +173,7 @@ if (!$queryResultsEtiquetas) {
                         <label for="tiempo-unidad" class="h6 form-label">Hora/Minutos</label>
                         <select class="form-select" aria-label="Select unidad" name="tiempo_unidad" id="tiempo-unidad" required>
 
-                            <option selected value="min">Minutos</option>
+                            <option selected value="minutos">Minutos</option>
                             <option value="hora">Hora/s</option>
                         </select>
                     </div>
@@ -234,6 +249,9 @@ if (!$queryResultsEtiquetas) {
                             <button class="boton-secundario d-flex mt-2 d-none quitar-imagen" type="button"><i class="bi bi-trash me-1"></i>Quitar Imagen</button>         
                         </div>
                     </div>
+
+                    </div>
+
                 </li>
             </ol>
             <div class="d-flex justify-content-center mt-3">

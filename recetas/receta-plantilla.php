@@ -53,7 +53,7 @@ require_once('../includes/razonesReporte.php');
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li><a class="dropdown-item" href="editar-receta.php?id=<?php echo $idPublicacion; ?>">Editar publicación</a></li>
-                    <li><a class="dropdown-item" href="#">Eliminar publicación</a></li>
+                    <li><a class="dropdown-item" href="../perfil-usuario/eliminar_publicacion.php">Eliminar publicación</a></li>
                 </ul>
             </div>
         <?php } ?>
