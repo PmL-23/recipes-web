@@ -6,14 +6,14 @@ if (isset($_SESSION['id'])) {
     $idUsuario = $_SESSION['id'];
 
     $queries = "
-        SELECT notificaciones.*, usuarios.username, publicaciones_recetas.titulo
+        SELECT notificaciones.*, usuarios.username, publicaciones_recetas.titulo, publicaciones_recetas.id_publicacion
         FROM notificaciones
-        JOIN usuarios ON notificaciones.id_seguido = usuarios.id_usuario
-        JOIN publicaciones_recetas ON notificaciones.id_publicacion = publicaciones_recetas.id_publicacion
-        WHERE notificaciones.id_seguidor = ? AND notificaciones.visto = 0
+        LEFT JOIN usuarios ON notificaciones.id_seguidor = usuarios.id_usuario
+        LEFT JOIN publicaciones_recetas ON notificaciones.id_publicacion = publicaciones_recetas.id_publicacion
+        WHERE notificaciones.id_seguido = ?
         ORDER BY notificaciones.fecha DESC
     ";
-    
+
     $stmt = $conn->prepare($queries);
     $stmt->execute([$idUsuario]);
     $notificaciones = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -23,4 +23,3 @@ if (isset($_SESSION['id'])) {
     echo json_encode([]);
 }
 ?>
-

@@ -13,6 +13,7 @@ if (isset($_SESSION['id'])) {
 <!-- Header -->
 <header class="header">
     <script src="../notificaciones/notificacion.js" defer></script>
+    <script src="../notificaciones/notificacion_vista.js" defer></script>
     <nav class="navegacion-principal nav">
         <div class="container-fluid d-flex justify-content-between align-items-center">
             <div class="m-0 container d-flex flex-row align-items-center">
@@ -51,22 +52,37 @@ if (isset($_SESSION['id'])) {
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <button id="btnNotificaciones" class="notificaciones btn btn-outline-light boton-menu" data-bs-toggle="dropdown">
-                        <i class="bi bi-bell"></i>
-                        <span class="badge bg-danger"><?php echo isset($notificaciones) ? count($notificaciones) : 0; ?></span>
+                    <button id="btnNotificaciones" class="notificaciones btn btn-outline-light boton-menu position-relative" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-bell"></i>
+                    <span class="badge bg-danger position-absolute top-0 start-100 translate-middle badge rounded-pill">
+                    <?php echo isset($notificaciones) ? count($notificaciones) : 0; ?>
+                    <span class="visually-hidden">notificaciones no leídas</span>
+                    </span>
                     </button>
-                    <ul class="dropdown-menu">
-                    <?php
-                    if (!empty($notificaciones)) {
-                        foreach ($notificaciones as $notificacion) {
-                            echo "<li><a class='dropdown-item' href='#'>".$notificacion['username']." publicó una receta: ".$notificacion['titulo']." - ".$notificacion['fecha']."</a></li>";
-                       }
-                    } else {
-                        echo "<li><a class='dropdown-item' href='#'>No tienes notificaciones</a></li>";
-                    }
-                    ?>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="btnNotificaciones">
+                    <?php if (!empty($notificaciones)) {
+                            foreach ($notificaciones as $notificacion) {
+                                if ($notificacion['tipo'] == 'nuevo_comentario') {
+                                    $urlReceta = "../recetas/receta-plantilla.php?id=" . $notificacion['id_publicacion'];
+                                } elseif ($notificacion['tipo'] == 'nuevo_seguidor') {
+                                    $urlReceta = "../CarpetaPerfil/Perfil.php?NombreDeUsuario=" . $notificacion['username'];
+                                } else {
+                                    $urlReceta = "../recetas/receta-plantilla.php?id=" . $notificacion['id_publicacion']; 
+                                }
+                            echo "<li>
+                            <a class='dropdown-item' href='" . $urlReceta . "' data-id='" . $notificacion['id_notificacion'] . "'>
+                            <strong>" . $notificacion['username'] . "</strong> 
+                            " . getNotificationMessage($notificacion['tipo'], $notificacion['titulo']) . "<br>
+                            <small class='text-muted'>" . $notificacion['fecha'] . "</small>
+                            </a>
+                            </li>";
+                        }} else {
+                            echo "<li><a class='dropdown-item' href='#'>No tienes notificaciones</a></li>";
+                            }
+                        ?>
                     </ul>
                 </li>
+
                 <li class="nav-item">
                     <button class="btn btn-outline-light boton-menu" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
                         <i class="bi bi-list"></i>

@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $seguidores = obtenerSeguidores($conn, $id_usuario_autor);
 
         foreach ($seguidores as $seguidor) {
-            agregarNotificacion($conn, $seguidor['id_seguidor'], $id_publicacion, $id_usuario_autor, 'nueva receta');
+            agregarNotificacion($conn, $seguidor['id_seguidor'], $id_publicacion, $id_usuario_autor, 'nueva_publicacion');
         }
 
         if (isset($_FILES['imagenes'])){

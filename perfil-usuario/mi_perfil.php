@@ -170,7 +170,7 @@ if ($indexPosition !== false) {
                 <ul class="list-group">
                     <?php foreach ($publicaciones as $publicacion): ?>
                         <li class="list-group-item position-relative">
-                            <h5><?php echo htmlspecialchars($publicacion['titulo']); ?></h5>
+                        <h5><a href="../recetas/receta-plantilla.php?id=<?php echo htmlspecialchars($publicacion['id_publicacion']); ?>" class="titulo-publicacion"><?php echo htmlspecialchars($publicacion['titulo']); ?></a></h5>
                             <p><?php echo htmlspecialchars($publicacion['descripcion']); ?></p>
                             <small>Publicado el: <?php echo date('d-m-Y', strtotime($publicacion['fecha_publicacion'])); ?></small>
                             <div class="acciones position-absolute" id="boton-opc">

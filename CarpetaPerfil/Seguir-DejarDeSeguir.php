@@ -1,12 +1,12 @@
 <?php
-// Conexión a la base de datos
 require_once '../includes/conec_db.php';
+require_once('../notificaciones/notificacion.php');
+require_once('../includes/seguidores.php'); 
 
 $data = json_decode(file_get_contents("php://input"), true);
 $IDUsuarioSession = (int)$data["IDUsuarioSession"];
 $IDUsuarioASeguir = (int)$data["IDUsuarioASeguir"];
 $accion = $data["accion"];
-
 
 try {
     if ($accion === "Seguir") {
@@ -15,7 +15,11 @@ try {
         $stmt->bindParam(":idsession", $IDUsuarioSession, PDO::PARAM_INT);
         $stmt->bindParam(":idcuenta", $IDUsuarioASeguir, PDO::PARAM_INT);
         $stmt->execute();
+
+        agregarNotificacion($conn, $IDUsuarioSession, null, $IDUsuarioASeguir, 'nuevo_seguidor');
+        
         $response["success"] = true;
+
     } elseif ($accion === "Siguiendo") {
         $sql = "DELETE FROM usuarios_seguidos WHERE id_seguido = :idcuenta AND id_seguidor = :idsession";
         $stmt = $conn->prepare($sql);
@@ -25,7 +29,6 @@ try {
         $response["success"] = true;
     }
     elseif ($accion === "consultar") {
-        // Elimina el favorito
         $sql = "SELECT 1 from usuarios_seguidos WHERE id_seguido = :idcuenta AND id_seguidor = :idsession";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(":idsession", $IDUsuarioSession, PDO::PARAM_INT);
@@ -41,11 +44,9 @@ try {
         }
     }
 } catch (Exception $e) {
-//    echo json_encode( $e->getMessage());
-$response["error"] = $e->getMessage();
+    $response["error"] = $e->getMessage();
 }
 
-// Retorna la respuesta como JSON
 header("Content-Type: application/json");
 echo json_encode($response);
 ?>
