@@ -608,60 +608,6 @@ function adaptarDashboard(href){
     });
 };
 
-function actualizarContadores(){
-
-    fetch('../admin/PHPextras/contador.php', {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
-    .then(res => {
-        // Verifico si la respuesta fue exitosa
-        if (!res.ok) {
-            throw new Error('Error en la solicitud: ' + res.status);
-        }
-
-        // Verifico si hay contenido en la respuesta
-        if (res.headers.get('content-length') === '0') {
-            return null; // No hay contenido
-        }
-
-        // Convierto a JSON
-        return res.json();
-    })
-    .then(data => {
-
-        console.log(data);
-
-        /* const ContadorCategorias = document.getElementById("cont-categorias");
-        const ContadorEtiquetas = document.getElementById("cont-etiquetas");
-        const ContadorIngredientes = document.getElementById("cont-ingredientes");
-
-        if (data.totalCategorias > 0) {
-            ContadorCategorias.classList.remove("d-none");
-            ContadorCategorias.innerText = data.totalCategorias;
-        }else{
-            ContadorCategorias.classList.add("d-none");
-        }
-
-        if (data.totalEtiquetas > 0) {
-            ContadorEtiquetas.classList.remove("d-none");
-            ContadorEtiquetas.innerText = data.totalEtiquetas;
-        }else{
-            ContadorEtiquetas.classList.add("d-none");
-        }
-
-        if (data.totalIngredientes > 0) {
-            ContadorIngredientes.classList.remove("d-none");
-            ContadorIngredientes.innerText = data.totalIngredientes;
-        }else{
-            ContadorIngredientes.classList.add("d-none");
-        } */
-
-    });
-}
-
 function manejarContenido(seccion){
 
     const panelTitulo = document.querySelector(".panel-title");

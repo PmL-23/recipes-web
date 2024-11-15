@@ -53,7 +53,6 @@ if (isset($_SESSION['id'])) {
                         <span class="texto-icon">Explorar</span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Países</a></li>
                         <li><a class="dropdown-item" href="../categorias/categorias.php">Categorías</a></li>
                     </ul>
                 </li>
