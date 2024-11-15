@@ -1,6 +1,7 @@
 //variables globales
 let Nombre_Usuario_Perfi;
 let urlVariable;
+let SessionIDUsuario;
 
 //objeto para el usuario
 let Usuario = {
@@ -20,58 +21,245 @@ let Publicacion = [];
 //para tener en memoria la cantidad de publicaciones que tiene el usuario
 let CantidadPublicaciones = 0;
 
-const ProcesarInformacionLLenarEncabezado = function(data) {
-    //console.log("en ProcesarInformacionLLenarEncabezado");
-    //console.log(data);
-    let IDNombreCompletoDeUsuario = document.getElementById('IDNombreCompletoDeUsuario');
-    let IDNombreDeUsuario = document.getElementById('IDNombreDeUsuario');
-    let IDFotoPerfil = document.getElementById('IDFotoPerfil');
-
-    //faltaria actualizar lo de los seguidores
-
-    if (data.length === 0) {
-        // mostrar warning
-        console.log("No se encontró al Usuario");
-
-
-    } else {
-        for (let usuarioBDD of data) {
-            // Actualiza las variables globales
-            Usuario.nom_completo = usuarioBDD.nom_completo;
-            Usuario.username = usuarioBDD.username;
-            Usuario.id_usuario = usuarioBDD.id_usuario; 
-            Usuario.id_rol = usuarioBDD.id_rol; 
-            Usuario.email = usuarioBDD.email;
-            Usuario.google_email = usuarioBDD.google_email;
-            Usuario.fecha_nacimiento = usuarioBDD.fecha_nacimiento;
-            Usuario.id_pais = usuarioBDD.id_pais;
-            Usuario.foto_usuario = usuarioBDD.foto_usuario;
-            // actualizamos los <p>
-            IDNombreCompletoDeUsuario.textContent = Usuario.nom_completo;
-            IDNombreDeUsuario.textContent = '@' + Usuario.username;
-            IDFotoPerfil.src = Usuario.foto_usuario;
-
-            //faltaria actualizar lo de los seguidores
-        }
-
-    }
-}
-
-const LLenarEncabezado = async function () {
-
-    let url = urlVariable + '/TraerUsuario.php?NombreUsuario=' + Nombre_Usuario_Perfi;
-    //console.log(url);
+const TraerSeguidoresoSeguidos = async function (id_usuario, accion) {
+    console.log("entroTraerSeguidoresoSeguidos");
     try {
-        let respuesta = await fetch (url, {
-        method : 'get',
-    });
-    ProcesarInformacionLLenarEncabezado(await respuesta.json());
-    }
-    catch (error) {
-        console.log('FALLO FETCH!');
-        console.log(error);
+        // Llamada a la base de datos usando fetch
+        let url = urlVariable + '/TraerSeguidoresoSeguidos.php'  
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                accion: accion, // "TraerSeguidos" o "TraerSeguidores";
+                iDUsuario: id_usuario,
+            }),
+        });
+    
+        const result = await response.json();
+        
+
+            console.log(result.length);
+            
+            if(accion === "TraerSeguidos"){
+                let IDCantidadSeguidos = document.getElementById('IDCantidadSeguidos');
+                IDCantidadSeguidos.textContent = result.length;
+            }
+            else if(accion === "TraerSeguidores"){
+                let IDCantidadSeguidores = document.getElementById('IDCantidadSeguidores');
+                IDCantidadSeguidores.textContent = result.length;
+            }
+            
+    } catch (error) {
+        console.log("disculpe las molestias, ocurrio un error");
     }
 }
+
+const EsFavorito = async function (idPublicacion, id_usuario, index) {
+    const accion = "consultar";
+    console.log("entro");
+    try {
+        // Llamada a la base de datos usando fetch
+        let url = urlVariable + '/../CarpetaFavoritos/Agregar-Sacar-fav.php'  
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                accion: accion, // `agregar` o `eliminar`
+                iDPublicacion: idPublicacion, // El ID de la publicación
+                iDUsuario: id_usuario,
+            }),
+        });
+    
+        const result = await response.json();
+
+        if (result.success==true){
+            Publicacion[index].esFavorito = true;
+        }
+        else if (result.success==false){
+            Publicacion[index].esFavorito = false;
+        }
+        else{
+            console.log("Ocurrio un error al verificar si es favorito");
+            
+        }
+    } catch (error) {
+        console.log("disculpe las molestias, ocurrio un error");
+    }
+}
+async function toggleSeguir(id_usuarioSession, id_usuarioPerfil) {
+    const btnSeguir = document.getElementById("btn-SeguirPerfil");
+    const esSeguidor = btnSeguir.classList.contains("seguir-activo");
+    const accion = esSeguidor ? "Siguiendo" : "Seguir";
+
+    console.log(accion);
+    console.log("entro a toggle seguir");
+
+    // Alternar visualmente el estado del botón
+    btnSeguir.classList.toggle("seguir-activo");
+
+    try {
+        // Llamada a la base de datos usando fetch
+        let url = urlVariable + '/Seguir-DejarDeSeguir.php';
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                accion: accion,
+                IDUsuarioSession: Number(id_usuarioSession),
+                IDUsuarioASeguir: Number(id_usuarioPerfil)
+            }),
+        });
+
+        const result = await response.json();
+        console.log(result);
+        
+        if (!result.success) {
+            // Revertir visualmente si ocurre un error
+            btnSeguir.classList.toggle("seguir-activo");
+            console.log("Disculpe las molestias, no se pudo actualizar el registro.");
+        } else {
+            // Actualizar el texto del botón si la acción se realizó con éxito
+            btnSeguir.querySelector("span").textContent = esSeguidor ? "Seguir" : "Siguiendo";
+            console.log("La actualización fue exitosa.");
+        }
+    } catch (error) {
+        // Revertir visualmente si la solicitud falla
+        btnSeguir.classList.toggle("seguir-activo");
+        console.log("Disculpe las molestias, ocurrió un error.");
+    }
+}
+
+const EsSeguido = async function (id_usuarioSession, id_usuarioPerfil) {
+    const accion = "consultar";
+    
+    try {
+        // Llamada a la base de datos usando fetch
+        let url = urlVariable + '/Seguir-DejarDeSeguir.php'  
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                accion: accion, 
+                IDUsuarioSession: Number(id_usuarioSession),
+                IDUsuarioASeguir: Number(id_usuarioPerfil)
+            }),
+        });
+        const result = await response.json();
+        let btnSeguir = document.getElementById("btn-SeguirPerfil");
+        if (result.success==true){
+            btnSeguir.querySelector("span").textContent= "Siguiendo"
+            btnSeguir.classList.add("seguir-activo");
+        }
+        else if (result.success==false){
+            btnSeguir.querySelector("span").textContent= "Seguir"
+            btnSeguir.classList.remove("seguir-activo");
+        }
+        
+        else{
+            console.log("Ocurrio un error al verificar si es seguidor");
+        }
+        btnSeguir.addEventListener("click", () => toggleSeguir(id_usuarioSession, id_usuarioPerfil));
+    } catch (error) {
+        console.log("disculpe las molestias, ocurrio un error");
+    }
+}
+
+async function toggleFavorito(idPublicacion, id_usuario,index) {
+    const btnFavorito = document.getElementById(`btn-favorito-${index}`);
+    const esFavorito = btnFavorito.classList.contains("favorito-activo");
+    const accion = esFavorito ? "eliminar" : "agregar";
+
+    // Alternar visualmente el estado del botón
+    btnFavorito.classList.toggle("favorito-activo");
+//console.log(accion);
+
+    try {
+        // Llamada a la base de datos usando fetch
+        let url = urlVariable + '/../CarpetaFavoritos/Agregar-Sacar-fav.php'  
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                accion: accion, // `agregar` o `eliminar`
+                iDPublicacion: idPublicacion, // El ID de la publicación
+                iDUsuario: id_usuario,
+            }),
+        });
+
+        const result = await response.json();
+
+        if (!result.success) {
+            // Revertir visualmente si ocurre un error
+            btnFavorito.classList.toggle("favorito-activo");
+            console.log("disculpe las molestias, no se pudo actualizar el registro");
+        }
+    } catch (error) {
+        // Revertir visualmente si la solicitud falla
+        btnFavorito.classList.toggle("favorito-activo");
+        console.log("disculpe las molestias, ocurrio un error");
+        
+    }
+}
+
+
+
+
+function showModal(message, isSuccess) {
+    const modalContent = document.getElementById('modalContent');
+    const modalMessage = document.getElementById('modalMessage');
+    const modalIcon = document.getElementById('modalIcon');
+
+    // Limpiar clases previas
+    modalContent.classList.remove('success', 'error');
+    modalIcon.classList.remove('success-icon', 'error-icon');
+
+    if (isSuccess) {
+        modalContent.classList.add('success');
+        modalIcon.classList.add('success-icon');
+    } else {
+        modalContent.classList.add('error');
+        modalIcon.classList.add('error-icon');
+    }
+
+    modalMessage.textContent = message;
+    
+    // Configurar el modal principal
+    const resultModal = new bootstrap.Modal(document.getElementById('resultModal'));
+    
+    // Cambia la opacidad del modal anterior y añade fondo oscuro
+    document.querySelectorAll('.modal.show').forEach(modal => {
+        modal.style.opacity = '0.76'; // Aplica opacidad al modal anterior
+    });
+
+    // Mostrar el modal con la opacidad del fondo
+    resultModal.show();
+
+    // Restablece la opacidad cuando se cierra el modal principal
+    document.getElementById('resultModal').addEventListener('hidden.bs.modal', () => {
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.style.opacity = ''; // Restaurar opacidad original
+        });
+        // Redirigir al usuario al index al cerrar el modal
+        //console.log(urlVariable + '/../index/index.php');
+        
+
+
+        window.location.href = urlVariable + '/../index/index.php'; // Cambia 'index.php' a la ruta correcta si es necesario
+    });
+}
+
+
+
 
 const ProcesarInformacionTraerValoraciones = function(data, index) {
     if (data.length === 0) {
@@ -85,7 +273,7 @@ const ProcesarInformacionTraerValoraciones = function(data, index) {
         }
     Publicacion[index].cant_valoraciones = data.length;
     Publicacion[index].prom_valoracion = (PuntajeValoraciones / data.length).toFixed(1);
-}
+    }
 }
 
 const TraerValoraciones = async function (IDPublicacion, index) {
@@ -189,13 +377,6 @@ const ProcesarInformacionTraerPaises = function(data, index) {
         for (let publi of data) {
             Publicacion[index].paises[i] = publi.ruta_imagen_pais;
             i += 1;
-
-            // Asegúrate de que `Publicacion[index].paises` es un array y luego agrega el objeto en la posición `i`
-            /*Publicacion[index].paises[i] = {
-                nombre: publi.nombre,
-                ruta_imagen_pais: publi.ruta_imagen_pais
-            };
-            i += 1;*/
         }
         
     }
@@ -214,80 +395,6 @@ const TraerPaises = async function (IDPublicacion, index) {
         console.log(error);
     }
 }
-
-
-const ProcesarInformacionTraerPublicaciones = async function(data) {
-
-    //console.log(data);
-    if (data.length === 0) {
-        console.log("No se encontraron publicaciones");
-    } else {
-        let promesasComentarios = [];
-        let promesasValoraciones = [];
-        let promesasImagenes = [];
-        let promesasEtiquetas = [];
-        let promesasPaises = [];
-        for (let publi of data) {
-            Publicacion[CantidadPublicaciones] = {
-                id_publicacion: publi.id_publicacion,
-                id_usuario_autor: publi.id_usuario_autor,
-                titulo: publi.titulo,
-                descripcion: publi.descripcion,
-                fecha_publicacion: publi.fecha_publicacion,
-                dificultad: publi.dificultad,
-                minutos_prep: publi.minutos_prep,
-                nom_categoria: publi.nombre_categoria,
-                cant_comentarios: null,
-                cant_valoraciones: null,
-                prom_valoracion: null,
-                ruta_imagen:[],
-                etiquetas:[],
-                paises:[]
-            };
-
-            
-            promesasComentarios.push(TraerCantComentarios(publi.id_publicacion, CantidadPublicaciones));
-            promesasValoraciones.push(TraerValoraciones(publi.id_publicacion, CantidadPublicaciones));
-            promesasImagenes.push(TraerImagenes(publi.id_publicacion, CantidadPublicaciones)); //si usamos un away en el for, se rompe, por eso hacemos esto
-            promesasEtiquetas.push(TraerEtiquetas(publi.id_publicacion, CantidadPublicaciones));
-            promesasPaises.push(TraerPaises(publi.id_publicacion, CantidadPublicaciones));
-            CantidadPublicaciones += 1;
-
-        }
-        // Esperar a que todas las promesas se resuelvan
-        await Promise.all(promesasComentarios);
-        await Promise.all(promesasValoraciones);
-        await Promise.all(promesasImagenes);
-        await Promise.all(promesasEtiquetas);
-        await Promise.all(promesasPaises);
-        console.log(Publicacion);
-    }
-    LLenarDivPublicaciones();
-}
-
-
-const TraerPublicaciones = async function () {
-
-    let url = urlVariable + '/TraerPublicaciones.php?IDUsuario=' + Usuario.id_usuario;
-    //console.log(url);
-    try {
-        let respuesta = await fetch (url, {
-        method : 'get',
-    });
-    ProcesarInformacionTraerPublicaciones(await respuesta.json());
-    }
-    catch (error) {
-        console.log('FALLO FETCH!');
-        console.log(error);
-    }
-}
-
-
-
-
-
-
-
 
 //usamos un query selector con data-background-image para obtener la imagen actual de cada
 //carrousel. Despues aplicamos estilos desde este JS, no se pudo encontrar otra solución por
@@ -321,9 +428,6 @@ function previewImage(event) {
 
 
 const Redireccionar = function (TipoDePestaña, url) {
-
-    //    let redireccion =  '/../recetas/receta-plantilla.php?id=' + IDPublicacionRedireccionar;
-        //console.log(url);
         try {
     if(TipoDePestaña=='EnMismaVentana'){
         window.location.href = url;
@@ -336,7 +440,135 @@ const Redireccionar = function (TipoDePestaña, url) {
     
         }
     }
-//funcion para copiar en enlace para compartir el perfil.
+
+
+const ProcesarInformacionTraerPublicaciones = async function(data) {
+
+    //console.log(data);
+    if (data.length === 0) {
+        console.log("No se encontraron publicaciones");
+    } else {
+        let promesasComentarios = [];
+        let promesasValoraciones = [];
+        let promesasImagenes = [];
+        let promesasEtiquetas = [];
+        let promesasEsFavorito = [];
+        let promesasPaises = [];
+        for (let publi of data) {
+            Publicacion[CantidadPublicaciones] = {
+                id_publicacion: publi.id_publicacion,
+                id_usuario_autor: publi.id_usuario_autor,
+                titulo: publi.titulo,
+                descripcion: publi.descripcion,
+                fecha_publicacion: publi.fecha_publicacion,
+                dificultad: publi.dificultad,
+                minutos_prep: publi.minutos_prep,
+                nom_categoria: publi.nombre_categoria,
+                cant_comentarios: null,
+                cant_valoraciones: null,
+                prom_valoracion: null,
+                ruta_imagen:[],
+                etiquetas:[],
+                paises:[],
+                esFavorito: null
+            };
+
+            
+            promesasComentarios.push(TraerCantComentarios(publi.id_publicacion, CantidadPublicaciones));
+            promesasValoraciones.push(TraerValoraciones(publi.id_publicacion, CantidadPublicaciones));
+            promesasImagenes.push(TraerImagenes(publi.id_publicacion, CantidadPublicaciones)); //si usamos un away en el for, se rompe, por eso hacemos esto
+            promesasEtiquetas.push(TraerEtiquetas(publi.id_publicacion, CantidadPublicaciones));
+            promesasPaises.push(TraerPaises(publi.id_publicacion, CantidadPublicaciones));
+            promesasEsFavorito.push(EsFavorito(publi.id_publicacion, SessionIDUsuario, CantidadPublicaciones));
+            CantidadPublicaciones += 1;
+        }
+        // Esperar a que todas las promesas se resuelvan
+        await Promise.all(promesasComentarios);
+        await Promise.all(promesasValoraciones);
+        await Promise.all(promesasImagenes);
+        await Promise.all(promesasEtiquetas);
+        await Promise.all(promesasPaises);
+        await Promise.all(promesasEsFavorito);
+        console.log(Publicacion);
+    }
+    LLenarDivPublicaciones();
+}
+
+    
+const TraerPublicaciones = async function () {
+
+    let url = urlVariable + '/TraerPublicaciones.php?IDUsuario=' + Usuario.id_usuario;
+    //console.log(url);
+    try {
+        let respuesta = await fetch (url, {
+        method : 'get',
+    });
+    ProcesarInformacionTraerPublicaciones(await respuesta.json());
+    }
+    catch (error) {
+        console.log('FALLO FETCH!');
+        console.log(error);
+    }
+}
+
+
+const ProcesarInformacionLLenarEncabezado = function(data) {
+    //console.log("en ProcesarInformacionLLenarEncabezado");
+    //console.log(data);
+    let IDNombreCompletoDeUsuario = document.getElementById('IDNombreCompletoDeUsuario');
+    let IDNombreDeUsuario = document.getElementById('IDNombreDeUsuario');
+    let IDFotoPerfil = document.getElementById('IDFotoPerfil');
+
+    //faltaria actualizar lo de los seguidores
+
+    if (data.length === 0) {
+        // mostrar warning
+        console.log("No se encontró al Usuario");
+
+
+    } else {
+        for (let usuarioBDD of data) {
+            // Actualiza las variables globales
+            Usuario.nom_completo = usuarioBDD.nom_completo;
+            Usuario.username = usuarioBDD.username;
+            Usuario.id_usuario = usuarioBDD.id_usuario; 
+            Usuario.id_rol = usuarioBDD.id_rol; 
+            Usuario.email = usuarioBDD.email;
+            Usuario.google_email = usuarioBDD.google_email;
+            Usuario.fecha_nacimiento = usuarioBDD.fecha_nacimiento;
+            Usuario.id_pais = usuarioBDD.id_pais;
+            Usuario.foto_usuario = usuarioBDD.foto_usuario;
+            // actualizamos los <p>
+            IDNombreCompletoDeUsuario.textContent = Usuario.nom_completo;
+            IDNombreDeUsuario.textContent = '@' + Usuario.username;
+            IDFotoPerfil.src = Usuario.foto_usuario;
+        }
+    }
+}
+const LLenarEncabezado = async function () {
+
+    let url = urlVariable + '/TraerUsuario.php?NombreUsuario=' + Nombre_Usuario_Perfi;
+    //console.log(url);
+    try {
+        let respuesta = await fetch (url, {
+        method : 'get',
+    });
+    ProcesarInformacionLLenarEncabezado(await respuesta.json());
+    await TraerSeguidoresoSeguidos(SessionIDUsuario,"TraerSeguidos");
+    await TraerSeguidoresoSeguidos(SessionIDUsuario,"TraerSeguidores");
+    //console.log("el id es ", Usuario.id_usuario);
+    await EsSeguido(SessionIDUsuario, Usuario.id_usuario);
+    
+    }
+    catch (error) {
+        console.log('FALLO FETCH!');
+        console.log(error);
+    }
+}
+
+
+
+
 function LLenarDivPublicaciones() {
     const contenedor = document.getElementById("IDContenedorPublicacionesPropias"); // Selecciona el contenedor
     if(CantidadPublicaciones==0){
@@ -413,6 +645,26 @@ function LLenarDivPublicaciones() {
                     <img src="../svg/${ruta}" alt="Bandera" width="27" class="bandera" id="bandera-receta">`;
             });
         }
+        let footerHTML = '';
+        //await esFavorito();
+        //if(esFavorito(Publicacion[i].id_publicacion) === true){
+    if(Publicacion[i].esFavorito === true){
+            footerHTML = `
+            <button type="button" id="btn-favorito-${i}" class="btn btn-outline-danger me-1 favorito-activo" onclick="toggleFavorito(${Publicacion[i].id_publicacion}, ${SessionIDUsuario}, ${i})"> <i class="bi bi-heart-fill fs-5"></i></button>
+            <button type="button" class="btn btn-outline-primary bg-none" id="btnCompartir">
+                <i class="bi bi-share-fill fs-5"></i>
+            </button>`; 
+        }
+        else{
+            footerHTML = `
+            <button type="button" id="btn-favorito-${i}" class="btn btn-outline-danger me-1" onclick="toggleFavorito(${Publicacion[i].id_publicacion},${SessionIDUsuario}, ${i})"> <i class="bi bi-heart-fill fs-5"></i></button>
+            <button type="button" class="btn btn-outline-primary bg-none" id="btnCompartir">
+                <i class="bi bi-share-fill fs-5"></i>
+            </button>
+        `; 
+        }
+        
+        // Solo se ponen las etiquetas si la publicacion las tiene 
 
         const fragmentoHTML = `
             <div class="p-3 mt-2 col-xxl-4 col-xl-6 col-md-12 mx-auto" id="DivPublicacion${i}">
@@ -482,14 +734,7 @@ function LLenarDivPublicaciones() {
                                     </div>
                                 </div>
 <div class="d-flex justify-content-end mt-2">
-<!-- Botón de Guardar en Favoritos -->
-
-    <button type="button" id="btn-favorito" class="btn btn-outline-danger me-1">
-        <i class="bi bi-heart-fill fs-5"></i>
-    </button>
-    <button type="button" class="btn btn-outline-primary bg-none" id="btnCompartir">
-        <i class="bi bi-share-fill fs-5"></i>
-    </button>
+${footerHTML}
 </div>
 
                             </div>
@@ -508,58 +753,11 @@ function LLenarDivPublicaciones() {
     }
 }
 
-function showModal(message, isSuccess) {
-    const modalContent = document.getElementById('modalContent');
-    const modalMessage = document.getElementById('modalMessage');
-    const modalIcon = document.getElementById('modalIcon');
-
-    // Limpiar clases previas
-    modalContent.classList.remove('success', 'error');
-    modalIcon.classList.remove('success-icon', 'error-icon');
-
-    if (isSuccess) {
-        modalContent.classList.add('success');
-        modalIcon.classList.add('success-icon');
-    } else {
-        modalContent.classList.add('error');
-        modalIcon.classList.add('error-icon');
-    }
-
-    modalMessage.textContent = message;
-    
-    // Configurar el modal principal
-    const resultModal = new bootstrap.Modal(document.getElementById('resultModal'));
-    
-    // Cambia la opacidad del modal anterior y añade fondo oscuro
-    document.querySelectorAll('.modal.show').forEach(modal => {
-        modal.style.opacity = '0.76'; // Aplica opacidad al modal anterior
-    });
-
-    // Mostrar el modal con la opacidad del fondo
-    resultModal.show();
-
-    // Restablece la opacidad cuando se cierra el modal principal
-    document.getElementById('resultModal').addEventListener('hidden.bs.modal', () => {
-        document.querySelectorAll('.modal').forEach(modal => {
-            modal.style.opacity = ''; // Restaurar opacidad original
-        });
-        // Redirigir al usuario al index al cerrar el modal
-        //console.log(urlVariable + '/../index/index.php');
-        
-
-
-        window.location.href = urlVariable + '/../index/index.php'; // Cambia 'index.php' a la ruta correcta si es necesario
-    });
-}
-
-document.getElementById("btn-SeguirPerfil").addEventListener("click", function () {
-    this.classList.toggle("active");
-    this.querySelector("span").textContent = this.classList.contains("active") ? "Siguiendo" : "Seguir";
-});
-
 
 document.addEventListener("DOMContentLoaded", async function () {
     Nombre_Usuario_Perfi = document.body.getAttribute('data-Nombre_Usuario');
+    SessionIDUsuario = document.body.getAttribute('data-Session-IDUsuario');
+    
     urlVariable = document.body.getAttribute('data-url-base');
     console.log(urlVariable);
 
@@ -572,8 +770,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
     else{
         await LLenarEncabezado();
-        await TraerPublicaciones();        
-
+        await TraerPublicaciones();
 
     }
 
@@ -604,10 +801,12 @@ document.addEventListener("DOMContentLoaded", async function () {
     
                 }else{
                     
-                    console.log(data);
-                    document.getElementById("toast-error-msg").textContent = "Error al reportar usuario..";
-    
+                    /* console.log(data); */
+
+
+                    // Mostrar el toast de error
                     var toastElement = document.getElementById('formToastError');
+                    document.getElementById("toast-error-msg").textContent = data.message;
                     var toast = new bootstrap.Toast(toastElement);
                     toast.show();
                 }
@@ -620,3 +819,5 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     });
 });
+
+

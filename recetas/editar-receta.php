@@ -2,6 +2,22 @@
 
 session_start();
 
+include '../includes/permisos.php';
+
+
+if (!isset($_SESSION['id'])) {
+    header('Location: ../index/index.php'); 
+    exit();
+
+}else{
+    
+    
+    if (! Permisos::tienePermiso('Editar Receta', $_SESSION['id'])) {
+        header('Location: ../index/index.php'); 
+        exit();
+    }
+}
+
 require_once('../includes/conec_db.php');
 
 $categoriaQuery = "SELECT * FROM categorias ORDER BY categorias.id_categoria DESC";
@@ -53,57 +69,57 @@ if (!$queryResultsEtiquetas) {
         
         <?php include '../includes/head.php'?>
         <link rel="stylesheet" href="../crearReceta/crear_receta_style.css">
-        
+        <script src="receta-imagenes.js" defer></script>
+        <script src="receta-guardar-cambios.js" defer></script>
+        <script src="receta-paises.js" defer></script>
+        <script src="receta-ingredientes.js" defer></script>
+        <script src="receta-agregar-elementos.js" defer></script>
+
     </head>
     
 <body>
 <?php include '../includes/header.php'?>
 <?php include '../recetas/manejoGetReceta.php'?>
 
-<form class="" method="POST" id="frm-receta-editar" name="frm-receta-editar">    
+<form class="" method="POST" id="frm-receta-editar" name="frm-receta-editar" action="form-receta-editar.php?id=<?php echo $idPublicacion; ?>" >
     <div class="contenido-principal container w-100 w-lg-75 p-5 seccion">
+    <div class="text-center d-flex p-2 justify-content-center overflow-hidden">
+    <div class="col-md-6 col-sm-12 d-flex flex-column mb-md-5">
+        <?php
+        if (!empty($imagenes)) {
+            ?>
             <div class="contenedor-img-preview text-center d-flex p-2 justify-content-center overflow-hidden">
-                <div class="col-md-6 col-sm-12 d-flex flex-column  mb-md-5">
-                    <?php
-
-                        if (!empty($imagenes)) {
-                            // portada
-                            echo '<div class="ms-md-4 ms-3 contenedor-img-portada">';
-                            echo '<img src="' . $imagenes[0]. '" alt="Receta" class="img-portada portada-receta rounded img-fluid" id="portada-receta">';
-                            echo '</div>';
-
-                            if (count($imagenes) > 1) {
-                                // demás imagenes
-                                echo '<div class="w-50 d-flex ms-md-4 ms-3 scroll">';
-                                echo '<div class="contenedor-imagenes d-flex">';
-                                for ($i = 1; $i < count($imagenes); $i++) {
-                                    echo '<img src="' . $imagenes[$i]. '" alt="Receta" class="rounded img-fluid me-1 my-2 imagen">';
-                                }
-                                echo '</div>';
-                                echo '</div>';
-                            }
-                        } else {
-                            echo 'No hay portada';
-                        }
-                        ?>
-
-                </div>
+                <img src="<?php echo $imagenes[0] ?>" class="preview border rounded img-fluid" alt="Vista previa de la portada" id="preview-portada">
             </div>
             <div class="mt-3">
-                <label for="foto-portada" class="h5 form-label mt-3">Imagenes de tu receta</label>
-                <input type="file" name="imagenes[]" id="foto-portada" multiple>
+                <label for="foto-portada" class="h5 form-label mt-3">Foto de portada</label>
+                <input type="file" name="imagenes[]" id="foto-portada" accept="image/*" multiple>
                 <small class="text-danger" id="errorPortada"></small>
             </div>
+        <?php
+        } else { ?>
+            <div class="contenedor-img-preview text-center d-flex p-2 justify-content-center overflow-hidden">
+                <img src="../recetas/galeria/default/default-image.png" class="preview border rounded img-fluid" alt="Vista previa de la portada" id="preview-portada">
+            </div>
+            <div class="mt-3">
+                <label for="foto-portada" class="h5 form-label mt-3">Foto de portada</label>
+                <input type="file" name="imagenes[]" id="foto-portada" accept="image/*" multiple>
+                <small class="text-danger" id="errorPortada"></small>
+            </div>
+        <?php } ?>
+    
+            </div>
+        </div>
     
             <div class="mt-3">
                 <label class="h5 form-label mt-3" for="titulo">TÍtulo</label>
-                <input class="form-control form-control-md" type="text" placeholder="Añade el titulo de tu receta" aria-label=".form-control" id="titulo" name="titulo" maxlength="100" value="  <?php echo $titulo; ?>" required>
+                <input class="form-control form-control-md" type="text" placeholder="Añade el titulo de tu receta" aria-label=".form-control" id="titulo" name="titulo" maxlength="100" value="<?php echo $titulo; ?>" required>
                 <small class="text-danger" id="error-titulo"></small>
             </div>
         
             <div class="mt-3">
             <label for="descripcion" class="h5 form-label mt-3">Descripción</label>
-            <textarea class="form-control textarea-resize" id="descripcion" name="descripcion" placeholder="Añade una descripción a tu receta" required> <?php echo $descripcion; ?> </textarea>
+            <textarea class="form-control textarea-resize" id="descripcion" name="descripcion" placeholder="Añade una descripción a tu receta" required><?php echo $descripcion; ?></textarea>
             <small class="text-danger" id="error-descripcion"></small>
             </div>
 
@@ -111,29 +127,22 @@ if (!$queryResultsEtiquetas) {
                 <div class="col-md-6">
                     <div class="c-paises" id="input-paises">
                         <h4 for="select-pais" class="h6 form-label mt-3">País</h4>
-                        <div class="pais-container my-2 d-flex flex-row">
                         <?php foreach ($paisRecetaData as $paisReceta) { ?>
-                            <select class="w-50 select-pais form-select" aria-label="Select pais" name="pais[]" required>
-                                <option value="">Receta sin país</option>
+                        <div class="pais-container my-2 d-flex flex-column">
+                            <select class="w-50 select-pais form-select" aria-label="Select pais" name="pais[]">
+                                <option value="" disabled>Selecciona un país</option>
                                 <?php foreach ($paisesDisponibles as $paisRow) {
                                     $rutaBandera = "../svg/" . $paisRow['ruta_imagen_pais'];
-                                    $selected = '';
-                                    if ($paisRow['id_pais'] == $paisReceta['id_pais']) {
-                                        $selected = 'selected';  
-                                    }
+                                    $selected = ($paisRow['id_pais'] == $paisReceta['id_pais']) ? 'selected' : '';
                                     echo '<option value="' . $paisRow['id_pais'] . '" data-pais="' . $rutaBandera . '" ' . $selected . '>' . $paisRow['nombre'] . '</option>';
-                                }
-                                ?>
+                                } ?>
                             </select>
-                        <?php } ?>
-
                             <small class="text-danger" id="error-pais"></small>
                             <img class="ms-2 bandera mini-bandera d-none" src="" alt="Bandera">
-    
                         </div>
-    
+                        <?php } ?>
                     </div>
-                    
+
                     <div class="d-flex justify-content-start mt-3">
                         <button class="boton-item" type="button" id="agregar-pais">+ Agregar país</button>
                     </div>
@@ -210,83 +219,121 @@ if (!$queryResultsEtiquetas) {
     <div class="contenido-etiquetas container  w-100 w-lg-75 p-5  mt-5 seccion">
         <h5 class="h5 form-label">Etiquetas</h5>
         <div id="etiquetas">
-            <div class="una_etiqueta d-grid gap-2 d-flex flex-column justify-content-md-end mt-3" id="item-etiqueta">
-
-            <?php foreach ($etiquetaRecetaData as $etiquetaReceta) { ?>
-                    <select class="form-select" aria-label="Select etiqueta" name="etiqueta[]" required>
-                    <option value="" disabled>Selecciona una etiqueta</option>
-                        <?php foreach ($etiquetasDisponibles as $etiquetaRow) {
-                            $selected = '';
-                            if ($etiquetaRow['id_etiqueta'] == $etiquetaReceta['id_etiqueta']) {
-                                $selected = 'selected';  
+            <?php foreach ($etiquetaRecetaData as $index => $etiquetaReceta) { ?>
+                <div class="una_etiqueta d-grid gap-2 d-flex flex-column justify-content-md-end mt-3 <?php echo $index != 0 ? 'row' : ''?>" id="item-etiqueta">
+                    <div class="row">
+                        <div class="<?php echo $index != 0 ? 'col-md-10' : ''?>">
+                        <select class="form-select" aria-label="Select etiqueta" name="etiqueta[]" required>
+                        <option value="" disabled>Selecciona una etiqueta</option>
+                            <?php foreach ($etiquetasDisponibles as $etiquetaRow) {
+                                $selected = '';
+                                if ($etiquetaRow['id_etiqueta'] == $etiquetaReceta['id_etiqueta']) {
+                                    $selected = 'selected';  
+                                }
+                                    echo '<option value="'.$etiquetaRow['id_etiqueta']. '" ' . $selected . '>' .$etiquetaRow['titulo'].'</option>';
                             }
-                                echo '<option value="'.$etiquetaRow['id_etiqueta']. '" ' . $selected . '>' .$etiquetaRow['titulo'].'</option>';
-                        }
+                            ?>
+                        </select>
+                        </div>
+                        <div class="col-md-2 d-flex container justify-content-end">
+                        <?php if ($index != 0)
+                            echo '<button class="boton-secundario" type="button"><i class="bi bi-trash me-1"></i> Quitar</button>'
                         ?>
-                    </select>
+                        </div>
+                    </div>
+                </div>
+                <small class="text-danger" id="error-etiqueta"></small>
             <?php } ?>
 
-            </div>
-            <small class="text-danger" id="error-etiqueta"></small>
         </div>
         <div class="d-flex justify-content-center mt-3">
             <button class="boton-item" type="button" id="agregar-etiqueta">+ Agregar etiqueta</button>
         </div>
     </div>                   
 
-    <div class="contenido-ingredientes container  w-100 w-lg-75 ps-5 pe-4 pb-5 pt-4  mt-5 seccion">
-        <div  id="ingredientes">
-            <div class="row container-fluid">
-                <div class="col-md-6 mt-4">
-                    <label for="ingrediente" class="h5 form-label">Ingrediente</label>
-                    <input type="text" class="ingrediente-input form-control" name="ingrediente[]" placeholder="Harina, Sal..." id="ingrediente" required>
-                    <div class="search-ingrediente" id="search-ingrediente-0"></div>
+    <div class="contenido-ingredientes container w-100 w-lg-75 ps-5 pe-4 pb-5 pt-4 mt-5 seccion">
+        <div id="ingredientes">
+            <?php foreach ($ingredientes as $index => $ingrediente) { ?>
+            <div class="row container-fluid mt-4" id="ingrediente-row-<?php echo $index; ?>">
+                <div class="col-md-6">
+                    <?php if ($index == 0) { ?>
+                    <label for="ingrediente-<?php echo $index; ?>" class="h5 form-label">Ingrediente</label>
+                    <?php } ?>
+                    <input type="text" class="ingrediente-input form-control my-2" name="ingrediente[]" placeholder="Harina, Sal..." id="ingrediente-<?php echo $index; ?>" value="<?php echo $ingrediente['nombre']; ?>">
+                    <div class="search-ingrediente" id="search-ingrediente-<?php echo $index; ?>"></div>
                     <div>
-                        <small class="text-danger" id="error-ingrediente"></small>
+                        <small class="text-danger" id="error-ingrediente-<?php echo $index; ?>"></small>
                     </div>
                 </div>
-                <div class="col-md-4 mt-4">
-                    <label for="cantidad" class="h6 form-label">Cantidad</label>
-                    <input type="text" class="form-control" name="cantidad[]" placeholder="400gr, una pizca..." id="cantidad">
+                <div class="col-md-4">
+                    <?php if ($index == 0) { ?>
+                    <label for="cantidad-<?php echo $index; ?>" class="h6 form-label">Cantidad</label>
+                    <?php } ?>
+                    <input type="text" class="form-control my-2" name="cantidad[]" placeholder="400gr, una pizca..." id="cantidad-<?php echo $index; ?>" value="<?php echo $ingrediente['cantidad']; ?>">
                     <div>
-                        <small class="text-danger" id="error-ingrediente-cantidad"></small>
+                        <small class="text-danger" id="error-ingrediente-cantidad-<?php echo $index; ?>"></small>
                     </div>
                 </div>
-                <div class="col-md-2 mt-md-4 d-flex justify-content-end">
-                    <button class="boton-secundario mt-4" type="button" id="quitar-ing" disabled><i class="bi bi-trash me-1"></i>Quitar</button>
+                <div class="col-md-2 d-flex justify-content-end align-items-center">
+                    <button class="boton-secundario" type="button" <?php echo $index == 0 ? 'disabled' : ''; ?>><i class="bi bi-trash me-1"></i>Quitar</button>
                 </div>
             </div>
-        </div>                
+            <?php } ?>
+        </div>
         <div class="d-flex justify-content-center mt-5">
             <button class="boton-item" type="button" id="agregar-ing">+ Agregar Ingrediente</button>
         </div>
     </div>
 
-    <div class="contenido-pasos container  w-100 w-lg-75 p-5 mt-5 seccion">
-        <h5 class="h5 form-label">Pasos</h5>
-            <ol class=" list-group-numbered h6" id="list-paso">
-                <li class="item-lista list-group-item" id="li-paso">
-                    <div class="un_paso d-grid d-flex justify-content-end">
-                        <textarea class="form-control input-paso textarea-resize item-paso" name="paso[]" placeholder="Ej: Mezcla los ingredientes en un bowl..." required></textarea>   
-                    </div> 
-                    <small class="text-danger" id="error-paso"></small>
-                    <div class="d-grid d-flex justify-content-end mt-2">
-                        <button class="boton-secundario d-flex" type="button" id="quitar-paso" disabled><i class="bi bi-trash me-1"></i>Quitar</button>
-                    </div>                
-                    <div class="elementos-paso d-grid gap-2 d-md-flex justify-content-md-start">
-                        <div class="contenedor-paso-img justify-content-start">
-                            <img src="default-image.png" class="img-paso border rounded img-fluid img-paso-id" alt="Imagen del paso">
-                            <input class="form-control mt-2 file-paso" type="file" name="imagenes_paso1[]" multiple>
-                            <button class="boton-secundario d-flex mt-2 d-none quitar-imagen" type="button"><i class="bi bi-trash me-1"></i>Quitar Imagen</button>         
-                        </div>
-                    </div>
-                </li>
-            </ol>
-            <div class="d-flex justify-content-center mt-3">
-                <button class="boton-item" type="button" id="agregar-paso">+ Agregar Paso</button>
+    <div class="contenido-pasos container w-100 w-lg-75 p-5 mt-5 seccion">
+    <h5 class="h5 form-label">Pasos</h5>
+    <ol class="list-group-numbered h6" id="list-paso">
+        <?php foreach ($pasos as $paso): ?>
+        <li class="item-lista list-group-item" id="li-paso-<?php echo $paso['num_paso']; ?>">
+            <div class="un_paso d-grid d-flex justify-content-end">
+                <textarea class="form-control input-paso textarea-resize item-paso" name="paso[]" placeholder="Ej: Mezcla los ingredientes en un bowl..." required><?php echo $paso['texto']; ?></textarea>
             </div>
-        </div>
+            <small class="text-danger" id="error-paso-<?php echo $paso['num_paso']; ?>"></small>
+
+            <div class="d-grid d-flex justify-content-end mt-2">
+                <button class="boton-secundario btn-quitar-lista d-flex" type="button" id="quitar-paso-<?php echo $paso['num_paso']; ?>">
+                    <i class="bi bi-trash me-1"></i>Quitar
+                </button>
+            </div>
+
+            <!-- Manejo de imágenes -->
+            <?php if (!empty($paso['imagenes'])): ?>
+                <div class="elementos-paso d-grid gap-2 d-md-flex justify-content-md-start row">
+                    <?php foreach ($paso['imagenes'] as $imagenPaso): ?>
+                        <div class="col-md-6 contenedor-paso-img flex-column justify-content-start">
+                            <div class="contenedor-paso-img flex-column justify-content-start">
+                                <img src="<?php echo $imagenPaso; ?>" class="img-paso border rounded img-fluid img-paso-id" alt="Imagen del paso">
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                    <h6>Reemplazar fotos</h6>
+                </div>
+            <?php else: ?>
+                <div class="elementos-paso d-grid gap-2 d-md-flex justify-content-md-start">
+                    <div class="contenedor-paso-img justify-content-start flex-column">
+                        <img src="../recetas/galeria/default/default-image.png" class="img-paso border rounded img-fluid img-paso-id" alt="Imagen predeterminada del paso <?php echo $paso['num_paso']; ?>">
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            
+            <div class="d-grid d-md-flex justify-content-md-start mt-2">
+                <input class="form-control file-paso" type="file" name="imagenes_paso_<?php echo $paso['num_paso']; ?>[]" multiple accept="image/*">
+            </div>
+        </li>
+        <?php endforeach; ?>
+    </ol>
+
+    <div class="d-flex justify-content-center mt-3">
+        <button class="boton-item" type="button" id="agregar-paso">+ Agregar Paso</button>
     </div>
+</div>
+
         
 
     <div  class="d-grid gap-2 d-flex justify-content-end m-5">

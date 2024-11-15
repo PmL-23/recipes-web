@@ -70,13 +70,13 @@ include '../includes/paises.php';
                 <div class="mb-4">
                     <label for="id_pais" class="form-label h6">País <span class="text-danger">*</span></label>
                     <select name="id_pais" id="id_pais" class="form-control">
-                     <option value="" disabled selected>Seleccione un pais</option>
-                     <!-- <option value="otro">Otro país</option> -->   
-                       <?php
-                        foreach ($paises as $pais) {
-                          echo '<option value="'.$pais['id_pais'].'">'.$pais['nombre'].'</option>';
-                          }
-                         ?>
+                        <option value="" disabled selected>Seleccione un pais</option>
+                        <!-- <option value="otro">Otro país</option> -->   
+                        <?php
+                            foreach ($paises as $pais) {
+                            echo '<option value="'.$pais['id_pais'].'">'.$pais['nombre'].'</option>';
+                            }
+                            ?>
                      </select>
                      <div class="form-text text-danger" id="error-pais"></div>
                 </div>
