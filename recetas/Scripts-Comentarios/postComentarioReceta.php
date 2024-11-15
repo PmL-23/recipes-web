@@ -4,9 +4,6 @@ session_start();
 
 require_once('../../includes/conec_db.php');
 
-$usuarioID = $_SESSION['id']; // Usuario que comenta (seguidor)
-$nombreUsuario = $_SESSION['nomUsuario']; // Nombre del usuario que comenta
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     try {
@@ -16,6 +13,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if (empty($textoComentario)) {
             echo json_encode(['success' => false, 'message' => 'Texto del comentario no puede estar vacío..', 'id_publicacion_receta' => $id_publicacion_receta]);
+            exit();
+        }
+
+        if (isset($_SESSION['id']) && isset($_SESSION['nomUsuario'])) {
+            
+            $usuarioID = $_SESSION['id']; // Usuario que comenta (seguidor)
+            $nombreUsuario = $_SESSION['nomUsuario']; // Nombre del usuario que comenta
+            
+        }else{
+            echo json_encode(['success' => false, 'message' => 'Necesitas iniciar sesión para poder comentar..', 'id_publicacion_receta' => $id_publicacion_receta]);
             exit();
         }
 
