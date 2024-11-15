@@ -73,7 +73,7 @@ function CambiarContraseñaUsuario(urlVariable, ContraseñaActual, NuevaContrase
     })
     .catch(error => {
         console.log('Error en la solicitud de cambiar contraseña', error);
-        showModal(`Error: Disculpe las molestias ocasiondas, error en la solicitud al servidor.`, false);
+        showModal(`Error en la solicitud al servidor.`, false);
     });
 
 }
@@ -102,18 +102,18 @@ document.getElementById("FormCambiarContraseña").addEventListener("submit", fun
     ConfirmaciónNuevaContraseñaError.textContent = "";
 
     let bandera = 0;
-    if (ContraseñaActual.length <= 4) {
-        ContraseñaActualError.textContent = "La contraseña debe tener al menos 5 caracteres.";
+    if (ContraseñaActual.length <= 7) {
+        ContraseñaActualError.textContent = "La contraseña debe tener al menos 8 caracteres.";
         bandera += 1;
     }
 
-    if (NuevaContraseña.length <= 4) {
-        NuevaContraseñaError.textContent = "La nueva contraseña debe tener al menos 5 caracteres.";
+    if (NuevaContraseña.length >= 17) {
+        NuevaContraseñaError.textContent = "La nueva contraseña debe tener un máximo de 16 caracteres.";
         bandera += 1;
     }
 
     if (ConfirmaciónNuevaContraseña != NuevaContraseña) {
-        ConfirmaciónNuevaContraseñaError.textContent = "Las contraseña no coinciden.";
+        ConfirmaciónNuevaContraseñaError.textContent = "Las contraseñas no coinciden.";
         bandera += 1;
     }
 

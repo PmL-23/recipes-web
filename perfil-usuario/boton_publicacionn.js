@@ -1,4 +1,6 @@
 function eliminarPublicacion(id) {
+    let boton_eliminar = document.getElementById('boton_eliminar');
+    boton_eliminar.textContent = "";
     if (confirm('¿Estás seguro de que deseas eliminar esta publicación?')) {
         fetch('eliminar_publicacion.php', {
             method: 'POST',
@@ -19,19 +21,18 @@ function eliminarPublicacion(id) {
                
                 const jsonData = JSON.parse(data);
                 if (jsonData.status === 'success') {
-                    alert('¡Publicación eliminada correctamente!'); // Mostrar un mensaje al usuario
+                    boton_eliminar.textContent = "Publicación eliminada";
                     location.reload(); 
                 } else {
-                    alert(jsonData.message);
+                    boton_eliminar.textContent = "Error al eliminar";
                 }
             } catch (error) {
                 console.error('Error al parsear JSON:', error);
-                alert('Ocurrió un error al procesar la respuesta.');    // Mostrar un mensaje al usuario
+                boton_eliminar.textContent = "Error al intentar procesar la solicitud";   // Mostrar un mensaje al usuario
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('Ocurrió un error: ' + error.message); // Mostrar un mensaje al usuario
         });
     }
 }
@@ -41,7 +42,7 @@ function compartirReceta(idPublicacion) {
     
     navigator.clipboard.writeText(enlaceReceta) //Para copiar el link en el portapapeles
         .then(() => {
-            alert("El enlace de la receta ha sido copiado al portapapeles."); 
+            boton_eliminar.textContent = "Enlace copiado en el portapapeles";
         })
         .catch(err => {
             console.error("Error al copiar el enlace: ", err);
