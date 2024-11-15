@@ -14,26 +14,24 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         $categoriaTitulo = $stmt->fetch(PDO::FETCH_ASSOC);
 
         $queryStr = "
-            SELECT DISTINCT
-                publicaciones_recetas.*,
-                valoraciones.puntuacion AS valoracion_puntaje, 
-                AVG(valoraciones.puntuacion) AS promedio_valoracion
-            FROM 
-                publicaciones_recetas
-            JOIN 
-                categorias 
-            ON 
-                categorias.id_categoria = publicaciones_recetas.id_categoria
-            JOIN 
-                valoraciones 
-            ON 
-                publicaciones_recetas.id_publicacion = valoraciones.id_publicacion
-            WHERE 
-                categorias.id_categoria = :ID_Categoria
-            GROUP BY 
-                publicaciones_recetas.id_publicacion
-            HAVING 
-                promedio_valoracion IS NOT NULL;";
+           SELECT DISTINCT 
+            publicaciones_recetas.*, 
+            valoraciones.puntuacion AS valoracion_puntaje, 
+            AVG(valoraciones.puntuacion) AS promedio_valoracion 
+        FROM 
+            publicaciones_recetas 
+        JOIN 
+            categorias 
+            ON categorias.id_categoria = publicaciones_recetas.id_categoria 
+        LEFT JOIN 
+            valoraciones 
+            ON publicaciones_recetas.id_publicacion = valoraciones.id_publicacion 
+        WHERE 
+            categorias.id_categoria = :ID_Categoria
+        GROUP BY 
+            publicaciones_recetas.id_publicacion 
+        HAVING 
+            promedio_valoracion IS NOT NULL OR promedio_valoracion IS NULL";
 
         $consulta = $conn->prepare($queryStr);
         $consulta->bindParam(':ID_Categoria', $categoriaID);
