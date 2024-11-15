@@ -4,8 +4,6 @@ session_start();
 
 require_once('../../includes/conec_db.php');
 
-$usuarioID = $_SESSION['id'];//establezco el usuario id con el id de la sesion
-
 /* if (!Permisos::tienePermiso('Valorar publicacion', $usuarioID)) {//validamos que tenga permiso para valorar, de lo contrario, mostramos error
     echo("error al valorar, no tiene permiso.");
     header('Location: ../Vistas/index.php'); //Si el usuario intento valorar y no tiene permiso, vuelvo al indice, mejorar en versiones futuras*
@@ -15,6 +13,13 @@ $usuarioID = $_SESSION['id'];//establezco el usuario id con el id de la sesion
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     try {
+
+        if (isset($_SESSION['id'])) {
+            $usuarioID = $_SESSION['id'];//establezco el usuario id con el id de la sesion
+        }else{
+            echo json_encode(['success' => false, 'message' => 'Necesitas iniciar sesión para poder agregar favorito..']);
+            exit();
+        }
 
         $id_publicacion_receta = isset($_POST["id_publicacion_receta"]) ? $_POST["id_publicacion_receta"] : NULL;
 

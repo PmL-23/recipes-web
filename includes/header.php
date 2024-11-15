@@ -1,7 +1,13 @@
 <?php
 include 'conec_db.php'; 
 include '../notificaciones/notificacion.php';
+require_once("../inicio_sesion/GoogleOAuth.php");
 
+if (isset($client) && $client->getAccessToken()) {
+    // Obtener la información del usuario si está autenticado
+    $oauth2 = new Google_Service_Oauth2($client);
+    $userInfo = $oauth2->userinfo->get();
+}
 
 if (isset($_SESSION['id'])) {
     $idUsuario = $_SESSION['id'];
@@ -13,6 +19,7 @@ if (isset($_SESSION['id'])) {
 <!-- Header -->
 <header class="header">
     <script src="../notificaciones/notificacion.js" defer></script>
+    <script src="../notificaciones/notificacion_vista.js" defer></script>
     <nav class="navegacion-principal nav">
         <div class="container-fluid d-flex justify-content-between align-items-center">
             <div class="m-0 container d-flex flex-row align-items-center">
@@ -51,22 +58,37 @@ if (isset($_SESSION['id'])) {
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <button id="btnNotificaciones" class="notificaciones btn btn-outline-light boton-menu" data-bs-toggle="dropdown">
-                        <i class="bi bi-bell"></i>
-                        <span class="badge bg-danger"><?php echo isset($notificaciones) ? count($notificaciones) : 0; ?></span>
+                    <button id="btnNotificaciones" class="notificaciones btn btn-outline-light boton-menu position-relative" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-bell"></i>
+                    <span class="badge bg-danger position-absolute top-0 start-100 translate-middle badge rounded-pill">
+                    <?php echo isset($notificaciones) ? count($notificaciones) : 0; ?>
+                    <span class="visually-hidden">notificaciones no leídas</span>
+                    </span>
                     </button>
-                    <ul class="dropdown-menu">
-                    <?php
-                    if (!empty($notificaciones)) {
-                        foreach ($notificaciones as $notificacion) {
-                            echo "<li><a class='dropdown-item' href='#'>".$notificacion['username']." publicó una receta: ".$notificacion['titulo']." - ".$notificacion['fecha']."</a></li>";
-                       }
-                    } else {
-                        echo "<li><a class='dropdown-item' href='#'>No tienes notificaciones</a></li>";
-                    }
-                    ?>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="btnNotificaciones">
+                    <?php if (!empty($notificaciones)) {
+                            foreach ($notificaciones as $notificacion) {
+                                if ($notificacion['tipo'] == 'nuevo_comentario') {
+                                    $urlReceta = "../recetas/receta-plantilla.php?id=" . $notificacion['id_publicacion'];
+                                } elseif ($notificacion['tipo'] == 'nuevo_seguidor') {
+                                    $urlReceta = "../CarpetaPerfil/Perfil.php?NombreDeUsuario=" . $notificacion['username'];
+                                } else {
+                                    $urlReceta = "../recetas/receta-plantilla.php?id=" . $notificacion['id_publicacion']; 
+                                }
+                            echo "<li>
+                            <a class='dropdown-item' href='" . $urlReceta . "' data-id='" . $notificacion['id_notificacion'] . "'>
+                            <strong>" . $notificacion['username'] . "</strong> 
+                            " . getNotificationMessage($notificacion['tipo'], $notificacion['titulo']) . "<br>
+                            <small class='text-muted'>" . $notificacion['fecha'] . "</small>
+                            </a>
+                            </li>";
+                        }} else {
+                            echo "<li><a class='dropdown-item' href='#'>No tienes notificaciones</a></li>";
+                            }
+                        ?>
                     </ul>
                 </li>
+
                 <li class="nav-item">
                     <button class="btn btn-outline-light boton-menu" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
                         <i class="bi bi-list"></i>
@@ -111,10 +133,14 @@ if (isset($_SESSION['id'])) {
                                         </li>
                                         <li class="nav-item justify-content-center">
                                             <a class="boton-login col-6" href="../inicio_sesion/registrarse.php">Registrarse</a>
-                                        </li>
-                                        <li class="nav-item justify-content-center">
-                                            <a class="boton-login col-6" href="#"><img alt="logo-google" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/480px-Google_%22G%22_logo.svg.png"/>Ingresar con Google</a>
-                                        </li>'; 
+                                        </li>';
+
+                                        if (isset($authUrl)) {
+                                            echo '<li class="nav-item justify-content-center">
+                                                    <a class="boton-login col-6" href="' . $authUrl . '"><img alt="logo-google" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/480px-Google_%22G%22_logo.svg.png"/>Ingresar con Google</a>
+                                                </li>'; 
+                                        }
+                                        
                                     }
                                     ?>
                                 </ul>

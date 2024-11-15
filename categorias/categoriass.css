@@ -1,0 +1,59 @@
+html, body {
+    height: 100%; /* Asegura que el html y body ocupen el 100% del alto de la ventana */
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+}
+
+.secciones-container{
+    flex: 1;
+}
+
+.filtro-item{
+    max-height: 2rem;
+    margin-top: 1rem;
+    list-style: none;
+    background-color: lightgray;
+    border-radius: 1rem;
+    padding: 0.25rem 1.5rem;
+    cursor: pointer;
+}
+.filtro-item:hover{
+    background-color: rgb(158, 158, 158);
+}
+
+.item-active{
+    background-color: #26533c !important;
+    color: #fff !important;
+}
+
+.item-active:hover{
+    background-color: #26533c !important;
+    color: #fff !important;
+}
+
+.categoria{
+    text-decoration: none;
+    color: rgb(32, 32, 32);
+    text-align: center;
+    margin: 0rem 0.5rem;
+    transition: transform 0.5s ease;
+}
+
+.categoria:hover{
+    transform: scale(1.2);
+}
+.paises-contenedor {
+    display: flex;
+    flex-wrap: wrap; /* Para que se ajusten a múltiples filas si el espacio es insuficiente */
+    gap: 1rem; /* Espacio entre elementos */
+}
+
+.paises-contenedor > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}

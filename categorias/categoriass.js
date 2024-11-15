@@ -117,7 +117,7 @@ function cargarTodasCategorias(){
         // Guarda la URL desde el inicio hasta la palabra "UIE/"
         let urlCortada = urlActual.substring(0, indice + palabraClave.length);
 
-        fetch(urlCortada + "admin/CategoriasPHP/obtenerCategorias.php", {
+        fetch(urlCortada + "/admin/Scripts-Categorias/obtenerCategorias.php", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"

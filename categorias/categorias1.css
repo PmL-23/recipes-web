@@ -45,3 +45,15 @@ body{
 .categoria:hover{
     transform: scale(1.2);
 }
+.paises-contenedor {
+    display: flex;
+    flex-wrap: wrap; /* Para que se ajusten a múltiples filas si el espacio es insuficiente */
+    gap: 1rem; /* Espacio entre elementos */
+}
+
+.paises-contenedor > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}

@@ -36,7 +36,7 @@
     width: 75px; 
 }
 
-/* botones menu lateral*/
+
 
 .boton1 {
     display: inline-block;
@@ -138,5 +138,57 @@ a.boton1:hover {
         white-space: nowrap; 
         font-size: 1rem; 
         padding: 5px; 
+    }
+}
+
+#btnNotificaciones {
+    position: relative;
+    font-size: 1rem; 
+}
+
+#btnNotificaciones .badge {
+    top: -5px;
+    right: -5px;
+    font-size: 0.75rem; 
+    padding: 0.3rem 0.6rem; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    border-radius: 50%; 
+    width: 1.1rem; 
+    height: 1.1rem; 
+}
+
+
+.dropdown-menu {
+    max-height: 300px; 
+    overflow-y: auto;   
+    width: 300px;       
+}
+
+.dropdown-item {
+    font-size: 1rem;
+    padding: 0.75rem 1.25rem;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-item:hover {
+    background-color: #a8ff9d; 
+}
+
+
+@media (max-width: 768px) {
+    .dropdown-menu {
+        width: 100%; 
+    }
+    
+    #btnNotificaciones {
+        font-size: 1.25rem; 
+    }
+
+    #btnNotificaciones .badge {
+        top: -8px;
+        right: -8px;
+        font-size: 0.7rem;
     }
 }

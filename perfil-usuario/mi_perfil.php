@@ -166,11 +166,12 @@ if ($indexPosition !== false) {
             </div>
 
             <div class="col-12 col-md-8">
+                <small class="text-danger" id="boton_eliminar"></small>
                 <h2>Publicaciones de <?php echo htmlspecialchars($usuario['nom_completo']); ?></h2>
                 <ul class="list-group">
                     <?php foreach ($publicaciones as $publicacion): ?>
                         <li class="list-group-item position-relative">
-                            <h5><?php echo htmlspecialchars($publicacion['titulo']); ?></h5>
+                        <h5><a href="../recetas/receta-plantilla.php?id=<?php echo htmlspecialchars($publicacion['id_publicacion']); ?>" class="titulo-publicacion"><?php echo htmlspecialchars($publicacion['titulo']); ?></a></h5>
                             <p><?php echo htmlspecialchars($publicacion['descripcion']); ?></p>
                             <small>Publicado el: <?php echo date('d-m-Y', strtotime($publicacion['fecha_publicacion'])); ?></small>
                             <div class="acciones position-absolute" id="boton-opc">
@@ -178,7 +179,7 @@ if ($indexPosition !== false) {
                                     <i class="bi bi-caret-down-fill"></i>
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton<?php echo $publicacion['id_publicacion']; ?>">
-                                    <li><a class="dropdown-item" href="#" onclick="editarPublicacion(<?php echo $publicacion['id_publicacion']; ?>)">Editar publicación</a></li>
+                                    <li><a class="dropdown-item" href="../recetas/editar-receta.php?id=<?php echo htmlspecialchars($publicacion['id_publicacion']); ?>">Editar publicación</a></li>
                                     <li><a class="dropdown-item" href="#" onclick="eliminarPublicacion(<?php echo $publicacion['id_publicacion']; ?>)">Eliminar publicación</a></li>
                                 </ul>
                             </div>
@@ -298,6 +299,9 @@ if ($indexPosition !== false) {
         </div>
     </div>
 </div>
+
+
+
 
 <?php include '../includes/footer.php'; ?>
 </body>

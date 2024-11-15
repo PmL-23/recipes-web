@@ -12,6 +12,7 @@ $stmt = $conn->prepare($query);
 $stmt->bindParam(":id_usuario", $id_usuario);
 
 if ($stmt->execute()) {
+    session_unset();
     session_destroy();
     echo json_encode(['success' => true, 'message' => 'Cuenta borrada']);
 } else {

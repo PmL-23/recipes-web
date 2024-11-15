@@ -56,7 +56,13 @@ document.addEventListener("DOMContentLoaded", function (){
 
                     }else{
 
-                        console.log(data.message);
+                        /* console.log(data.message); */
+
+                        // Mostrar el toast de error
+                        var toastElement = document.getElementById('formToastError');
+                        document.getElementById("toast-error-msg").textContent = data.message;
+                        var toast = new bootstrap.Toast(toastElement);
+                        toast.show();
 
                     }
 

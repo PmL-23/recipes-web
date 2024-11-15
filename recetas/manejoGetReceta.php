@@ -189,30 +189,64 @@ if (isset($_GET['id'])) {
         ];
     }
 
-    // primera palabra del titulo, porque sino busca segun todo el titulo y no se muestran muchas relaciones
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     $primeraPalabra = strtok($titulo, ' ');
 
-    $sqlRecetasRelacionadas = "SELECT id_publicacion, titulo, descripcion, dificultad, minutos_prep 
-    FROM publicaciones_recetas 
-    WHERE titulo LIKE :primeraPalabra AND id_publicacion != :id_actual"; // distinto sino imprime la misma y el resto
+    $sqlRecetasRelacionadas = "
+    SELECT 
+        publicaciones_recetas.id_publicacion, 
+        publicaciones_recetas.titulo, 
+        publicaciones_recetas.descripcion, 
+        publicaciones_recetas.dificultad, 
+        publicaciones_recetas.minutos_prep,
+        COALESCE(AVG(valoraciones.puntuacion), 0) AS valoracion_puntaje
+    FROM 
+        publicaciones_recetas
+    LEFT JOIN 
+        valoraciones ON publicaciones_recetas.id_publicacion = valoraciones.id_publicacion
+    WHERE 
+        publicaciones_recetas.titulo LIKE :primeraPalabra 
+        AND publicaciones_recetas.id_publicacion != :id_actual
+    GROUP BY 
+        publicaciones_recetas.id_publicacion
+";
 
     $stmtRecetasRelacionadas = $conn->prepare($sqlRecetasRelacionadas);
 
-    // busco recetas cuyo título contenga la primera palabra
-    $tituloBusqueda ='%' . $primeraPalabra . '%'; // busco titulos segun la primera palabra
+    // Buscar recetas cuyo título contenga la primera palabra
+    $tituloBusqueda = '%' . $primeraPalabra . '%';
     $stmtRecetasRelacionadas->bindParam(':primeraPalabra', $tituloBusqueda, PDO::PARAM_STR);
     $stmtRecetasRelacionadas->bindParam(':id_actual', $idPublicacion, PDO::PARAM_INT);
 
     $stmtRecetasRelacionadas->execute();
     $recetasRelacionadas = $stmtRecetasRelacionadas->fetchAll(PDO::FETCH_ASSOC);
 
-    // obtener la imagen con la receta relacionada
+    // Obtener la imagen de cada receta relacionada
     foreach ($recetasRelacionadas as &$receta) {
         $sqlImagen = "SELECT ruta_imagen FROM imagenes WHERE id_publicacion = :id";
         $stmtImagen = $conn->prepare($sqlImagen);
         $stmtImagen->bindParam(':id', $receta['id_publicacion'], PDO::PARAM_INT);
         $stmtImagen->execute();
-        $imagenesRelacionadas= $stmtImagen->fetchAll(PDO::FETCH_ASSOC);
+        $imagenesRelacionadas = $stmtImagen->fetchAll(PDO::FETCH_ASSOC);
 
         $imagenesRelacion = [];
         foreach ($imagenesRelacionadas as $imagen) {

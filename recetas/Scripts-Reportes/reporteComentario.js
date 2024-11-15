@@ -26,10 +26,11 @@ document.addEventListener("DOMContentLoaded", function (){
 
             }else{
                 
-                console.log(data);
-                document.getElementById("toast-error-msg").textContent = "Error al reportar comentario..";
+                /* console.log(data); */
 
+                // Mostrar el toast de error
                 var toastElement = document.getElementById('formToastError');
+                document.getElementById("toast-error-msg").textContent = data.message;
                 var toast = new bootstrap.Toast(toastElement);
                 toast.show();
 
