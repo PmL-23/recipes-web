@@ -91,6 +91,12 @@ const EsFavorito = async function (idPublicacion, id_usuario, index) {
     }
 }
 async function toggleSeguir(id_usuarioSession, id_usuarioPerfil) {
+    
+    if(id_usuarioSession == id_usuarioPerfil){
+        showModalSinRedireccion("No puedes seguir a tu propia cuenta!", false);
+
+    }
+    else{
     const btnSeguir = document.getElementById("btn-SeguirPerfil");
     const esSeguidor = btnSeguir.classList.contains("seguir-activo");
     const accion = esSeguidor ? "Siguiendo" : "Seguir";
@@ -134,10 +140,12 @@ async function toggleSeguir(id_usuarioSession, id_usuarioPerfil) {
         console.log("Disculpe las molestias, ocurrió un error.");
     }
 }
+}
 
 const EsSeguido = async function (id_usuarioSession, id_usuarioPerfil) {
     const accion = "consultar";
-    
+
+
     try {
         // Llamada a la base de datos usando fetch
         let url = urlVariable + '/Seguir-DejarDeSeguir.php'  
@@ -257,7 +265,48 @@ function showModal(message, isSuccess) {
         window.location.href = urlVariable + '/../index/index.php'; // Cambia 'index.php' a la ruta correcta si es necesario
     });
 }
+function showModalSinRedireccion(message, isSuccess) {
+    const modalContent = document.getElementById('modalContent');
+    const modalMessage = document.getElementById('modalMessage');
+    const modalIcon = document.getElementById('modalIcon');
 
+    // Limpiar clases previas
+    modalContent.classList.remove('success', 'error');
+    modalIcon.classList.remove('success-icon', 'error-icon');
+
+    if (isSuccess) {
+        modalContent.classList.add('success');
+        modalIcon.classList.add('success-icon');
+    } else {
+        modalContent.classList.add('error');
+        modalIcon.classList.add('error-icon');
+    }
+
+    modalMessage.textContent = message;
+    
+    // Configurar el modal principal
+    const resultModal = new bootstrap.Modal(document.getElementById('resultModal'));
+    
+    // Cambia la opacidad del modal anterior y añade fondo oscuro
+    document.querySelectorAll('.modal.show').forEach(modal => {
+        modal.style.opacity = '0.76'; // Aplica opacidad al modal anterior
+    });
+
+    // Mostrar el modal con la opacidad del fondo
+    resultModal.show();
+
+    // Restablece la opacidad cuando se cierra el modal principal
+    document.getElementById('resultModal').addEventListener('hidden.bs.modal', () => {
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.style.opacity = ''; // Restaurar opacidad original
+        });
+        // Redirigir al usuario al index al cerrar el modal
+        //console.log(urlVariable + '/../index/index.php');
+        
+
+
+    });
+}
 
 
 
