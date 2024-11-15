@@ -267,7 +267,7 @@ const ProcesarInformacionTraerPublicaciones = async function(data) {
 const TraerPublicaciones = async function () {
 
     let url = urlVariable + '/TraerPublicacionesFavoritas.php?IDUsuario=' + id_usuario;
-    //console.log(url);
+    console.log(url);
     try {
         let respuesta = await fetch (url, {
         method : 'get',

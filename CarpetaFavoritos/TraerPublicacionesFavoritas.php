@@ -24,9 +24,8 @@ $stm = $conn->prepare($query);
 $stm->bindParam(':usuario_id', $UsuarioID);
 $stm->execute();
 $Publicacion = $stm->fetchAll(PDO::FETCH_ASSOC);
-
-//se deberia traer tambien la tablas de seguidores y seguidos para devolverla en el json.
-
+echo json_encode($Publicacion, JSON_PRETTY_PRINT);
+//print_r( $Publicacion);
 
 
 ?>
