@@ -4,8 +4,6 @@ session_start();
 
 require_once('../includes/conec_db.php');
 
-$usuarioID = $_SESSION['id'];//establezco el usuario id con el id de la sesion
-
 /* if (!Permisos::tienePermiso('Comentar publicacion', $usuarioID)) {//validamos que tenga permiso para comentar, de lo contrario, mostramos error
     echo("error al comentar, no tiene permiso.");
     header('Location: ../Vistas/index.php'); //Si el usuario intento comentar y no tiene permiso, vuelvo al indice, mejorar en versiones futuras*
@@ -15,6 +13,13 @@ $usuarioID = $_SESSION['id'];//establezco el usuario id con el id de la sesion
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     try {
+
+        if (isset($_SESSION['id'])) {
+            $usuarioID = $_SESSION['id'];//establezco el usuario id con el id de la sesion
+        }else{
+            echo json_encode(['success' => false, 'message' => 'Necesitas iniciar sesión para poder enviar reporte..']);
+            exit();
+        }
 
         $id_motivo_reporte = isset($_POST["motivo"]) ? $_POST["motivo"] : NULL;
         $usermame_reportado = isset($_POST["usuario_reportado"]) ? $_POST["usuario_reportado"] : NULL;

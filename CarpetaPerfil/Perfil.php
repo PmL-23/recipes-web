@@ -30,7 +30,9 @@ if (count($existUser)  == 0){
 /* if (count($existUser)  == 1){
     
 } */
-$IDSession = $_SESSION['id'];
+if (isset($_SESSION['id'])) {
+    $IDSession = $_SESSION['id'];
+}
 //seccion en la que obtenemos la url actual.
 $scheme = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? "https" : "http";      
 $host = $_SERVER['HTTP_HOST'];
@@ -65,7 +67,7 @@ if ($indexPosition !== false) {
         <?php include '../includes/head.php'?>
     </head>
     
-<body data-Nombre_Usuario="<?php echo htmlspecialchars($Nombre_Usuario); ?>" data-url-base="<?php echo htmlspecialchars($urlVariable); ?>" data-Session-IDUsuario="<?php echo htmlspecialchars($IDSession); ?>">
+<body data-Nombre_Usuario="<?php echo htmlspecialchars($Nombre_Usuario); ?>" data-url-base="<?php echo htmlspecialchars($urlVariable); ?>" data-Session-IDUsuario="<?php if (isset($_SESSION['id'])) echo htmlspecialchars($IDSession); ?>">
 
 <?php include '../includes/header.php';
 ?>
