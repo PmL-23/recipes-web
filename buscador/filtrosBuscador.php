@@ -6,12 +6,12 @@ $stm = $conn->prepare($query);
 $stm->execute();
 $dificultades = $stm->fetchAll(PDO::FETCH_ASSOC);
 
-$queryCategorias = "SELECT titulo FROM categorias";
+$queryCategorias = "SELECT titulo FROM categorias WHERE estado = 1";
 $stmCategorias = $conn->prepare($queryCategorias);
 $stmCategorias->execute();
 $categorias = $stmCategorias->fetchAll(PDO::FETCH_ASSOC);
 
-$queryEtiquetas = "SELECT titulo FROM etiquetas";
+$queryEtiquetas = "SELECT titulo FROM etiquetas WHERE estado = 1";
 $stmEtiquetas = $conn->prepare($queryEtiquetas);
 $stmEtiquetas->execute();
 $etiquetas = $stmEtiquetas->fetchAll(PDO::FETCH_ASSOC);

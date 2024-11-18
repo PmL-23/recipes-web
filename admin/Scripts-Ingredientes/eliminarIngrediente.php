@@ -12,7 +12,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Hago delete del campo a la tabla ingrediente con los datos que traigo en POST.
 
-    $sqlQueryIngrediente = "DELETE FROM ingredientes WHERE id_ingrediente = :IDIngrediente";
+    $sqlQueryIngrediente = "UPDATE ingredientes SET estado = 0 WHERE id_ingrediente = :IDIngrediente";
+    /* $sqlQueryIngrediente = "DELETE FROM ingredientes WHERE id_ingrediente = :IDIngrediente"; */
     $QueryLlamado = $conn->prepare($sqlQueryIngrediente); //Preparo la consulta que me elimina un ingrediente
 
     if (!$QueryLlamado) {

@@ -3,7 +3,7 @@ require_once('../../includes/conec_db.php');  //todos los archivos que se necesi
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
-    $sqlQuery = "SELECT * FROM ingredientes ORDER BY ingredientes.id_ingrediente DESC";
+    $sqlQuery = "SELECT * FROM ingredientes WHERE estado = 1 ORDER BY ingredientes.id_ingrediente DESC";
     $queryResults = $conn->prepare($sqlQuery); //Preparo la consulta que me trae todas los ingredientes cargadas
 
     if (!$queryResults) {

@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Hago delete del campo a la tabla etiqueta con los datos que traigo en POST.
 
-    $sqlQueryEtiqueta = "DELETE FROM etiquetas WHERE id_etiqueta = :IDEtiqueta";
+    $sqlQueryEtiqueta = "UPDATE etiquetas SET estado = 0 WHERE id_etiqueta = :IDEtiqueta";
     $QueryLlamado = $conn->prepare($sqlQueryEtiqueta); //Preparo la consulta que me elimina una etiqueta
 
     if (!$QueryLlamado) {
