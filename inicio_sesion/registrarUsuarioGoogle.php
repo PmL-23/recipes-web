@@ -58,6 +58,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['nomUsuario'] = $username;
             $_SESSION['nomCompleto'] = $googleNombreCompleto;
 
+            $rol= 2;
+
+                $sqlUsuarioRol = "INSERT INTO roles_usuarios(id_rol, id_usuario) VALUES (:id_rol, :id_usuario)";
+                $stmtUsuarioRol = $conn->prepare($sqlUsuarioRol);
+                $stmtUsuarioRol->bindParam(':id_rol', $rol, PDO::PARAM_STR);
+                $stmtUsuarioRol->bindParam(':id_usuario', $nuevoUserID, PDO::PARAM_STR);
+                $stmtUsuarioRol->execute();
+
+                $_SESSION['rol'] = $rol;
+
             echo json_encode(['success' => true]);
     
         } else {

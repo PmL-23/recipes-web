@@ -2,9 +2,7 @@
 session_start();
 require_once('../includes/conec_db.php');
 
-$paisQuery = "SELECT * FROM paises ORDER BY paises.id_pais ASC";
-$queryResultsPais = $conn->prepare($paisQuery);
-$queryResultsPais->execute(); 
+include '../includes/paises.php';
 
 if (!isset($_SESSION['google_id'])) {
     // Si no se inició sesión con Google, redirige al inicio
@@ -87,12 +85,13 @@ if (!isset($_SESSION['access_token'])) {
             
             <label class="form-label mt-3" for="pais">País:</label>
             <select class="select-pais form-select" id="pais" aria-label="Select pais" name="pais" required>
-                <option value="" selected>Receta sin país</option>
-                    <?php
-                        while ($paisRow = $queryResultsPais->fetch(PDO::FETCH_ASSOC)) {
-                            echo '<option value="'.$paisRow['id_pais'].'" >'.$paisRow['nombre'].'</option>';
-                        }
-                    ?>
+                <option value="" disabled selected>Seleccione un pais</option>
+                <!-- <option value="otro">Otro país</option> -->   
+                <?php
+                    foreach ($paises as $pais) {
+                    echo '<option value="'.$pais['id_pais'].'">'.$pais['nombre'].'</option>';
+                    }
+                ?>
             </select>
             
             <button class="btn btn-secondary mt-5 align-self-center" type="submit">Completar registro</button>
