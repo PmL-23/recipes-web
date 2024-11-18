@@ -147,7 +147,7 @@ function cargarTodasCategorias(){
 
                 seccion.innerHTML += `
                     <a class="categoria" href="./recetas-categoria.php?categoria_id=${e.id_categoria}" data-seccion="${e.seccion}">
-                        <img src="./imgs/${e.nombre_imagen}" alt="${e.titulo} imagen">
+                        <img class="rounded-circle" src="./imgs/${e.nombre_imagen}" alt="${e.titulo} imagen">
                         <p>${e.titulo}</p>
                     </a>
                 `;

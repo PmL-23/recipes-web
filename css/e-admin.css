@@ -38,6 +38,10 @@ body{
     color: #333 !important;
 }
 
+.card-body img{
+    max-width: 7rem;
+}
+
 .custom-bg{
     background-color: #26533c !important;
     border-color: #26533c !important;
@@ -81,4 +85,8 @@ body{
     color: #fff !important;
     background-color: #1c7275 !important;
     border-color: #1c7275 !important;
+}
+#imgPreviaCategoria{
+    max-width: 7rem;
+    margin: 1rem;
 }

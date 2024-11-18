@@ -73,10 +73,19 @@ export function obtenerCategorias(){
                         document.getElementById("modalGestionCategoriaTitulo").textContent = "Editar categoría";
                         document.getElementById("inputCategoriaTitulo").value = e.titulo;
         
+                        const imgFile = document.getElementById("imagen");
                         const imgPreviaCategoria = document.getElementById("imgPreviaCategoria");
-                        imgPreviaCategoria.classList.remove("d-none");
                         imgPreviaCategoria.src = `../categorias/imgs/${e.nombre_imagen}`;
-                        imgPreviaCategoria.alt = 'Imagen ' + e.titulo;
+                        imgPreviaCategoria.classList.remove("d-none");
+
+                        imgFile.addEventListener("change", function(){
+                            if (imgFile.files.length > 0) {
+                                
+                                imgPreviaCategoria.src = URL.createObjectURL(imgFile.files[0]);
+                                imgPreviaCategoria.alt = 'Imagen ' + e.titulo;
+                            }
+                        });
+
                         document.getElementById("seccion").value = e.seccion;
         
                         document.getElementById("formulario-gestion-categorias").dataset.accion = 'editar';

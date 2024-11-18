@@ -42,6 +42,10 @@ body{
     transition: transform 0.5s ease;
 }
 
+.categoria img{
+    max-width: 7rem;
+}
+
 .categoria:hover{
     transform: scale(1.2);
 }

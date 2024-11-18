@@ -104,7 +104,7 @@ include '../includes/permisos.php';
                             <label for="inputCategoriaTitulo" class="form-label">Titulo</label>
                             <input type="text" class="form-control" id="inputCategoriaTitulo" name="inputCategoriaTitulo" required>
 
-                            <img src="" id="imgPreviaCategoria" alt="imagen de categoria" class="d-none">
+                            <img src="" id="imgPreviaCategoria" alt="imagen de categoria" class="d-none rounded-circle">
                             <label for="imagen" class="mt-3 form-label">Imagen</label>
                             <input type="file" id="imagen" name="imagen">
 
