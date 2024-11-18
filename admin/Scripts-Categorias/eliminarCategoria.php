@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Hago delete del campo a la tabla categoria con los datos que traigo en POST.
 
-            $sqlQueryCategoria = "DELETE FROM categorias WHERE id_categoria = :IDCategoria";
+            $sqlQueryCategoria = "UPDATE categorias SET estado = 0 WHERE id_categoria = :IDCategoria";
             $QueryLlamado = $conn->prepare($sqlQueryCategoria); //Preparo la consulta que me elimina una categoria
 
             if (!$QueryLlamado) {

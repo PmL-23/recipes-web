@@ -3,7 +3,7 @@ require_once('../../includes/conec_db.php');  //todos los archivos que se necesi
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
-    $sqlQuery = "SELECT * FROM categorias ORDER BY categorias.id_categoria DESC";
+    $sqlQuery = "SELECT * FROM categorias WHERE estado = 1 ORDER BY categorias.id_categoria DESC";
     $queryResults = $conn->prepare($sqlQuery); //Preparo la consulta que me trae todas las categorias cargadas
 
     if (!$queryResults) {

@@ -3,7 +3,7 @@ require_once('../../includes/conec_db.php');  //todos los archivos que se necesi
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
-    $sqlQuery = "SELECT * FROM etiquetas ORDER BY etiquetas.id_etiqueta DESC";
+    $sqlQuery = "SELECT * FROM etiquetas WHERE estado = 1 ORDER BY etiquetas.id_etiqueta DESC";
     $queryResults = $conn->prepare($sqlQuery); //Preparo la consulta que me trae todas las etiquetas cargadas
 
     if (!$queryResults) {
