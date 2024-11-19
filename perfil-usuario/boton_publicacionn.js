@@ -1,3 +1,28 @@
+function showModal(message, isSuccess) {
+    const modalContent = document.getElementById('modalContent');
+    const modalMessage = document.getElementById('modalMessage');
+    const modalIcon = document.getElementById('modalIcon');
+
+    // Limpiar clases previas
+    modalContent.classList.remove('success', 'error');
+    modalIcon.classList.remove('success-icon', 'error-icon');
+
+    if (isSuccess) {
+        modalContent.classList.add('success');
+        modalIcon.classList.add('success-icon');
+    } else {
+        modalContent.classList.add('error');
+        modalIcon.classList.add('error-icon');
+    }
+
+    modalMessage.textContent = message;
+    const resultModal = new bootstrap.Modal(document.getElementById('resultModal'));
+    resultModal.show();
+    document.getElementById('resultModal').addEventListener('hidden.bs.modal', () => {
+        //window.location.href =
+    });
+}
+
 function eliminarPublicacion(id) {
     let boton_eliminar = document.getElementById('boton_eliminar');
     boton_eliminar.textContent = "";
@@ -18,13 +43,15 @@ function eliminarPublicacion(id) {
         .then(data => {
             console.log('Respuesta del servidor:', data);
             try {
-               
+            
                 const jsonData = JSON.parse(data);
                 if (jsonData.status === 'success') {
                     boton_eliminar.textContent = "Publicación eliminada";
-                    location.reload(); 
+                    showModal("Publicación eliminada exitosamente!", true, true);
+                    //location.reload();
                 } else {
                     boton_eliminar.textContent = "Error al eliminar";
+                    showModal("Error al eliminar!",false, false);
                 }
             } catch (error) {
                 console.error('Error al parsear JSON:', error);

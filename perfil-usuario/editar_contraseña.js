@@ -59,9 +59,7 @@ function CambiarContraseñaUsuario(urlVariable, ContraseñaActual, NuevaContrase
         // Manejar la respuesta del servidor
         if (result.success) {
             console.log('Contraseña cambiada exitosamente');
-            showModal('Contraseña actualizado exitosamente', true);
         } else {
-            console.log('error en el fetch al cambiar la contraseña ',result.error);
             if(result.error==false){
                 showModal(`Contraseña incorrecta`, false);
             }
@@ -78,13 +76,29 @@ function CambiarContraseñaUsuario(urlVariable, ContraseñaActual, NuevaContrase
 
 }
 
+function togglePasswordVisibility(inputId, button) {
+    const input = document.getElementById(inputId);
+    const icon = button.querySelector('i');
+
+    if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.remove('bi-eye');
+        icon.classList.add('bi-eye-slash');
+    } else {
+        input.type = 'password';
+        icon.classList.remove('bi-eye-slash');
+        icon.classList.add('bi-eye');
+    }
+}
+
+
 document.getElementById("FormCambiarContraseña").addEventListener("submit", function(e) {
 
     //alert('HOL312A');
     const FormCambiarContraseña = document.getElementById('FormCambiarContraseña');
-    const urlVariable = FormCambiarContraseña.getAttribute('data-url-base');
+    const urlVariable = document.body.getAttribute('data-url-base');
     const IDUsuario = FormCambiarContraseña.getAttribute('data-IDUsuario');
-    console.log('id de usuario es ' + urlVariable);
+    console.log('url variable es ', urlVariable);
 
     e.preventDefault(); //Se anula el envio del formulario
 
@@ -102,13 +116,14 @@ document.getElementById("FormCambiarContraseña").addEventListener("submit", fun
     ConfirmaciónNuevaContraseñaError.textContent = "";
 
     let bandera = 0;
-    if (ContraseñaActual.length <= 7) {
-        ContraseñaActualError.textContent = "La contraseña debe tener al menos 8 caracteres.";
+    if (ContraseñaActual.length <= 4) {
+        ContraseñaActualError.textContent = "La contraseña debe tener al menos 5 caracteres.";
         bandera += 1;
     }
 
-    if (NuevaContraseña.length >= 17) {
-        NuevaContraseñaError.textContent = "La nueva contraseña debe tener un máximo de 16 caracteres.";
+
+    if (NuevaContraseña.length <= 4) {
+        NuevaContraseñaError.textContent = "La contraseña debe tener al menos 5 caracteres.";
         bandera += 1;
     }
 
@@ -129,6 +144,6 @@ document.getElementById("FormCambiarContraseña").addEventListener("submit", fun
 
     }
     if(bandera>0){
-        alert('ta mal');
+
     }
 });

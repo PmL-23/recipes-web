@@ -47,7 +47,7 @@ try {
             $resultado[$id_publicacion]['imagenes'][] = $publicacion['ruta_imagen'];
         }
     }
- 
+
     $publicaciones = array_values($resultado);
 
 } catch (PDOException $e) {
@@ -103,6 +103,7 @@ if ($indexPosition !== false) {
     <title>Perfil</title>
     <link rel="stylesheet" href="imagen_perfil.css">
     <link rel="stylesheet" href="boton_publicacion.css">
+    <link rel="stylesheet" href="CambiarContraseña.css">
     
     <script src="cambiar_imagen.js" defer></script>
     <script src="boton_publicacionn.js" defer></script>
@@ -112,7 +113,7 @@ if ($indexPosition !== false) {
     <script src="borrar_cuenta.js" defer></script>
     <?php include '../includes/head.php'; ?>
 </head>
-<body>
+<body data-url-base="<?php echo htmlspecialchars($urlVariable); ?>">
     <?php include '../includes/header.php'; ?>
     <div class="container mt-5 min-vh-100">
         <div class="row">
@@ -243,22 +244,40 @@ if ($indexPosition !== false) {
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body container-fluid">
-                <form id="FormCambiarContraseña" class="row" data-url-base="<?php echo htmlspecialchars($urlVariable); ?>" data-IDUsuario="<?php echo $id_usuario ?>">
-                    <div class="mb-3 col-12">
-                        <label for="ContraseñaActual" class="form-label">Contraseña Actual</label>
-                        <input type="text" class="form-control" id="ContraseñaActual" name="ContraseñaActual">
-                        <small class="text-danger" id="ContraseñaActualError"></small>
+                <form id="FormCambiarContraseña" class="row" data-IDUsuario="<?php echo $id_usuario ?>">
+                <div class="mb-3 col-12 position-relative">
+                <label for="ContraseñaActual" class="form-label">Contraseña Actual</label>
+                <div class="input-group">
+                    <input type="password" class="form-control" id="ContraseñaActual" name="ContraseñaActual">
+                    <button class="btn btn-outline-secondary" type="button" onclick="togglePasswordVisibility('ContraseñaActual', this)">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                </div>
+                    <small class="text-danger" id="ContraseñaActualError"></small>
+                </div>
+
+                <div class="mb-3 col-lg-6 col-12 position-relative">
+                    <label for="NuevaContraseña" class="form-label">Nueva Contraseña</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="NuevaContraseña" name="NuevaContraseña">
+                        <button class="btn btn-outline-secondary" type="button" onclick="togglePasswordVisibility('NuevaContraseña', this)">
+                            <i class="bi bi-eye"></i>
+                        </button>
                     </div>
-                    <div class="mb-3 col-lg-6 col-12">
-                        <label for="NuevaContraseña" class="form-label">Nueva Contraseña</label>
-                        <input type="text" class="form-control" id="NuevaContraseña" name="NuevaContraseña">
-                        <small class="text-danger" id="NuevaContraseñaError"></small>
+                    <small class="text-danger" id="NuevaContraseñaError"></small>
+                </div>
+
+                <div class="mb-3 col-lg-6 col-12 position-relative">
+                    <label for="ConfirmaciónNuevaContraseña" class="form-label">Confirmación de Nueva Contraseña</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="ConfirmaciónNuevaContraseña" name="ConfirmaciónNuevaContraseña">
+                        <button class="btn btn-outline-secondary" type="button" onclick="togglePasswordVisibility('ConfirmaciónNuevaContraseña', this)">
+                            <i class="bi bi-eye"></i>
+                        </button>
                     </div>
-                    <div class="mb-3 col-lg-6 col-12">
-                        <label for="ConfirmaciónNuevaContraseña" class="form-label">Confirmación de Nueva Contraseña</label>
-                        <input type="text" class="form-control" id="ConfirmaciónNuevaContraseña" name="ConfirmaciónNuevaContraseña">
-                        <small class="text-danger" id="ConfirmaciónNuevaContraseñaError"></small>
-                    </div>
+                    <small class="text-danger" id="ConfirmaciónNuevaContraseñaError"></small>
+                </div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Volver</button>
                         <button type="submit" class="btn btn-danger" id="IDBotonEliminarCuenta">Confirmar Cambios</button>

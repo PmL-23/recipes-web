@@ -17,13 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    if (strlen($NuevaContraseña) < 8) {
+    if (strlen($NuevaContraseña) < 2) {
         echo json_encode(['success' => false, 'error' => 'La contraseña nueva debe tener al menos 5 caracteres.']);
-        exit;
-    }
-
-    if (strlen($ContraseñaActual) > 16) {
-        echo json_encode(['success' => false, 'error' => 'La contraseña actual debe tener al menos 5 caracteres.']);
         exit;
     }
 
