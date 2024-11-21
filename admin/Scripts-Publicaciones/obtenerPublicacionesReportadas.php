@@ -1,7 +1,23 @@
 <?php
+session_start();
 require_once('../../includes/conec_db.php');  //todos los archivos que se necesitan
+require_once('../../includes/permisos.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
+
+    if (isset($_SESSION['id']) && isset($_SESSION['nomUsuario'])) {
+            
+        $usuarioID = $_SESSION['id']; // ID Usuario logueado
+
+        if (!Permisos::tienePermiso('Gestionar Publicaciones Reportadas', $usuarioID)) {
+            echo json_encode(['success' => false, 'error' => 'Error, no posee el permiso para gestionar publicaciones reportadas.']);
+            exit();
+        }
+        
+    }else{
+        echo json_encode(['success' => false, 'message' => 'Necesitas iniciar sesión para poder gestionar publicaciones reportadas..', 'id_publicacion_receta' => $id_publicacion_receta]);
+        exit();
+    }
 
     $sqlQuery = "SELECT publicaciones_recetas.id_publicacion, publicaciones_recetas.titulo, publicaciones_recetas.descripcion, publicaciones_recetas.fecha_publicacion, COUNT(DISTINCT reportes.id_reporte) as cantidad_reportes, imagenes.ruta_imagen FROM publicaciones_recetas LEFT JOIN reportes ON publicaciones_recetas.id_publicacion = reportes.id_obj_reportado LEFT JOIN imagenes ON publicaciones_recetas.id_publicacion = imagenes.id_publicacion WHERE reportes.tipo_obj_reportado = 'publicacion' GROUP BY publicaciones_recetas.id_publicacion, publicaciones_recetas.titulo, publicaciones_recetas.descripcion, publicaciones_recetas.fecha_publicacion";
 

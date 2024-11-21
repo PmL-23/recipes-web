@@ -2,6 +2,7 @@
 session_start();
 
 include '../includes/conec_db.php';
+require_once '../includes/permisos.php';
 
 if (!isset($_SESSION['id'])) {
     header("Location: ../html_inicio_sesion/iniciarSesion.php"); 
@@ -127,7 +128,9 @@ if ($indexPosition !== false) {
                     <div class="card-body">
                         <h1 class="card-title" id="usernameText">@<?php echo htmlspecialchars($usuario['username']); ?>
                             <button id="editUsernameBtn" class="btn btn-sm btn-primary" onclick="editarUsername()"><i class="bi bi-pencil-square"></i></button>
-                            <button id="editContraseñaBtn" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalEditContraseña"><i class="bi bi-lock-fill"></i></button>
+                            <?php if (Permisos::tienePermiso('Cambiar Contraseña', $_SESSION['id'])){ ?>
+                                <button id="editContraseñaBtn" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#modalEditContraseña"><i class="bi bi-lock-fill"></i></button>
+                            <?php } ?>
                         </h1>
                         <textarea id="usernameInput" rows="3" class="form-control"></textarea>
                         <div id="usernameButtons">
@@ -235,6 +238,7 @@ if ($indexPosition !== false) {
     </div>
 </div>
 
+<?php if (Permisos::tienePermiso('Cambiar Contraseña', $_SESSION['id'])){ ?>
 <!-- Modal Cambiar Contraseña -->
 <div class="modal fade" id="modalEditContraseña" tabindex="-1" aria-labelledby="modalEditContraseñaLabel" data-bs-backdrop="static" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -287,6 +291,7 @@ if ($indexPosition !== false) {
         </div>
     </div>
 </div>
+<?php } ?>
 
 <!-- Modal para mostrar resultados -->
 <div class="modal fade custom-modal-position" id="resultModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">

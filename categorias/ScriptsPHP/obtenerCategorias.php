@@ -1,23 +1,7 @@
 <?php
-session_start();
 require_once('../../includes/conec_db.php');  //todos los archivos que se necesitan
-require_once('../../includes/permisos.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
-
-    if (isset($_SESSION['id']) && isset($_SESSION['nomUsuario'])) {
-            
-        $usuarioID = $_SESSION['id']; // ID Usuario logueado
-
-        if (!Permisos::tienePermiso('Gestionar Categorias', $usuarioID)) {
-            echo json_encode(['success' => false, 'message' => 'Error, no posee el permiso para gestionar categorias.']);
-            exit();
-        }
-        
-    }else{
-        echo json_encode(['success' => false, 'message' => 'Necesitas iniciar sesión para poder gestionar categorias..', 'id_publicacion_receta' => $id_publicacion_receta]);
-        exit();
-    }
 
     $sqlQuery = "SELECT * FROM categorias WHERE estado = 1 ORDER BY categorias.id_categoria DESC";
     $queryResults = $conn->prepare($sqlQuery); //Preparo la consulta que me trae todas las categorias cargadas
@@ -33,17 +17,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         header('Content-Type: application/json');
 
         $listaDeCategorias = [];
-
-        /* while ($categoria = $queryResults->fetch(PDO::FETCH_ASSOC)) {
-
-            // Convertir la imagen en base64
-            if (isset($categoria['imagen'])) {
-                $categoria['imagen'] = base64_encode($categoria['imagen']);
-            }
-
-            // Añadir la publicación al array de categorias
-            $listaDeCategorias[] = $categoria;
-        } */
 
         // Recorrer los resultados
         while ($row = $queryResults->fetch(PDO::FETCH_ASSOC)) {

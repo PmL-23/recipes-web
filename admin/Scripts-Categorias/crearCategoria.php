@@ -1,7 +1,23 @@
 <?php
+session_start();
 require_once('../../includes/conec_db.php');  //todos los archivos que se necesitan
+require_once('../../includes/permisos.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    if (isset($_SESSION['id']) && isset($_SESSION['nomUsuario'])) {
+            
+        $usuarioID = $_SESSION['id']; // ID Usuario logueado
+
+        if (!Permisos::tienePermiso('Gestionar Categorias', $usuarioID)) {
+            echo json_encode(['success' => false, 'error' => 'Error, no posee el permiso para gestionar categorias.']);
+            exit();
+        }
+        
+    }else{
+        echo json_encode(['success' => false, 'message' => 'Necesitas iniciar sesión para poder gestionar categorias..', 'id_publicacion_receta' => $id_publicacion_receta]);
+        exit();
+    }
 
     $tituloCategoria = isset($_POST["inputCategoriaTitulo"]) ? $_POST["inputCategoriaTitulo"] : NULL; //Seteamos el campo de titulo de categoría, imagen y el seccion de la nueva categoria.
 
@@ -9,8 +25,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Imagen de categoria es obligatoria.";
         exit();
     }
-    
-    /* $imagenBinariaCategoria = file_get_contents($_FILES['imagen']['tmp_name']); // Convierte la imagen a binario */
 
     // Datos del archivo
     $nombreArchivo = $_FILES['imagen']['name'];

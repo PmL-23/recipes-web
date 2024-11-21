@@ -1,7 +1,23 @@
 <?php
+session_start();
 require_once('../../includes/conec_db.php');  //todos los archivos que se necesitan
+require_once('../../includes/permisos.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
+
+    if (isset($_SESSION['id']) && isset($_SESSION['nomUsuario'])) {
+            
+        $usuarioID = $_SESSION['id']; // ID Usuario logueado
+
+        if (!Permisos::tienePermiso('Gestionar Usuarios Reportados', $usuarioID)) {
+            echo json_encode(['success' => false, 'error' => 'Error, no posee el permiso para gestionar usuarios reportados.']);
+            exit();
+        }
+        
+    }else{
+        echo json_encode(['success' => false, 'message' => 'Necesitas iniciar sesión para poder gestionar usuarios reportados..', 'id_publicacion_receta' => $id_publicacion_receta]);
+        exit();
+    }
 
     $sqlQuery = "SELECT usuarios.id_usuario, usuarios.username, usuarios.nom_completo, usuarios.email, usuarios.foto_usuario, COUNT(DISTINCT publicaciones_recetas.id_publicacion) as cantidad_publicaciones, COUNT(DISTINCT reportes.id_reporte) as cantidad_reportes, COUNT(DISTINCT usuarios_seguidos.id_seguidor) as cantidad_seguidores FROM usuarios LEFT JOIN reportes ON usuarios.id_usuario = reportes.id_obj_reportado LEFT JOIN publicaciones_recetas ON usuarios.id_usuario = publicaciones_recetas.id_usuario_autor LEFT JOIN usuarios_seguidos ON usuarios.id_usuario = usuarios_seguidos.id_seguido WHERE reportes.tipo_obj_reportado = 'usuario' GROUP BY usuarios.id_usuario, usuarios.nom_completo, usuarios.email, usuarios.username, usuarios.foto_usuario";
 

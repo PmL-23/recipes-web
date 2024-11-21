@@ -117,7 +117,7 @@ function cargarTodasCategorias(){
         // Guarda la URL desde el inicio hasta la palabra "UIE/"
         let urlCortada = urlActual.substring(0, indice + palabraClave.length);
 
-        fetch(urlCortada + "/admin/Scripts-Categorias/obtenerCategorias.php", {
+        fetch(urlCortada + "/categorias/ScriptsPHP/obtenerCategorias.php", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -139,20 +139,23 @@ function cargarTodasCategorias(){
         })
         .then(data => {
         
-            /* console.log(data); */
+            console.log(data);
 
-            data.forEach( (e) => {
-
-                let seccion = document.getElementById( e.seccion + "-container");
-
-                seccion.innerHTML += `
-                    <a class="categoria" href="./recetas-categoria.php?categoria_id=${e.id_categoria}" data-seccion="${e.seccion}">
-                        <img class="rounded-circle" src="./imgs/${e.nombre_imagen}" alt="${e.titulo} imagen">
-                        <p>${e.titulo}</p>
-                    </a>
-                `;
-
-            });
+            if (data.length > 0) {
+                
+                data.forEach( (e) => {
+    
+                    let seccion = document.getElementById( e.seccion + "-container");
+    
+                    seccion.innerHTML += `
+                        <a class="categoria" href="./recetas-categoria.php?categoria_id=${e.id_categoria}" data-seccion="${e.seccion}">
+                            <img class="rounded-circle" src="./imgs/${e.nombre_imagen}" alt="${e.titulo} imagen">
+                            <p>${e.titulo}</p>
+                        </a>
+                    `;
+    
+                });
+            }
 
         });
 

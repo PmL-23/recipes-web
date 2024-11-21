@@ -1,8 +1,25 @@
 <?php
+session_start();
 require_once('../includes/conec_db.php');
+require_once('../includes/permisos.php');
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    if (isset($_SESSION['id']) && isset($_SESSION['nomUsuario'])) {
+            
+        $usuarioID = $_SESSION['id']; // ID Usuario logueado
+
+        if (!Permisos::tienePermiso('Cambiar Contraseña', $usuarioID)) {
+            echo json_encode(['success' => false, 'error' => 'Error, no puede cambiar contraseña estando logueado mediante Google Auth.']);
+            exit();
+        }
+        
+    }else{
+        echo json_encode(['success' => false, 'error' => 'Necesitas iniciar sesión para poder cambiar contraseña..', 'id_publicacion_receta' => $id_publicacion_receta]);
+        exit();
+    }
+
     // Obtener los datos JSON de la solicitud
     $data = json_decode(file_get_contents('php://input'), true);
     

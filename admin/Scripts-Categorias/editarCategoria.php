@@ -1,7 +1,23 @@
 <?php
+session_start();
 require_once('../../includes/conec_db.php');  //todos los archivos que se necesitan
+require_once('../../includes/permisos.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    if (isset($_SESSION['id']) && isset($_SESSION['nomUsuario'])) {
+            
+        $usuarioID = $_SESSION['id']; // ID Usuario logueado
+
+        if (!Permisos::tienePermiso('Gestionar Categorias', $usuarioID)) {
+            echo json_encode(['success' => false, 'error' => 'Error, no posee el permiso para gestionar categorias.']);
+            exit();
+        }
+        
+    }else{
+        echo json_encode(['success' => false, 'message' => 'Necesitas iniciar sesión para poder gestionar categorias..', 'id_publicacion_receta' => $id_publicacion_receta]);
+        exit();
+    }
 
     $tituloCategoria = isset($_POST["inputCategoriaTitulo"]) ? $_POST["inputCategoriaTitulo"] : NULL; //Seteamos el campo de titulo de categoría, imagen y el seccion de la categoria a editar.
 
@@ -19,6 +35,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Crear un nombre único para evitar sobrescribir archivos
         $nombreArchivoUnico = uniqid() . '_' . basename($nombreArchivo);
         $rutaDestino = $carpetaDestino . $nombreArchivoUnico;
+    }
+
+    if (isset($_SESSION['id']) && isset($_SESSION['nomUsuario'])) {
+            
+        $usuarioID = $_SESSION['id']; // ID Usuario logueado
+
+        if (!Permisos::tienePermiso('Gestionar Categorias', $usuarioID)) {
+            echo json_encode(['success' => false, 'error' => 'Error, no posee el permiso para gestionar categorias.']);
+            exit();
+        }
+        
+    }else{
+        echo json_encode(['success' => false, 'message' => 'Necesitas iniciar sesión para poder gestionar categorias..', 'id_publicacion_receta' => $id_publicacion_receta]);
+        exit();
     }
 
     $seccionCategoria = isset($_POST["seccion"]) ? $_POST["seccion"] : NULL;

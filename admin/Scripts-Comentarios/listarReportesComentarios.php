@@ -1,7 +1,23 @@
 <?php
+session_start();
 require_once('../../includes/conec_db.php');
+require_once('../../includes/permisos.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
+
+    if (isset($_SESSION['id']) && isset($_SESSION['nomUsuario'])) {
+            
+        $usuarioID = $_SESSION['id']; // ID Usuario logueado
+
+        if (!Permisos::tienePermiso('Gestionar Comentarios Reportados', $usuarioID)) {
+            echo json_encode(['success' => false, 'error' => 'Error, no posee el permiso para gestionar comentarios reportados.']);
+            exit();
+        }
+        
+    }else{
+        echo json_encode(['success' => false, 'message' => 'Necesitas iniciar sesión para poder gestionar comentarios reportados..', 'id_publicacion_receta' => $id_publicacion_receta]);
+        exit();
+    }
 
     $ID_Comentario = isset($_GET["id_comentario"]) ? $_GET["id_comentario"] : NULL;
 

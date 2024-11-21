@@ -1,7 +1,23 @@
 <?php
+session_start();
 require_once('../../includes/conec_db.php');  //todos los archivos que se necesitan
+require_once('../../includes/permisos.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    if (isset($_SESSION['id']) && isset($_SESSION['nomUsuario'])) {
+            
+        $usuarioID = $_SESSION['id']; // ID Usuario logueado
+
+        if (!Permisos::tienePermiso('Gestionar Publicaciones Reportadas', $usuarioID)) {
+            echo json_encode(['success' => false, 'error' => 'Error, no posee el permiso para gestionar publicaciones reportadas.']);
+            exit();
+        }
+        
+    }else{
+        echo json_encode(['success' => false, 'message' => 'Necesitas iniciar sesión para poder gestionar publicaciones reportadas..', 'id_publicacion_receta' => $id_publicacion_receta]);
+        exit();
+    }
 
     $ID_Publicacion = isset($_POST["ObjID"]) ? $_POST["ObjID"] : NULL;
 
