@@ -22,10 +22,11 @@ require_once('../includes/razonesReporte.php');
     <link rel="stylesheet" href="publicacion.css">
     <link rel="stylesheet" href="../css/recetas.css">
     <link rel="stylesheet" href="../css/carrousel.css">
+    <link rel="stylesheet" href="./modalCompartir.css">
     <!--   <link rel="stylesheet" href="estilos.css"> -->
     <!-- Scripts -->
     <script src="recetas.js" defer></script>
-    <script src="compartir.js" defer></script>
+    <script src="./compartir1.js" defer></script>
     <script src="./Scripts-Favorito/favoritoReceta.js" defer></script>
     <script src="./Scripts-Reportes/reporteReceta.js" defer></script>
     <script src="./Scripts-Reportes/reporteComentario.js" defer></script>
@@ -190,12 +191,12 @@ require_once('../includes/razonesReporte.php');
                                         <span class="estrella hover" data-value="<?php echo $i ?>">&#9733;</span><?php
                                                                                                                 } else {
                                                                                                                     ?><span class="estrella" data-value="<?php echo $i ?>">&#9733;</span><?php
-                                                                                                                }
-                                                                                                            } else {
-                                                                                                        ?><span class="estrella" data-value="<?php echo $i ?>">&#9733;</span><?php
-                                                                                                            }
-                                                                                                        }
-                                                                                                        ?>
+                                                                                                                                                                                        }
+                                                                                                                                                                                    } else {
+                                                                                                                                                                                            ?><span class="estrella" data-value="<?php echo $i ?>">&#9733;</span><?php
+                                                                                                                                                                                    }
+                                                                                                                                                                                }
+                                                                                                                                                                                ?>
 
                             <input type="hidden" name="valoracion" value="0">
 
@@ -478,7 +479,7 @@ require_once('../includes/razonesReporte.php');
     <?php
 
     ?>
-    <div id="modalCompartir" class="modal">
+    <div id="modalCompartir" class="modal fade" tabindex="-1" aria-labelledby="modalCompartirLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -502,6 +503,25 @@ require_once('../includes/razonesReporte.php');
             </div>
         </div>
     </div>
+    <!-- Modal para mostrar mensajes -->
+    <div id="modalMensaje" class="modal fade" tabindex="-1" aria-labelledby="modalMensajeLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="modalMensajeLabel" class="modal-title">Mensaje</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="modalCompartirMensaje">Este es un mensaje temporal.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
     <!-- TOAST PARA NOTIFICAR MENSAJES DE ÉXITO -->
     <div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1055;">

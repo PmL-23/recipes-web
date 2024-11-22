@@ -1,0 +1,9 @@
+.modal-content {
+    position: fixed; /* Para que el modal no se mueva de su posición */
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 500px; /* Ajusta según lo que prefieras */
+    max-height: 70vh; /* Limita al 80% de la altura de la pantalla */
+    overflow-y: auto; /* Habilita el desplazamiento solo si el contenido es más alto */
+}
