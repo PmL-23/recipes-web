@@ -19,12 +19,76 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $tiempo = isset($_POST["minutos_prep"]) ? $_POST["minutos_prep"] : NULL;
     $unidad_tiempo = isset($_POST["tiempo_unidad"]) ? $_POST["tiempo_unidad"] : NULL;
 
-    if (empty($titulo) || empty($descripcion) || empty($dificultad) || empty($tiempo) || empty($id_usuario_autor) || empty($categoria)) {
+    if (empty($titulo) || empty($descripcion) || empty($dificultad) || empty($tiempo) || empty($categoria) || empty($unidad_tiempo)) {
 
         echo json_encode(['success' => false, 'msj_error' => 'Datos incompletos.']);
         exit();
     }
+
+//id usuario
+    if (empty($id_usuario_autor) || !isset($id_usuario_autor)) 
+    {
+        $errors[] = 'Usuario invalido';
+    }
+
+//titulo
+    if ((empty($titulo)) || (trim($titulo) === '')) {
+        $errors[] = 'Titulo no ingresado';
+    } else {
+        $palabras = explode(' ', $titulo);
+        if (count($palabras) < 1 || count($palabras) > 50 ) {
+            $errors[] = 'Error en cantidad de palabras permitidas: titulo';
+        }
+    }
+
+//descripción    
+    if ((empty($descripcion)) || (trim($descripcion) === '')) {
+        $errors[] = 'Descripción no ingresada';
+    } else {
+        $palabras = explode(' ', $descripcion);
+        if (count($palabras) < 2 || count($palabras) > 100 ) {
+            $errors[] = 'Error en cantidad de palabras permitidas: descripción';
+        }
+    }
+
+//tiempo
+    if ((empty($tiempo)) || (trim($tiempo) === '')) {
+        $errors[] = 'Tiempo de elaboración no ingresado';
+    } else { 
+        if (($tiempo < 1) || ($tiempo > 999999))
+        {
+            $errors[] = 'Error en cantidad permitida: Tiempo de elaboración';
+        }
+        if (!is_numeric($tiempo))
+        {
+            $errors[] = 'Tiempo de elaboración: campo númerico';
+        }
+    }  
+
+//unidad tiempo
+    $unidadesPermitidas = ["min", "hora"];
+    if (empty($unidad_tiempo)) {
+        $errors[] = 'Unidad de tiempo no ingresada';
+    } else if (!in_array($unidad_tiempo, $unidadesPermitidas)) {
+        $errors[] = 'Unidad de tiempo no valida';
+    }
     
+//dificultad    
+    $dificultadesPermitidas = ["Fácil", "Media", "Dificil"];
+
+    if (empty($dificultad)) {
+        $errors[] = 'Dificultad no ingresada';
+    } else if (!in_array($dificultad, $dificultadesPermitidas)) {
+        $errors[] = 'Dificultad no valida';
+    }
+        
+//categoria
+    if (empty($categoria)) {
+        $errors[] = 'Categoria no ingresada';
+    }
+
+    if (empty($errors)) {
+
     $sqlQueryPublicacion = "INSERT INTO publicaciones_recetas(titulo, descripcion, dificultad, minutos_prep, id_usuario_autor, id_categoria, unidad_tiempo) VALUES (:titulo, :descripcion, :dificultad, :tiempo, :id_usuario_autor, :categoria, :unidad_tiempo)";
 
     $QueryPublicacion = $conn->prepare($sqlQueryPublicacion);
@@ -111,8 +175,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $ingredientes = isset($_POST["ingrediente"]) ? $_POST["ingrediente"] : [];
         $cantidades = isset($_POST["cantidad"]) ? $_POST["cantidad"] : [];  
 
+        
         foreach ($ingredientes as $index => $ingrediente) {
-            if (!empty($ingrediente) && !empty($cantidades[$index])) {
+
+            if ((empty($ingrediente)) || (trim($ingrediente) === '')) {
+                $errorsIng[] = 'Ingrediente no ingresado';
+            } else {
+                $palabras = explode(' ', $ingrediente);
+                if (count($palabras) < 1 || count($palabras) > 15 ) {
+                    $errorsIng[] = 'Error en cantidad de palabras permitidas: ingrediente';
+                }
+            }
+
+            if ((empty($cantidades[$index])) || (trim($cantidades[$index]) === '')) {
+                $errorsIng[] = 'Cantidad no ingresado';
+            } else {
+                $palabras = explode(' ', $cantidades[$index]);
+                if (count($palabras) < 1 || count($palabras) > 24 ) {
+                    $errorsIng[] = 'Error en cantidad de palabras permitidas: cantidad ingrediente';
+                }
+            }
+
+            if (empty($errorsIng)) {
 
                 // veo si el ingrediente existe
                 $sqlVerIngrediente = "SELECT id_ingrediente FROM ingredientes WHERE nombre = :ingrediente_ingresado";
@@ -141,6 +225,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $QueryIngrediente->bindParam(':id_ingrediente', $id_ingrediente, PDO::PARAM_INT);
                 $QueryIngrediente->bindParam(':cantidad', $cantidades[$index], PDO::PARAM_STR);
                 $QueryIngrediente->execute();
+
+            }  else {
+                echo json_encode(['success' => false, 'errors' => $errorsIng]);
             }
         }
 
@@ -150,13 +237,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $paises = isset($_POST["pais"]) ? $_POST["pais"] : []; 
 
         foreach ($paises as $pais) {
-
+            
             if (!empty($pais)) {
                 $sqlQueryPais = "INSERT INTO paises_recetas(id_publicacion, id_pais) VALUES (:id_publicacion, :pais)";
                 $QueryPais = $conn->prepare($sqlQueryPais);
                 $QueryPais->bindParam(':id_publicacion', $id_publicacion, PDO::PARAM_INT);
                 $QueryPais->bindParam(':pais', $pais, PDO::PARAM_INT);
                 $QueryPais->execute();
+            }
+            else
+            {
+                $errorsPais[] = 'País no ingresado';
             }
 
         }
@@ -168,7 +259,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $numero_paso = $num_paso + 1; 
 
-            if (!empty($texto)) { 
+            if ((empty($texto)) || (trim($texto) === '')) {
+                $errorsPaso[] = 'Paso no ingresado';
+            } else {
+                $palabras = explode(' ', $texto);
+                if (count($palabras) < 4 || count($palabras) > 30 ) {
+                    $errorsPaso[] = 'Error en cantidad de palabras permitidas: paso';
+                }
+            }
+
+            if (empty($errorsPaso)) { 
                 $sqlQueryPaso = "INSERT INTO pasos_recetas(id_publicacion, num_paso, texto) VALUES (:id_publicacion, :numero_paso, :texto_paso)";
                 
                 $QueryPaso = $conn->prepare($sqlQueryPaso);
@@ -224,6 +324,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 } else {
                     echo json_encode(['success' => false, 'msj_error' => 'Error al guardar paso..']);
                 }
+            }  else {
+                echo json_encode(['success' => false, 'errors' => $errorsPaso]);
             }
         }
 
@@ -233,5 +335,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'nueva_receta_id' => $id_publicacion
         ]);
 
+    }
+    } else {
+    echo json_encode(['success' => false, 'errors' => $errors]);
     }
 }

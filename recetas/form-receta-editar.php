@@ -5,7 +5,6 @@ require_once('../includes/conec_db.php');
 require_once('../notificaciones/notificacion.php');
 require_once('../includes/seguidores.php'); 
 
-$id_usuario_autor = $_SESSION['id'];
 
 $errors = [];
 $respuestaMensajes = []; 
@@ -19,61 +18,86 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $tiempo = isset($_POST["minutos_prep"]) ? $_POST["minutos_prep"] : NULL;
     $unidad_tiempo = isset($_POST["tiempo_unidad"]) ? $_POST["tiempo_unidad"] : NULL;
 
+    if (empty($titulo) || empty($descripcion) || empty($dificultad) || empty($tiempo) || empty($categoria) || empty($unidad_tiempo)) {
+
+        $errors[] = 'Datos incompletos';
+    }
+
+//id publicacion
     if (isset($_GET['id'])) {
         $id_publicacion = $_GET['id'];
     } else {
-        echo json_encode(['success' => false, 'errors' => ['No se ha proporcionado un ID válido.']]);
-        exit;
+        $errors[] = 'No se ha proporcionado un ID válido: publicación';
     }
 
     
-    if (empty($titulo) || empty($descripcion) || empty($dificultad) || empty($tiempo) || empty($id_usuario_autor) || empty($categoria)) {
-        $errors[] = 'Campos vacíos';
+
+//id usuario
+    if (isset($_SESSION['id'])) {
+        $id_usuario_autor = $_SESSION['id'];
+    } else {
+        $errors[] = 'No se ha proporcionado un ID válido: usuario';
     }
 
+
+//titulo
     if ((empty($titulo)) || (trim($titulo) === '')) {
-        $errors[] = 'Debe ingresar un titulo';
+        $errors[] = 'Titulo no ingresado';
     } else {
-        if (strlen(trim($titulo)) < 3) {  
-            $errors[] = 'El titulo debe contar con más de tres caracteres';
+        $palabras = explode(' ', $titulo);
+        if (count($palabras) < 1 || count($palabras) > 50 ) {
+            $errors[] = 'Error en cantidad de palabras permitidas: titulo';
         }
     }
 
+//descripción    
     if ((empty($descripcion)) || (trim($descripcion) === '')) {
-        $errors[] = 'Debe ingresar una descripcion';
+        $errors[] = 'Descripción no ingresada';
     } else {
-        $palabras = explode(' ', $descripcion);  
-        if (count($palabras) < 3) {
-            $errors[] = 'La descripción debe tener al menos 3 palabras';
+        $palabras = explode(' ', $descripcion);
+        if (count($palabras) < 2 || count($palabras) > 100 ) {
+            $errors[] = 'Error en cantidad de palabras permitidas: descripción';
         }
     }
 
-    if (empty($categoria)) {
-        $errors[] = 'Seleccione una categoria';
+//tiempo
+    if ((empty($tiempo)) || (trim($tiempo) === '')) {
+        $errors[] = 'Tiempo de elaboración no ingresado';
+    } else { 
+        if (($tiempo < 1) || ($tiempo > 999999))
+        {
+            $errors[] = 'Error en cantidad permitida: Tiempo de elaboración';
+        }
+        if (!is_numeric($tiempo))
+        {
+            $errors[] = 'Tiempo de elaboración: campo númerico';
+        }
+    }  
+
+//unidad tiempo
+    $unidadesPermitidas = ["min", "hora"];
+    if (empty($unidad_tiempo)) {
+        $errors[] = 'Unidad de tiempo no ingresada';
+    } else if (!in_array($unidad_tiempo, $unidadesPermitidas)) {
+        $errors[] = 'Unidad de tiempo no valida';
     }
+    
+//dificultad    
+    $dificultadesPermitidas = ["Fácil", "Media", "Dificil"];
 
     if (empty($dificultad)) {
-        $errors[] = 'Seleccione una dificultad';
-    }    
-
-    if ((empty($tiempo)) || (trim($tiempo) === '')) {
-        $errors[] = 'Debe ingresar un tiempo';
-    } else {
-        if (!is_numeric($tiempo)) {
-            $errors[] = 'El campo tiempo de elaboración solo acepta numeros';
-        }
-        if($tiempo === 0) {
-            $errors[] = 'El campo tiempo de elaboración no puede ser 0';
-        }
-    }   
-
-    if (empty($unidad_tiempo)) {
-        $errors[] = 'Seleccione una unidad de tiempo';
+        $errors[] = 'Dificultad no ingresada';
+    } else if (!in_array($dificultad, $dificultadesPermitidas)) {
+        $errors[] = 'Dificultad no valida';
+    }
+        
+//categoria
+    if (empty($categoria)) {
+        $errors[] = 'Categoria no ingresada';
     }
 
     if (empty($errors)) {
 
-        
         $sqlQueryPublicacion = "UPDATE publicaciones_recetas SET titulo = :titulo, descripcion = :descripcion, dificultad = :dificultad, minutos_prep = :tiempo, id_categoria = :categoria, unidad_tiempo = :unidad_tiempo WHERE id_publicacion = :id_publicacion";
         $QueryPublicacion = $conn->prepare($sqlQueryPublicacion);
         $QueryPublicacion->bindParam(':titulo', $titulo, PDO::PARAM_STR);
@@ -151,66 +175,79 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 foreach ($pasos as $index => $texto) {
                     $numPaso = $index + 1;
 
-                
-                    $sqlVerificarPaso = "SELECT id_paso, texto FROM pasos_recetas WHERE num_paso = :num_paso AND id_publicacion = :id_publicacion";
-                    $stmtVerificarPaso = $conn->prepare($sqlVerificarPaso);
-                    $stmtVerificarPaso->bindParam(':num_paso', $numPaso, PDO::PARAM_INT);
-                    $stmtVerificarPaso->bindParam(':id_publicacion', $id_publicacion, PDO::PARAM_INT);
-                    $stmtVerificarPaso->execute();
-                    $paso = $stmtVerificarPaso->fetch(PDO::FETCH_ASSOC);
-
-                    if ($paso) {
-                        
-                        if ($paso['texto'] != $texto) {
-                            $sqlActualizarPaso = "UPDATE pasos_recetas SET texto = :texto WHERE id_paso = :id_paso";
-                            $stmtActualizarPaso = $conn->prepare($sqlActualizarPaso);
-                            $stmtActualizarPaso->bindParam(':texto', $texto, PDO::PARAM_STR);
-                            $stmtActualizarPaso->bindParam(':id_paso', $paso['id_paso'], PDO::PARAM_INT);
-                            $stmtActualizarPaso->execute();
-                        }
-                        $pasoId = $paso['id_paso'];
+                    if ((empty($texto)) || (trim($texto) === '')) {
+                        $errorsPaso[] = 'Paso no ingresado';
                     } else {
-                        
-                        $sqlInsertarPaso = "INSERT INTO pasos_recetas (id_publicacion, num_paso, texto) VALUES (:id_publicacion, :num_paso, :texto)";
-                        $stmtInsertarPaso = $conn->prepare($sqlInsertarPaso);
-                        $stmtInsertarPaso->bindParam(':id_publicacion', $id_publicacion, PDO::PARAM_INT);
-                        $stmtInsertarPaso->bindParam(':num_paso', $numPaso, PDO::PARAM_INT);
-                        $stmtInsertarPaso->bindParam(':texto', $texto, PDO::PARAM_STR);
-                        $stmtInsertarPaso->execute();
-                        $pasoId = $conn->lastInsertId();
+                        $palabras = explode(' ', $texto);
+                        if (count($palabras) < 4 || count($palabras) > 30 ) {
+                            $errorsPaso[] = 'Error en cantidad de palabras permitidas: paso';
+                        }
                     }
+        
+                    if (empty($errorsPaso)) { 
+                
+                        $sqlVerificarPaso = "SELECT id_paso, texto FROM pasos_recetas WHERE num_paso = :num_paso AND id_publicacion = :id_publicacion";
+                        $stmtVerificarPaso = $conn->prepare($sqlVerificarPaso);
+                        $stmtVerificarPaso->bindParam(':num_paso', $numPaso, PDO::PARAM_INT);
+                        $stmtVerificarPaso->bindParam(':id_publicacion', $id_publicacion, PDO::PARAM_INT);
+                        $stmtVerificarPaso->execute();
+                        $paso = $stmtVerificarPaso->fetch(PDO::FETCH_ASSOC);
 
+                        if ($paso) {
+                            
+                            if ($paso['texto'] != $texto) {
+                                $sqlActualizarPaso = "UPDATE pasos_recetas SET texto = :texto WHERE id_paso = :id_paso";
+                                $stmtActualizarPaso = $conn->prepare($sqlActualizarPaso);
+                                $stmtActualizarPaso->bindParam(':texto', $texto, PDO::PARAM_STR);
+                                $stmtActualizarPaso->bindParam(':id_paso', $paso['id_paso'], PDO::PARAM_INT);
+                                $stmtActualizarPaso->execute();
+                            }
+                            $pasoId = $paso['id_paso'];
+                        } else {
+                            
+                            $sqlInsertarPaso = "INSERT INTO pasos_recetas (id_publicacion, num_paso, texto) VALUES (:id_publicacion, :num_paso, :texto)";
+                            $stmtInsertarPaso = $conn->prepare($sqlInsertarPaso);
+                            $stmtInsertarPaso->bindParam(':id_publicacion', $id_publicacion, PDO::PARAM_INT);
+                            $stmtInsertarPaso->bindParam(':num_paso', $numPaso, PDO::PARAM_INT);
+                            $stmtInsertarPaso->bindParam(':texto', $texto, PDO::PARAM_STR);
+                            $stmtInsertarPaso->execute();
+                            $pasoId = $conn->lastInsertId();
+                        }
+
+                        
+                        if (isset($_FILES["imagenes_paso_$numPaso"])) {
+                            
+                            $imagenesSubidas = [];
+                            foreach ($_FILES["imagenes_paso_$numPaso"]['name'] as $index => $filename) {
+                                $pasosDir = "../recetas/galeria/";
+                                $uploadFile = $pasosDir . uniqid() . "_" . basename($filename);
+
+                                if (move_uploaded_file($_FILES["imagenes_paso_$numPaso"]['tmp_name'][$index], $uploadFile)) {
+                                    $imagenesSubidas[] = $uploadFile;
+                                }
+                            }
+
+                            
+                            if (!empty($imagenesSubidas)) {
+                                $sqlEliminarImagenes = "DELETE FROM imagenes_pasos WHERE id_paso = :id_paso";
+                                $stmtEliminarImagenes = $conn->prepare($sqlEliminarImagenes);
+                                $stmtEliminarImagenes->bindParam(':id_paso', $pasoId, PDO::PARAM_INT);
+                                $stmtEliminarImagenes->execute();
+
+                                foreach ($imagenesSubidas as $imagenRuta) {
+                                    $sqlInsertarImagen = "INSERT INTO imagenes_pasos (id_paso, ruta_imagen_paso) VALUES (:id_paso, :ruta_imagen_paso)";
+                                    $stmtInsertarImagen = $conn->prepare($sqlInsertarImagen);
+                                    $stmtInsertarImagen->bindParam(':id_paso', $pasoId, PDO::PARAM_INT);
+                                    $stmtInsertarImagen->bindParam(':ruta_imagen_paso', $imagenRuta, PDO::PARAM_STR);
+                                    $stmtInsertarImagen->execute();
+                                }
+                            }
+                        }
+                    }  else {
+                        echo json_encode(['success' => false, 'errors' => $errorsPaso]);
+                    }
                     
-                    if (isset($_FILES["imagenes_paso_$numPaso"])) {
-                        
-                        $imagenesSubidas = [];
-                        foreach ($_FILES["imagenes_paso_$numPaso"]['name'] as $index => $filename) {
-                            $pasosDir = "../recetas/galeria/";
-                            $uploadFile = $pasosDir . uniqid() . "_" . basename($filename);
-
-                            if (move_uploaded_file($_FILES["imagenes_paso_$numPaso"]['tmp_name'][$index], $uploadFile)) {
-                                $imagenesSubidas[] = $uploadFile;
-                            }
-                        }
-
-                        
-                        if (!empty($imagenesSubidas)) {
-                            $sqlEliminarImagenes = "DELETE FROM imagenes_pasos WHERE id_paso = :id_paso";
-                            $stmtEliminarImagenes = $conn->prepare($sqlEliminarImagenes);
-                            $stmtEliminarImagenes->bindParam(':id_paso', $pasoId, PDO::PARAM_INT);
-                            $stmtEliminarImagenes->execute();
-
-                            foreach ($imagenesSubidas as $imagenRuta) {
-                                $sqlInsertarImagen = "INSERT INTO imagenes_pasos (id_paso, ruta_imagen_paso) VALUES (:id_paso, :ruta_imagen_paso)";
-                                $stmtInsertarImagen = $conn->prepare($sqlInsertarImagen);
-                                $stmtInsertarImagen->bindParam(':id_paso', $pasoId, PDO::PARAM_INT);
-                                $stmtInsertarImagen->bindParam(':ruta_imagen_paso', $imagenRuta, PDO::PARAM_STR);
-                                $stmtInsertarImagen->execute();
-                            }
-                        }
-                    }
                 }
-
 
                 
                 
@@ -270,14 +307,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
                 foreach ($ingredientesNuevos as $index => $ingrediente) {
                     $cantidad = $cantidadesNuevas[$index];
-                    if (!empty($ingrediente) && !empty($cantidad)) {
+
+                    if ((empty($ingrediente)) || (trim($ingrediente) === '')) {
+                        $errorsIng[] = 'Ingrediente no ingresado';
+                    } else {
+                        $palabras = explode(' ', $ingrediente);
+                        if (count($palabras) < 1 || count($palabras) > 15 ) {
+                            $errorsIng[] = 'Error en cantidad de palabras permitidas: ingrediente';
+                        }
+                    }
+        
+                    if ((empty($cantidad)) || (trim($cantidad) === '')) {
+                        $errorsIng[] = 'Cantidad no ingresada';
+                    } else {
+                        $palabras = explode(' ', $cantidad);
+                        if (count($palabras) < 1 || count($palabras) > 24 ) {
+                            $errorsIng[] = 'Error en cantidad de palabras permitidas: cantidad ingrediente';
+                        }
+                    }
+        
+                    if (empty($errorsIng)) {
                         
                         foreach ($ingredientesActuales as $ingredienteActual) {
                             if ($ingrediente == $ingredienteActual['id_ingrediente'] && $cantidad == $ingredienteActual['cantidad']) {
                                 $ingredientesMantener[] = $ingredienteActual['id_ingrediente'];
                             }
                         }
+                    }  else {
+                        echo json_encode(['success' => false, 'errors' => $errorsIng]);
                     }
+                    
                 }
 
                 $ingredientesAEliminar = array_diff(array_column($ingredientesActuales, 'id_ingrediente'), $ingredientesMantener);

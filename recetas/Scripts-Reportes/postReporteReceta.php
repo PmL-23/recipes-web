@@ -3,12 +3,8 @@
 session_start();
 
 require_once('../../includes/conec_db.php');
+require_once('../../includes/permisos.php');
 
-/* if (!Permisos::tienePermiso('Comentar publicacion', $usuarioID)) {//validamos que tenga permiso para comentar, de lo contrario, mostramos error
-    echo("error al comentar, no tiene permiso.");
-    header('Location: ../Vistas/index.php'); //Si el usuario intento comentar y no tiene permiso, vuelvo al indice, mejorar en versiones futuras*
-    exit();
-} */
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -16,10 +12,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if (isset($_SESSION['id'])) {
             $usuarioID = $_SESSION['id'];//establezco el usuario id con el id de la sesion
+
+            if (!Permisos::tienePermiso('Reportar Publicación', $usuarioID)) {
+                echo json_encode(['success' => false, 'message' => 'No podes realizar esta acción.']);
+                exit();
+            }
         }else{
-            echo json_encode(['success' => false, 'message' => 'Necesitas iniciar sesión para poder enviar reporte..']);
+            echo json_encode(['success' => false, 'message' => 'Necesitas iniciar sesión para enviar un reporte.']);
             exit();
         }
+
 
         $id_motivo_reporte = isset($_POST["motivo"]) ? $_POST["motivo"] : NULL;
         $id_publicacion_receta = isset($_POST["id_publicacion_receta"]) ? $_POST["id_publicacion_receta"] : NULL;

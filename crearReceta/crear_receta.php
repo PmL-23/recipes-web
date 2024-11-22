@@ -18,7 +18,7 @@ if (!isset($_SESSION['id'])) {
 
 require_once('../includes/conec_db.php');
 
-$categoriaQuery = "SELECT * FROM categorias WHERE estado = 1 ORDER BY categorias.id_categoria DESC";
+$categoriaQuery = "SELECT * FROM categorias ORDER BY categorias.id_categoria DESC";
 $queryResultsCategoria = $conn->prepare($categoriaQuery);
 $queryResultsCategoria->execute(); 
 
@@ -36,7 +36,7 @@ if (!$queryResultsPais) {
     exit();
 }
 
-$etiquetasQuery = "SELECT * FROM etiquetas WHERE estado = 1 ORDER BY etiquetas.id_etiqueta DESC";
+$etiquetasQuery = "SELECT * FROM etiquetas ORDER BY etiquetas.id_etiqueta DESC";
 $queryResultsEtiquetas = $conn->prepare($etiquetasQuery);
 $queryResultsEtiquetas->execute(); 
 
@@ -81,41 +81,35 @@ if (!$queryResultsEtiquetas) {
     
             <div class="mt-3">
                 <label class="h5 form-label mt-3" for="titulo">TÍtulo</label>
-                <input class="form-control form-control-md" type="text" placeholder="Añade el titulo de tu receta" aria-label=".form-control" id="titulo" name="titulo" maxlength="100" required>
+                <input class="form-control form-control-md" type="text" placeholder="Añade el titulo de tu receta" aria-label=".form-control" id="titulo" name="titulo" maxlength="100">
                 <small class="text-danger" id="error-titulo"></small>
             </div>
         
             <div class="mt-3">
             <label for="descripcion" class="h5 form-label mt-3">Descripción</label>
-            <textarea class="form-control textarea-resize" id="descripcion" name="descripcion" placeholder="Añade una descripción a tu receta" required></textarea>
+            <textarea class="form-control textarea-resize" id="descripcion" name="descripcion" placeholder="Añade una descripción a tu receta"></textarea>
             <small class="text-danger" id="error-descripcion"></small>
             </div>
 
             <div class="row mt-3">
-
                 <div class="col-md-6">
-
                     <div class="c-paises" id="input-paises">
-    
                         <h4 for="select-pais" class="h6 form-label mt-3">País</h4>
-            
                         <div class="pais-container my-2 d-flex flex-row">
-                        <select class="w-50 select-pais form-select" aria-label="Select pais" name="pais[]" id="pais" required>
-                <option value="" selected>Receta sin país</option>
-                <?php
-                    while ($paisRow = $queryResultsPais->fetch(PDO::FETCH_ASSOC)) {
-                        $rutaBandera = "../svg/" . $paisRow['ruta_imagen_pais'];
-                        echo '<option class="option-pais" value="'.$paisRow['id_pais'].'" data-pais="'.$rutaBandera.'">'.$paisRow['nombre'].'</option>';
-                    }
-                ?>
-                        </select>
-    
-                            <small class="text-danger" id="error-pais"></small>
+                            <select class="w-50 select-pais form-select" aria-label="Select pais" name="pais[]" id="pais">
+                                <option value="" selected disabled>Selecciona un país</option>
+                                <?php
+                                    while ($paisRow = $queryResultsPais->fetch(PDO::FETCH_ASSOC)) {
+                                        $rutaBandera = "../svg/" . $paisRow['ruta_imagen_pais'];
+                                        echo '<option class="option-pais" value="'.$paisRow['id_pais'].'" data-pais="'.$rutaBandera.'">'.$paisRow['nombre'].'</option>';
+                                    }
+                                ?>
+                            </select>
+                            <small class="text-danger error-pais d-flex" id="error-pais"></small>
                             <img class="ms-2 bandera mini-bandera d-none" src="" alt="Bandera">
-    
+                                
+                            </div>
                         </div>
-    
-                    </div>
                     
                     <div class="d-flex justify-content-start mt-3">
                         <button class="boton-item" type="button" id="agregar-pais">+ Agregar país</button>
@@ -150,7 +144,7 @@ if (!$queryResultsEtiquetas) {
                         </div>
                     </div>
                     <label for="dificultad" class="h6 form-label">Dificultad de elaboración</label>
-                    <select class="form-select" aria-label="Select dificultad" id="dificultad" name="dificultad" required>
+                    <select class="form-select" aria-label="Select dificultad" id="dificultad" name="dificultad">
                         <option selected disabled>Elegí la dificultad de tu platillo</option>
                         <option value="Fácil">Fácil</option>
                         <option value="Media">Media</option>
@@ -166,16 +160,16 @@ if (!$queryResultsEtiquetas) {
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <label for="tiempo-elaboracion" class="h6 form-label">Tiempo de elaboración</label>
-                        <input type="number" class="form-control" name="minutos_prep" placeholder="Ej: 30, 120..." aria-label="Number tiempo" id="tiempo-elaboracion" min="1" max="999999" required>
+                        <input type="number" class="form-control" name="minutos_prep" placeholder="Ej: 30, 120..." aria-label="Number tiempo" id="tiempo-elaboracion" min="1" max="999999">
                         <small class="text-danger" id="error-tiempo"></small>
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <label for="tiempo-unidad" class="h6 form-label">Hora/Minutos</label>
-                        <select class="form-select" aria-label="Select unidad" name="tiempo_unidad" id="tiempo-unidad" required>
-
+                        <select class="form-select" aria-label="Select unidad" name="tiempo_unidad" id="tiempo-unidad">
                             <option selected value="minutos">Minutos</option>
                             <option value="hora">Hora/s</option>
                         </select>
+                        <small class="text-danger" id="error-unidad"></small>
                     </div>
                 </div>
                 
@@ -187,7 +181,7 @@ if (!$queryResultsEtiquetas) {
         <h5 class="h5 form-label">Etiquetas</h5>
         <div id="etiquetas">
             <div class="una_etiqueta d-grid gap-2 d-flex flex-column justify-content-md-end mt-3" id="item-etiqueta">
-                <select class="form-select" aria-label="Select etiqueta" name="etiqueta[]">
+                <select class="form-select select-etiqueta" aria-label="Select etiqueta" name="etiqueta[]">
                     <option value="" selected disabled>Selecciona una etiqueta</option>
                     <?php 
                         while ($etiquetaRow = $queryResultsEtiquetas->fetch(PDO::FETCH_ASSOC)) {
@@ -195,9 +189,9 @@ if (!$queryResultsEtiquetas) {
                         }
                     ?>  
                 </select>
+                <small class="text-danger error-etiqueta" id="error-etiqueta"></small>
             </div>
-            <small class="text-danger" id="error-etiqueta"></small>
-        </div>
+            </div>
         <div class="d-flex justify-content-center mt-3">
             <button class="boton-item" type="button" id="agregar-etiqueta">+ Agregar etiqueta</button>
         </div>
@@ -208,17 +202,17 @@ if (!$queryResultsEtiquetas) {
             <div class="row container-fluid">
                 <div class="col-md-6 mt-4">
                     <label for="ingrediente" class="h5 form-label">Ingrediente</label>
-                    <input type="text" class="ingrediente-input form-control" name="ingrediente[]" placeholder="Harina, Sal..." id="ingrediente" required>
+                    <input type="text" class="ingrediente-input form-control" name="ingrediente[]" placeholder="Harina, Sal..." id="ingrediente">
                     <div class="search-ingrediente" id="search-ingrediente-0"></div>
                     <div>
-                        <small class="text-danger" id="error-ingrediente"></small>
+                        <small class="text-danger error-ingrediente" id="error-ingrediente"></small>
                     </div>
                 </div>
                 <div class="col-md-4 mt-4">
                     <label for="cantidad" class="h6 form-label">Cantidad</label>
-                    <input type="text" class="form-control" name="cantidad[]" placeholder="400gr, una pizca..." id="cantidad">
+                    <input type="text" class="form-control cantidad-input" name="cantidad[]" placeholder="400gr, una pizca..." id="cantidad">
                     <div>
-                        <small class="text-danger" id="error-ingrediente-cantidad"></small>
+                        <small class="text-danger error-ingrediente-cantidad" id="error-ingrediente-cantidad"></small>
                     </div>
                 </div>
                 <div class="col-md-2 mt-md-4 d-flex justify-content-end">
@@ -235,17 +229,18 @@ if (!$queryResultsEtiquetas) {
         <h5 class="h5 form-label">Pasos</h5>
             <ol class=" list-group-numbered h6" id="list-paso">
                 <li class="item-lista list-group-item" id="li-paso">
-                    <div class="un_paso d-grid d-flex justify-content-end">
-                        <textarea class="form-control input-paso textarea-resize item-paso" name="paso[]" placeholder="Ej: Mezcla los ingredientes en un bowl..." required></textarea>   
+                    <div class="un_paso d-grid gap-2 flex-column d-flex justify-content-end">
+                        <textarea class="form-control input-paso textarea-resize item-paso" name="paso[]" placeholder="Ej: Mezcla los ingredientes en un bowl..."></textarea>   
+                        <small class="text-danger error-paso" id="error-paso"></small>
                     </div> 
-                    <small class="text-danger" id="error-paso"></small>
                     <div class="d-grid d-flex justify-content-end mt-2">
                         <button class="boton-secundario d-flex" type="button" id="quitar-paso" disabled><i class="bi bi-trash me-1"></i>Quitar</button>
                     </div>                
                     <div class="elementos-paso d-grid gap-2 d-md-flex justify-content-md-start">
                         <div class="contenedor-paso-img justify-content-start">
                             <img src="default-image.png" class="img-paso border rounded img-fluid img-paso-id" alt="Imagen del paso">
-                            <input class="form-control mt-2 file-paso" type="file" name="imagenes_paso1[]" multiple>
+                            <input class="form-control mt-2 file-paso" type="file" name="imagenes_paso1[]" accept="image/*" multiple>
+                            <small class="text-danger error-imagen-paso"></small>
                             <button class="boton-secundario d-flex mt-2 d-none quitar-imagen" type="button"><i class="bi bi-trash me-1"></i>Quitar Imagen</button>         
                         </div>
                     </div>
