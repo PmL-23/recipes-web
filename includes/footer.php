@@ -3,8 +3,8 @@
         <p class="mb-1 fs-6">&copy; 2024 Recetas de América. Todos los derechos reservados.</p>
         
         <nav class="d-flex justify-content-center">
-            <a class="nav-link text-white mx-2 fs-6" href="#">Términos y condiciones</a>
-            <a class="nav-link text-white mx-2 fs-6" href="#">Política de privacidad</a>
+            <a class="nav-link text-white mx-2 fs-6" href="../politicas/terminos.php">Términos y condiciones</a>
+            <a class="nav-link text-white mx-2 fs-6" href="../politicas/privacidad.php">Política de privacidad</a>
         </nav>
         <div class="d-flex flex-column justify-content-center align-items-center mt-1">
             <div class="col-md-4 d-flex justify-content-center">

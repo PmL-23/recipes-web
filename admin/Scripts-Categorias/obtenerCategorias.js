@@ -78,6 +78,8 @@ export function obtenerCategorias(){
                         imgPreviaCategoria.src = `../categorias/imgs/${e.nombre_imagen}`;
                         imgPreviaCategoria.classList.remove("d-none");
 
+                        imgFile.value = '';
+
                         imgFile.addEventListener("change", function(){
                             if (imgFile.files.length > 0) {
                                 

@@ -9,13 +9,13 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             
         $usuarioID = $_SESSION['id']; // ID Usuario logueado
 
-        if (!Permisos::tienePermiso('Gestionar Usuarios Reportados', $usuarioID)) {
-            echo json_encode(['success' => false, 'error' => 'Error, no posee el permiso para gestionar usuarios reportados.']);
+        if (!Permisos::tienePermiso('Obtener Usuarios Reportados', $usuarioID)) {
+            echo json_encode(['success' => false, 'message' => 'Error, no posee el permiso para obtener usuarios reportados.']);
             exit();
         }
         
     }else{
-        echo json_encode(['success' => false, 'message' => 'Necesitas iniciar sesión para poder gestionar usuarios reportados..', 'id_publicacion_receta' => $id_publicacion_receta]);
+        echo json_encode(['success' => false, 'message' => 'Necesitas iniciar sesión para poder obtener usuarios reportados..', 'id_publicacion_receta' => $id_publicacion_receta]);
         exit();
     }
 

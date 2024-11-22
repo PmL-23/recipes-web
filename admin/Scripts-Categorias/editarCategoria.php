@@ -9,13 +9,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
         $usuarioID = $_SESSION['id']; // ID Usuario logueado
 
-        if (!Permisos::tienePermiso('Gestionar Categorias', $usuarioID)) {
-            echo json_encode(['success' => false, 'error' => 'Error, no posee el permiso para gestionar categorias.']);
+        if (!Permisos::tienePermiso('Editar Categoria', $usuarioID)) {
+            echo json_encode(['success' => false, 'message' => 'Error, no posee el permiso para editar categorias.']);
             exit();
         }
         
     }else{
-        echo json_encode(['success' => false, 'message' => 'Necesitas iniciar sesión para poder gestionar categorias..', 'id_publicacion_receta' => $id_publicacion_receta]);
+        echo json_encode(['success' => false, 'message' => 'Necesitas iniciar sesión para poder editar categorias..', 'id_publicacion_receta' => $id_publicacion_receta]);
         exit();
     }
 
@@ -35,20 +35,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Crear un nombre único para evitar sobrescribir archivos
         $nombreArchivoUnico = uniqid() . '_' . basename($nombreArchivo);
         $rutaDestino = $carpetaDestino . $nombreArchivoUnico;
-    }
 
-    if (isset($_SESSION['id']) && isset($_SESSION['nomUsuario'])) {
-            
-        $usuarioID = $_SESSION['id']; // ID Usuario logueado
-
-        if (!Permisos::tienePermiso('Gestionar Categorias', $usuarioID)) {
-            echo json_encode(['success' => false, 'error' => 'Error, no posee el permiso para gestionar categorias.']);
-            exit();
-        }
-        
+        $FlagMoverArchivo = move_uploaded_file($rutaTemporal, $rutaDestino);
     }else{
-        echo json_encode(['success' => false, 'message' => 'Necesitas iniciar sesión para poder gestionar categorias..', 'id_publicacion_receta' => $id_publicacion_receta]);
-        exit();
+        $FlagMoverArchivo = false;
     }
 
     $seccionCategoria = isset($_POST["seccion"]) ? $_POST["seccion"] : NULL;
@@ -63,8 +53,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Hago update a la tabla categoria con los datos que traigo en POST.
 
     $sqlQueryCategoria = "UPDATE categorias SET titulo = :TituloCategoria, seccion = :SeccionCategoria WHERE id_categoria = :IDCategoria";
-    
-    $FlagMoverArchivo = move_uploaded_file($rutaTemporal, $rutaDestino);
 
     if ($FlagMoverArchivo) {
 
