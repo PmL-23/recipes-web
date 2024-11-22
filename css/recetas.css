@@ -151,3 +151,8 @@
     margin: 10px;
 }
 
+#modalCompartir{
+    overflow-x: unset !important;
+    overflow-y: unset !important;
+    padding: 0 !important;
+}
