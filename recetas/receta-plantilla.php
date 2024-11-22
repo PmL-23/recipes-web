@@ -520,10 +520,7 @@ require_once('../includes/razonesReporte.php');
             </div>
         </div>
     </div>
-
-
-
-    <!-- TOAST PARA NOTIFICAR MENSAJES DE ÉXITO -->
+    <!-- Modal para los mensajes -->
     <div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1055;">
 
         <div id="formToastSuccess" class="toast align-items-center text-bg-success" role="alert" aria-live="assertive" aria-atomic="true">

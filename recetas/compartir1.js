@@ -1,4 +1,3 @@
-// Función para generar la URL dinámica
 function obtenerEnlaceReceta(idPublicacion) {
     const baseURL = `${window.location.origin}/xampp/proyecto_final/recipes-web/recetas/receta-plantilla.php`;
     return `${baseURL}?id=${idPublicacion}`;
@@ -18,10 +17,9 @@ function compartirReceta(idPublicacion) {
 }
 
 function mostrarModal(mensaje, onAccept = null) {
-    // Actualizar el contenido del mensaje en el modal
+
     document.getElementById("modalCompartirMensaje").innerText = mensaje;
 
-    // Obtener referencia al modal
     const modalMensaje = new bootstrap.Modal(document.getElementById("modalMensaje"));
 
     // Configurar el botón de aceptar
@@ -35,7 +33,6 @@ function mostrarModal(mensaje, onAccept = null) {
     modalMensaje.show();
 }
 
-// Compartir en Facebook
 function compartirPorFacebook(idPublicacion) {
     const enlaceReceta = obtenerEnlaceReceta(idPublicacion);
     const mensaje = `¡Mira esta receta!`;
@@ -44,16 +41,14 @@ function compartirPorFacebook(idPublicacion) {
     window.open(urlFacebook, "_blank"); // Nueva ventana
 }
 
-// Compartir en WhatsApp
 function compartirPorWhatsApp(idPublicacion) {
     const enlaceReceta = obtenerEnlaceReceta(idPublicacion);
     const mensaje = `¡Mira esta receta! ${encodeURIComponent(enlaceReceta)}`;
     const urlWhatsApp = `https://wa.me/?text=${mensaje}`;
-    
+
     window.open(urlWhatsApp, "_blank"); // Nueva ventana
 }
 
-// Compartir en Instagram
 function compartirPorInstagram(idPublicacion) {
     const enlaceReceta = obtenerEnlaceReceta(idPublicacion);
     const mensaje = `Instagram no permite compartir enlaces directamente.\n\nEl enlace ha sido copiado al portapapeles.`;
@@ -61,7 +56,6 @@ function compartirPorInstagram(idPublicacion) {
     navigator.clipboard.writeText(enlaceReceta) // Copiar link en el portapapeles
         .then(() => {
             mostrarModal(mensaje, () => {
-                // Redirigir a Instagram después de aceptar
                 window.open("https://www.instagram.com/", "_blank");
             });
         })
@@ -71,11 +65,10 @@ function compartirPorInstagram(idPublicacion) {
         });
 }
 
-// Compartir en Twitter
 function compartirPorTwitter(idPublicacion) {
     const enlaceReceta = obtenerEnlaceReceta(idPublicacion);
     const mensaje = `¡Mira esta receta!`;
     const urlTwitter = `https://twitter.com/intent/tweet?text=${encodeURIComponent(mensaje)}&url=${encodeURIComponent(enlaceReceta)}`;
-    
+
     window.open(urlTwitter, "_blank"); // Nueva ventana
 }
