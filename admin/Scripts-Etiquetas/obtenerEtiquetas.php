@@ -9,13 +9,13 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             
         $usuarioID = $_SESSION['id']; // ID Usuario logueado
 
-        if (!Permisos::tienePermiso('Gestionar Etiquetas', $usuarioID)) {
-            echo json_encode(['success' => false, 'error' => 'Error, no posee el permiso para gestionar etiquetas.']);
+        if (!Permisos::tienePermiso('Obtener Etiquetas Admin', $usuarioID)) {
+            echo json_encode(['success' => false, 'message' => 'Error, no posee el permiso para obtener etiquetas.']);
             exit();
         }
         
     }else{
-        echo json_encode(['success' => false, 'message' => 'Necesitas iniciar sesión para poder gestionar etiquetas..', 'id_publicacion_receta' => $id_publicacion_receta]);
+        echo json_encode(['success' => false, 'message' => 'Necesitas iniciar sesión para poder obtener etiquetas..', 'id_publicacion_receta' => $id_publicacion_receta]);
         exit();
     }
 

@@ -9,13 +9,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
         $usuarioID = $_SESSION['id']; // ID Usuario logueado
 
-        if (!Permisos::tienePermiso('Gestionar Comentarios Reportados', $usuarioID)) {
-            echo json_encode(['success' => false, 'error' => 'Error, no posee el permiso para gestionar comentarios reportados.']);
+        if (!Permisos::tienePermiso('Ignorar Reportes Comentario', $usuarioID)) {
+            echo json_encode(['success' => false, 'message' => 'Error, no posee el permiso para ignorar comentarios reportados.']);
             exit();
         }
         
     }else{
-        echo json_encode(['success' => false, 'message' => 'Necesitas iniciar sesión para poder gestionar comentarios reportados..', 'id_publicacion_receta' => $id_publicacion_receta]);
+        echo json_encode(['success' => false, 'message' => 'Necesitas iniciar sesión para poder ignorar comentarios reportados..', 'id_publicacion_receta' => $id_publicacion_receta]);
         exit();
     }
 

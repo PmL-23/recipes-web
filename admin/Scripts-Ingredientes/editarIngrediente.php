@@ -9,13 +9,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
         $usuarioID = $_SESSION['id']; // ID Usuario logueado
 
-        if (!Permisos::tienePermiso('Gestionar Ingredientes', $usuarioID)) {
-            echo json_encode(['success' => false, 'error' => 'Error, no posee el permiso para gestionar ingredientes.']);
+        if (!Permisos::tienePermiso('Editar Ingrediente', $usuarioID)) {
+            echo json_encode(['success' => false, 'message' => 'Error, no posee el permiso para editar ingredientes.']);
             exit();
         }
         
     }else{
-        echo json_encode(['success' => false, 'message' => 'Necesitas iniciar sesión para poder gestionar ingredientes..', 'id_publicacion_receta' => $id_publicacion_receta]);
+        echo json_encode(['success' => false, 'message' => 'Necesitas iniciar sesión para poder editar ingredientes..', 'id_publicacion_receta' => $id_publicacion_receta]);
         exit();
     }
 

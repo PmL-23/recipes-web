@@ -9,13 +9,13 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             
         $usuarioID = $_SESSION['id']; // ID Usuario logueado
 
-        if (!Permisos::tienePermiso('Gestionar Categorias', $usuarioID)) {
-            echo json_encode(['success' => false, 'message' => 'Error, no posee el permiso para gestionar categorias.']);
+        if (!Permisos::tienePermiso('Obtener Categorias Admin', $usuarioID)) {
+            echo json_encode(['success' => false, 'message' => 'Error, no posee el permiso para obtener categorias.']);
             exit();
         }
         
     }else{
-        echo json_encode(['success' => false, 'message' => 'Necesitas iniciar sesión para poder gestionar categorias..', 'id_publicacion_receta' => $id_publicacion_receta]);
+        echo json_encode(['success' => false, 'message' => 'Necesitas iniciar sesión para poder obtener categorias..', 'id_publicacion_receta' => $id_publicacion_receta]);
         exit();
     }
 
