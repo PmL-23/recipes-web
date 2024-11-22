@@ -1,6 +1,6 @@
 <?php include '../includes/conec_db.php' ?>
 <?php
-
+require_once('../includes/permisos.php');
 require_once('./Scripts-Valoracion/getValoracionActual.php');
 require_once('./Scripts-Favorito/getEstadoDeFavorito.php');
 require_once('../includes/razonesReporte.php');

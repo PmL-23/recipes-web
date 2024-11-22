@@ -29,15 +29,24 @@ const agregarIngrediente = function () {
                 const searchDiv = document.createElement("div");
                 searchDiv.classList.add("search-ingrediente");
                 searchDiv.id = `search-ingrediente-${ingredienteContador}`; 
+
+                const errorIngredienteDiv = document.createElement("div");
+                const errorIngrediente = document.createElement("small");
+                errorIngrediente.classList.add("text-danger","error-ingrediente");
+                
         
                 const colCantidad = document.createElement("div");
                 colCantidad.classList.add("col-md-4", "mt-4");
         
                 const inputCantidad = document.createElement("input");
-                inputCantidad.classList.add("form-control");
+                inputCantidad.classList.add("form-control","cantidad-input");
                 inputCantidad.type = "text";
                 inputCantidad.name = "cantidad[]";
                 inputCantidad.placeholder = "400gr, una pizca...";
+
+                const errorCantidadDiv = document.createElement("div");
+                const errorCantidad = document.createElement("small");
+                errorCantidad.classList.add("text-danger","error-ingrediente-cantidad");
         
                 const colQuitar = document.createElement("div");
                 colQuitar.classList.add("col-md-2", "mt-4","d-flex", "justify-content-end");
@@ -53,11 +62,15 @@ const agregarIngrediente = function () {
         
                 rowIngrediente.appendChild(colIngrediente);
                 colIngrediente.appendChild(inputIngrediente);
-                colIngrediente.appendChild(searchDiv);
+                colIngrediente.appendChild(searchDiv);  
+                errorIngredienteDiv.appendChild(errorIngrediente);
+                colIngrediente.appendChild(errorIngredienteDiv);
         
                 rowIngrediente.appendChild(colCantidad);
                 colCantidad.appendChild(inputCantidad);
-        
+                errorCantidadDiv.appendChild(errorCantidad);
+                colCantidad.appendChild(errorCantidadDiv);
+                
                 rowIngrediente.appendChild(colQuitar);
                 colQuitar.appendChild(quitarBoton);
         
@@ -114,23 +127,23 @@ const mostrarIngredientes = function (data, searchDiv) {
                         limpiarDiv(searchDiv); 
                         }
                 });
-        }
+}
 
 
-        function obtenerSugerencias(ingreso, searchDiv) {
-        if (ingreso.length === 0) {
-                limpiarDiv(searchDiv);
-                return;
-        }
-        
-        fetch("../crearReceta/obtener_ingredientes.php?ing=" + encodeURIComponent(ingreso))
-                .then(response => response.json())
-                .then(data => {
-                        mostrarIngredientes(data, searchDiv);
-                })
-                .catch(error => {
-                        console.error('Error:', error);
-                });
+function obtenerSugerencias(ingreso, searchDiv) {
+if (ingreso.length === 0) {
+        limpiarDiv(searchDiv);
+        return;
+}
+
+fetch("../crearReceta/obtener_ingredientes.php?ing=" + encodeURIComponent(ingreso))
+        .then(response => response.json())
+        .then(data => {
+                mostrarIngredientes(data, searchDiv);
+        })
+        .catch(error => {
+                console.error('Error:', error);
+        });
 }
 
 //agrego los ingredientes después de darle las funcionalidades

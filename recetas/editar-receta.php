@@ -113,13 +113,13 @@ if (!$queryResultsEtiquetas) {
     
             <div class="mt-3">
                 <label class="h5 form-label mt-3" for="titulo">TÍtulo</label>
-                <input class="form-control form-control-md" type="text" placeholder="Añade el titulo de tu receta" aria-label=".form-control" id="titulo" name="titulo" maxlength="100" value="<?php echo $titulo; ?>" required>
+                <input class="form-control form-control-md" type="text" placeholder="Añade el titulo de tu receta" aria-label=".form-control" id="titulo" name="titulo" maxlength="100" value="<?php echo $titulo; ?>">
                 <small class="text-danger" id="error-titulo"></small>
             </div>
         
             <div class="mt-3">
             <label for="descripcion" class="h5 form-label mt-3">Descripción</label>
-            <textarea class="form-control textarea-resize" id="descripcion" name="descripcion" placeholder="Añade una descripción a tu receta" required><?php echo $descripcion; ?></textarea>
+            <textarea class="form-control textarea-resize" id="descripcion" name="descripcion" placeholder="Añade una descripción a tu receta" ><?php echo $descripcion; ?></textarea>
             <small class="text-danger" id="error-descripcion"></small>
             </div>
 
@@ -137,7 +137,7 @@ if (!$queryResultsEtiquetas) {
                                     echo '<option value="' . $paisRow['id_pais'] . '" data-pais="' . $rutaBandera . '" ' . $selected . '>' . $paisRow['nombre'] . '</option>';
                                 } ?>
                             </select>
-                            <small class="text-danger" id="error-pais"></small>
+                            <small class="text-danger error-pais" id="error-pais"></small>
                             <img class="ms-2 bandera mini-bandera d-none" src="" alt="Bandera">
                         </div>
                         <?php } ?>
@@ -182,7 +182,7 @@ if (!$queryResultsEtiquetas) {
                         </div>
                     </div>
                     <label for="dificultad" class="h6 form-label">Dificultad de elaboración</label>
-                    <select class="form-select" aria-label="Select dificultad" id="dificultad" name="dificultad" required>
+                    <select class="form-select" aria-label="Select dificultad" id="dificultad" name="dificultad" >
                         <option selected disabled>Elegí la dificultad de tu platillo</option>
                         <option value="Fácil" <?php echo ($dificultad == "Fácil") ? 'selected' : ''; ?>>Fácil</option>
                         <option value="Media" <?php echo ($dificultad == "Media") ? 'selected' : ''; ?>>Media</option>
@@ -199,16 +199,17 @@ if (!$queryResultsEtiquetas) {
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <label for="tiempo-elaboracion" class="h6 form-label">Tiempo de elaboración</label>
-                        <input type="number" class="form-control" name="minutos_prep" placeholder="Ej: 30, 120..." aria-label="Number tiempo" id="tiempo-elaboracion" min="1" max="999999" value="<?php echo $minutos_prep?>" required>
+                        <input type="number" class="form-control" name="minutos_prep" placeholder="Ej: 30, 120..." aria-label="Number tiempo" id="tiempo-elaboracion" min="1" max="999999" value="<?php echo $minutos_prep?>" >
                         <small class="text-danger" id="error-tiempo"></small>
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <label for="tiempo-unidad" class="h6 form-label">Hora/Minutos</label>
-                        <select class="form-select" aria-label="Select unidad" name="tiempo_unidad" id="tiempo-unidad" required>
+                        <select class="form-select" aria-label="Select unidad" name="tiempo_unidad" id="tiempo-unidad" >
 
                             <option selected value="min">Minutos</option>
                             <option value="hora">Hora/s</option>
                         </select>
+                        <small class="text-danger" id="error-unidad"></small>
                     </div>
                 </div>
                 
@@ -223,17 +224,18 @@ if (!$queryResultsEtiquetas) {
                 <div class="una_etiqueta d-grid gap-2 d-flex flex-column justify-content-md-end mt-3 <?php echo $index != 0 ? 'row' : ''?>" id="item-etiqueta">
                     <div class="row">
                         <div class="<?php echo $index != 0 ? 'col-md-10' : ''?>">
-                        <select class="form-select" aria-label="Select etiqueta" name="etiqueta[]" required>
-                        <option value="" disabled>Selecciona una etiqueta</option>
-                            <?php foreach ($etiquetasDisponibles as $etiquetaRow) {
-                                $selected = '';
-                                if ($etiquetaRow['id_etiqueta'] == $etiquetaReceta['id_etiqueta']) {
-                                    $selected = 'selected';  
+                            <select class="form-select select-etiqueta" aria-label="Select etiqueta" name="etiqueta[]">
+                                <option value="" disabled>Selecciona una etiqueta</option>
+                                <?php foreach ($etiquetasDisponibles as $etiquetaRow) {
+                                    $selected = '';
+                                    if ($etiquetaRow['id_etiqueta'] == $etiquetaReceta['id_etiqueta']) {
+                                        $selected = 'selected';  
+                                    }
+                                        echo '<option value="'.$etiquetaRow['id_etiqueta']. '" ' . $selected . '>' .$etiquetaRow['titulo'].'</option>';
                                 }
-                                    echo '<option value="'.$etiquetaRow['id_etiqueta']. '" ' . $selected . '>' .$etiquetaRow['titulo'].'</option>';
-                            }
-                            ?>
-                        </select>
+                                ?>
+                            </select>
+                            <small class="text-danger error-etiqueta" id="error-etiqueta"></small>
                         </div>
                         <div class="col-md-2 d-flex container justify-content-end">
                         <?php if ($index != 0)
@@ -242,7 +244,6 @@ if (!$queryResultsEtiquetas) {
                         </div>
                     </div>
                 </div>
-                <small class="text-danger" id="error-etiqueta"></small>
             <?php } ?>
 
         </div>
@@ -262,16 +263,16 @@ if (!$queryResultsEtiquetas) {
                     <input type="text" class="ingrediente-input form-control my-2" name="ingrediente[]" placeholder="Harina, Sal..." id="ingrediente-<?php echo $index; ?>" value="<?php echo $ingrediente['nombre']; ?>">
                     <div class="search-ingrediente" id="search-ingrediente-<?php echo $index; ?>"></div>
                     <div>
-                        <small class="text-danger" id="error-ingrediente-<?php echo $index; ?>"></small>
+                        <small class="text-danger error-ingrediente" id="error-ingrediente-<?php echo $index; ?>"></small>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <?php if ($index == 0) { ?>
                     <label for="cantidad-<?php echo $index; ?>" class="h6 form-label">Cantidad</label>
                     <?php } ?>
-                    <input type="text" class="form-control my-2" name="cantidad[]" placeholder="400gr, una pizca..." id="cantidad-<?php echo $index; ?>" value="<?php echo $ingrediente['cantidad']; ?>">
+                    <input type="text" class="form-control my-2 catidad-input" name="cantidad[]" placeholder="400gr, una pizca..." id="cantidad-<?php echo $index; ?>" value="<?php echo $ingrediente['cantidad']; ?>">
                     <div>
-                        <small class="text-danger" id="error-ingrediente-cantidad-<?php echo $index; ?>"></small>
+                        <small class="text-danger error-ingrediente-cantidad" id="error-ingrediente-cantidad-<?php echo $index; ?>"></small>
                     </div>
                 </div>
                 <div class="col-md-2 d-flex justify-content-end align-items-center">
@@ -290,10 +291,10 @@ if (!$queryResultsEtiquetas) {
     <ol class="list-group-numbered h6" id="list-paso">
         <?php foreach ($pasos as $paso): ?>
         <li class="item-lista list-group-item" id="li-paso-<?php echo $paso['num_paso']; ?>">
-            <div class="un_paso d-grid d-flex justify-content-end">
-                <textarea class="form-control input-paso textarea-resize item-paso" name="paso[]" placeholder="Ej: Mezcla los ingredientes en un bowl..." required><?php echo $paso['texto']; ?></textarea>
+            <div class="un_paso d-grid  gap-2 flex-column d-flex justify-content-end">
+                <textarea class="form-control input-paso textarea-resize item-paso" name="paso[]" placeholder="Ej: Mezcla los ingredientes en un bowl..." ><?php echo $paso['texto']; ?></textarea>
+                <small class="text-danger error-paso"></small>
             </div>
-            <small class="text-danger" id="error-paso-<?php echo $paso['num_paso']; ?>"></small>
 
             <div class="d-grid d-flex justify-content-end mt-2">
                 <button class="boton-secundario btn-quitar-lista d-flex" type="button" id="quitar-paso-<?php echo $paso['num_paso']; ?>">
@@ -324,6 +325,7 @@ if (!$queryResultsEtiquetas) {
             
             <div class="d-grid d-md-flex justify-content-md-start mt-2">
                 <input class="form-control file-paso" type="file" name="imagenes_paso_<?php echo $paso['num_paso']; ?>[]" multiple accept="image/*">
+                <small class="text-danger error-imagen-paso"></small>
             </div>
         </li>
         <?php endforeach; ?>

@@ -55,15 +55,24 @@ const inicio = function ()
                         const searchDiv = document.createElement("div");
                         searchDiv.classList.add("search-ingrediente");
                         searchDiv.id = `search-ingrediente-${ingredienteContador}`; 
+
+                        const errorIngredienteDiv = document.createElement("div");
+                        const errorIngrediente = document.createElement("small");
+                        errorIngrediente.classList.add("text-danger","error-ingrediente");
+                        
                 
                         const colCantidad = document.createElement("div");
                         colCantidad.classList.add("col-md-4", "mt-4");
                 
                         const inputCantidad = document.createElement("input");
-                        inputCantidad.classList.add("form-control");
+                        inputCantidad.classList.add("form-control","cantidad-input");
                         inputCantidad.type = "text";
                         inputCantidad.name = "cantidad[]";
                         inputCantidad.placeholder = "400gr, una pizca...";
+
+                        const errorCantidadDiv = document.createElement("div");
+                        const errorCantidad = document.createElement("small");
+                        errorCantidad.classList.add("text-danger","error-ingrediente-cantidad");
                 
                         const colQuitar = document.createElement("div");
                         colQuitar.classList.add("col-md-2", "mt-4","d-flex", "justify-content-end");
@@ -79,11 +88,15 @@ const inicio = function ()
                 
                         rowIngrediente.appendChild(colIngrediente);
                         colIngrediente.appendChild(inputIngrediente);
-                        colIngrediente.appendChild(searchDiv);
+                        colIngrediente.appendChild(searchDiv);  
+                        errorIngredienteDiv.appendChild(errorIngrediente);
+                        colIngrediente.appendChild(errorIngredienteDiv);
                 
                         rowIngrediente.appendChild(colCantidad);
                         colCantidad.appendChild(inputCantidad);
-                
+                        errorCantidadDiv.appendChild(errorCantidad);
+                        colCantidad.appendChild(errorCantidadDiv);
+                        
                         rowIngrediente.appendChild(colQuitar);
                         colQuitar.appendChild(quitarBoton);
                 
@@ -210,19 +223,21 @@ const inicio = function ()
                 }
                 
                 
+
                 function actualizarBandera(select) {
-                const bandera = select.parentNode.querySelector('.bandera');
-                const opcionSeleccionada = select.options[select.selectedIndex];
-                if (opcionSeleccionada && opcionSeleccionada.dataset.pais) {
-                        bandera.src = opcionSeleccionada.dataset.pais;
-                        bandera.classList.remove('d-none');
-                        bandera.alt = "Bandera de " + opcionSeleccionada.text;
-                } else {
-                        bandera.src = "";
-                        bandera.classList.add('d-none');
-                        bandera.alt = "";
+
+                        const optionSeleccionado = select.options[select.selectedIndex];
+                        const imgUrl = optionSeleccionado.getAttribute('data-pais');
+                        const bandera = select.closest('.pais-container').querySelector('.bandera');
+                
+                        if (imgUrl) {
+                                bandera.src = imgUrl;
+                                bandera.classList.remove("d-none");
+                        } else {
+                                bandera.classList.add("d-none");
+                        }
                 }
-                }
+                
                 
                 
                 function actualizarBotonAgregarPais() {
@@ -265,9 +280,7 @@ const inicio = function ()
                 
                 
                 actualizarOpciones();
-                actualizarBotonAgregarPais();
-
-                
+                actualizarBotonAgregarPais(); 
                 });
 
                 function verTodosLosValores() {
@@ -354,7 +367,9 @@ const inicio = function ()
                                         window.location.href = "../recetas/receta-plantilla.php?id=" + data.nueva_receta_id;
                                         }else{
                                                 console.log("Error al crear receta:", data.msj_error); 
-
+                                                console.log('Errores:', data.errors);
+                                                console.log('Errores:', data.errorsIng);
+                                                console.log('Errores:', data.errorsPaso);
                                         }
                         
                                 });
@@ -366,40 +381,59 @@ const inicio = function ()
 };      
 
 function validarPortada() {
-
         let FlagValidacion = true;
 
         const inputPortada = document.getElementById("foto-portada");
         const errorPortada = document.getElementById("errorPortada");
-        
+
         inputPortada.addEventListener("change", function() {
-
                 if (inputPortada.files.length > 0) {
+                        const file = inputPortada.files[0];
+                        const validImageTypes = ["image/gif", "image/jpeg", "image/png"];
 
-                        errorPortada.textContent = "";
-                        inputPortada.classList.remove("is-invalid");
-                        inputPortada.classList.add("is-valid");
+                        if (validImageTypes.includes(file.type)) {
+                                errorPortada.textContent = "";
+                                inputPortada.classList.remove("is-invalid");
+                                FlagValidacion = true;
 
-                        FlagValidacion = true;
+                        } else {
+                                errorPortada.textContent = "Debe seleccionar un archivo de imagen válido (gif, jpeg, png).";
+                                inputPortada.classList.add("is-invalid");
 
+                                FlagValidacion = false;
+                        }
                 } else {
-
-                        inputPortada.classList.remove("is-valid");
-
+                        errorPortada.textContent = "La foto de portada es requerida.";
+                        inputPortada.classList.add("is-invalid");
                         FlagValidacion = false;
-
                 }
         });
-                
+
         if (inputPortada.files.length === 0) {
-                inputPortada.classList.add("is-invalid");
                 errorPortada.textContent = "La foto de portada es requerida.";
+                inputPortada.classList.add("is-invalid");
 
                 FlagValidacion = false;
+        } else {
+                const file = inputPortada.files[0];
+                const validImageTypes = ["image/gif", "image/jpeg", "image/png"];
+
+                if (!validImageTypes.includes(file.type)) {
+                        errorPortada.textContent = "Debe seleccionar un archivo de imagen válido (gif, jpeg, png).";
+                        inputPortada.classList.add("is-invalid");
+
+                        FlagValidacion = false;
+                } else {
+                        errorPortada.textContent = "";
+                        inputPortada.classList.remove("is-invalid");
+                        
+                        FlagValidacion = true;
+                }
         }
 
         return FlagValidacion;
 }
+
 
 
 function validarTitulo() {
@@ -419,11 +453,9 @@ function validarTitulo() {
 
                         errorTitulo.textContent = "";
                         titulo.classList.remove("is-invalid");
-                        titulo.classList.add("is-valid");
                         FlagValidacion = true;
 
                 }else {
-                        titulo.classList.remove("is-valid");
                         FlagValidacion = false;
                 }
                 
@@ -439,7 +471,6 @@ function validarTitulo() {
 
                 errorTitulo.textContent = "Debe ingresar entre 1 a 50 palabras.";
                 titulo.classList.add("is-invalid");
-                titulo.classList.remove("is-valid");
                 FlagValidacion = false;
         }
         
@@ -461,16 +492,13 @@ function validarDescripcion() {
         
         descripcion.addEventListener("change", function(){   
 
-                if (palabras.length > 2 || palabras.length < 50){
+                if (palabras.length > 2 || palabras.length < 100){
                         errorDescripcion.textContent = "";
                         descripcion.classList.remove("is-invalid");
-                        descripcion.classList.add("is-valid");
-
                         FlagValidacion = true;
 
                 }else {
-                        descripcion.classList.remove("is-valid");
-
+                        descripcion.classList.add("is-invalid");
                         FlagValidacion = false;
                 }
                         
@@ -487,7 +515,6 @@ function validarDescripcion() {
 
                 errorDescripcion.textContent = "Debe ingresar entre 2 a 100 palabras.";
                 descripcion.classList.add("is-invalid");
-                descripcion.classList.remove("is-valid");
 
                 FlagValidacion = false;
         }            
@@ -497,180 +524,474 @@ function validarDescripcion() {
 }
 
 function validarIngrediente() {
+        const ingredientes = document.querySelectorAll(".ingrediente-input");
+        let FlagValidacion = true; 
 
-        let FlagValidacion = true;
-
-        const ingrediente = document.getElementById("ingrediente");
-        const ingredientev = ingrediente.value.trim(); 
-        const errorIngrediente = document.getElementById("error-ingrediente");
-                
-        const palabras = ingredientev.split(" ").filter(palabra => palabra !== "");
+        ingredientes.forEach(function (ingrediente) {
+                const errorIngrediente = ingrediente.parentElement.querySelector(".error-ingrediente");
+                errorIngrediente.textContent = "";
         
-        ingrediente.addEventListener("change", function(){   
-
-                if (palabras.length > 0 || palabras.length < 15){
-
-                        errorIngrediente.textContent = "";
-                        ingrediente.classList.remove("is-invalid");
-                        ingrediente.classList.add("is-valid");
-
-                        FlagValidacion = true;
-
-                }else {
-                        ingrediente.classList.remove("is-valid");
-
-                        FlagValidacion = false;
-                }
-                        
-        });
+                ingrediente.addEventListener("change", function() { 
+                        const ingredienteValue = ingrediente.value;
+                        const palabras = ingredienteValue.split(" ").filter(palabra => palabra !== "");
         
-        if (ingredientev === "") {
-        
-                errorIngrediente.textContent = "Debe ingresar un ingrediente.";
-        
-                ingrediente.classList.add("is-invalid");
-
-                FlagValidacion = false;
-        
-        } else if (palabras.length > 15) {
-        
-                errorIngrediente.textContent = "Debe ingresar menos de 15 palabras"; 
-                ingrediente.classList.add("is-invalid");
-                ingrediente.classList.remove("is-valid");
-
-                FlagValidacion = false;     
-        }            
-
-        return FlagValidacion;            
-}
-
-function validarPaso() {
-
-        let FlagValidacion = true;
-
-        const paso = document.querySelectorAll(".item-paso");
-
-        paso.forEach(element => {
-
-                const pasov = element.value.trim(); 
-                const errorPaso = document.getElementById("error-paso");
-                        
-                const palabras = pasov.split(" ").filter(palabra => palabra !== "");
-                
-                element.addEventListener("change", function(){   
-
-                        if (palabras.length > 4 || palabras.length < 30){
-
-                                errorPaso.textContent = "";
-                                element.classList.remove("is-invalid");
-                                element.classList.add("is-valid");
-
-                                FlagValidacion = true;
-                        }else{
-                                element.classList.remove("is-valid");
-
+                        if (ingredienteValue === "") {
+                                errorIngrediente.textContent = "Debe ingresar un ingrediente.";
+                                ingrediente.classList.add("is-invalid");
                                 FlagValidacion = false;
+
+                        } else if (palabras.length < 1 || palabras.length > 14) {
+                                errorIngrediente.textContent = "Debe ingresar entre 1 a 15 palabras.";
+                                ingrediente.classList.add("is-invalid");
+                                FlagValidacion = false;
+
+                        } else {
+                                ingrediente.classList.remove("is-invalid");
+                                errorIngrediente.textContent = "";
+                                FlagValidacion = true;
                         }
-                                
                 });
-
-                if (pasov === "") {
-
-                        errorPaso.textContent = "Debe ingresar las instrucciones del paso.";
-                        element.classList.remove("is-valid");
-                        element.classList.add("is-invalid");
-
+        
+                const ingredienteValue = ingrediente.value;
+                const palabras = ingredienteValue.split(" ").filter(palabra => palabra !== "");
+        
+                if (ingredienteValue === "") {
+                        errorIngrediente.textContent = "Debe ingresar un ingrediente.";
+                        ingrediente.classList.add("is-invalid");
                         FlagValidacion = false;
 
-                } else if (palabras.length < 4) {
-
-                        errorPaso.textContent = "Debe ingresar al menos 4 palabras. Trate de detallar las intrucciones";
-                        element.classList.add("is-invalid");
-                        element.classList.remove("is-valid");
-
+                } else if (palabras.length < 1 || palabras.length > 14) {
+                        errorIngrediente.textContent = "Debe ingresar entre 1 a 15 palabras.";
+                        ingrediente.classList.add("is-invalid");
                         FlagValidacion = false;
 
-                }else if (palabras.length > 30) {
-
-                        errorPaso.textContent = "Debe ingresar menos de 30 palabras. Si necesitas detallar más agregue un nuevo paso";
-                        element.classList.add("is-invalid");
-                        element.classList.remove("is-valid");
-
-                        FlagValidacion = false;
-
-                }   
+                } else {
+                        ingrediente.classList.remove("is-invalid");
+                        errorIngrediente.textContent = "";
+                }
         });
-          
-        return FlagValidacion;   
-}
-
-function validarTiempo (){
-
-        let FlagValidacion = true;
-
-        const tiempo = document.getElementById("tiempo-elaboracion");
-        const tiempov= tiempo.value;
-        const errorTiempo = document.getElementById("error-tiempo");
-
-       // console.log(tiempov);
-
-        if (tiempov === "") {
-
-                errorTiempo.textContent = "Debe ingresar el tiempo de elaboración";
-                tiempo.classList.add("is-invalid");
-
-                FlagValidacion = false;
-
-        } else if (!isNaN(tiempo) && tiempov < 0) {
-
-                errorTiempo.textContent = "Debe ingresar un numero mayor o igual a 1";
-                tiempo.classList.add("is-invalid");
-                tiempo.classList.remove("is-valid");
-
-                FlagValidacion = false;
-
-        }else{
-
-                tiempo.classList.remove("is-invalid");
-                tiempo.classList.add("is-valid");
-                errorTiempo.textContent = "";
-
-                FlagValidacion = true;
-
-        }            
-
 
         return FlagValidacion;
 }
 
-function validarDificultad() {
 
+function validarCantidad() {
+        const cantidades = document.querySelectorAll(".cantidad-input");
+        let FlagValidacion = true; 
+
+        cantidades.forEach(function (cantidad) {
+                const errorCantidad = cantidad.parentElement.querySelector(".error-ingrediente-cantidad");
+                errorCantidad.textContent = "";
+        
+                cantidad.addEventListener("change", function() { 
+                        const cantidadValue = cantidad.value;
+                        const palabras = cantidadValue.split(" ").filter(palabra => palabra !== "");
+        
+                        if (cantidadValue === "") {
+                                errorCantidad.textContent = "Debe ingresar un cantidad.";
+                                cantidad.classList.add("is-invalid");
+                                FlagValidacion = false;
+
+                        } else if (palabras.length < 1 || palabras.length > 24) {
+                                errorCantidad.textContent = "Debe ingresar entre 1 a 25 palabras.";
+                                cantidad.classList.add("is-invalid");
+                                FlagValidacion = false;
+
+                        } else {
+                                cantidad.classList.remove("is-invalid");
+                                errorCantidad.textContent = "";
+                                FlagValidacion = true;
+                        }
+                });
+        
+                const cantidadValue = cantidad.value;
+                const palabras = cantidadValue.split(" ").filter(palabra => palabra !== "");
+        
+                if (cantidadValue === "") {
+                        errorCantidad.textContent = "Debe ingresar una cantidad.";
+                        cantidad.classList.add("is-invalid");
+                        FlagValidacion = false;
+
+                } else if (palabras.length < 1 || palabras.length > 24) {
+                        errorCantidad.textContent = "Debe ingresar entre 1 a 25 palabras.";
+                        cantidad.classList.add("is-invalid");
+                        FlagValidacion = false;
+
+                } else {
+                        cantidad.classList.remove("is-invalid");
+                        errorCantidad.textContent = "";
+                }
+        });
+
+        return FlagValidacion;
+}
+
+
+function validarPaso() {
+        let FlagValidacion = true;
+        const pasos = document.querySelectorAll(".input-paso");
+
+        pasos.forEach(function (paso) {
+        const errorPaso = paso.parentElement.querySelector(".error-paso");
+        errorPaso.textContent = "";
+
+        paso.addEventListener("input", function() {  
+                const pasov = paso.value.trim();
+                const palabras = pasov.split(" ").filter(palabra => palabra !== "");
+
+                if (pasov === "") {
+                        errorPaso.textContent = "Debe ingresar las instrucciones del paso.";
+                        paso.classList.add("is-invalid");
+                        FlagValidacion = false;
+
+                } else if (palabras.length < 4) {
+                        errorPaso.textContent = "Debe ingresar al menos 4 palabras. Trate de detallar las instrucciones.";
+                        paso.classList.add("is-invalid");
+                        FlagValidacion = false;
+
+                } else if (palabras.length > 30) {
+                        errorPaso.textContent = "Debe ingresar menos de 30 palabras. Si necesita detallar más, agregue un nuevo paso.";
+                        paso.classList.add("is-invalid");
+                        FlagValidacion = false;
+
+                } else {
+                        errorPaso.textContent = "";
+                        paso.classList.remove("is-invalid");
+                        FlagValidacion = true;
+                }
+        });
+
+
+                const pasov = paso.value.trim();
+                const palabras = pasov.split(" ").filter(palabra => palabra !== "");
+
+                if (pasov === "") {
+                        errorPaso.textContent = "Debe ingresar las instrucciones del paso.";
+                        paso.classList.add("is-invalid");
+                        FlagValidacion = false;
+
+                } else if (palabras.length < 4) {
+                        errorPaso.textContent = "Debe ingresar al menos 4 palabras. Trate de detallar las instrucciones.";
+                        paso.classList.add("is-invalid");
+                        FlagValidacion = false;
+
+                } else if (palabras.length > 30) {
+                        errorPaso.textContent = "Debe ingresar menos de 30 palabras. Si necesita detallar más, agregue un nuevo paso.";
+                        paso.classList.add("is-invalid");
+                        FlagValidacion = false;
+
+                } else {
+                        errorPaso.textContent = "";
+                        paso.classList.remove("is-invalid");
+                        FlagValidacion = true;
+                }
+        });
+
+        return FlagValidacion;
+}
+
+
+
+function validarImagenPaso() {
         let FlagValidacion = true;
 
-        const dificultad = document.getElementById("dificultad");
-        const errorDificultad = document.getElementById("error-dificultad");
-        const dificultadv = dificultad.value;
+        const imagenes = document.querySelectorAll(".file-paso");
+
+        imagenes.forEach(function(imagen) {       
+                const errorImagen = imagen.parentElement.querySelector(".error-imagen-paso");
+                errorImagen.textContent = "";
+
+                imagen.addEventListener("change", function() {
+                        if (imagen.files.length > 0) {
+                        const file = imagen.files[0];
+                        const validImageTypes = ["image/gif", "image/jpeg", "image/png"];
+
+                                if (!validImageTypes.includes(file.type)) {
+                                        errorImagen.textContent = "Debe seleccionar un archivo de imagen válido (gif, jpeg, png).";
+                                        imagen.classList.add("is-invalid");
+
+                                        FlagValidacion = false;
+                                } else {
+                                        errorImagen.textContent = "";
+                                        imagen.classList.remove("is-invalid");
+                                        
+                                        FlagValidacion = true;
+                                } 
+                        }
+                });
+
+
+                if (imagen.files.length > 0) {
+                        const file = imagen.files[0];
+                        const validImageTypes = ["image/gif", "image/jpeg", "image/png"];
+
+                        if (!validImageTypes.includes(file.type)) {
+                                errorImagen.textContent = "Debe seleccionar un archivo de imagen válido (gif, jpeg, png).";
+                                imagen.classList.add("is-invalid");
+
+                                FlagValidacion = false;
+                        } else {
+                                errorImagen.textContent = "";
+                                imagen.classList.remove("is-invalid");
+                                
+                                FlagValidacion = true;
+                        } 
+                }
+        });
+
+        return FlagValidacion;
+}
+
+
+
+function validarTiempo() {
+        let FlagValidacion = true;
+
+        const tiempo = document.getElementById("tiempo-elaboracion");
+        const errorTiempo = document.getElementById("error-tiempo");
+
         
-        if (dificultadv !== "Fácil" && dificultadv !== "Media" && dificultadv !== "Dificil") {
+        tiempo.addEventListener("input", function() {
+                const tiempov = tiempo.value;
 
-                errorDificultad.textContent = "Debes seleccionar la dificultad de elaboración.";
-                dificultad.classList.add("is-invalid");
-                dificultad.classList.remove("is-valid");
+                if (tiempov === "") {
+                        errorTiempo.textContent = "Debe ingresar el tiempo de elaboración";
+                        tiempo.classList.add("is-invalid");
+                        FlagValidacion = false;
 
+                }else if (tiempov < 1) {
+                        errorTiempo.textContent = "Debe ingresar un número mayor o igual a 1";
+                        tiempo.classList.add("is-invalid");
+                        FlagValidacion = false;
+                        
+                } else {
+                        tiempo.classList.remove("is-invalid");
+                        errorTiempo.textContent = "";
+                        FlagValidacion = true;
+                }
+        });
+
+        const tiempov = tiempo.value;
+        if (tiempov === "") {
+                errorTiempo.textContent = "Debe ingresar el tiempo de elaboración";
+                tiempo.classList.add("is-invalid");
                 FlagValidacion = false;
-
+        } else if (tiempov < 1) {
+                errorTiempo.textContent = "Debe ingresar un número mayor o igual a 1";
+                tiempo.classList.add("is-invalid");
+                FlagValidacion = false;
         } else {
-
-                dificultad.classList.remove("is-invalid");
-                dificultad.classList.add("is-valid");
-                errorDificultad.textContent = ""; 
-
+                tiempo.classList.remove("is-invalid");
+                errorTiempo.textContent = "";
                 FlagValidacion = true;
         }
 
         return FlagValidacion;
-
 }
+
+function validarUnidadTiempo() {
+        const selectUnidad = document.getElementById("tiempo-unidad");
+        const errorUnidad = document.getElementById("error-unidad");
+        let FlagValidacion = true;
+
+        const minutoHora = ["min", "hora"];
+
+        selectUnidad.addEventListener("change", function() {
+        if (!minutoHora.includes(selectUnidad.value)) {
+                errorUnidad.textContent = "Debe seleccionar una unidad de tiempo válida";
+                selectUnidad.classList.add("is-invalid");
+                FlagValidacion = false;
+
+        } else {
+                errorUnidad.textContent = "";
+                selectUnidad.classList.remove("is-invalid");
+                FlagValidacion = true;
+
+        }
+        });
+
+
+        if (!minutoHora.includes(selectUnidad.value)) {
+                errorUnidad.textContent = "Debe seleccionar una unidad de tiempo válida";
+                selectUnidad.classList.add("is-invalid");
+                FlagValidacion = false;
+
+        } else {
+                errorUnidad.textContent = "";
+                selectUnidad.classList.remove("is-invalid");
+
+        }
+
+        return FlagValidacion;
+}
+
+
+
+function validarDificultad() {
+        let FlagValidacion = true;
+
+        const dificultad = document.getElementById("dificultad");
+        const errorDificultad = document.getElementById("error-dificultad");
+
+        
+        dificultad.addEventListener("change", function() {
+                const dificultadv = dificultad.value;
+
+                if (dificultadv === "") {
+                        errorDificultad.textContent = "Debes seleccionar la dificultad de elaboración.";
+                        dificultad.classList.add("is-invalid");
+                        FlagValidacion = false;
+
+                } else if (dificultadv !== "Fácil" && dificultadv !== "Media" && dificultadv !== "Dificil") {
+                        errorDificultad.textContent = "Debes seleccionar una dificultad válida";
+                        dificultad.classList.add("is-invalid");
+                        FlagValidacion = false;
+
+                } else {
+                        dificultad.classList.remove("is-invalid");
+                        errorDificultad.textContent = "";  
+                        FlagValidacion = true;
+                }
+        });
+
+        
+        const dificultadv = dificultad.value;
+        if (dificultadv === "") {
+                errorDificultad.textContent = "Debes seleccionar la dificultad de elaboración.";
+                dificultad.classList.add("is-invalid");
+                FlagValidacion = false;
+
+        } else if (dificultadv !== "Fácil" && dificultadv !== "Media" && dificultadv !== "Dificil") {
+                errorDificultad.textContent = "Debes seleccionar una dificultad válida.";
+                dificultad.classList.add("is-invalid");
+                FlagValidacion = false;
+
+        } else {
+                dificultad.classList.remove("is-invalid");
+                errorDificultad.textContent = "";  
+                FlagValidacion = true;
+        }
+
+        return FlagValidacion;
+}
+
+
+
+function validarCategoria() {
+        let FlagValidacion = true;
+
+        const categoria = document.getElementById("categoria");
+        const errorCategoria = document.getElementById("error-categoria");
+
+
+        categoria.addEventListener("change", function () {
+
+        if (categoria.value === "") {
+                errorCategoria.textContent = "Seleccione una categoría";
+                categoria.classList.add("is-invalid"); 
+                FlagValidacion = false;
+
+        } else {
+                categoria.classList.remove("is-invalid");
+                errorCategoria.textContent = "";
+                FlagValidacion = true;
+        }
+        });
+
+
+        if (categoria.value === "") {
+                errorCategoria.textContent = "Seleccione un categoría";
+                categoria.classList.add("is-invalid");
+                FlagValidacion = false;
+
+        } else {
+                categoria.classList.remove("is-invalid");
+                errorCategoria.textContent = "";
+                FlagValidacion = true;
+        }
+
+        return FlagValidacion;
+}
+
+
+
+
+function validarPaises() {
+        const paises = document.querySelectorAll(".select-pais");
+        let FlagValidacion = true; 
+
+        paises.forEach(function (pais) {
+                const errorPais = pais.parentElement.querySelector(".error-pais");
+                errorPais.textContent = "";
+
+                pais.addEventListener("change", function(){   
+                        if (pais.value === "") {
+                                errorPais.textContent = "Seleccione un país";
+                                pais.classList.add("is-invalid");
+                                FlagValidacion = false; 
+
+                        } else {
+                                pais.classList.remove("is-invalid");
+                                errorPais.textContent = "";
+                                FlagValidacion = true;
+                        }
+
+                });
+
+                if (pais.value === "") {
+                        errorPais.textContent = "Seleccione un país";
+                        pais.classList.add("is-invalid");
+                        FlagValidacion = false; 
+
+                } else {
+                        pais.classList.remove("is-invalid");
+                        errorPais.textContent = "";
+                        FlagValidacion = true;
+                }
+        
+        });
+
+        return FlagValidacion;
+}
+
+function validarEtiquetas() {
+        const etiquetas = document.querySelectorAll(".select-etiqueta");
+        let FlagValidacion = true; 
+
+        etiquetas.forEach(function (etiqueta) {
+                const errorEtiqueta = etiqueta.parentElement.querySelector(".error-etiqueta");
+                errorEtiqueta.textContent = "";
+                etiqueta.addEventListener("change", function(){   
+                        if (etiqueta.value === "") {
+                                errorEtiqueta.textContent = "Seleccione una etiqueta";
+                                etiqueta.classList.add("is-invalid");
+                                FlagValidacion = false; 
+
+                        } else {
+                                etiqueta.classList.remove("is-invalid");
+                                errorEtiqueta.textContent = "";
+                                FlagValidacion = true;
+                        }
+
+                });
+
+                if (etiqueta.value === "") {
+                        errorEtiqueta.textContent = "Seleccione una etiqueta";
+                        etiqueta.classList.add("is-invalid");
+                        FlagValidacion = false; 
+                        
+                } else {
+                        etiqueta.classList.remove("is-invalid");
+                        errorEtiqueta.textContent = "";
+                        FlagValidacion = true;
+                }
+        
+        });
+
+        return FlagValidacion;
+}
+
+
 
 
 function validar() {
@@ -683,18 +1004,15 @@ function validar() {
         if( !validarDescripcion() ) FlagValidacion = false;
         if( !validarIngrediente() ) FlagValidacion = false;
         if( !validarPaso() ) FlagValidacion = false;
+        if( !validarImagenPaso() ) FlagValidacion = false;
         if( !validarTiempo() ) FlagValidacion = false;
+        if( !validarUnidadTiempo() ) FlagValidacion = false;
         if( !validarDificultad() ) FlagValidacion = false;
+        if( !validarCategoria() ) FlagValidacion = false;
+        if( !validarPaises() ) FlagValidacion = false;
+        if( !validarEtiquetas() ) FlagValidacion = false;
+        if( !validarCantidad() ) FlagValidacion = false;
 
-        document.getElementById("dificultad").addEventListener("change", function(){
-
-                if(!validarDificultad()){
-                        FlagValidacion = false;
-                }else{
-                        FlagValidacion = true;
-                }
-
-        });
 
         return FlagValidacion;
 }
@@ -705,19 +1023,6 @@ function validar() {
         
 //Pais
 
-function actualizarBandera(select) {
-
-        const optionSeleccionado = select.options[select.selectedIndex];
-        const imgUrl = optionSeleccionado.getAttribute('data-pais');
-        const bandera = select.closest('.pais-container').querySelector('.bandera');
-
-        if (imgUrl) {
-                bandera.src = imgUrl;
-                bandera.classList.remove("d-none");
-        } else {
-                bandera.classList.add("d-none");
-        }
-}
 
 //Categoria
 const mostrarCategoria = function () {       
@@ -787,9 +1092,15 @@ const agregarPaso = function() {
 
 
                 const newPasoDiv = document.createElement("div");
-                newPasoDiv.classList.add("un_paso", "d-grid", "d-flex", "justify-content-end");
+                newPasoDiv.classList.add("un_paso", "d-grid", "gap-2", "flex-column", "d-flex", "justify-content-end");
                 
-                newPasoDiv.innerHTML= ' <textarea class="form-control input-paso textarea-resize primer-paso" name="paso[]" placeholder="Ej: Mezcla los ingredientes en un bowl..." required></textarea> ';
+                const textPaso = document.createElement("textarea");
+                textPaso.classList.add("form-control", "input-paso", "textarea-resize", "primer-paso");
+                textPaso.name = "paso[]";
+                textPaso.placeholder = "Ej: Mezcla los ingredientes en un bowl..."; 
+
+                const errorPaso = document.createElement("small");
+                errorPaso.classList.add("text-danger","error-paso")
 
                 const divBoton = document.createElement("div");
                 divBoton.classList.add("d-grid", "d-flex", "justify-content-end", "mt-2");
@@ -805,6 +1116,8 @@ const agregarPaso = function() {
         
                 newPasoLi.appendChild(newPasoDiv);
                 newPasoLi.appendChild(divBoton);
+                newPasoDiv.appendChild(textPaso);
+                newPasoDiv.appendChild(errorPaso);
                 divBoton.appendChild(quitarBoton);
         
 
@@ -827,6 +1140,9 @@ const agregarPaso = function() {
                 inputFile.setAttribute("multiple", "");
                 inputFile.name = `imagenes_paso${numPaso.length + 2}[]`;
                 inputFile.classList.add("form-control", "mt-2", "file-paso");
+
+                const errorImagenFile = document.createElement("small");
+                errorImagenFile.classList.add("text-danger","error-imagen-paso");
         
                 const quitarBotonImagen = document.createElement("button");
                 quitarBotonImagen.type = "button";
@@ -854,6 +1170,7 @@ const agregarPaso = function() {
 
                 newCElemento.appendChild(imgSrc);
                 newCElemento.appendChild(inputFile);
+                newCElemento.appendChild(errorImagenFile);
                 newCElemento.appendChild(quitarBotonImagen);
                 pasosLista.appendChild(newPasoLi);
         });

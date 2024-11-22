@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const btnNotificaciones = document.querySelector('#btnNotificaciones');
-    const contenidoNotificaciones = document.querySelector('.dropdown-menu');
+    const contenidoNotificaciones = document.querySelector('.notificacion');
 
     if (btnNotificaciones) {
         btnNotificaciones.addEventListener('click', function() {

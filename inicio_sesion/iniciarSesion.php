@@ -30,7 +30,7 @@
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label h6">Contraseña <span class="text-danger">*</span></label>
-                <input id="password" type="password" class="form-control" name="password" maxlength="20" autocomplete="off" placeholder="Ingrese su contraseña">
+                <input id="password" type="password" class="form-control" name="password" maxlength="18" autocomplete="off" placeholder="Ingrese su contraseña">
                 <div class="d-flex justify-content-start mb-5 mt-2"> 
                     <small>¿Has olvidado tu contraseña?<a href="../inicio_sesion/recuperar_cuenta.php" class="ms-2 text-decoration-none">Recuperar contraseña</a></small>
                 </div>

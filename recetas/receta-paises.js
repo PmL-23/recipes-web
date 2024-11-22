@@ -43,16 +43,16 @@ function manejarCambioSelect(event) {
 
 
 function actualizarBandera(select) {
-    const bandera = select.parentNode.querySelector('.bandera');
-    const opcionSeleccionada = select.options[select.selectedIndex];
-    if (opcionSeleccionada && opcionSeleccionada.dataset.pais) {
-        bandera.src = opcionSeleccionada.dataset.pais;
-        bandera.classList.remove('d-none');
-        bandera.alt = "Bandera de " + opcionSeleccionada.text;
+
+    const optionSeleccionado = select.options[select.selectedIndex];
+    const imgUrl = optionSeleccionado.getAttribute('data-pais');
+    const bandera = select.closest('.pais-container').querySelector('.bandera');
+
+    if (imgUrl) {
+            bandera.src = imgUrl;
+            bandera.classList.remove("d-none");
     } else {
-        bandera.src = "";
-        bandera.classList.add('d-none');
-        bandera.alt = "";
+            bandera.classList.add("d-none");
     }
 }
 

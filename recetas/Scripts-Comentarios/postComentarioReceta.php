@@ -3,6 +3,7 @@
 session_start();
 
 require_once('../../includes/conec_db.php');
+require_once('../../includes/permisos.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -15,14 +16,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo json_encode(['success' => false, 'message' => 'Texto del comentario no puede estar vacío..', 'id_publicacion_receta' => $id_publicacion_receta]);
             exit();
         }
+        
+        if (isset($_SESSION['id'])) {
+            $usuarioID = $_SESSION['id'];
 
-        if (isset($_SESSION['id']) && isset($_SESSION['nomUsuario'])) {
-            
-            $usuarioID = $_SESSION['id']; // Usuario que comenta (seguidor)
-            $nombreUsuario = $_SESSION['nomUsuario']; // Nombre del usuario que comenta
-            
+            if (!Permisos::tienePermiso('Comentar ', $usuarioID)) {
+                echo json_encode(['success' => false, 'message' => 'No podes realizar esta acción.']);
+                exit();
+            }
         }else{
-            echo json_encode(['success' => false, 'message' => 'Necesitas iniciar sesión para poder comentar..', 'id_publicacion_receta' => $id_publicacion_receta]);
+            echo json_encode(['success' => false, 'message' => 'Necesitas iniciar sesión para enviar un reporte.']);
             exit();
         }
 

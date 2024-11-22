@@ -64,7 +64,7 @@ if (isset($_SESSION['id'])) {
                     <span class="visually-hidden">notificaciones no leídas</span>
                     </span>
                     </button>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="btnNotificaciones">
+                    <ul class="dropdown-menu notificacion dropdown-menu-end" aria-labelledby="btnNotificaciones">
                     <?php if (!empty($notificaciones)) {
                             foreach ($notificaciones as $notificacion) {
                                 if ($notificacion['tipo'] == 'nuevo_comentario') {
