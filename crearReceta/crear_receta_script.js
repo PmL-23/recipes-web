@@ -794,7 +794,7 @@ function validarUnidadTiempo() {
         const errorUnidad = document.getElementById("error-unidad");
         let FlagValidacion = true;
 
-        const minutoHora = ["min", "hora"];
+        const minutoHora = ["minutos", "hora"];
 
         selectUnidad.addEventListener("change", function() {
         if (!minutoHora.includes(selectUnidad.value)) {

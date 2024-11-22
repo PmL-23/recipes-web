@@ -206,7 +206,7 @@ if (!$queryResultsEtiquetas) {
                         <label for="tiempo-unidad" class="h6 form-label">Hora/Minutos</label>
                         <select class="form-select" aria-label="Select unidad" name="tiempo_unidad" id="tiempo-unidad" >
 
-                            <option selected value="min">Minutos</option>
+                            <option selected value="minutos">Minutos</option>
                             <option value="hora">Hora/s</option>
                         </select>
                         <small class="text-danger" id="error-unidad"></small>
@@ -324,7 +324,7 @@ if (!$queryResultsEtiquetas) {
 
             
             <div class="d-grid d-md-flex justify-content-md-start mt-2">
-                <input class="form-control file-paso" type="file" name="imagenes_paso_<?php echo $paso['num_paso']; ?>[]" multiple accept="image/*">
+                <input class="form-control file-paso" type="file" name="imagenes_paso<?php echo $paso['num_paso']; ?>[]" multiple accept="image/*">
                 <small class="text-danger error-imagen-paso"></small>
             </div>
         </li>

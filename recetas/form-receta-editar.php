@@ -75,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }  
 
 //unidad tiempo
-    $unidadesPermitidas = ["min", "hora"];
+    $unidadesPermitidas = ["minutos", "hora"];
     if (empty($unidad_tiempo)) {
         $errors[] = 'Unidad de tiempo no ingresada';
     } else if (!in_array($unidad_tiempo, $unidadesPermitidas)) {
@@ -215,25 +215,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         }
 
                         
-                        if (isset($_FILES["imagenes_paso_$numPaso"])) {
-                            
+                        if (isset($_FILES["imagenes_paso".$numPaso])) {
                             $imagenesSubidas = [];
-                            foreach ($_FILES["imagenes_paso_$numPaso"]['name'] as $index => $filename) {
-                                $pasosDir = "../recetas/galeria/";
-                                $uploadFile = $pasosDir . uniqid() . "_" . basename($filename);
-
-                                if (move_uploaded_file($_FILES["imagenes_paso_$numPaso"]['tmp_name'][$index], $uploadFile)) {
-                                    $imagenesSubidas[] = $uploadFile;
+                            foreach ($_FILES["imagenes_paso".$numPaso]['name'] as $index => $filename) {
+                                $rutaDestino = "../recetas/galeria/";
+                                $nombreArchivoUnico = $rutaDestino . uniqid() . "_" . basename($filename);
+                        
+                                if (move_uploaded_file($_FILES["imagenes_paso".$numPaso]['tmp_name'][$index], $nombreArchivoUnico)) {
+                                    $imagenesSubidas[] = $nombreArchivoUnico;
                                 }
                             }
-
                             
                             if (!empty($imagenesSubidas)) {
+                                
                                 $sqlEliminarImagenes = "DELETE FROM imagenes_pasos WHERE id_paso = :id_paso";
                                 $stmtEliminarImagenes = $conn->prepare($sqlEliminarImagenes);
                                 $stmtEliminarImagenes->bindParam(':id_paso', $pasoId, PDO::PARAM_INT);
                                 $stmtEliminarImagenes->execute();
-
+                        
+                                
                                 foreach ($imagenesSubidas as $imagenRuta) {
                                     $sqlInsertarImagen = "INSERT INTO imagenes_pasos (id_paso, ruta_imagen_paso) VALUES (:id_paso, :ruta_imagen_paso)";
                                     $stmtInsertarImagen = $conn->prepare($sqlInsertarImagen);

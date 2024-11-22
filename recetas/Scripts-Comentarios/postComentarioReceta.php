@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_SESSION['id'])) {
             $usuarioID = $_SESSION['id'];
 
-            if (!Permisos::tienePermiso('Comentar ', $usuarioID)) {
+            if (!Permisos::tienePermiso('Comentar', $usuarioID)) {
                 echo json_encode(['success' => false, 'message' => 'No podes realizar esta acción.']);
                 exit();
             }
@@ -71,7 +71,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo json_encode([
                     'success' => true,
                     'id_usuario' => $usuarioID,
-                    'nombre' => $nombreUsuario,
                     'fechaPublicacion' => $fechaYHoraActual->format('Y-m-d H:i:s'),
                     'texto_comentario' => $textoComentario,
                     'id_comentario' => $ID_NuevoComentario

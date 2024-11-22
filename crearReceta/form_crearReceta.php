@@ -66,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }  
 
 //unidad tiempo
-    $unidadesPermitidas = ["min", "hora"];
+    $unidadesPermitidas = ["minutos", "hora"];
     if (empty($unidad_tiempo)) {
         $errors[] = 'Unidad de tiempo no ingresada';
     } else if (!in_array($unidad_tiempo, $unidadesPermitidas)) {
