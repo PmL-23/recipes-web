@@ -1,29 +1,12 @@
 <?php
 require '../includes/conec_db.php';
 
-$tabla = 'publicaciones_recetas';
-$col = [
-    'publicaciones_recetas.id_publicacion',
-    'categorias.titulo AS categoria_titulo',
-    'valoraciones.puntuacion AS valoracion_puntaje',
-    'etiquetas_recetas.id_publicacion AS etiquetas_recetas_id_publicacion',
-    'etiquetas_recetas.id_etiqueta  AS etiquetas_recetas_id_etiqueta',
-    'etiquetas.titulo  AS etiquetas_titulo',
-    'etiquetas.id_etiqueta  AS etiquetas_id_etiqueta',
-    'publicaciones_recetas.id_usuario_autor',
-    'publicaciones_recetas.titulo',
-    'publicaciones_recetas.descripcion',
-    'publicaciones_recetas.fecha_publicacion',
-    'publicaciones_recetas.dificultad',
-    'publicaciones_recetas.minutos_prep'
-];
-
-$dificultad = isset($_POST['dificultad']) ? $_POST['dificultad'] : (isset($_GET['dificultad']) ? $_GET['dificultad'] : null);
-$categoria = isset($_POST['categoria']) ? $_POST['categoria'] : (isset($_GET['categoria']) ? $_GET['categoria'] : null);
-$tiempo = isset($_POST['tiempo']) ? $_POST['tiempo'] : (isset($_GET['tiempo']) ? $_GET['tiempo'] : null);
-$valoraciones = isset($_POST['valoracion']) ? $_POST['valoracion'] : (isset($_GET['valoracion']) ? $_GET['valoracion'] : null);
-$etiquetas = isset($_POST['etiqueta']) ? $_POST['etiqueta'] : (isset($_GET['etiqueta']) ? $_GET['etiqueta'] : null);
-$ingredientes = isset($_POST['ingrediente']) ? $_POST['ingrediente'] : (isset($_GET['ingrediente']) ? $_GET['ingrediente'] : null);
+$dificultad = isset($_POST['dificultad']) ? $_POST['dificultad'] : null ;
+$categoria = isset($_POST['categoria']) ? $_POST['categoria'] : null;
+$tiempo = isset($_POST['tiempo']) ? $_POST['tiempo'] : null;
+$valoraciones = isset($_POST['valoracion']) ? $_POST['valoracion']: null;
+$etiquetas = isset($_POST['etiqueta']) ? $_POST['etiqueta']: null;
+$ingredientes = isset($_POST['ingrediente']) ? $_POST['ingrediente'] : null;
 
 
 $html = '';
@@ -76,16 +59,17 @@ if ($ingredientes === 'masIngredientes') {
 
 if (!empty($conditions) || !empty($order)) {
 
-    $sql = "SELECT " . implode(", ", $col) . ",
-    COUNT(ingredientes_recetas.cantidad) AS cantidad_ingredientes,
-    AVG(valoraciones.puntuacion) AS valoracion_puntaje
-    FROM $tabla
-    INNER JOIN categorias ON publicaciones_recetas.id_categoria = categorias.id_categoria
-    INNER JOIN valoraciones ON publicaciones_recetas.id_publicacion = valoraciones.id_publicacion
-    INNER JOIN etiquetas_recetas ON publicaciones_recetas.id_publicacion = etiquetas_recetas.id_publicacion
-    INNER JOIN etiquetas ON etiquetas_recetas.id_etiqueta = etiquetas.id_etiqueta
+    $sql = "SELECT *, categorias.titulo,valoraciones.puntuacion AS valoracion_puntaje, 
+    etiquetas_recetas.id_publicacion, etiquetas_recetas.id_etiqueta, etiquetas.titulo,etiquetas.id_etiqueta,
+    COUNT(ingredientes_recetas.cantidad) AS cantidad_ingredientes, AVG(valoraciones.puntuacion) AS valoracion_puntaje 
+    FROM publicaciones_recetas 
+    INNER JOIN categorias ON publicaciones_recetas.id_categoria = categorias.id_categoria 
+    INNER JOIN valoraciones ON publicaciones_recetas.id_publicacion = valoraciones.id_publicacion 
+    INNER JOIN etiquetas_recetas ON publicaciones_recetas.id_publicacion = etiquetas_recetas.id_publicacion 
+    INNER JOIN etiquetas ON etiquetas_recetas.id_etiqueta = etiquetas.id_etiqueta 
     INNER JOIN ingredientes_recetas ON publicaciones_recetas.id_publicacion = ingredientes_recetas.id_publicacion";
-
+    
+    
     if (!empty($conditions)) {
         $sql .= " WHERE " . implode(" AND ", $conditions);
     }
