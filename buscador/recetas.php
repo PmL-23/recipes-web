@@ -2,7 +2,7 @@
 
 require '../includes/conec_db.php';
 
-$campo = isset($_POST['campo']) ? $_POST['campo'] : (isset($_GET['campo']) ? $_GET['campo'] : null);
+$campo = isset($_POST['campo']) ? $_POST['campo'] : null;
 
 $html = '';
 
