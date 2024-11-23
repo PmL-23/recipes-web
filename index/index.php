@@ -45,7 +45,69 @@ include '../includes/permisos.php'
     </div>
 
 
-   
+    <!-- SLIDER ROTATIVO -->
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-interval="2000" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1">
+                <span class="timer"></span>
+            </button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2">
+                <span class="timer"></span>
+            </button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3">
+                <span class="timer"></span>
+            </button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4">
+                <span class="timer"></span>
+            </button>
+        </div>
+        <div class="carousel-inner">
+
+            <div class="carousel-item active d-item">
+                <img src="./img/aprender.jpg" class="d-block w-100 d-img" alt="Bienvenida">
+                <div class="carousel-caption top-0 mt-4">
+                    <p class="mt-5 fs-3 text-uppercase">Tu mejor sitio de Recetas!</p>
+                    <h1 class="display-1 fw-bolder text-capitalize">¡Bienvenido!</h1>
+                </div>
+            </div>
+
+            <div class="carousel-item d-item">
+                <img src="./img/saludables.jpg" class="d-block w-100 d-img" alt="saludables">
+                <div class="carousel-caption top-0 mt-4">
+                    <p class="mt-5 fs-3 text-uppercase">Descubre nuestrar recetas mas saludables</p>
+                    <h1 class="display-1 fw-bolder text-capitalize">¡Nos importa tu salud!</h1>
+                </div>
+            </div>
+
+            <div class="carousel-item d-item">
+                <img src="./img/amasar.jpg" class="d-block w-100 d-img" alt="masas">
+                <div class="carousel-caption top-0 mt-4">
+                    <p class="mt-5 fs-3 text-uppercase">Se un experto con las masas</p>
+                    <h1 class="display-1 fw-bolder text-capitalize">¡Aprende a Amasar!</h1>
+                </div>
+            </div>
+
+            <div class="carousel-item d-item">
+                <img src="./img/comidasyhoras.jpg" class="d-block w-100 d-img" alt="masas">
+                <div class="carousel-caption top-0 mt-4">
+                    <p class="mt-5 fs-3 text-uppercase">Hay recetas para cada momento de tu dia</p>
+                    <h1 class="display-1 fw-bolder text-capitalize">¡Elige tu momento!</h1>
+                </div>
+            </div>
+
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+
+    </div>
 
 
     <!-- MEJORES RECETAS -->
