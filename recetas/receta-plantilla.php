@@ -22,7 +22,6 @@ require_once('../includes/razonesReporte.php');
     <link rel="stylesheet" href="publicacion.css">
     <link rel="stylesheet" href="../css/recetas.css">
     <link rel="stylesheet" href="../css/carrousel.css">
-    <link rel="stylesheet" href="./modalCompartir.css">
     <!--   <link rel="stylesheet" href="estilos.css"> -->
     <!-- Scripts -->
     <script src="recetas.js" defer></script>

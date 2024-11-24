@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 exit();
             }
         }else{
-            echo json_encode(['success' => false, 'message' => 'Necesitas iniciar sesión para enviar un reporte.']);
+            echo json_encode(['success' => false, 'message' => 'Necesitas iniciar sesión para poder comentar.']);
             exit();
         }
 
