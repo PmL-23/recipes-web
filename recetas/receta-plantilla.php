@@ -49,13 +49,15 @@ require_once('../includes/razonesReporte.php');
     <div class="contenido-principal container w-100 my-md-3 my-2 px-4 py-3">
         <?php if ($usuarioID === $autor) { ?>
             <div class="d-flex justify-content-end">
-                <button type="button" class="btn btn-editar" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-three-dots"></i>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="editar-receta.php?id=<?php echo $idPublicacion; ?>">Editar publicación</a></li>
-                    <li><a class="dropdown-item" href="../perfil-usuario/eliminar_publicacion.php">Eliminar publicación</a></li>
-                </ul>
+                <div class="dropdown">
+                    <button type="button" class="btn-editar" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-three-dots"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end w-auto">
+                        <li><a class="dropdown-item" href="editar-receta.php?id=<?php echo $idPublicacion; ?>">Editar publicación</a></li>
+                        <li><a href="#!" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalEliminarPublicacion">Eliminar publicación</a></li>
+                    </ul>
+                </div>
             </div>
         <?php } ?>
 
@@ -361,6 +363,29 @@ require_once('../includes/razonesReporte.php');
             </div>
         </div>
     </div>
+
+
+    <!-- MODAL PARA ELIMINAR PUBLICACIÓN -->
+    <div class="p-0 modal fade" id="modalEliminarPublicacion" tabindex="-1" aria-labelledby="modalEliminarPublicacionLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered"> 
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Eliminar Publicación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-center">¿Estás seguro de que deseas eliminar esta publicación? Esta acción es irreversible.</p>
+                </div>
+                <div class="modal-footer">
+                    <div class="d-flex justify-content-between">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-danger" id="confirmar-eliminar">Sí, estoy seguro</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
     <!-- MODAL ELIMINAR COMENTARIO PROPIO -->

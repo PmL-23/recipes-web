@@ -26,3 +26,48 @@ function toggleMenu(event) {
 
     }
 }
+
+
+
+    const confirmarEliminar= document.getElementById('confirmar-eliminar');
+    confirmarEliminar.addEventListener('click', function(e) {
+
+            e.preventDefault();
+        
+            let urlActual = window.location.href;
+            let palabraClave = "recipes-web/";
+            let indice = urlActual.indexOf(palabraClave);
+            let urlParams = new URLSearchParams(window.location.search); 
+            let id_publicacion = urlParams.get('id'); 
+        
+            if (indice !== -1) {
+                    let urlCortada = urlActual.substring(0, indice + palabraClave.length);
+        
+                            if (id_publicacion) {  
+        
+                            fetch(urlCortada + "recetas/procesar-eliminar-receta.php?id=" + id_publicacion, {
+                                    method: "POST",
+                            })
+                            .then(res => res.json())
+                            .then(data => {
+                                console.log("data", data);
+                                if (data.success == true) {
+                                console.log("Receta eliminada con éxito");
+                                window.location.href = "../index/index.php";
+        
+                                }else{
+
+                                    console.log('Errores:', data.errors);
+                                    console.log('Errores:', data.message);
+                                }
+                            })
+                            .catch(error => {
+                                console.error("Error:", error);
+                            });
+                            
+                    
+                }
+            }
+        
+        });
+

@@ -127,7 +127,7 @@ if (!$queryResultsEtiquetas) {
                 <div class="col-md-6">
                     <div class="c-paises" id="input-paises">
                         <h4 for="select-pais" class="h6 form-label mt-3">País</h4>
-                        <?php foreach ($paisRecetaData as $paisReceta) { ?>
+                        <?php foreach ($paisRecetaData as $index => $paisReceta) { ?>
                         <div class="pais-container my-2 d-flex flex-column">
                             <select class="w-50 select-pais form-select" aria-label="Select pais" name="pais[]">
                                 <option value="" disabled>Selecciona un país</option>
@@ -139,8 +139,11 @@ if (!$queryResultsEtiquetas) {
                             </select>
                             <small class="text-danger error-pais" id="error-pais"></small>
                             <img class="ms-2 bandera mini-bandera d-none" src="" alt="Bandera">
+                            <?php if ($index != 0)
+                                echo '<button class="boton-secundario quitar-pais" type="button"><i class="bi bi-trash me-1"></i> Quitar</button>';
+                            ?>
+                            <?php } ?>
                         </div>
-                        <?php } ?>
                     </div>
 
                     <div class="d-flex justify-content-start mt-3">
@@ -290,14 +293,14 @@ if (!$queryResultsEtiquetas) {
     <h5 class="h5 form-label">Pasos</h5>
     <ol class="list-group-numbered h6" id="list-paso">
         <?php foreach ($pasos as $paso): ?>
-        <li class="item-lista list-group-item" id="li-paso-<?php echo $paso['num_paso']; ?>">
+        <li class="item-lista list-group-item paso-container" id="li-paso-<?php echo $paso['num_paso']; ?>">
             <div class="un_paso d-grid  gap-2 flex-column d-flex justify-content-end">
                 <textarea class="form-control input-paso textarea-resize item-paso" name="paso[]" placeholder="Ej: Mezcla los ingredientes en un bowl..." ><?php echo $paso['texto']; ?></textarea>
                 <small class="text-danger error-paso"></small>
             </div>
 
             <div class="d-grid d-flex justify-content-end mt-2">
-                <button class="boton-secundario btn-quitar-lista d-flex" type="button" id="quitar-paso-<?php echo $paso['num_paso']; ?>">
+                <button class="boton-secundario quitar-paso d-flex" type="button" id="quitar-paso-<?php echo $paso['num_paso']; ?>">
                     <i class="bi bi-trash me-1"></i>Quitar
                 </button>
             </div>

@@ -58,6 +58,13 @@
     padding: 0 !important;
 }
 
+.btn-editar::selection
+{
+    background-color: transparent;
+    border: none;
+    padding: 0 !important;
+}
+
 /* .btn-accion
 {
     background-color: transparent;

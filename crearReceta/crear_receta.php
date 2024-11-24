@@ -18,7 +18,7 @@ if (!isset($_SESSION['id'])) {
 
 require_once('../includes/conec_db.php');
 
-$categoriaQuery = "SELECT * FROM categorias ORDER BY categorias.id_categoria DESC";
+$categoriaQuery = "SELECT * FROM categorias WHERE estado = 1 ORDER BY categorias.id_categoria DESC";
 $queryResultsCategoria = $conn->prepare($categoriaQuery);
 $queryResultsCategoria->execute(); 
 
@@ -36,7 +36,7 @@ if (!$queryResultsPais) {
     exit();
 }
 
-$etiquetasQuery = "SELECT * FROM etiquetas ORDER BY etiquetas.id_etiqueta DESC";
+$etiquetasQuery = "SELECT * FROM etiquetas WHERE estado = 1 ORDER BY etiquetas.id_etiqueta DESC";
 $queryResultsEtiquetas = $conn->prepare($etiquetasQuery);
 $queryResultsEtiquetas->execute(); 
 
@@ -57,7 +57,6 @@ if (!$queryResultsEtiquetas) {
         <?php include '../includes/head.php'?>
         <link rel="stylesheet" href="../crearReceta/crear_receta_style.css">
         <script src="crear_receta_script.js" defer></script>
-      
         
         
     </head>
