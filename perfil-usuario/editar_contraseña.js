@@ -59,6 +59,7 @@ function CambiarContraseñaUsuario(urlVariable, ContraseñaActual, NuevaContrase
         // Manejar la respuesta del servidor
         if (result.success) {
             console.log('Contraseña cambiada exitosamente');
+            showModal(`Contraseña cambiada exitosamente`, true);
         } else {
             if(result.error==false){
                 showModal(`Contraseña incorrecta`, false);
