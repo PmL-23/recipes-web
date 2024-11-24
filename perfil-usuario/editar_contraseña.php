@@ -28,26 +28,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $ConfirmaciónNuevaContraseña = $data['ConfirmaciónNuevaContraseña'] ?? null;
     $IDUsuario = $data['IDUsuario'] ?? null;
 
-    //$ConfirmaciónNuevaContraseña='asdasdasdasdasdasdasdasd';
-    if ($ConfirmaciónNuevaContraseña != $NuevaContraseña ) {
-        echo json_encode(['success' => false, 'error' => 'Las nuevas contraseñas no coinciden']);
-        exit;
-    }
-
-    if (strlen($NuevaContraseña) < 2) {
-        echo json_encode(['success' => false, 'error' => 'La contraseña nueva debe tener al menos 5 caracteres.']);
-        exit;
-    }
-
     if (!is_numeric($IDUsuario)) {
         echo json_encode(['success' => false, 'error' => 'ID de usuario no válido.']);
         exit;
     }
 
-    //$resultado1 = $modelo->consultar($IDUsuario, $ContraseñaActual, $ContraseñaNueva);
-    //$resultado = $modelo->ActualizarContraseñaUsuario($IDUsuario, $ContraseñaActual, $NuevaContraseña);
-    //$resultado = $modelo->consultar($email, $ContraseñaActual);
+    if ($ConfirmaciónNuevaContraseña != $NuevaContraseña ) {
+        echo json_encode(['success' => false, 'error' => 'Las nuevas contraseñas no coinciden']);
+        exit;
+    }
 
+    if (strlen($NuevaContraseña) <= 7) {
+        echo json_encode(['success' => false, 'error' => 'La nueva contraseña debe tener al menos 8 caracteres.']);
+        exit;
+    }
+
+    
+    if (strlen($NuevaContraseña) >= 17) {
+        echo json_encode(['success' => false, 'error' => 'La nueva contraseña debe tener un maximo de 16 caracteres.']);
+        exit;
+    }
+
+    if (strlen($ConfirmaciónNuevaContraseña) <= 7) {
+        echo json_encode(['success' => false, 'error' => 'La nueva contraseña debe tener al menos 8 caracteres.']);
+        exit;
+    }
+
+    if (strlen($ConfirmaciónNuevaContraseña) >= 17) {
+        echo json_encode(['success' => false, 'error' => 'La nueva contraseña debe tener un maximo de 16 caracteres.']);
+        exit;
+    }
+
+    if (strlen($ContraseñaActual) <= 7) {
+        echo json_encode(['success' => false, 'error' => 'La contraseña actual debe tener al menos 8 caracteres.']);
+        exit;
+    }
+
+    if (strlen($ContraseñaActual) >= 17) {
+        echo json_encode(['success' => false, 'error' => 'La contraseña actual debe tener un maximo de 16 caracteres.']);
+        exit;
+    }
+    
     try {
         $sql = 'SELECT password FROM usuarios WHERE id_usuario = :idusuario';
         $stmt = $conn->prepare($sql);
@@ -59,7 +80,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             unset($usuario['password']);
 
             if($ContraseñaActual == $NuevaContraseña){
-                return 'La contraseña ingresada ya esta en actual uso para esta cuenta.';
+                echo json_encode(['success' => false, 'error' => 'La contraseña ingresada ya esta en actual uso para esta cuenta']);
+                exit;
             }
             else{
                 

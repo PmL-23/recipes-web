@@ -22,7 +22,6 @@ let Publicacion = [];
 let CantidadPublicaciones = 0;
 
 const TraerSeguidoresoSeguidos = async function (id_usuario, accion) {
-    console.log("entroTraerSeguidoresoSeguidos");
     try {
         // Llamada a la base de datos usando fetch
         let url = urlVariable + '/TraerSeguidoresoSeguidos.php'  
@@ -38,15 +37,12 @@ const TraerSeguidoresoSeguidos = async function (id_usuario, accion) {
         });
     
         const result = await response.json();
-        
-
-            console.log(result.length);
             
-            if(accion === "TraerSeguidos"){
+            if(accion == "TraerSeguidos"){
                 let IDCantidadSeguidos = document.getElementById('IDCantidadSeguidos');
                 IDCantidadSeguidos.textContent = result.length;
             }
-            else if(accion === "TraerSeguidores"){
+            else if(accion == "TraerSeguidores"){
                 let IDCantidadSeguidores = document.getElementById('IDCantidadSeguidores');
                 IDCantidadSeguidores.textContent = result.length;
             }
@@ -58,7 +54,7 @@ const TraerSeguidoresoSeguidos = async function (id_usuario, accion) {
 
 const EsFavorito = async function (idPublicacion, id_usuario, index) {
     const accion = "consultar";
-    console.log("entro");
+    //console.log("entro");
     try {
         // Llamada a la base de datos usando fetch
         let url = urlVariable + '/../CarpetaFavoritos/Agregar-Sacar-fav.php'  
@@ -101,8 +97,6 @@ async function toggleSeguir(id_usuarioSession, id_usuarioPerfil) {
     const esSeguidor = btnSeguir.classList.contains("seguir-activo");
     const accion = esSeguidor ? "Siguiendo" : "Seguir";
 
-    console.log(accion);
-    console.log("entro a toggle seguir");
 
     // Alternar visualmente el estado del botón
     btnSeguir.classList.toggle("seguir-activo");
@@ -123,7 +117,7 @@ async function toggleSeguir(id_usuarioSession, id_usuarioPerfil) {
         });
 
         const result = await response.json();
-        console.log(result);
+        //console.log(result);
         
         if (!result.success) {
             // Revertir visualmente si ocurre un error
@@ -132,7 +126,11 @@ async function toggleSeguir(id_usuarioSession, id_usuarioPerfil) {
         } else {
             // Actualizar el texto del botón si la acción se realizó con éxito
             btnSeguir.querySelector("span").textContent = esSeguidor ? "Seguir" : "Siguiendo";
-            console.log("La actualización fue exitosa.");
+
+
+            await TraerSeguidoresoSeguidos(Usuario.id_usuario,"TraerSeguidos");
+            await TraerSeguidoresoSeguidos(Usuario.id_usuario,"TraerSeguidores");
+
         }
     } catch (error) {
         // Revertir visualmente si la solicitud falla
@@ -603,8 +601,8 @@ const LLenarEncabezado = async function () {
         method : 'get',
     });
     ProcesarInformacionLLenarEncabezado(await respuesta.json());
-    await TraerSeguidoresoSeguidos(SessionIDUsuario,"TraerSeguidos");
-    await TraerSeguidoresoSeguidos(SessionIDUsuario,"TraerSeguidores");
+    await TraerSeguidoresoSeguidos(Usuario.id_usuario,"TraerSeguidos");
+    await TraerSeguidoresoSeguidos(Usuario.id_usuario,"TraerSeguidores");
     //console.log("el id es ", Usuario.id_usuario);
     await EsSeguido(SessionIDUsuario, Usuario.id_usuario);
     

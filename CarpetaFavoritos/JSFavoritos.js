@@ -210,7 +210,7 @@ const TraerPaises = async function (IDPublicacion, index) {
 
 
 const ProcesarInformacionTraerPublicaciones = async function(data) {
-    console.log(data);
+    
     
     if (data.length === 0) {
         console.log("No se encontraron publicaciones favoritas ");

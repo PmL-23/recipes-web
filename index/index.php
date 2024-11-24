@@ -16,7 +16,7 @@ include '../includes/permisos.php'
     <link rel="stylesheet" href="./recetas.css">
     <link rel="stylesheet" href="./sliders/carrouselRecetasMasValoradas.css">
     <!-- JS -->
-     <script src="./recetasSegunHora/mostrarPorFecha1.js" defer></script>
+    <script src="./recetasSegunHora/mostrarPorFecha1.js" defer></script>
     <script src="receta_paises.js" defer></script>
     <script src="./sliders/recetasSlider.js" defer></script>
     <!-- HEAD -->
@@ -30,7 +30,7 @@ include '../includes/permisos.php'
     include '../includes/conec_db.php';
     include '../includes/paises.php';
     include './mejoresRecetas.php';
-    include './recetasSegunHora/categoria.php';
+    include './recetasSegunHora/mostrarSegunHora.php';
     ?>
 
     <!-- BANDERAS -->
@@ -163,6 +163,7 @@ include '../includes/permisos.php'
         </div>
     </div>
 
+
     <!-- MOSTRAR RECETAS SEGUN HORA -->
     <div class="container mt-5">
         <div id="saludoDia" class="saludo-dia my-4 text-start display-4 fw-bold" style="color: #198754;">
@@ -172,7 +173,7 @@ include '../includes/permisos.php'
 
         <div class="container mt-3">
             <div class="row">
-                <?php foreach ($recetas2 as $receta): ?>
+                <?php foreach ($recetasSegunHora as $receta): ?>
                     <?php
                     $stmt = $conn->prepare("SELECT ruta_imagen FROM imagenes WHERE id_publicacion = :id_publicacion");
                     $stmt->execute(['id_publicacion' => $receta['id_publicacion']]);

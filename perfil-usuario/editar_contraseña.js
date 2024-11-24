@@ -59,6 +59,7 @@ function CambiarContraseñaUsuario(urlVariable, ContraseñaActual, NuevaContrase
         // Manejar la respuesta del servidor
         if (result.success) {
             console.log('Contraseña cambiada exitosamente');
+            showModal(`Contraseña cambiada exitosamente`, true);
         } else {
             if(result.error==false){
                 showModal(`Contraseña incorrecta`, false);
@@ -116,14 +117,23 @@ document.getElementById("FormCambiarContraseña").addEventListener("submit", fun
     ConfirmaciónNuevaContraseñaError.textContent = "";
 
     let bandera = 0;
-    if (ContraseñaActual.length <= 4) {
-        ContraseñaActualError.textContent = "La contraseña debe tener al menos 5 caracteres.";
+    if (ContraseñaActual.length <= 7) {
+        ContraseñaActualError.textContent = "La contraseña debe tener al menos 8 caracteres.";
         bandera += 1;
     }
 
+    if (NuevaContraseña.length <= 7) {
+        NuevaContraseñaError.textContent = "La contraseña debe tener al menos 8 caracteres.";
+        bandera += 1;
+    }
 
-    if (NuevaContraseña.length <= 4) {
-        NuevaContraseñaError.textContent = "La contraseña debe tener al menos 5 caracteres.";
+    if (ContraseñaActual.length >= 17) {
+        ContraseñaActualError.textContent = "La contraseña debe tener un maximo de  16 caracteres.";
+        bandera += 1;
+    }
+
+    if (NuevaContraseña.length >= 17) {
+        NuevaContraseñaError.textContent = "La contraseña debe tener un maximo de  16 caracteres.";
         bandera += 1;
     }
 

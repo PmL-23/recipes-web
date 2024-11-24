@@ -47,7 +47,8 @@ require_once('../includes/razonesReporte.php');
 
 
     <div class="contenido-principal container w-100 my-md-3 my-2 px-4 py-3">
-        <?php if ($usuarioID === $autor) { ?>
+
+        <?php if ($usuarioID == $autor) { ?>
             <div class="d-flex justify-content-end">
                 <div class="dropdown">
                     <button type="button" class="btn-editar" data-bs-toggle="dropdown" aria-expanded="false">
