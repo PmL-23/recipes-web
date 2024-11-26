@@ -113,49 +113,78 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($publicado) {
 
             //tabla imagenes
-            if (isset($_FILES['imagenes']) && count($_FILES['imagenes']['name']) > 0) {
+            if (isset($_FILES['imagenes']) && is_array($_FILES['imagenes']['name']) && count($_FILES['imagenes']['name']) > 0 && $_FILES['imagenes']['name'][0] != '') {
+
+                $cantImagenes = count($_FILES['imagenes']['name']);
+                $carpetaDestino = '../recetas/galeria/';
+            
                 $imagenes = $_FILES['imagenes'];
-
-                foreach ($imagenes['name'] as $index => $nombreArchivo) {
-                    if ($imagenes['error'][$index] == 0) {
-                        
-                        
-                        $tipoImagen = exif_imagetype($imagenes['tmp_name'][$index]);
-                        if ($tipoImagen != IMAGETYPE_JPEG && $tipoImagen != IMAGETYPE_PNG) {
-                            $respuestaMensajes[] = "El archivo $nombreArchivo no es una imagen válida.";
-                            continue;
-                        }
-
-                        
-                        $directorioDestino = "../recetas/galeria/";
-                        $nuevoNombreArchivo = uniqid() . "_" . basename($nombreArchivo);
-                        $rutaArchivoDestino = $directorioDestino . $nuevoNombreArchivo;
-
-                        
-                        if (move_uploaded_file($imagenes['tmp_name'][$index], $rutaArchivoDestino)) {
-
-                            $sqlInsertarImagen = "INSERT INTO imagenes (ruta_imagen, id_publicacion) VALUES (:ruta_imagen, :id_publicacion)";
-                            $stmtInsertarImagen = $conn->prepare($sqlInsertarImagen);
-                            $stmtInsertarImagen->bindParam(':ruta_imagen', $rutaArchivoDestino, PDO::PARAM_STR);
-                            $stmtInsertarImagen->bindParam(':id_publicacion', $id_publicacion, PDO::PARAM_INT);
-
-                            if ($stmtInsertarImagen->execute()) {
-                                $respuestaMensajes[] = "Imagen $nuevoNombreArchivo subida con éxito.";
-                            } else {
-                                $respuestaMensajes[] = "Error al insertar la imagen $nuevoNombreArchivo en la base de datos.";
-                            }
-
+            
+                for ($i = 0; $i < $cantImagenes; $i++) {
+            
+                    $nombreArchivo = $imagenes['name'][$i];
+                    $nombreTemporalImagen = $imagenes['tmp_name'][$i];
+                    $errorSubidaImagen = $imagenes['error'][$i];
+            
+                    $tipoImagen = exif_imagetype($nombreTemporalImagen);
+                    if ($errorSubidaImagen === UPLOAD_ERR_OK && ($tipoImagen == IMAGETYPE_JPEG || $tipoImagen == IMAGETYPE_PNG)) {
+            
+                        $nombreArchivoUnico = uniqid() . '_' . basename($nombreArchivo);
+                        $directorioDestino = $carpetaDestino . $nombreArchivoUnico;
+            
+                        if (move_uploaded_file($nombreTemporalImagen, $directorioDestino)) {
+            
+                            $sqlQueryImagen = "INSERT INTO imagenes(id_publicacion, ruta_imagen) VALUES (:id_publicacion, :ruta_imagen)";
+            
+                            $QueryImagen = $conn->prepare($sqlQueryImagen);
+                            $QueryImagen->bindParam(':id_publicacion', $id_publicacion, PDO::PARAM_INT);
+                            $QueryImagen->bindParam(':ruta_imagen', $directorioDestino, PDO::PARAM_STR);
+                            $QueryImagen->execute();
+            
                         } else {
-                            $respuestaMensajes[] = "Error al mover la imagen $nombreArchivo al servidor.";
+                            echo json_encode(['success' => false, 'msj_error' => 'Error al subir el archivo' . $nombreArchivo]);
                         }
-
+            
                     } else {
-                        $respuestaMensajes[] = "Error con el archivo $nombreArchivo.";
+                        echo json_encode(['success' => false, 'msj_error' => 'Error en el archivo ' . $nombreArchivo . '; Código de error ' . $errorSubidaImagen]);
                     }
                 }
+            }       
 
                 //tabla pasos
-                            
+                //eliminar
+                $dataPaso = json_decode(file_get_contents('php://input'), true);
+
+                if (isset($dataPaso['id_paso_receta'])) {
+
+                    $id_paso_eliminado = $dataPaso['id_paso_receta'];
+
+                    $response['message'] = "Datos: $id_paso_eliminado";
+
+                    $sqlEliminarPasoImg = "DELETE FROM imagenes_pasos WHERE id_paso = :id_paso";
+                    $stmtEliminarPasoImg = $conn->prepare($sqlEliminarPasoImg);
+                    $stmtEliminarPasoImg->bindParam(':id_paso', $id_paso_eliminado, PDO::PARAM_INT);
+                    
+                    if ($stmtEliminarPasoImg->execute()) {
+
+
+                        $sqlEliminarPaso = "DELETE FROM pasos_recetas WHERE id_paso = :id_paso";
+                        $stmtEliminarPaso = $conn->prepare($sqlEliminarPaso);
+                        $stmtEliminarPaso->bindParam(':id_paso', $id_paso_eliminado, PDO::PARAM_INT);
+                        
+                        if ($stmtEliminarPaso->execute()) {
+                            $response['success'] = true;
+                        } else {
+                            $response['message'] = "Error al eliminar el paso";
+                        }
+                    } else {
+                        $response['message'] = "Datos ";
+                    }
+                    } else {
+                        $response['message'] = "Datos invalidos";
+                    }
+                
+                
                 $pasos = isset($_POST["paso"]) ? $_POST["paso"] : [];
 
                 
@@ -249,7 +278,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     
                 }
 
-                
+                //eliminar paises
+                    $dataPais = json_decode(file_get_contents('php://input'), true);
+
+                    if (isset($dataPais['id_pais_receta'])) {
+                        $id_pais_eliminada = $dataPais['id_pais_receta'];
+
+                        $sqlEliminarPais = "DELETE FROM paises_recetas WHERE id_publicacion = :id_publicacion AND id_pais = :id_pais";
+                        $stmtEliminarPais = $conn->prepare($sqlEliminarPais);
+                        $stmtEliminarPais->bindParam(':id_publicacion', $id_publicacion, PDO::PARAM_INT);
+                        $stmtEliminarPais->bindParam(':id_pais', $id_pais_eliminado, PDO::PARAM_INT);
+                        
+                        if ($stmtEliminarPais->execute()) {
+                            $response['success'] = true;
+                        } else {
+                            $response['message'] = "Error al eliminar el país";
+                        }
+                    } else {
+                        $response['message'] = "Datos inválidos";
+                    }
+            
+
                 
                 $sqlObtenerPaises = "SELECT id_pais FROM paises_recetas WHERE id_publicacion = :id_publicacion";
                 $stmtObtenerPaises = $conn->prepare($sqlObtenerPaises);
@@ -287,9 +336,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $stmtAgregarPais->execute();
                     }
                 }
-            }
+            
             
             // tabla de ingredientes
+
+            //eliminar paises
+            $dataIng = json_decode(file_get_contents('php://input'), true);
+
+            if (isset($dataIng['id_ingrediente_receta'])) {
+                $id_ingrediente_eliminado = $dataIng['id_ingrediente_receta'];
+
+                $sqlEliminarIng = "DELETE FROM ingredientes_recetas WHERE id_publicacion = :id_publicacion AND id_ingrediente = :id_ingrediente";
+                $stmtEliminarIng = $conn->prepare($sqlEliminarIng);
+                $stmtEliminarIng->bindParam(':id_publicacion', $id_publicacion, PDO::PARAM_INT);
+                $stmtEliminarIng->bindParam(':id_ingrediente', $id_ingrediente_eliminado, PDO::PARAM_INT);
+                
+                if ($stmtEliminarIng->execute()) {
+                    $response['success'] = true;
+                } else {
+                    $response['message'] = "Error al eliminar el ingrediente";
+                }
+            } else {
+                $response['message'] = "Datos inválidos";
+            }
+
+
+
             $ingredientesNuevos = isset($_POST["ingrediente"]) ? $_POST["ingrediente"] : [];
             $cantidadesNuevas = isset($_POST["cantidad"]) ? $_POST["cantidad"] : [];
             
@@ -433,7 +505,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo json_encode([
                 'success' => true,
                 'receta_id' => $id_publicacion,
-                'mensajes' => $respuestaMensajes
             ]);
         } else {
             echo json_encode(['success' => false, 'errors' => ['Error al guardar la publicación']]);

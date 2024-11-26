@@ -65,20 +65,41 @@ require_once('../includes/razonesReporte.php');
             <div class="row">
                 <div class="col d-flex align-items-center mt-2 mb-3">
                     <div class="contenedor-perfil d-flex">
+                        <?php if($usuarioID == $autor){?>
+                            <a class="text-decoration-none text-dark" href="../perfil-usuario/mi_perfil.php">
+                            <img class="img-fluid perfil-img" src="<?php echo $fotoAutor; ?>" alt="Perfil del usuario" id="perfil-autor">
+                            </a>
+                        <?php }  else {?>
+                        
                         <a class="text-decoration-none text-dark" href="../CarpetaPerfil/Perfil.php?NombreDeUsuario=<?php echo "$nombreAutor"; ?>">
                             <img class="img-fluid perfil-img" src="<?php echo $fotoAutor; ?>" alt="Perfil del usuario" id="perfil-autor">
                         </a>
+                        <?php }  ?>
                     </div>
                     <div class="d-flex flex-column ms-3">
+                    <?php if($usuarioID == $autor){?>
+                        <a class="text-decoration-none text-dark" href="../perfil-usuario/mi_perfil.php">
+                            <span class="h4" id="nombre-usuario">
+                                <?php echo "@$nombreAutor"; ?>
+                            </span>
+                            <small class="" id="pais-usuario">
+                                <?php
+                                echo '<img src="../svg/' . $bandera . '" alt="Bandera" width="20" class="bandera" id="bandera-receta">' 
+                                ?>
+                            </small>
+                        </a>
+                    <?php } else { ?>
                         <a class="text-decoration-none text-dark" href="../CarpetaPerfil/Perfil.php?NombreDeUsuario=<?php echo "$nombreAutor"; ?>">
                             <span class="h4" id="nombre-usuario">
                                 <?php echo "@$nombreAutor"; ?>
                             </span>
-                            <small class="text-muted" id="pais-usuario">
-                                <?php // echo $paisAutor; 
+                            <small class="" id="pais-usuario">
+                                <?php
+                                echo '<img src="../svg/' . $bandera . '" alt="Bandera" width="20" class="bandera" id="bandera-receta">' 
                                 ?>
                             </small>
                         </a>
+                    <?php } ?>
                     </div>
                 </div>
 
@@ -110,10 +131,14 @@ require_once('../includes/razonesReporte.php');
 
                         if (count($imagenes) > 1) {
                             // demás imágenes con desplazamiento horizontal
-                            echo '<div class="w-75 d-flex ms-md-4 ms-3 scroll">';
-                            echo '<div class="contenedor-imagenes d-flex">';
+                            echo '<div class="d-flex ms-md-4 ms-3 scroll contenedor-img-portada">';
+                            echo '<div class="d-flex">';
                             for ($i = 1; $i < count($imagenes); $i++) {
-                                echo '<img src="' . $imagenes[$i] . '" alt="Receta" class="rounded img-fluid me-1 my-2 imagen">';
+                                echo '<div class="rounded contenedor-imagenes">';
+                                echo '<a href="#!" data-bs-toggle="modal" data-bs-target="#modalImagenGaleria-'. $i .'">';
+                                echo '<img src="' . $imagenes[$i] . '" alt="Receta" class="rounded img-fluid my-2 imagen">';
+                                echo '</a>';
+                                echo '</div>';
                             }
                             echo '</div>';
                             echo '</div>';
@@ -146,7 +171,7 @@ require_once('../includes/razonesReporte.php');
                         ?>
 
                     </div>
-                    <a class="text-decoration-none" href="#">
+                    <a class="text-decoration-none" href="../categorias/recetas-categoria.php?categoria_id=<?php echo $categoria; ?>">
                         <p class="categoria-style d-inline-flex mb-3 fw-semibold border border-success-subtle rounded-5">
                             <?php echo $categoriaTitulo; ?>
                         </p>
@@ -274,7 +299,9 @@ require_once('../includes/razonesReporte.php');
                         <div class="imagenes-pasos row mt-2 w-75">
                             <?php foreach ($paso['imagenes'] as $imagenPaso): ?>
                                 <div class="col-md-6 mb-2 contenedor-paso-img">
-                                    <img src="<?php echo $imagenPaso; ?>" class="img-fluid rounded img-paso" alt="Imagen del paso">
+                                    <a href="#!" data-bs-toggle="modal" data-bs-target="#modalImagenPaso-<?php echo $pasoIndex . '-' . $imagenIndex; ?>">
+                                        <img src="<?php echo $imagenPaso; ?>" class="img-fluid rounded img-paso" alt="Imagen del paso">
+                                    </a>
                                 </div>
                             <?php endforeach; ?>
                         </div>
@@ -364,6 +391,18 @@ require_once('../includes/razonesReporte.php');
         </div>
     </div>
 
+    <?php
+    for ($i = 1; $i < count($imagenes); $i++) {
+        echo '<div tabindex="-1" aria-labelledby="modalImagenLabel-' . $i . '" aria-hidden="true" class="modal fade p-0" id="modalImagenGaleria-' . $i . '">';
+        echo '<div class="modal-dialog modal-dialog-centered">';
+        echo '<div class="modal-content modal-content-imagen p-0">';
+        echo '<img src="' . $imagenes[$i] . '" alt="Receta">';
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+    }
+    ?>
+
 
     <!-- MODAL PARA ELIMINAR PUBLICACIÓN -->
     <div class="p-0 modal fade" id="modalEliminarPublicacion" tabindex="-1" aria-labelledby="modalEliminarPublicacionLabel" aria-hidden="true">
@@ -376,15 +415,14 @@ require_once('../includes/razonesReporte.php');
                 <div class="modal-body">
                     <p class="text-center">¿Estás seguro de que deseas eliminar esta publicación? Esta acción es irreversible.</p>
                 </div>
-                <div class="modal-footer">
-                    <div class="d-flex justify-content-between">
+                <div class="modal-footer d-flex justify-content-between">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-danger" id="confirmar-eliminar">Sí, estoy seguro</button>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
+    
 
 
 

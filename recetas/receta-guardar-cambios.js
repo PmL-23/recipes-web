@@ -1,72 +1,3 @@
-/* function guardarNuevosDatos ()
-{
-    const formulario=  document.getElementById("frm-receta-editar");
-    formulario.addEventListener("submit", function (e) {
-        e.preventDefault();
-
-        getRespuesta(e.target);
-    });
-} */
-
-/* guardarNuevosDatos();
-
-const respuesta = function (data) {
-    let cartelError = document.getElementById('cartel-error');
-    let listaError = document.getElementById('lista-error');
-    limpiarMensajes();
-
-    if (data.success) {
-        
-        window.location.href = "../recetas/receta-plantilla.php?id=" + data.receta_id;
-
-
-    } else {
-        //cartelError.classList.remove('d-none');
-        for (let i = 0; i < data.errors.length; i++) {
-            //let error = data.errors[i];
-            
-          //  listaError.innerHTML += '<li>' + error + '</li>';
-           // let item = document.createElement("li");
-           // item.classList.add("list-group-item","pb-3");
-           // item.textContent = error;
-            
-            //listaError.appendChild(item); 
-
-            console.log(error);
-        }
-    }
-} */
-
-/* function getRespuesta(form) {
-    let urlActual = window.location.href;
-
-    let urlParams = new URLSearchParams(window.location.search); 
-    let id_publicacion = urlParams.get('id'); 
-    if (id_publicacion) {  
-        let palabraClave = "recipes-web/";
-        let indice = urlActual.indexOf(palabraClave);
-
-        if (indice !== -1) {
-            let urlCortada = urlActual.substring(0, indice + palabraClave.length);
-
-            // Ahora podemos usar el id_publicacion en la URL del fetch
-            fetch(urlCortada + "recetas/form-receta-editar.php?id=" + id_publicacion, {
-                method: "POST",
-                body: new FormData(form)
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log("data", data);
-                respuesta(data);
-            })
-            .catch(error => {
-                console.error("Error:", error);
-            });
-        }
-    } else {
-        console.error("No se encontró el parámetro 'id' en la URL");
-    }
-} */
 
 let form = document.getElementById("frm-receta-editar");
 
@@ -108,6 +39,7 @@ form.addEventListener("submit", function (e){
                             console.log('Errores:', data.errors);
                             console.log('Errores:', data.errorsIng);
                             console.log('Errores:', data.errorsPaso);
+                            
                         }
                     })
                     .catch(error => {
@@ -758,3 +690,105 @@ if( !validarCantidad() ) FlagValidacion = false;
 return FlagValidacion;
 }
 
+
+const quitarPaises = document.querySelectorAll('.quitar-pais');
+quitarPaises.forEach(quitarPais => {
+        quitarPais.addEventListener('click', function() {
+        const paisContainer = this.closest('.pais-container');
+        const idPaisReceta = this.getAttribute('data-id-pais');
+
+        paisContainer.remove();
+
+        if (validar === true)
+        {
+                if (idPaisReceta) {
+                        fetch('form-receta-editar.php', {
+                        method: 'POST',
+                        headers: {
+                                'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ id_pais_receta: idPaisReceta })
+                        })
+                        .then(response => response.json())
+                        .then(dataPais => {
+                        if (dataPais.success) {
+                                console.log("País eliminado con éxito");
+                        } else {
+                                console.error("Error al eliminar el país:", dataPais.message);
+                        }
+                        })
+                        .catch(error => console.error("Error:", error));
+                }
+
+        }
+        });
+});
+
+
+const quitarPasos = document.querySelectorAll('.quitar-paso');
+quitarPasos.forEach(quitarPaso => {
+        quitarPaso.addEventListener('click', function() {
+        const pasoContainer = this.closest('.paso-container');
+        const idPasoReceta = this.getAttribute('data-id-paso');
+        console.log(idPasoReceta);
+
+        pasoContainer.remove();
+
+        if (validar === true)
+        {
+                if (idPasoReceta) {
+                        fetch('form-receta-editar.php', {
+                        method: 'POST',
+                        headers: {
+                                'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ id_paso_receta: idPasoReceta })
+                        })
+                        .then(response => response.json())
+                        .then(dataPaso => {
+                        if (dataPaso.success) {
+                                console.log("Paso eliminado con éxito");
+                        } else {
+                                console.error("Error al eliminar el paso:", dataPaso.message);
+                        }
+                        })
+                        .catch(error => console.error("Error:", error));
+                }
+
+        }
+        });
+});
+
+
+const quitarIng = document.querySelectorAll('.quitar-ingrediente');
+quitarIng.forEach(quitarPais => {
+        quitarPais.addEventListener('click', function() {
+        const ingContainer = this.closest('.ingrediente-container');
+        const idIngReceta = this.getAttribute('data-id-ingrediente');
+
+        ingContainer.remove();
+
+        if (validar === true)
+        {
+                if (idIngReceta) {
+                        fetch('form-receta-editar.php', {
+                        method: 'POST',
+                        headers: {
+                                'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ id_ingrediente_receta: idIngReceta })
+                        })
+                        .then(response => response.json())
+                        .then(dataIng => {
+                        if (dataIng.success) {
+                                console.log("Ingrediente eliminado con éxito");
+                        } else {
+                                console.error("Error al eliminar el país:", dataIng.message);
+                        }
+                        })
+                        .catch(error => console.error("Error:", error));
+                }
+
+        }
+        });
+});

@@ -24,7 +24,7 @@ if (isset($_GET['id'])) {
     $autor = $recetaData["id_usuario_autor"];
     $categoria = $recetaData["id_categoria"];
 
-    $sqlAutor = "SELECT username, foto_usuario FROM usuarios WHERE id_usuario = :autor";
+    $sqlAutor = "SELECT username, foto_usuario, id_pais FROM usuarios WHERE id_usuario = :autor";
     $stmtAutor = $conn->prepare($sqlAutor);
     $stmtAutor->bindParam(':autor', $autor, PDO::PARAM_INT);
     $stmtAutor->execute();
@@ -34,6 +34,15 @@ if (isset($_GET['id'])) {
 
     $nombreAutor = $autorData["username"];
     $fotoAutor = $autorData["foto_usuario"];
+    $paisAutor = $autorData["id_pais"];
+
+    $sqlImagenP = "SELECT ruta_imagen_pais FROM paises WHERE id_pais = :id_pais";
+    $stmtImagenP = $conn->prepare($sqlImagenP);
+    $stmtImagenP->bindParam(':id_pais', $paisAutor, PDO::PARAM_INT);
+    $stmtImagenP->execute();
+    $imagenDataP = $stmtImagenP->fetch(PDO::FETCH_ASSOC);
+
+    $bandera= $imagenDataP["ruta_imagen_pais"];
 
     if (!file_exists($fotoAutor) || $fotoAutor === 0 || empty($fotoAutor)) {
         $fotoAutor = "../fotos_usuario/default/perfil-default.jpg";
@@ -100,7 +109,7 @@ if (isset($_GET['id'])) {
         }
     }
 
-    $sqlPaisReceta = "SELECT id_pais FROM paises_recetas WHERE id_publicacion = :id";
+    $sqlPaisReceta = "SELECT * FROM paises_recetas WHERE id_publicacion = :id";
     $stmtPaisReceta = $conn->prepare($sqlPaisReceta);
     $stmtPaisReceta->bindParam(':id', $idPublicacion, PDO::PARAM_INT);
     $stmtPaisReceta->execute();
@@ -109,6 +118,8 @@ if (isset($_GET['id'])) {
     $paises = [];
     foreach ($paisRecetaData as $pais) {
         $idPais = $pais['id_pais'];
+        $idPaisReceta = $pais["id_pais_receta"];
+        //print_r($idPaisReceta);
 
         $sqlPais = "SELECT nombre, ruta_imagen_pais FROM paises WHERE id_pais = :id_pais";
         $stmtPais = $conn->prepare($sqlPais);
@@ -123,12 +134,13 @@ if (isset($_GET['id'])) {
             $paises[] = [
                 'nombre' => htmlspecialchars($paisNombre, ENT_QUOTES, 'UTF-8'),
                 'ruta_imagen_pais' => htmlspecialchars($paisImagen, ENT_QUOTES, 'UTF-8'),
+                
             ];
         }
     }
 
 
-    $sqlIngredienteReceta = "SELECT id_ingrediente, cantidad FROM ingredientes_recetas WHERE id_publicacion = :id";
+    $sqlIngredienteReceta = "SELECT id_ingrediente, cantidad, id_ingrediente_receta FROM ingredientes_recetas WHERE id_publicacion = :id";
     $stmtIngredienteReceta = $conn->prepare($sqlIngredienteReceta);
     $stmtIngredienteReceta->bindParam(':id', $idPublicacion, PDO::PARAM_INT);
     $stmtIngredienteReceta->execute();
@@ -138,7 +150,7 @@ if (isset($_GET['id'])) {
     foreach ($ingredienteRecetaData as $ingrediente) {
         $idIngrediente = $ingrediente['id_ingrediente'];
         $cantidadIngrediente = $ingrediente['cantidad'];
-
+        $idIngredienteReceta = ['id_ingrediente_receta'];
 
         $sqlIngrediente = "SELECT nombre FROM ingredientes WHERE id_ingrediente = :id_ingrediente";
         $stmtIngrediente = $conn->prepare($sqlIngrediente);
@@ -152,6 +164,7 @@ if (isset($_GET['id'])) {
             $ingredientes[] = [
                 'nombre' => htmlspecialchars($ingredienteNombre, ENT_QUOTES, 'UTF-8'),
                 'cantidad' => htmlspecialchars($cantidadIngrediente, ENT_QUOTES, 'UTF-8'),
+                'id_ingrediente_receta' => $idIngredienteReceta
             ];
         }
     }
@@ -165,6 +178,8 @@ if (isset($_GET['id'])) {
     $pasos = [];
     foreach ($pasoData as $paso) {
         $idPaso = $paso['id_paso'];
+
+        //print_r($idPaso);
         $numeroPaso = $paso['num_paso'];
         $textoPaso = $paso['texto'];
 
@@ -183,6 +198,7 @@ if (isset($_GET['id'])) {
         }
 
         $pasos[] = [
+            'id_paso_receta' => $idPaso,
             'num_paso' => htmlspecialchars($numeroPaso, ENT_QUOTES, 'UTF-8'),
             'texto' => htmlspecialchars($textoPaso, ENT_QUOTES, 'UTF-8'),
             'imagenes' => $imagenesPaso

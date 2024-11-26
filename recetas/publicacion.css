@@ -14,8 +14,8 @@
 
 .imagen {
     flex: 0 0 auto;
-    width: calc(35% - 10px);
-    margin-right: 10px;
+    margin-right: 5px;
+    width: 150px;
 }
 
 .contenedor-img-portada {

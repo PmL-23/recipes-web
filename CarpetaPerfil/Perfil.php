@@ -17,6 +17,25 @@ if (!isset($_GET['NombreDeUsuario'])) {
 
 $Nombre_Usuario = $_GET['NombreDeUsuario'];
 
+
+if (isset($_SESSION['id'])) {
+    $usuarioID = $_SESSION['id'];
+
+$query = "SELECT username FROM usuarios WHERE id_usuario = :id";
+$stm = $conn->prepare($query);
+$stm->bindParam(':id', $usuarioID);
+$stm->execute();
+
+$usuarioL = $stm->fetch(PDO::FETCH_ASSOC);
+$nombreUserLogueado = $usuarioL["username"];
+
+if($Nombre_Usuario == $nombreUserLogueado)
+{
+    header('Location: ../perfil-usuario/mi_perfil.php'); 
+        exit();
+}
+}
+
 $query = "SELECT 1 from usuarios where username = :NombreUsuario";
 $stm = $conn->prepare($query);
 $stm->bindParam(':NombreUsuario', $Nombre_Usuario);

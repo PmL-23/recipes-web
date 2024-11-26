@@ -128,29 +128,34 @@ if (!$queryResultsEtiquetas) {
                     <div class="c-paises" id="input-paises">
                         <h4 for="select-pais" class="h6 form-label mt-3">País</h4>
                         <?php foreach ($paisRecetaData as $index => $paisReceta) { ?>
-                        <div class="pais-container my-2 d-flex flex-column">
-                            <select class="w-50 select-pais form-select" aria-label="Select pais" name="pais[]">
-                                <option value="" disabled>Selecciona un país</option>
-                                <?php foreach ($paisesDisponibles as $paisRow) {
-                                    $rutaBandera = "../svg/" . $paisRow['ruta_imagen_pais'];
-                                    $selected = ($paisRow['id_pais'] == $paisReceta['id_pais']) ? 'selected' : '';
-                                    echo '<option value="' . $paisRow['id_pais'] . '" data-pais="' . $rutaBandera . '" ' . $selected . '>' . $paisRow['nombre'] . '</option>';
-                                } ?>
-                            </select>
-                            <small class="text-danger error-pais" id="error-pais"></small>
-                            <img class="ms-2 bandera mini-bandera d-none" src="" alt="Bandera">
-                            <?php if ($index != 0)
-                                echo '<button class="boton-secundario quitar-pais" type="button"><i class="bi bi-trash me-1"></i> Quitar</button>';
-                            ?>
-                            <?php } ?>
+                            <div class="pais-container my-2 d-flex align-items-center">
+                                <select class="w-50 select-pais form-select" aria-label="Select pais" name="pais[]">
+                                    <option value="" disabled>Selecciona un país</option>
+                                    <?php foreach ($paisesDisponibles as $paisRow) {
+                                        $rutaBandera = "../svg/" . $paisRow['ruta_imagen_pais'];
+                                        $selected = ($paisRow['id_pais'] == $paisReceta['id_pais']) ? 'selected' : '';
+                                        echo '<option value="' . $paisRow['id_pais'] . '" data-pais="' . $rutaBandera . '" ' . $selected . '>' . $paisRow['nombre'] . '</option>';
+                                        if ($selected) {
+                                            $rutaBanderaActual = $rutaBandera;
+                                        }
+                                    } ?>
+                                </select>
+                                <small class="text-danger error-pais d-flex" id="error-pais"></small>
+                                <img class="ms-2 bandera mini-bandera" src="<?php echo isset($rutaBanderaActual) ? $rutaBanderaActual : ''; ?>" alt="Bandera">
+                                <?php if ($index != 0) { ?>
+                                    <button class="ms-2 boton-secundario quitar-pais" type="button" data-id-pais="<?php echo $paisReceta['id_pais_receta']; ?>">
+                                        <i class="bi bi-trash me-1"></i> Quitar
+                                    </button>
+                                <?php } ?>
+                            </div>
+                        <?php } ?>
                         </div>
-                    </div>
-
                     <div class="d-flex justify-content-start mt-3">
                         <button class="boton-item" type="button" id="agregar-pais">+ Agregar país</button>
                     </div>
-
                 </div>
+
+
 
                 <div class="col-md-6">
                     <label for="categoria" class="h6 form-label mt-3">Categoría</label>
@@ -174,9 +179,8 @@ if (!$queryResultsEtiquetas) {
                         <p class="tag-categorias d-none" id="tag-categoria"></p>
                     </div>
                 </div>
-            </div> 
-
-            
+                
+                
             <div class="row mt-3"> 
                 <div class="col-lg-6"> 
                     <div class="row container text-center mt-4 mb-3">
@@ -191,7 +195,7 @@ if (!$queryResultsEtiquetas) {
                         <option value="Media" <?php echo ($dificultad == "Media") ? 'selected' : ''; ?>>Media</option>
                         <option value="Dificil" <?php echo ($dificultad == "Dificil") ? 'selected' : ''; ?>>Difícil</option>
                     </select>
-
+                    
                     <small class="text-danger" id="error-dificultad"></small>
                 </div>
                 <div class="col-lg-6 row">
@@ -217,9 +221,10 @@ if (!$queryResultsEtiquetas) {
                 </div>
                 
             </div>
-
-    </div>
-
+            
+        </div>
+    </div> 
+        
     <div class="contenido-etiquetas container  w-100 w-lg-75 p-5  mt-5 seccion">
         <h5 class="h5 form-label">Etiquetas</h5>
         <div id="etiquetas">
@@ -258,7 +263,7 @@ if (!$queryResultsEtiquetas) {
     <div class="contenido-ingredientes container w-100 w-lg-75 ps-5 pe-4 pb-5 pt-4 mt-5 seccion">
         <div id="ingredientes">
             <?php foreach ($ingredientes as $index => $ingrediente) { ?>
-            <div class="row container-fluid mt-4" id="ingrediente-row-<?php echo $index; ?>">
+            <div class="row container-fluid mt-4 ingrediente-container" id="ingrediente-row-<?php echo $index; ?>">
                 <div class="col-md-6">
                     <?php if ($index == 0) { ?>
                     <label for="ingrediente-<?php echo $index; ?>" class="h5 form-label">Ingrediente</label>
@@ -279,7 +284,7 @@ if (!$queryResultsEtiquetas) {
                     </div>
                 </div>
                 <div class="col-md-2 d-flex justify-content-end align-items-center">
-                    <button class="boton-secundario" type="button" <?php echo $index == 0 ? 'disabled' : ''; ?>><i class="bi bi-trash me-1"></i>Quitar</button>
+                    <button class="boton-secundario quitar-ingrediente" type="button" <?php echo $index == 0 ? 'disabled' : ''; ?> data-id-ingrediente="<?php echo $ingrediente['id_ingrediente_receta'] ?>"><i class="bi bi-trash me-1"></i>Quitar</button>
                 </div>
             </div>
             <?php } ?>
@@ -300,9 +305,9 @@ if (!$queryResultsEtiquetas) {
             </div>
 
             <div class="d-grid d-flex justify-content-end mt-2">
-                <button class="boton-secundario quitar-paso d-flex" type="button" id="quitar-paso-<?php echo $paso['num_paso']; ?>">
-                    <i class="bi bi-trash me-1"></i>Quitar
-                </button>
+            <button class="boton-secundario quitar-paso d-flex" type="button" data-id-paso="<?php echo $paso['id_paso_receta']; ?>">
+                <i class="bi bi-trash me-1"></i>Quitar
+            </button>
             </div>
 
             <!-- Manejo de imágenes -->
@@ -320,7 +325,7 @@ if (!$queryResultsEtiquetas) {
             <?php else: ?>
                 <div class="elementos-paso d-grid gap-2 d-md-flex justify-content-md-start">
                     <div class="contenedor-paso-img justify-content-start flex-column">
-                        <img src="../recetas/galeria/default/default-image.png" class="img-paso border rounded img-fluid img-paso-id" alt="Imagen predeterminada del paso <?php echo $paso['num_paso']; ?>">
+                        <img src="../recetas/galeria/default/default-image.png" class="img-paso border rounded img-fluid img-paso-id" alt="Imagen del paso">
                     </div>
                 </div>
             <?php endif; ?>

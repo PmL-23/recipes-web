@@ -161,7 +161,24 @@ const subirImagenPaso = function () {
 });
 };
 
-
-
-
 subirImagenPaso();
+
+
+const mostrarCategoria = function () {       
+
+        const selectCat = document.getElementById("categoria");
+        const tagCategoria = document.getElementById("tag-categoria");
+        
+        selectCat.addEventListener("change", function () {
+
+                const selectCatIndex = selectCat.options[selectCat.selectedIndex]; 
+                const catSeleccionada = selectCatIndex.textContent;
+        
+                if (catSeleccionada) {
+                        tagCategoria.classList.remove("d-none");
+                        tagCategoria.textContent = catSeleccionada; 
+                } 
+        });
+}
+
+mostrarCategoria();
