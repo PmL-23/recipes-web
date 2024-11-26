@@ -155,7 +155,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
 
                 //tabla pasos
-                            
+                //eliminar
+                $dataPaso = json_decode(file_get_contents('php://input'), true);
+
+                if (isset($dataPaso['id_paso_receta'])) {
+
+                    $id_paso_eliminado = $dataPaso['id_paso_receta'];
+
+                    $response['message'] = "Datos: $id_paso_eliminado";
+
+                    $sqlEliminarPasoImg = "DELETE FROM imagenes_pasos WHERE id_paso = :id_paso";
+                    $stmtEliminarPasoImg = $conn->prepare($sqlEliminarPasoImg);
+                    $stmtEliminarPasoImg->bindParam(':id_paso', $id_paso_eliminado, PDO::PARAM_INT);
+                    
+                    if ($stmtEliminarPasoImg->execute()) {
+
+
+                        $sqlEliminarPaso = "DELETE FROM pasos_recetas WHERE id_paso = :id_paso";
+                        $stmtEliminarPaso = $conn->prepare($sqlEliminarPaso);
+                        $stmtEliminarPaso->bindParam(':id_paso', $id_paso_eliminado, PDO::PARAM_INT);
+                        
+                        if ($stmtEliminarPaso->execute()) {
+                            $response['success'] = true;
+                        } else {
+                            $response['message'] = "Error al eliminar el paso";
+                        }
+                    } else {
+                        $response['message'] = "Datos ";
+                    }
+                    } else {
+                        $response['message'] = "Datos invalidos";
+                    }
+                
+                
                 $pasos = isset($_POST["paso"]) ? $_POST["paso"] : [];
 
                 
@@ -249,7 +281,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     
                 }
 
-                
+                //eliminar paises
+                    $dataPais = json_decode(file_get_contents('php://input'), true);
+
+                    if (isset($dataPais['id_pais_receta'])) {
+                        $id_pais_eliminada = $dataPais['id_pais_receta'];
+
+                        $sqlEliminarPais = "DELETE FROM paises_recetas WHERE id_publicacion = :id_publicacion AND id_pais = :id_pais";
+                        $stmtEliminarPais = $conn->prepare($sqlEliminarPais);
+                        $stmtEliminarPais->bindParam(':id_publicacion', $id_publicacion, PDO::PARAM_INT);
+                        $stmtEliminarPais->bindParam(':id_pais', $id_pais_eliminado, PDO::PARAM_INT);
+                        
+                        if ($stmtEliminarPais->execute()) {
+                            $response['success'] = true;
+                        } else {
+                            $response['message'] = "Error al eliminar el país";
+                        }
+                    } else {
+                        $response['message'] = "Datos inválidos";
+                    }
+            
+
                 
                 $sqlObtenerPaises = "SELECT id_pais FROM paises_recetas WHERE id_publicacion = :id_publicacion";
                 $stmtObtenerPaises = $conn->prepare($sqlObtenerPaises);
@@ -290,6 +342,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             
             // tabla de ingredientes
+
+            //eliminar paises
+            $dataIng = json_decode(file_get_contents('php://input'), true);
+
+            if (isset($dataIng['id_ingrediente_receta'])) {
+                $id_ingrediente_eliminado = $dataIng['id_ingrediente_receta'];
+
+                $sqlEliminarIng = "DELETE FROM ingredientes_recetas WHERE id_publicacion = :id_publicacion AND id_ingrediente = :id_ingrediente";
+                $stmtEliminarIng = $conn->prepare($sqlEliminarIng);
+                $stmtEliminarIng->bindParam(':id_publicacion', $id_publicacion, PDO::PARAM_INT);
+                $stmtEliminarIng->bindParam(':id_ingrediente', $id_ingrediente_eliminado, PDO::PARAM_INT);
+                
+                if ($stmtEliminarIng->execute()) {
+                    $response['success'] = true;
+                } else {
+                    $response['message'] = "Error al eliminar el ingrediente";
+                }
+            } else {
+                $response['message'] = "Datos inválidos";
+            }
+
+
+
             $ingredientesNuevos = isset($_POST["ingrediente"]) ? $_POST["ingrediente"] : [];
             $cantidadesNuevas = isset($_POST["cantidad"]) ? $_POST["cantidad"] : [];
             
