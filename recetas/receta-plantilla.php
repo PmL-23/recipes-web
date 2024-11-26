@@ -25,7 +25,7 @@ require_once('../includes/razonesReporte.php');
     <!--   <link rel="stylesheet" href="estilos.css"> -->
     <!-- Scripts -->
     <script src="recetas.js" defer></script>
-    <script src="./compartir1.js" defer></script>
+    <script src="./compartir00.js" defer></script>
     <script src="./Scripts-Favorito/favoritoReceta.js" defer></script>
     <script src="./Scripts-Reportes/reporteReceta.js" defer></script>
     <script src="./Scripts-Reportes/reporteComentario.js" defer></script>
@@ -196,9 +196,9 @@ require_once('../includes/razonesReporte.php');
                                                                                                                                                                                         }
                                                                                                                                                                                     } else {
                                                                                                                                                                                             ?><span class="estrella" data-value="<?php echo $i ?>">&#9733;</span><?php
-                                                                                                                                                                                    }
-                                                                                                                                                                                }
-                                                                                                                                                                                ?>
+                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                                    ?>
 
                             <input type="hidden" name="valoracion" value="0">
 
@@ -367,7 +367,7 @@ require_once('../includes/razonesReporte.php');
 
     <!-- MODAL PARA ELIMINAR PUBLICACIÓN -->
     <div class="p-0 modal fade" id="modalEliminarPublicacion" tabindex="-1" aria-labelledby="modalEliminarPublicacionLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered"> 
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Eliminar Publicación</h5>
@@ -511,19 +511,19 @@ require_once('../includes/razonesReporte.php');
                 <h2>Compartir</h2>
                 <div class="redes my-5">
                     <!-- compartir en fc -->
-                    <a href="#" onclick="compartirPorFacebook(<?php echo $idPublicacion; ?>)"><i class="bi bi-facebook"></i></a>
+                    <a href="#" id="facebook" data-id="<?php echo $idPublicacion; ?>"><i class="bi bi-facebook"></i></a>
 
                     <!-- compartir en ig -->
-                    <a href="#" onclick="compartirPorInstagram(<?php echo $idPublicacion; ?>)"><i class="bi bi-instagram"></i></a>
+                    <a href="#" id="instagram" data-id="<?php echo $idPublicacion; ?>"><i class="bi bi-instagram"></i></a>
 
                     <!-- compartir en x -->
-                    <a href="https://www.instagram.com/" onclick="compartirPorTwitter(<?php echo $idPublicacion; ?>)"><i class="bi bi-twitter"></i></a>
+                    <a href="#" id="twitter" data-id="<?php echo $idPublicacion; ?>"><i class="bi bi-twitter"></i></a>
 
                     <!-- compartir por link -->
-                    <a href="#" onclick="compartirReceta(<?php echo $idPublicacion; ?>)"><i class="bi bi-link-45deg"></i></a>
+                    <a href="#" id="link" data-id="<?php echo $idPublicacion; ?>"><i class="bi bi-link-45deg"></i></a>
 
                     <!-- compartir por wsp -->
-                    <a href="#" onclick="compartirPorWhatsApp(<?php echo $idPublicacion; ?>)"><i class="bi bi-whatsapp"></i></a>
+                    <a href="#" id="whatsapp" data-id="<?php echo $idPublicacion; ?>"><i class="bi bi-whatsapp"></i></a>
                 </div>
             </div>
         </div>
