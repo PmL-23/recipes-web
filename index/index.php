@@ -17,7 +17,6 @@ include '../includes/permisos.php'
     <link rel="stylesheet" href="./sliders/carrouselRecetasMasValoradas.css">
     <!-- JS -->
     <script src="./recetasSegunHora/mostrarPorFecha1.js" defer></script>
-    <script src="receta_paises.js" defer></script>
     <script src="./sliders/recetasSlider.js" defer></script>
     <!-- HEAD -->
     <?php include '../includes/head.php' ?>
@@ -36,8 +35,8 @@ include '../includes/permisos.php'
     <!-- BANDERAS -->
     <div class="paises-contenedor">
         <?php foreach ($paises as $pais): ?>
-            <a href="#">
-                <div class="bandera-container" onclick="abrirRecetas(<?= $pais['id_pais'] ?>)">
+            <a href="../html_paises/receta_pais.php?id_pais=<?= $pais['id_pais'] ?>">
+                <div class="bandera-container">
                     <img src="../svg/<?= $pais['ruta_imagen_pais'] ?>" alt="<?= $pais['nombre'] ?>" title="<?= $pais['nombre'] ?>" class="bandera" width="100" height="auto">
                 </div>
             </a>
