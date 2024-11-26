@@ -24,7 +24,7 @@ if (isset($_GET['id'])) {
     $autor = $recetaData["id_usuario_autor"];
     $categoria = $recetaData["id_categoria"];
 
-    $sqlAutor = "SELECT username, foto_usuario FROM usuarios WHERE id_usuario = :autor";
+    $sqlAutor = "SELECT username, foto_usuario, id_pais FROM usuarios WHERE id_usuario = :autor";
     $stmtAutor = $conn->prepare($sqlAutor);
     $stmtAutor->bindParam(':autor', $autor, PDO::PARAM_INT);
     $stmtAutor->execute();
@@ -34,6 +34,15 @@ if (isset($_GET['id'])) {
 
     $nombreAutor = $autorData["username"];
     $fotoAutor = $autorData["foto_usuario"];
+    $paisAutor = $autorData["id_pais"];
+
+    $sqlImagenP = "SELECT ruta_imagen_pais FROM paises WHERE id_pais = :id_pais";
+    $stmtImagenP = $conn->prepare($sqlImagenP);
+    $stmtImagenP->bindParam(':id_pais', $paisAutor, PDO::PARAM_INT);
+    $stmtImagenP->execute();
+    $imagenDataP = $stmtImagenP->fetch(PDO::FETCH_ASSOC);
+
+    $bandera= $imagenDataP["ruta_imagen_pais"];
 
     if (!file_exists($fotoAutor) || $fotoAutor === 0 || empty($fotoAutor)) {
         $fotoAutor = "../fotos_usuario/default/perfil-default.jpg";
