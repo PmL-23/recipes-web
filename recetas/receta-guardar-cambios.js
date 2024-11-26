@@ -39,6 +39,7 @@ form.addEventListener("submit", function (e){
                             console.log('Errores:', data.errors);
                             console.log('Errores:', data.errorsIng);
                             console.log('Errores:', data.errorsPaso);
+                            
                         }
                     })
                     .catch(error => {

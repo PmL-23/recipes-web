@@ -113,46 +113,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($publicado) {
 
             //tabla imagenes
-            if (isset($_FILES['imagenes']) && count($_FILES['imagenes']['name']) > 0) {
+            if (isset($_FILES['imagenes']) && is_array($_FILES['imagenes']['name']) && count($_FILES['imagenes']['name']) > 0 && $_FILES['imagenes']['name'][0] != '') {
+
+                $cantImagenes = count($_FILES['imagenes']['name']);
+                $carpetaDestino = '../recetas/galeria/';
+            
                 $imagenes = $_FILES['imagenes'];
-
-                foreach ($imagenes['name'] as $index => $nombreArchivo) {
-                    if ($imagenes['error'][$index] == 0) {
-                        
-                        
-                        $tipoImagen = exif_imagetype($imagenes['tmp_name'][$index]);
-                        if ($tipoImagen != IMAGETYPE_JPEG && $tipoImagen != IMAGETYPE_PNG) {
-                            $respuestaMensajes[] = "El archivo $nombreArchivo no es una imagen válida.";
-                            continue;
-                        }
-
-                        
-                        $directorioDestino = "../recetas/galeria/";
-                        $nuevoNombreArchivo = uniqid() . "_" . basename($nombreArchivo);
-                        $rutaArchivoDestino = $directorioDestino . $nuevoNombreArchivo;
-
-                        
-                        if (move_uploaded_file($imagenes['tmp_name'][$index], $rutaArchivoDestino)) {
-
-                            $sqlInsertarImagen = "INSERT INTO imagenes (ruta_imagen, id_publicacion) VALUES (:ruta_imagen, :id_publicacion)";
-                            $stmtInsertarImagen = $conn->prepare($sqlInsertarImagen);
-                            $stmtInsertarImagen->bindParam(':ruta_imagen', $rutaArchivoDestino, PDO::PARAM_STR);
-                            $stmtInsertarImagen->bindParam(':id_publicacion', $id_publicacion, PDO::PARAM_INT);
-
-                            if ($stmtInsertarImagen->execute()) {
-                                $respuestaMensajes[] = "Imagen $nuevoNombreArchivo subida con éxito.";
-                            } else {
-                                $respuestaMensajes[] = "Error al insertar la imagen $nuevoNombreArchivo en la base de datos.";
-                            }
-
+            
+                for ($i = 0; $i < $cantImagenes; $i++) {
+            
+                    $nombreArchivo = $imagenes['name'][$i];
+                    $nombreTemporalImagen = $imagenes['tmp_name'][$i];
+                    $errorSubidaImagen = $imagenes['error'][$i];
+            
+                    $tipoImagen = exif_imagetype($nombreTemporalImagen);
+                    if ($errorSubidaImagen === UPLOAD_ERR_OK && ($tipoImagen == IMAGETYPE_JPEG || $tipoImagen == IMAGETYPE_PNG)) {
+            
+                        $nombreArchivoUnico = uniqid() . '_' . basename($nombreArchivo);
+                        $directorioDestino = $carpetaDestino . $nombreArchivoUnico;
+            
+                        if (move_uploaded_file($nombreTemporalImagen, $directorioDestino)) {
+            
+                            $sqlQueryImagen = "INSERT INTO imagenes(id_publicacion, ruta_imagen) VALUES (:id_publicacion, :ruta_imagen)";
+            
+                            $QueryImagen = $conn->prepare($sqlQueryImagen);
+                            $QueryImagen->bindParam(':id_publicacion', $id_publicacion, PDO::PARAM_INT);
+                            $QueryImagen->bindParam(':ruta_imagen', $directorioDestino, PDO::PARAM_STR);
+                            $QueryImagen->execute();
+            
                         } else {
-                            $respuestaMensajes[] = "Error al mover la imagen $nombreArchivo al servidor.";
+                            echo json_encode(['success' => false, 'msj_error' => 'Error al subir el archivo' . $nombreArchivo]);
                         }
-
+            
                     } else {
-                        $respuestaMensajes[] = "Error con el archivo $nombreArchivo.";
+                        echo json_encode(['success' => false, 'msj_error' => 'Error en el archivo ' . $nombreArchivo . '; Código de error ' . $errorSubidaImagen]);
                     }
                 }
+            }       
 
                 //tabla pasos
                 //eliminar
@@ -339,7 +336,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $stmtAgregarPais->execute();
                     }
                 }
-            }
+            
             
             // tabla de ingredientes
 
@@ -508,7 +505,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo json_encode([
                 'success' => true,
                 'receta_id' => $id_publicacion,
-                'mensajes' => $respuestaMensajes
             ]);
         } else {
             echo json_encode(['success' => false, 'errors' => ['Error al guardar la publicación']]);

@@ -170,7 +170,7 @@ if (isset($_GET['id'])) {
     foreach ($pasoData as $paso) {
         $idPaso = $paso['id_paso'];
 
-        print_r($idPaso);
+        //print_r($idPaso);
         $numeroPaso = $paso['num_paso'];
         $textoPaso = $paso['texto'];
 
