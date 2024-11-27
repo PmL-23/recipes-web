@@ -5,8 +5,7 @@ require '../includes/conec_db.php';
 if (isset($_GET['id'])) {
     $idPublicacion = $_GET['id'];
     
-    //$Nombre_Usuario = $_GET['NombreDeUsuario'];
-
+    
 
     $sql = "SELECT * FROM publicaciones_recetas WHERE id_publicacion = :id_get";
     $stmt = $conn->prepare($sql);
@@ -41,11 +40,11 @@ if (isset($_GET['id'])) {
     $paisAutor = $autorData["id_pais"];
 
     $bandera= "";
-    if (!empty($id_pais)) {
+    if (!empty($paisAutor)) {
 
         $sqlImagenP = "SELECT ruta_imagen_pais FROM paises WHERE id_pais = :id_pais";
         $stmtImagenP = $conn->prepare($sqlImagenP);
-        $stmtImagenP->bindParam(':id_pais', $id_pais, PDO::PARAM_INT);
+        $stmtImagenP->bindParam(':id_pais', $paisAutor, PDO::PARAM_INT);
         $stmtImagenP->execute();
         $resultadoImagen = $stmtImagenP->fetch(PDO::FETCH_ASSOC);
         
@@ -55,7 +54,7 @@ if (isset($_GET['id'])) {
         } 
     }
 
-    
+
 
     
 

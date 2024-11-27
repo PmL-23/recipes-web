@@ -4,6 +4,25 @@ require_once('../includes/permisos.php');
 require_once('./Scripts-Valoracion/getValoracionActual.php');
 require_once('./Scripts-Favorito/getEstadoDeFavorito.php');
 require_once('../includes/razonesReporte.php');
+
+
+    $idPublicacion = isset($_GET['id']) ? $_GET['id'] : null;
+
+    if ($idPublicacion) {
+        $query = "SELECT id_publicacion FROM publicaciones_recetas WHERE id_publicacion = :id_publicacion";
+        $stm = $conn->prepare($query);
+        $stm->bindParam(':id_publicacion', $idPublicacion, PDO::PARAM_INT);
+        $stm->execute();
+
+        $row = $stm->fetch(PDO::FETCH_ASSOC);
+
+        if (!$row) {
+            header('Location: ../index/index.php'); 
+            exit();
+        }
+
+    }
+
 ?>
 
 <!DOCTYPE html>
