@@ -64,17 +64,9 @@ if ($indexPosition !== false) {
 
     <?php include '../includes/head.php' ?>
 </head>
-<<<<<<< HEAD
-=======
-    
-<body data-IDUsuario="<?php echo htmlspecialchars($id_usuario); ?>" data-urlbase="<?php echo htmlspecialchars($urlVariable); ?>"
-data-Permiso_GuardarReceta="<?php echo $permisoGuardarReceta; ?>">
-    
-<?php include '../includes/header.php' ?>
-<?php include '../includes/conec_db.php' ?>
->>>>>>> 8209d0c (Permisos en favoritos y perfil ajeno)
 
-<body data-IDUsuario="<?php echo htmlspecialchars($id_usuario); ?>" data-urlbase="<?php echo htmlspecialchars($urlVariable); ?> " class="d-flex flex-column min-vh-100">
+<body data-IDUsuario="<?php echo htmlspecialchars($id_usuario); ?>" data-urlbase="<?php echo htmlspecialchars($urlVariable); ?> " class="d-flex flex-column min-vh-100"
+data-Permiso_GuardarReceta="<?php echo $permisoGuardarReceta; ?>">
 
     <?php include '../includes/header.php' ?>
     <?php include '../includes/conec_db.php' ?>
