@@ -12,7 +12,7 @@ session_start();
     <?php include '../includes/head.php'; ?>
     <link rel="stylesheet" href="./buscador.css">
     <script src="buscar.js" defer></script>
-    <script src="filtross.js" defer></script>
+    <script src="./filtros.js" defer></script>
     <script src="manejarCampos.js" defer></script>
 </head>
 

@@ -22,10 +22,9 @@ require_once('../includes/razonesReporte.php');
     <link rel="stylesheet" href="publicacion.css">
     <link rel="stylesheet" href="../css/recetas.css">
     <link rel="stylesheet" href="../css/carrousel.css">
-    <!--   <link rel="stylesheet" href="estilos.css"> -->
     <!-- Scripts -->
     <script src="recetas.js" defer></script>
-    <script src="./compartir00.js" defer></script>
+    <script src="./compartir.js" defer></script>
     <script src="./Scripts-Favorito/favoritoReceta.js" defer></script>
     <script src="./Scripts-Reportes/reporteReceta.js" defer></script>
     <script src="./Scripts-Reportes/reporteComentario.js" defer></script>
@@ -571,7 +570,7 @@ require_once('../includes/razonesReporte.php');
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 id="modalMensajeLabel" class="modal-title">Mensaje</h5>
+                    <h5 id="modalMensajeLabel" class="modal-title">Link copiado con exito!</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
                 <div class="modal-body">

@@ -156,3 +156,8 @@
     overflow-y: unset !important;
     padding: 0 !important;
 }
+#modalMensaje{
+    overflow-x: unset !important;
+    overflow-y: unset !important;
+    padding: 0 !important;
+}
