@@ -39,7 +39,6 @@ if (isset($_GET['id'])) {
     $bandera= "";
     if (!empty($id_pais)) {
 
-<<<<<<< HEAD
         $sqlImagenP = "SELECT ruta_imagen_pais FROM paises WHERE id_pais = :id_pais";
         $stmtImagenP = $conn->prepare($sqlImagenP);
         $stmtImagenP->bindParam(':id_pais', $id_pais, PDO::PARAM_INT);
@@ -51,12 +50,10 @@ if (isset($_GET['id'])) {
             $bandera= $resultadoImagen["ruta_imagen_pais"];
         } 
     }
+
     
 
     
-=======
-    $bandera = $imagenDataP["ruta_imagen_pais"];
->>>>>>> 7fae54c3e976577270f4453260501adc84705a99
 
     if (!file_exists($fotoAutor) || $fotoAutor === 0 || empty($fotoAutor)) {
         $fotoAutor = "../fotos_usuario/default/perfil-default.jpg";
