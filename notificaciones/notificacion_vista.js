@@ -1,15 +1,18 @@
-// marcarNotificacionVista.js
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('El DOM ha sido cargado');
+    //console.log('El DOM ha sido cargado'); 
 
-    const enlacesNotificaciones = document.querySelectorAll('.dropdown-menu a[data-id]');
-
-    enlacesNotificaciones.forEach(notificacionLink => {
-        notificacionLink.addEventListener('click', function(event) {
-            event.preventDefault(); 
+    const dropdownMenu = document.querySelector('.dropdown-menu.notificacion'); 
+    
+  
+    dropdownMenu.addEventListener('click', function(event) {
+        const notificacionLink = event.target.closest('a[data-id]'); 
+        
+        if (notificacionLink) {
+            //console.log('Clic en notificación');
 
             const idNotificacion = notificacionLink.getAttribute('data-id');
-            //console.log('ID de la notificación al hacer clic:', idNotificacion); 
+            //console.log('ID de la notificación al hacer clic:', idNotificacion);
+
             fetch('../notificaciones/notificacion_vista.php?id_notificacion=' + idNotificacion, {
                 method: 'GET', 
                 headers: {
@@ -18,15 +21,14 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .then(response => response.json())
             .then(result => {
-                console.log('Resultado de marcar la notificación:', result);
+                //console.log('Resultado de marcar la notificación:', result);
                 if (result.success) {
-                    console.log('Notificación marcada como vista');
+                    //console.log('Notificación marcada como vista');
                 } else {
-                    console.error('Error al marcar notificación como vista');
+                    //console.error('Error al marcar la notificación como vista');
                 }
             })
             .catch(error => console.error('Error al hacer la solicitud:', error));
-            window.location.href = notificacionLink.href;
-        });
+        }
     });
 });
