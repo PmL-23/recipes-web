@@ -9,11 +9,6 @@ include '../includes/paises.php';
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Recetario</title>
-<!--         
-        <link rel="stylesheet" href="../css_inicio_sesion/estilo_sesion.css">
-        <link rel="stylesheet" href="../css_inicio_sesion/iniciarSesion.css">
-        <script src="js/inicioSesion.js" defer></script>
--->
         <script src="registrarse.js" defer></script>
         <?php include '../includes/head.php'?>
     </head> 
@@ -33,25 +28,25 @@ include '../includes/paises.php';
             <form name="Nuevo Usuario" method="POST" action="procesar_registro.php" id="frm-usuario">
                 <div class="mb-4 mt-5">
                     <label for="username" class="form-label h6">Nombre de usuario <span class="text-danger">*</span></label>
-                    <input id="username" type="text" class="form-control" name="username" pattern="[a-zA-Z0-9]+" placeholder="Ingrese su nombre de usuario">
+                    <input id="username" type="text" class="form-control" name="username" maxlength="12"  placeholder="Ingrese su nombre de usuario" title="Solo acepta letras minusculas y números, se requiere que sea de 6 a 12 caracteres de largo y que cuente con al menos una letra">
                     <div class="form-text text-danger" id="error-username"></div>
                 </div>
 
                 <div class="mb-4">
                     <label for="password" class="form-label h6">Contraseña <span class="text-danger">*</span></label>
-                    <input id="password" type="password" class="form-control" name="password" maxlength="20" autocomplete="new-password" placeholder="Ingrese su contraseña">
+                    <input id="password" type="password" class="form-control" name="password" maxlength="16" autocomplete="new-password" placeholder="Ingrese su contraseña" title="Solo acepta letras y números, se requiere que sea de 8 a 16 caracteres de largo y que cuente con al menos una letra y un numero">
                     <div class="form-text text-danger" id="error-password"></div>
                 </div>
 
                 <div class="mb-4">
                     <label for="confirm_password" class="form-label h6">Confirmar contraseña <span class="text-danger">*</span></label>
-                    <input id="confirm_password" type="password" class="form-control" name="confirm_password" maxlength="20" autocomplete="new-password" placeholder="Ingrese su contraseña nuevamente">
+                    <input id="confirm_password" type="password" class="form-control" name="confirm_password" maxlength="16" autocomplete="new-password" placeholder="Ingrese su contraseña nuevamente">
                     <div class="form-text text-danger" id="error-confirm-password"></div>
                 </div>
 
                 <div class="mb-4">
                     <label for="nomCompleto" class="form-label h6">Nombre y Apellido <span class="text-danger">*</span></label>
-                    <input id="nomCompleto" type="text" class="form-control" name="nomCompleto" placeholder="Ingrese su nombre completo: 'Nombre Apellido'">
+                    <input id="nomCompleto" type="text" class="form-control" name="nomCompleto" maxlength="30" placeholder="Ingrese su nombre completo: 'Nombre Apellido'">
                     <div class="form-text text-danger" id="error-nombre"></div>
                 </div>
 
@@ -71,7 +66,7 @@ include '../includes/paises.php';
                     <label for="id_pais" class="form-label h6">País <span class="text-danger">*</span></label>
                     <select name="id_pais" id="id_pais" class="form-control">
                         <option value="" disabled selected>Seleccione un pais</option>
-                        <!-- <option value="otro">Otro país</option> -->   
+                        <option value="otro">Otro país</option>   
                         <?php
                             foreach ($paises as $pais) {
                             echo '<option value="'.$pais['id_pais'].'">'.$pais['nombre'].'</option>';

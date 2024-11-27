@@ -35,6 +35,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             if ($password != $confirm_password) {
                 $errors[] = 'Las contraseñas ingresadas no coinciden.';
             }
+
+            $passwordRegex = "/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]*$/"; 
+
+            if (!preg_match($passwordRegex, $password)) {
+                $errors[] = 'Password: error en caracteres permitidos';
+            } 
         }
 
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
@@ -60,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
                 $errors[] = 'El campo username debe tener entre 6 a 12 caracteres';
             }
 
-            $usernameRegex = "/^[a-z-0-9]+$/"; 
+            $usernameRegex = "/^(?=.*[a-z])[a-z0-9]*$/"; 
 
             if (!preg_match($usernameRegex, $username)) {
                 $errors[] = 'El username solo permite letras y numeros';
@@ -77,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
             }
         }
 
-        $sqlUsuarioExistente = "SELECT id_usuario FROM usuarios WHERE username = :Username OR email = :Email OR google_email = :Email";
+        $sqlUsuarioExistente = "SELECT id_usuario FROM usuarios WHERE (username = :Username OR email = :Email) AND email IS NOT NULL AND email != ''";
         $sqlVerificarUsuarioExistente = $conn->prepare($sqlUsuarioExistente);
         if (!$sqlVerificarUsuarioExistente) {
             error_log('Error en la consulta SQL de usuario');
@@ -90,6 +96,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         if (count($campos) > 0) {
             $errors[] = 'El nombre de usuario o el email ya están en uso.';
         }
+
+        
+        $sqlUsuarioExistenteGoogle = "SELECT * FROM usuarios WHERE google_email IS NOT NULL AND google_email != ''";
+        $sqlVerificarUsuarioExistenteGoogle = $conn->prepare($sqlUsuarioExistenteGoogle);
+        $sqlVerificarUsuarioExistenteGoogle->execute();
+        $camposGoogle = $sqlVerificarUsuarioExistenteGoogle->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($camposGoogle as $campo) {
+            if ($email == $campo['google_email']) {
+                $errors[] = 'El email ya está en uso';
+            }
+        }
+
         
 //pais
         if (empty($id_pais)) {
@@ -104,54 +123,78 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 
 
         if (empty($errors)) { //no hay errores
-            $sqlUsuario = "INSERT INTO usuarios(username, nom_completo, email, password, fecha_nacimiento, id_pais, foto_usuario) VALUES (:Username, :NombreCompleto, :Email, :Password, :Fecha_Nac, :id_pais, :foto_usuario)";
-            $stmtUsuario = $conn->prepare($sqlUsuario);
-
-            if (!$stmtUsuario) {
-                error_log('Error en la consulta SQL de usuario');
-                $errors[] = 'Error en la consulta SQL de usuario';
-                echo json_encode(['success' => false, 'errors' => $errors]);
-                exit();
+            if (isset($id_pais) && $id_pais !== "otro") {
+                // Si el id_pais no es "otro", lo utilizamos directamente
+                $sqlUsuario = "INSERT INTO usuarios(username, nom_completo, email, password, fecha_nacimiento, id_pais, foto_usuario) 
+                               VALUES (:Username, :NombreCompleto, :Email, :Password, :Fecha_Nac, :id_pais, :foto_usuario)";
+                $stmtUsuario = $conn->prepare($sqlUsuario);
+            
+                if (!$stmtUsuario) {
+                    error_log('Error en la consulta SQL de usuario');
+                    $errors[] = 'Error en la consulta SQL de usuario';
+                    echo json_encode(['success' => false, 'errors' => $errors]);
+                    exit();
+                }
+            
+                $foto_usuario = "../fotos_usuario/default/perfil-default.jpg";
+                $stmtUsuario->bindParam(':Username', $username, PDO::PARAM_STR);
+                $stmtUsuario->bindParam(':NombreCompleto', $nomCompleto, PDO::PARAM_STR);
+                $stmtUsuario->bindParam(':Email', $email, PDO::PARAM_STR);
+                $stmtUsuario->bindParam(':Password', $hashedPassword, PDO::PARAM_STR);
+                $stmtUsuario->bindParam(':Fecha_Nac', $fecha_nacimiento, PDO::PARAM_STR);
+                $stmtUsuario->bindParam(':id_pais', $id_pais, PDO::PARAM_INT);
+                $stmtUsuario->bindParam(':foto_usuario', $foto_usuario, PDO::PARAM_STR);
+            
+            } else {
+                $id_pais = NULL;
+            
+                $sqlUsuario = "INSERT INTO usuarios(username, nom_completo, email, password, fecha_nacimiento, id_pais, foto_usuario) 
+                               VALUES (:Username, :NombreCompleto, :Email, :Password, :Fecha_Nac, :id_pais, :foto_usuario)";
+                $stmtUsuario = $conn->prepare($sqlUsuario);
+            
+                if (!$stmtUsuario) {
+                    error_log('Error en la consulta SQL de usuario');
+                    $errors[] = 'Error en la consulta SQL de usuario';
+                    echo json_encode(['success' => false, 'errors' => $errors]);
+                    exit();
+                }
+            
+                $foto_usuario = "../fotos_usuario/default/perfil-default.jpg";
+                $stmtUsuario->bindParam(':Username', $username, PDO::PARAM_STR);
+                $stmtUsuario->bindParam(':NombreCompleto', $nomCompleto, PDO::PARAM_STR);
+                $stmtUsuario->bindParam(':Email', $email, PDO::PARAM_STR);
+                $stmtUsuario->bindParam(':Password', $hashedPassword, PDO::PARAM_STR);
+                $stmtUsuario->bindParam(':Fecha_Nac', $fecha_nacimiento, PDO::PARAM_STR);
+                $stmtUsuario->bindParam(':id_pais', $id_pais, PDO::PARAM_INT);
+                $stmtUsuario->bindParam(':foto_usuario', $foto_usuario, PDO::PARAM_STR);
             }
-
-            $foto_usuario = "../fotos_usuario/default/perfil-default.jpg";
-            $stmtUsuario->bindParam(':Username', $username, PDO::PARAM_STR);
-            $stmtUsuario->bindParam(':NombreCompleto', $nomCompleto, PDO::PARAM_STR);
-            $stmtUsuario->bindParam(':Email', $email, PDO::PARAM_STR);
-            $stmtUsuario->bindParam(':Password', $hashedPassword, PDO::PARAM_STR);
-            $stmtUsuario->bindParam(':Fecha_Nac', $fecha_nacimiento, PDO::PARAM_STR);
-            $stmtUsuario->bindParam(':id_pais', $id_pais, PDO::PARAM_INT);
-            $stmtUsuario->bindParam(':foto_usuario',$foto_usuario,PDO::PARAM_STR);
             
             if ($stmtUsuario->execute()) {
-
                 $id_usuario = $conn->lastInsertId();
-
                 $_SESSION['id'] = $id_usuario;
                 $_SESSION['nomCompleto'] = $nomCompleto;
                 $_SESSION['nomUsuario'] = $username;
-                $rol= 1;
-
+                $rol = 1;
+            
+                // Inserción de roles
                 $sqlUsuarioRol = "INSERT INTO roles_usuarios(id_rol, id_usuario) VALUES (:id_rol, :id_usuario)";
                 $stmtUsuarioRol = $conn->prepare($sqlUsuarioRol);
                 $stmtUsuarioRol->bindParam(':id_rol', $rol, PDO::PARAM_STR);
                 $stmtUsuarioRol->bindParam(':id_usuario', $id_usuario, PDO::PARAM_STR);
                 $stmtUsuarioRol->execute();
-
+            
                 $_SESSION['rol'] = $rol;
-                
-
+            
                 echo json_encode([
                     'success' => true,
                     'nuevo_usuario_id' => $id_usuario
                 ]);
-                
-
             } else {
                 error_log('Error al crear el usuario.');
                 $errors[] = 'Error al crear el usuario.';
                 echo json_encode(['success' => false, 'errors' => $errors]);
             }
+            
         } else {
             echo json_encode(['success' => false, 'errors' => $errors]);
         }

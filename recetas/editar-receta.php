@@ -93,8 +93,8 @@ if (!$queryResultsEtiquetas) {
             </div>
             <div class="mt-3">
                 <label for="foto-portada" class="h5 form-label mt-3">Foto de portada</label>
-                <input type="file" name="imagenes[]" id="foto-portada" accept="image/*" multiple>
-                <small class="text-danger" id="errorPortada"></small>
+                <input type="file" class="file-portada" name="imagenes[]" id="foto-portada" accept="image/*" multiple>
+                <small class="text-danger error-portada" id="errorPortada"></small>
             </div>
         <?php
         } else { ?>
@@ -247,7 +247,9 @@ if (!$queryResultsEtiquetas) {
                         </div>
                         <div class="col-md-2 d-flex container justify-content-end">
                         <?php if ($index != 0)
-                            echo '<button class="boton-secundario" type="button"><i class="bi bi-trash me-1"></i> Quitar</button>'
+                            {
+                            echo '<button class="boton-secundario" type="button"><i class="bi bi-trash me-1"></i> Quitar</button>';
+                            }
                         ?>
                         </div>
                     </div>
@@ -297,7 +299,7 @@ if (!$queryResultsEtiquetas) {
     <div class="contenido-pasos container w-100 w-lg-75 p-5 mt-5 seccion">
     <h5 class="h5 form-label">Pasos</h5>
     <ol class="list-group-numbered h6" id="list-paso">
-        <?php foreach ($pasos as $paso): ?>
+        <?php foreach ($pasos as $index => $paso): ?>
         <li class="item-lista list-group-item paso-container" id="li-paso-<?php echo $paso['num_paso']; ?>">
             <div class="un_paso d-grid  gap-2 flex-column d-flex justify-content-end">
                 <textarea class="form-control input-paso textarea-resize item-paso" name="paso[]" placeholder="Ej: Mezcla los ingredientes en un bowl..." ><?php echo $paso['texto']; ?></textarea>
@@ -305,9 +307,12 @@ if (!$queryResultsEtiquetas) {
             </div>
 
             <div class="d-grid d-flex justify-content-end mt-2">
-            <button class="boton-secundario quitar-paso d-flex" type="button" data-id-paso="<?php echo $paso['id_paso_receta']; ?>">
-                <i class="bi bi-trash me-1"></i>Quitar
-            </button>
+            <?php if ($index != 0){ ?>
+                <button class="boton-secundario quitar-paso d-flex" type="button" data-id-paso="<?php echo $paso['id_paso_receta']; ?>">
+                    <i class="bi bi-trash me-1"></i>Quitar
+                </button>
+            <?php } ?>
+                    
             </div>
 
             <!-- Manejo de imágenes -->

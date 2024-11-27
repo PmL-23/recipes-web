@@ -11,73 +11,26 @@ function inicio() {
 
 
 
-function validarSoloLetras(campo) {
-    for (let index = 0; index < campo.length; index++) {
-        const caracter = campo[index];
-        if (!((caracter >= 'A' && caracter <= 'Z') || (caracter >= 'a' && caracter <= 'z') || caracter === ' ')) {
-            return false;
-        }
-    }
-    return true;
-}
-
-function validarTieneLetra(campo) {
-    for (let index = 0; index < campo.length; index++) {
-        const caracter = campo[index];
-        if ((caracter >= 'A' && caracter <= 'Z') || (caracter >= 'a' && caracter <= 'z')) {
-            return true;
-        }
-    }
-    return false;
-}
-
-function validarNumText(campo) {
-    let tieneLetra = false;
-    let tieneNumero = false;
-    
-    for (let index = 0; index < campo.length; index++) {
-        const caracter = campo[index];
-        if ((caracter >= 'a' && caracter <= 'z')) {
-            tieneLetra = true;
-        } else if (caracter >= '0' && caracter <= '9') {
-            tieneNumero = true;
-        } else {
-            return false;
-        }
-    }
-
-    return tieneLetra; 
-}
-
-
-
-
-
 function validarUsername() {
+    const regex = /^(?=.*[a-z])[a-z0-9]*$/;
     const username = document.getElementById("username");
     const errorUsername = document.getElementById("error-username");
     errorUsername.textContent = "";
-    const palabras = username.value.split(" ").filter(palabra => palabra !== "");
 
     if (username.value.trim() === "") {
         errorUsername.textContent = "Debe ingresar un nombre de usuario";
         username.classList.add("is-invalid");
         return false;
-    } else if (palabras.length != 1) {
-        errorUsername.textContent = "No puede usar espacios";
-        username.classList.add("is-invalid");
-        return false;
-    } else if (!validarNumText(username.value)) {
+    } else if (!regex.test(username.value)) {
         errorUsername.textContent = "EL nombre de usuario debe tener al menos una letra y solo puede contener letras minusculas y numeros";
         username.classList.add("is-invalid");
         return false;
     } else if (username.value.length < 6 || username.value.length > 12) {
-        errorUsername.textContent = "Debe tener entre 6 y 12 caracteres";
+        errorUsername.textContent = "El nombre de usuario debe tener entre 6 y 12 caracteres";
         username.classList.add("is-invalid");
         return false;
     } else {
         username.classList.remove("is-invalid");
-        username.classList.add("is-valid");
         return true;
     }
 }
@@ -86,6 +39,8 @@ function validarUsername() {
 
 
 function validarPassword() {
+    const regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]*$/;
+
     const password = document.getElementById("password");
     const errorPassword = document.getElementById("error-password");
     errorPassword.textContent = "";
@@ -93,34 +48,39 @@ function validarPassword() {
     const errorConfirmar = document.getElementById("error-confirm-password");
     errorConfirmar.textContent= "";
 
-    if (password.value.trim() === "") {
-        errorPassword.textContent = "Debe ingresar una contraseña";
+    if (password.value.trim() === "" || confirmar.value.trim() === "") {
+        errorPassword.textContent = "Debe ingresar una contraseña y la confirmación de la contraseña";
+        errorConfirmar.textContent = "Debe ingresar una contraseña y la confirmación de la contraseña";
         password.classList.add("is-invalid");
         confirmar.classList.add("is-invalid");
         return false;
         
-    } else if (password.value.length < 5) {
-        errorPassword.textContent = "Debe tener contener más de 5 caracteres";
+    } else if (password.value.length < 8 || password.value.length > 16) {
+        errorPassword.textContent = "La longitud de la contraseña debe ser de 8 a 16 caracteres";
         password.classList.add("is-invalid");
         confirmar.classList.add("is-invalid");
         return false;
-    } else if (password.value !== confirmar.value) {
-        errorPassword.textContent = "Las contraseñas no coinciden";
-        password.classList.add("is-invalid");
-        errorConfirmar.textContent = "Las contraseñas no coinciden";
-        confirmar.classList.add("is-invalid");
-        return false;
-    } else if  (password.value.includes(" ")) {
-        errorPassword.textContent = "La contraseña no debe contener espacios";
+    } else if (!regex.test(password.value)) {
+        errorPassword.textContent = "La contraseña debe tener al menos una letra y número";
         password.classList.add("is-invalid");
         confirmar.classList.add("is-invalid");
         return false;
     } else {
-        password.classList.remove("is-invalid");
-        password.classList.add("is-valid");
-        confirmar.classList.remove("is-invalid");
-        confirmar.classList.add("is-valid");
-        return true;
+        if (password.value !== confirmar.value) {
+            errorPassword.textContent = "Las contraseñas no coinciden";
+            password.classList.add("is-invalid");
+            errorConfirmar.textContent = "Las contraseñas no coinciden";
+            confirmar.classList.add("is-invalid");
+            return false;
+        } else 
+        {
+            password.classList.remove("is-invalid");
+            confirmar.classList.remove("is-invalid");
+            errorPassword.textContent = "";
+            errorConfirmar.textContent = "";
+    
+            return true;
+        }
     }
 
 }
@@ -128,6 +88,7 @@ function validarPassword() {
 
 
 function validarNombre() {
+    const regex = /^[a-zA-ZÁÉÍÓÚáéíóúñÑäÄëËïÏöÖüÜçÇ]+$/;
     const nombre = document.getElementById("nomCompleto");
     const errorNombre = document.getElementById("error-nombre");
     errorNombre.textContent = "";
@@ -137,19 +98,26 @@ function validarNombre() {
         errorNombre.textContent = "Debe ingresar un nombre";
         nombre.classList.add("is-invalid");
         return false;
-    } else if (!validarSoloLetras(nombre.value)) {
-        errorNombre.textContent = "Debe ingresar solo letras";
+    } else if (nombre.value.length < 5 || nombre.value.length > 30) {
+        errorNombre.textContent = "Este campo requiere de 5 a 30 caracteres";
         nombre.classList.add("is-invalid");
         return false;
     } else if (palabras.length != 2) {
         errorNombre.textContent = "Debe ingresar un nombre y un apellido";
         nombre.classList.add("is-invalid");
         return false;
-    } else {
+    }  else {
+        for (let i = 0; i < palabras.length; i++) {
+            if (!regex.test(palabras[i])) {
+                errorNombre.textContent = "Caracteres inválidos";
+                nombre.classList.add("is-invalid");
+                return false;
+            }
+        }
         nombre.classList.remove("is-invalid");
-        nombre.classList.add("is-valid");
+        errorNombre.textContent = "";
         return true;
-    }
+    }  
 }
 
 
@@ -169,7 +137,6 @@ function validarEmail() {
         return false;
     } else {
         email.classList.remove("is-invalid");
-        email.classList.add("is-valid");
         return true;
     }
 }
@@ -188,7 +155,7 @@ function validarFecha()
 
     const fechaIngresada = new Date(fecha.value);
     const fechaRango = new Date(1900, 1, 1);
-    const fechaRango2 = new Date(2020, 1, 1); //revisar rango de edad minima
+    const fechaRango2 = new Date(2010, 1, 1);
     
 
     if ((fechaIngresada > fechaRango2) || fechaIngresada < fechaRango) {
@@ -198,7 +165,6 @@ function validarFecha()
     }
     
     fecha.classList.remove("is-invalid");
-    fecha.classList.add("is-valid");
     return true;
 }
 
@@ -213,7 +179,6 @@ function validarPais() {
         return false;
     } else {
         pais.classList.remove("is-invalid");
-        pais.classList.add("is-valid");
         return true;
     }
 }

@@ -36,13 +36,23 @@ if (isset($_GET['id'])) {
     $fotoAutor = $autorData["foto_usuario"];
     $paisAutor = $autorData["id_pais"];
 
-    $sqlImagenP = "SELECT ruta_imagen_pais FROM paises WHERE id_pais = :id_pais";
-    $stmtImagenP = $conn->prepare($sqlImagenP);
-    $stmtImagenP->bindParam(':id_pais', $paisAutor, PDO::PARAM_INT);
-    $stmtImagenP->execute();
-    $imagenDataP = $stmtImagenP->fetch(PDO::FETCH_ASSOC);
+    $bandera= "";
+    if (!empty($id_pais)) {
 
-    $bandera= $imagenDataP["ruta_imagen_pais"];
+        $sqlImagenP = "SELECT ruta_imagen_pais FROM paises WHERE id_pais = :id_pais";
+        $stmtImagenP = $conn->prepare($sqlImagenP);
+        $stmtImagenP->bindParam(':id_pais', $id_pais, PDO::PARAM_INT);
+        $stmtImagenP->execute();
+        $resultadoImagen = $stmtImagenP->fetch(PDO::FETCH_ASSOC);
+        
+        if ($resultadoImagen) {
+           
+            $bandera= $resultadoImagen["ruta_imagen_pais"];
+        } 
+    }
+    
+
+    
 
     if (!file_exists($fotoAutor) || $fotoAutor === 0 || empty($fotoAutor)) {
         $fotoAutor = "../fotos_usuario/default/perfil-default.jpg";

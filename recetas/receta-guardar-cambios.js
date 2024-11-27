@@ -32,6 +32,8 @@ form.addEventListener("submit", function (e){
                         console.log("data", data);
                         if (data.success == true) {
                         console.log("Cambios guardados con éxito");
+                        eliminarPasos(id_publicacion, pasosEliminados);
+
                         window.location.href = "../recetas/receta-plantilla.php?id=" + data.receta_id;
 
                         }else{
@@ -53,60 +55,55 @@ form.addEventListener("submit", function (e){
 });
 
 
-/* function validarPortada() {
-let FlagValidacion = true;
-
-const inputPortada = document.getElementById("foto-portada");
-const errorPortada = document.getElementById("errorPortada");
-
-inputPortada.addEventListener("change", function() {
-    if (inputPortada.files.length > 0) {
-            const file = inputPortada.files[0];
-            const validImageTypes = ["image/gif", "image/jpeg", "image/png"];
-
-            if (validImageTypes.includes(file.type)) {
-                    errorPortada.textContent = "";
-                    inputPortada.classList.remove("is-invalid");
-                    FlagValidacion = true;
-
-            } else {
-                    errorPortada.textContent = "Debe seleccionar un archivo de imagen válido (gif, jpeg, png).";
-                    inputPortada.classList.add("is-invalid");
-
-                    FlagValidacion = false;
+function validarPortada() {
+        let FlagValidacion = true;
+        
+        const imagenes = document.querySelectorAll(".file-portada");
+        
+        imagenes.forEach(function(imagen) {       
+            const errorImagen = imagen.parentElement.querySelector(".error-portada");
+            errorImagen.textContent = "";
+        
+            imagen.addEventListener("change", function() {
+                    if (imagen.files.length > 0) {
+                    const file = imagen.files[0];
+                    const validImageTypes = ["image/jpeg", "image/png"];
+        
+                            if (!validImageTypes.includes(file.type)) {
+                                    errorImagen.textContent = "Debe seleccionar un archivo de imagen válido ( jpeg, png).";
+                                    imagen.classList.add("is-invalid");
+        
+                                    FlagValidacion = false;
+                            } else {
+                                    errorImagen.textContent = "";
+                                    imagen.classList.remove("is-invalid");
+                                    
+                                    FlagValidacion = true;
+                            } 
+                    }
+            });
+        
+        
+            if (imagen.files.length > 0) {
+                    const file = imagen.files[0];
+                    const validImageTypes = ["image/jpeg", "image/png"];
+        
+                    if (!validImageTypes.includes(file.type)) {
+                            errorImagen.textContent = "Debe seleccionar un archivo de imagen válido (jpeg, png).";
+                            imagen.classList.add("is-invalid");
+        
+                            FlagValidacion = false;
+                    } else {
+                            errorImagen.textContent = "";
+                            imagen.classList.remove("is-invalid");
+                            
+                            FlagValidacion = true;
+                    } 
             }
-    } else {
-            errorPortada.textContent = "La foto de portada es requerida.";
-            inputPortada.classList.add("is-invalid");
-            FlagValidacion = false;
-    }
-});
-
-if (inputPortada.files.length === 0) {
-    errorPortada.textContent = "La foto de portada es requerida.";
-    inputPortada.classList.add("is-invalid");
-
-    FlagValidacion = false;
-} else {
-    const file = inputPortada.files[0];
-    const validImageTypes = ["image/gif", "image/jpeg", "image/png"];
-
-    if (!validImageTypes.includes(file.type)) {
-            errorPortada.textContent = "Debe seleccionar un archivo de imagen válido (gif, jpeg, png).";
-            inputPortada.classList.add("is-invalid");
-
-            FlagValidacion = false;
-    } else {
-            errorPortada.textContent = "";
-            inputPortada.classList.remove("is-invalid");
-            
-            FlagValidacion = true;
-    }
-}
-
-return FlagValidacion;
-} */
-
+        });
+        
+        return FlagValidacion;
+        }
 
 
 function validarTitulo() {
@@ -377,10 +374,10 @@ imagenes.forEach(function(imagen) {
     imagen.addEventListener("change", function() {
             if (imagen.files.length > 0) {
             const file = imagen.files[0];
-            const validImageTypes = ["image/gif", "image/jpeg", "image/png"];
+            const validImageTypes = ["image/jpeg", "image/png"];
 
                     if (!validImageTypes.includes(file.type)) {
-                            errorImagen.textContent = "Debe seleccionar un archivo de imagen válido (gif, jpeg, png).";
+                            errorImagen.textContent = "Debe seleccionar un archivo de imagen válido ( jpeg, png).";
                             imagen.classList.add("is-invalid");
 
                             FlagValidacion = false;
@@ -396,10 +393,10 @@ imagenes.forEach(function(imagen) {
 
     if (imagen.files.length > 0) {
             const file = imagen.files[0];
-            const validImageTypes = ["image/gif", "image/jpeg", "image/png"];
+            const validImageTypes = ["image/jpeg", "image/png"];
 
             if (!validImageTypes.includes(file.type)) {
-                    errorImagen.textContent = "Debe seleccionar un archivo de imagen válido (gif, jpeg, png).";
+                    errorImagen.textContent = "Debe seleccionar un archivo de imagen válido (jpeg, png).";
                     imagen.classList.add("is-invalid");
 
                     FlagValidacion = false;
@@ -672,7 +669,7 @@ function validar() {
 let FlagValidacion = true;
 
 //Valido retorno de funciones
-//if( !validarPortada() ) FlagValidacion = false;
+if( !validarPortada() ) FlagValidacion = false;
 if( !validarTitulo() ) FlagValidacion = false;
 if( !validarDescripcion() ) FlagValidacion = false;
 if( !validarIngrediente() ) FlagValidacion = false;
@@ -725,39 +722,44 @@ quitarPaises.forEach(quitarPais => {
 });
 
 
+let pasosEliminados = []; 
+
 const quitarPasos = document.querySelectorAll('.quitar-paso');
+
 quitarPasos.forEach(quitarPaso => {
         quitarPaso.addEventListener('click', function() {
         const pasoContainer = this.closest('.paso-container');
         const idPasoReceta = this.getAttribute('data-id-paso');
-        console.log(idPasoReceta);
+
+        pasosEliminados.push(idPasoReceta);
 
         pasoContainer.remove();
-
-        if (validar === true)
-        {
-                if (idPasoReceta) {
-                        fetch('form-receta-editar.php', {
-                        method: 'POST',
-                        headers: {
-                                'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ id_paso_receta: idPasoReceta })
-                        })
-                        .then(response => response.json())
-                        .then(dataPaso => {
-                        if (dataPaso.success) {
-                                console.log("Paso eliminado con éxito");
-                        } else {
-                                console.error("Error al eliminar el paso:", dataPaso.message);
-                        }
-                        })
-                        .catch(error => console.error("Error:", error));
-                }
-
-        }
+        
         });
 });
+
+
+function eliminarPasos(id_publicacion, pasosAEliminar) {
+        pasosAEliminar.forEach(id_paso => {
+                fetch('eliminar-paso.php', {
+                        method: 'POST',
+                        headers: {
+                        'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ id_paso_receta: id_paso })
+                })
+                .then(response => response.json())
+                .then(data => {
+                        if (data.success) {
+                        console.log("Paso eliminado con éxito", id_paso);
+                        } else {
+                        console.error("Error al eliminar el paso:", data.message);
+                        }
+                })
+                .catch(error => console.error("Error:", error));
+                });
+}
+
 
 
 const quitarIng = document.querySelectorAll('.quitar-ingrediente');

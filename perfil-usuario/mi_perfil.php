@@ -5,7 +5,7 @@ include '../includes/conec_db.php';
 require_once '../includes/permisos.php';
 
 if (!isset($_SESSION['id'])) {
-    header("Location: ../html_inicio_sesion/iniciarSesion.php"); 
+    header("Location: ../inicio_sesion/iniciarSesion.php"); 
     exit();
 }
 $id_usuario = $_SESSION['id'];

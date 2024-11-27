@@ -82,8 +82,10 @@ require_once('../includes/razonesReporte.php');
                                 <?php echo "@$nombreAutor"; ?>
                             </span>
                             <small class="" id="pais-usuario">
-                                <?php
-                                echo '<img src="../svg/' . $bandera . '" alt="Bandera" width="20" class="bandera" id="bandera-receta">' 
+                                <?php if($bandera != "")
+                                {
+                                    echo '<img src="../svg/' . $bandera . '" alt="Bandera" width="20" class="bandera" id="bandera-receta">'; 
+                                }
                                 ?>
                             </small>
                         </a>
@@ -93,8 +95,10 @@ require_once('../includes/razonesReporte.php');
                                 <?php echo "@$nombreAutor"; ?>
                             </span>
                             <small class="" id="pais-usuario">
-                                <?php
-                                echo '<img src="../svg/' . $bandera . '" alt="Bandera" width="20" class="bandera" id="bandera-receta">' 
+                                <?php  if($bandera != "")
+                                {
+                                    echo '<img src="../svg/' . $bandera . '" alt="Bandera" width="20" class="bandera" id="bandera-receta">'; 
+                                }
                                 ?>
                             </small>
                         </a>
