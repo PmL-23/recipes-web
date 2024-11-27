@@ -459,6 +459,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
                 // tabla etiquetas
+
+                //etiquetas eliminadas
+                $dataEtiqueta = json_decode(file_get_contents('php://input'), true);
+
+                if (isset($dataEtiqueta['id_etiqueta_receta'])) {
+                    $id_etiqueta_eliminada = $dataEtiqueta['id_etiqueta_receta'];
+    
+                    $sqlEliminarEtiqueta = "DELETE FROM etiquetas_recetas WHERE id_publicacion = :id_publicacion AND id_etiqueta = :id_etiqueta";
+                    $stmtEliminarEtiqueta = $conn->prepare($sqlEliminarEtiqueta);
+                    $stmtEliminarEtiqueta->bindParam(':id_publicacion', $id_publicacion, PDO::PARAM_INT);
+                    $stmtEliminarEtiqueta->bindParam(':id_etiqueta', $id_etiqueta_eliminada, PDO::PARAM_INT);
+                    
+                    if ($stmtEliminarEtiqueta->execute()) {
+                        $response['success'] = true;
+                    } else {
+                        $response['message'] = "Error al eliminar el ingrediente";
+                    }
+                } else {
+                    $response['message'] = "Datos inválidos";
+                }
+
+
                 $sqlObtenerEtiquetas = "SELECT id_etiqueta FROM etiquetas_recetas WHERE id_publicacion = :id_publicacion";
                 $stmtObtenerEtiquetas = $conn->prepare($sqlObtenerEtiquetas);
                 $stmtObtenerEtiquetas->bindParam(':id_publicacion', $id_publicacion, PDO::PARAM_INT);

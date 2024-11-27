@@ -2,28 +2,61 @@ const agregarEtiqueta = function()
 {
 
         const agregarEtiquetaBoton = document.getElementById("agregar-etiqueta");
-        const etiquetaInput = document.getElementById("etiquetas");
+        const etiquetaContainer = document.getElementById("etiquetas");
 
         agregarEtiquetaBoton.addEventListener("click", function () {
 
-                const nuevoInputEtiqueta = etiquetaInput.cloneNode(true);
+                const nuevoRowEtiqueta = document.createElement("div");
+                nuevoRowEtiqueta.classList.add("una_etiqueta", "d-grid", "gap-2", "d-flex", "flex-column", "justify-content-md-end", "mt-3");
+                const row = document.createElement("div");
+                row.classList.add("row");
+                const col = document.createElement("div");
+                col.classList.add("col-md-10", "col-8");
+                const selectEtiqueta= document.createElement("select");
+                selectEtiqueta.classList.add("form-select", "select-etiqueta");
+                selectEtiqueta.name="etiqueta[]";
+                const opcionDefault = document.createElement("option");
+                opcionDefault.value="";
+                opcionDefault.textContent="Selecciona una etiqueta";
+                opcionDefault.disabled= true;
+                opcionDefault.selected= true;
+                selectEtiqueta.appendChild(opcionDefault);
 
-                nuevoInputEtiqueta.classList.remove("flex-column");
-                nuevoInputEtiqueta.classList.add("flex-row");
+                fetch("../crearReceta/obtener_etiquetas.php")
+                        .then(response => response.json())
+                        .then(data => {
+                                for (let item of data) {
+                                        let opcion = document.createElement("option");
+                                        opcion.value = item.id_etiqueta;
+                                        opcion.textContent = item.titulo;
+                                        selectEtiqueta.appendChild(opcion);
+                                       /*  selectEtiqueta.innerHTML += '<option value="'+ item.id_etiqueta +'">'+ item.titulo +'</option>'; */
+                                }
+                        })
+                        .catch(error => {
+                        console.error("Error en:", error);
+                        });
+                
+                const small= document.createElement("small");
+                small.classList.add("text-danger", "error-etiqueta");
 
-                document.getElementById("etiquetas").appendChild(nuevoInputEtiqueta);
 
-                const quitarBotonPasoEtiqueta = document.createElement("button");
-                quitarBotonPasoEtiqueta.classList.add("boton-secundario", "d-flex");
-                quitarBotonPasoEtiqueta.type = "button";
-                quitarBotonPasoEtiqueta.innerHTML = "<i class='bi bi-trash me-1'></i> Quitar";
+                etiquetaContainer.appendChild(nuevoRowEtiqueta);
+                nuevoRowEtiqueta.appendChild(row);
+                row.appendChild(col);
+                col.appendChild(selectEtiqueta);
+                col.appendChild(small);
+
+                const colQuitarEtiqueta = document.createElement("div");
+                colQuitarEtiqueta.classList.add("col-md-2", "col-4", "d-flex", "container", "justify-content-end");
+                const quitarBotonEtiqueta = document.createElement("button");
+                quitarBotonEtiqueta.classList.add("boton-secundario", "quitar-etiqueta");
+                quitarBotonEtiqueta.type = "button";
+                quitarBotonEtiqueta.innerHTML = "<i class='bi bi-trash me-1 icono'></i> Quitar";
         
-        
-                quitarBotonPasoEtiqueta.addEventListener("click", function () {
-                        nuevoInputEtiqueta.remove();
-                });
 
-                nuevoInputEtiqueta.appendChild(quitarBotonPasoEtiqueta);
+                colQuitarEtiqueta.appendChild(quitarBotonEtiqueta);
+                row.appendChild(colQuitarEtiqueta);
         });
 }
 

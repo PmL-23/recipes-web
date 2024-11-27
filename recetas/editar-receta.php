@@ -92,8 +92,7 @@ $Tablaxd = $stm->fetchAll(PDO::FETCH_ASSOC);
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Recetario</title>
-        <!-- para el selct multiple -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.1.0/dist/css/multi-select-tag.css">
+    
         <?php include '../includes/head.php'?>
         <link rel="stylesheet" href="../crearReceta/crear_receta_style.css">
         <script src="receta-imagenes.js" defer></script>
@@ -101,8 +100,6 @@ $Tablaxd = $stm->fetchAll(PDO::FETCH_ASSOC);
         <script src="receta-paises.js" defer></script>
         <script src="receta-ingredientes.js" defer></script>
         <script src="receta-agregar-elementos.js" defer></script>
-        <script src="editar-receta-select/editar-receta-select.js" defer></script>
-
 
 
     </head>
@@ -175,7 +172,7 @@ $Tablaxd = $stm->fetchAll(PDO::FETCH_ASSOC);
                                 <img class="ms-2 bandera mini-bandera" src="<?php echo isset($rutaBanderaActual) ? $rutaBanderaActual : ''; ?>" alt="Bandera">
                                 <?php if ($index != 0) { ?>
                                     <button class="ms-2 boton-secundario quitar-pais" type="button" data-id-pais="<?php echo $paisReceta['id_pais_receta']; ?>">
-                                        <i class="bi bi-trash me-1"></i> Quitar
+                                        <i class="bi bi-trash icono me-1"></i> Quitar
                                     </button>
                                 <?php } ?>
                             </div>
@@ -262,7 +259,7 @@ $Tablaxd = $stm->fetchAll(PDO::FETCH_ASSOC);
             <?php foreach ($etiquetaRecetaData as $index => $etiquetaReceta) { ?>
                 <div class="una_etiqueta d-grid gap-2 d-flex flex-column justify-content-md-end mt-3 <?php echo $index != 0 ? 'row' : ''?>" id="item-etiqueta">
                     <div class="row">
-                        <div class="<?php echo $index != 0 ? 'col-md-10' : ''?>">
+                        <div class="<?php echo $index != 0 ? 'col-md-10 col-8' : ''?>">
                             <select class="form-select select-etiqueta" aria-label="Select etiqueta" name="etiqueta[]">
                                 <option value="" disabled>Selecciona una etiqueta</option>
                                 <?php foreach ($etiquetasDisponibles as $etiquetaRow) {
@@ -276,10 +273,10 @@ $Tablaxd = $stm->fetchAll(PDO::FETCH_ASSOC);
                             </select>
                             <small class="text-danger error-etiqueta" id="error-etiqueta"></small>
                         </div>
-                        <div class="col-md-2 d-flex container justify-content-end">
+                        <div class="col-md-2 col-4 d-flex container justify-content-end">
                         <?php if ($index != 0)
                             {
-                            echo '<button class="boton-secundario" type="button"><i class="bi bi-trash me-1"></i> Quitar</button>';
+                            echo '<button class="boton-secundario quitar-etiqueta" type="button"><i class="bi bi-trash icono me-1" data-id-etiqueta=' .$etiquetaReceta['id_etiqueta'].' ></i> Quitar</button>';
                             }
                         ?>
                         </div>
@@ -293,15 +290,6 @@ $Tablaxd = $stm->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </div>
 
-    <div class="contenido-etiquetas container  w-100 w-lg-75 p-5  mt-5 seccion">
-        <label for="SelectEtiquetas" class="h5 form-label mt-3 ">Etiquetas</label> 
-        <div class="">
-            <select id="SelectEtiquetas" multiple >
-                <option value="">dasdas</option>
-            </select>
-        </div>
-        <small class="text-danger" id="SelectEtiquetasError"></small>
-    </div>               
 
     <div class="contenido-ingredientes container w-100 w-lg-75 ps-5 pe-4 pb-5 pt-4 mt-5 seccion">
         <div id="ingredientes">
@@ -321,13 +309,13 @@ $Tablaxd = $stm->fetchAll(PDO::FETCH_ASSOC);
                     <?php if ($index == 0) { ?>
                     <label for="cantidad-<?php echo $index; ?>" class="h6 form-label">Cantidad</label>
                     <?php } ?>
-                    <input type="text" class="form-control my-2 catidad-input" name="cantidad[]" placeholder="400gr, una pizca..." id="cantidad-<?php echo $index; ?>" value="<?php echo $ingrediente['cantidad']; ?>">
+                    <input type="text" class="form-control my-2 catidad-input" name="cantidad[]" placeholder="400gr, una pizca..." value="<?php echo $ingrediente['cantidad']; ?>">
                     <div>
                         <small class="text-danger error-ingrediente-cantidad" id="error-ingrediente-cantidad-<?php echo $index; ?>"></small>
                     </div>
                 </div>
                 <div class="col-md-2 d-flex justify-content-end align-items-center">
-                    <button class="boton-secundario quitar-ingrediente" type="button" <?php echo $index == 0 ? 'disabled' : ''; ?> data-id-ingrediente="<?php echo $ingrediente['id_ingrediente_receta'] ?>"><i class="bi bi-trash me-1"></i>Quitar</button>
+                    <button class="boton-secundario quitar-ingrediente" type="button" <?php echo $index == 0 ? 'disabled' : ''; ?> data-id-ingrediente="<?php echo $ingrediente['id_ingrediente_receta'] ?>"><i class="bi bi-trash icono me-1"></i>Quitar</button>
                 </div>
             </div>
             <?php } ?>
@@ -350,7 +338,7 @@ $Tablaxd = $stm->fetchAll(PDO::FETCH_ASSOC);
             <div class="d-grid d-flex justify-content-end mt-2">
             <?php if ($index != 0){ ?>
                 <button class="boton-secundario quitar-paso d-flex" type="button" data-id-paso="<?php echo $paso['id_paso_receta']; ?>">
-                    <i class="bi bi-trash me-1"></i>Quitar
+                    <i class="bi bi-trash icono me-1"></i>Quitar
                 </button>
             <?php } ?>
                     
@@ -398,7 +386,6 @@ $Tablaxd = $stm->fetchAll(PDO::FETCH_ASSOC);
         </div>
         <div>
             <button class="boton-principal" type="submit" id="btn-publicar">Guardar cambios</button>
-            <button class="boton-principal" type="button" id="btn-etiquetasxd" onclick="obtenerEtiquetasSeleccionadas()">mostrarLogEtiquetas</button>
         </div>
     </div>  
     
@@ -422,5 +409,5 @@ $Tablaxd = $stm->fetchAll(PDO::FETCH_ASSOC);
     </div>
 
 </form>
-<script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.1.0/dist/js/multi-select-tag.js"></script>
+
 <?php include '../includes/footer.php'?>  
