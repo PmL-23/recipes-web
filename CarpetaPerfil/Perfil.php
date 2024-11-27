@@ -122,11 +122,12 @@ data-Permiso_GuardarReceta="<?php echo $permisoGuardarReceta; ?>">
 
     <div class="container-fluid row mt-0"> <!-- el contenedor de un perfil tedrá el nombre, la foto, la cantidad de perfiles seguidos y los seguidores propios-->
 
-        <div class="col-8 d-inline p-3 mt-0">
+        <div class="col-6 d-inline p-3 mt-0">
             <div class="FotoDePerfil p-1 d-inline">
                 <img class="d-inline" alt="Foto de Perfil" src=""width="50" height="50" id="IDFotoPerfil">
             </div>
             <p class="d-inline" id="IDNombreCompletoDeUsuario"></p>
+            <img src="../svg/Argentina.svg" alt="Bandera" width="27" class="bandera" id="IDBanderaPerfil">
             <p class="d-inline text-secondary" id="IDNombreDeUsuario"></p>
             <!-- Botón Seguir -->
             <div class="d-inline">
@@ -214,7 +215,7 @@ data-Permiso_GuardarReceta="<?php echo $permisoGuardarReceta; ?>">
 
     </div>
         
-        <div class="col-4 row mt-1 p-0">
+        <div class="col-5 row mt-1 p-0">
             <div class="col-4 p-0 mt-0">
                 <p class="box p-0 d-flex justify-content-center align-items-center">Seguidores</p>
                 <p class="boxcantidad mt-0 p-0 d-flex justify-content-center align-items-center" id="IDCantidadSeguidores"></p>

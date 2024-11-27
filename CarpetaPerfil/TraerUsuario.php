@@ -14,7 +14,9 @@ if (!isset($_GET['NombreUsuario'])) {
     die();
 }
 $Nombre_Usuario_ = $_GET['NombreUsuario'];
-$query = "SELECT * FROM usuarios WHERE username = :NombreUsuario_";
+$query = "SELECT usuarios.*, paises.ruta_imagen_pais FROM usuarios 
+LEFT JOIN paises on usuarios.id_pais = paises.id_pais
+WHERE usuarios.username = :NombreUsuario_";
 $stm = $conn->prepare($query);
 $stm->bindParam(':NombreUsuario_', $Nombre_Usuario_);
 $stm->execute();

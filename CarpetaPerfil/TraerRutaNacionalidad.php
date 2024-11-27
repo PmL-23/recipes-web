@@ -15,7 +15,7 @@ if (!isset($_GET['IDPublicacion'])) {
 }
 
 $IDPublicacion_ = $_GET['IDPublicacion'];
-$query = "SELECT paises.nombre, paises.ruta_imagen_pais, paises.id_pais FROM paises
+$query = "SELECT paises.nombre, paises.ruta_imagen_pais FROM paises
 LEFT JOIN paises_recetas ON paises.id_pais = paises_recetas.id_pais
 LEFT JOIN publicaciones_recetas ON paises_recetas.id_publicacion = publicaciones_recetas.id_publicacion
 WHERE publicaciones_recetas.id_publicacion = :PublicacionID";
@@ -28,6 +28,4 @@ $Paises = $stm->fetchAll(PDO::FETCH_ASSOC);
 echo json_encode($Paises, JSON_PRETTY_PRINT);
 
 ?>
-
-
 

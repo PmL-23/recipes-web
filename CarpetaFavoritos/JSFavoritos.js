@@ -98,9 +98,12 @@ const ProcesarInformacionTraerUsuarios = function(data, index) {
             Usuario[index] = {
                 username: publi.username,
                 nom_completo: publi.nom_completo,
-                foto_usuario: publi.foto_usuario
+                foto_usuario: publi.foto_usuario,
+                ruta_imagen_pais: publi.ruta_imagen_pais
             };
         }
+        //console.log("el usuario es ",Usuario);
+        
 }
 }
 
@@ -173,22 +176,18 @@ const TraerEtiquetas = async function (IDPublicacion, index) {
 }
 
 const ProcesarInformacionTraerPaises = function(data, index) {
-    //console.log("me taje en el " + index + " ");
-    //console.log(data);
+
     if (data.length === 0) {
         console.log("No se encontró el pais en " + index);
     } else {
         let i = 0;
         for (let publi of data) {
-            Publicacion[index].paises[i] = publi.ruta_imagen_pais;
+            Publicacion[index].paises[i] = {
+                ruta_imagen_pais: publi.ruta_imagen_pais,
+                id_pais: publi.id_pais
+            };
             i += 1;
 
-            // Asegúrate de que `Publicacion[index].paises` es un array y luego agrega el objeto en la posición `i`
-            /*Publicacion[index].paises[i] = {
-                nombre: publi.nombre,
-                ruta_imagen_pais: publi.ruta_imagen_pais
-            };
-            i += 1;*/
         }
         
     }
@@ -231,7 +230,9 @@ const ProcesarInformacionTraerPublicaciones = async function(data) {
                 fecha_publicacion: publi.fecha_publicacion,
                 dificultad: publi.dificultad,
                 minutos_prep: publi.minutos_prep,
+                unidad_tiempo: publi.unidad_tiempo,
                 nom_categoria: publi.nombre_categoria,
+                id_categoria: publi.id_categoria,
                 cant_comentarios: null,
                 cant_valoraciones: null,
                 prom_valoracion: null,
@@ -328,6 +329,20 @@ async function toggleFavorito(idPublicacion, index) {
             btnFavorito.classList.toggle("favorito-activo");
             console.log("disculpe las molestias, no se pudo actualizar el registro");
         }
+        else{
+            const cantRecetasFavoritas = document.getElementById("IDCantidadPublicaciones"); // Selecciona el contenedor
+            if(accion=="eliminar"){
+                CantidadPublicaciones = CantidadPublicaciones - 1;
+                cantRecetasFavoritas.textContent = '(' + (CantidadPublicaciones) + ')';
+
+            }
+            if(accion=="agregar"){
+                console.log("xd");
+                CantidadPublicaciones = CantidadPublicaciones + 1;
+                cantRecetasFavoritas.textContent = '(' + (CantidadPublicaciones) + ')';
+            }
+            
+        }
     } catch (error) {
         // Revertir visualmente si la solicitud falla
         btnFavorito.classList.toggle("favorito-activo");
@@ -411,20 +426,30 @@ function LLenarPagina() {
         let PaisesHTML = '';
         // Solo se ponen las etiquetas si la publicacion las tiene 
         if (Publicacion[i].paises && Publicacion[i].paises.length > 0) {
-            Publicacion[i].paises.forEach((ruta, s) => {
-                PaisesHTML += `
-                    <img src="../svg/${ruta}" alt="Bandera" width="27" class="bandera" id="bandera-receta">`;
+            Publicacion[i].paises.forEach((pais, s) => {
+            PaisesHTML += `
+                <img src="../svg/${pais.ruta_imagen_pais}" alt="Bandera" width="27" class="bandera aparecer-cursor" id="bandera-receta" onclick="Redireccionar('EnMismaVentana','../html_paises/receta_pais.php?id_pais=${pais.id_pais}')">`;
             });
         }
+
+        let Tiempo = '';
+            if(Publicacion[i].unidad_tiempo == 'horas'){
+                Tiempo = `
+                    <p class="tiempo">${Publicacion[i].minutos_prep} horas</p>
+                `; 
+                }
+            //if(Publicacion[i].unidad_tiempo == "minutos"){
+            else{
+                Tiempo = `
+                    <p class="tiempo">${Publicacion[i].minutos_prep} mins</p>
+                `; 
+                }
 
         let footerHTML = '';
         if(Permiso_GuardarReceta == 1){
             footerHTML = `
         <button type="button" id="btn-favorito-${i}" class="btn btn-outline-danger me-1 favorito favorito-activo" onclick="toggleFavorito(${Publicacion[i].id_publicacion}, ${i})">
         <i class="bi bi-heart-fill fs-5"></i>
-    </button>
-    <button type="button" class="btn btn-outline-primary bg-none" id="btnCompartir">
-        <i class="bi bi-share-fill fs-5"></i>
     </button>`;
         }
 
@@ -438,7 +463,8 @@ function LLenarPagina() {
                                 <div class="d-flex align-items-center aparecer-cursor" onclick="Redireccionar('EnMismaVentana','../CarpetaPerfil/Perfil.php?NombreDeUsuario=${Usuario[i].username}')">
                                     <img class="d-inline" alt="Fperfil" src="${Usuario[i].foto_usuario}" width="35" height="35">
                                     <p class="d-inline p-1 mb-0" id="IDNombreCompletoDeUsuarioEnPublicacion">${Usuario[i].nom_completo}</p>
-                                    <p class="d-inline text-secondary mb-0" id="IDNombreDeUsuarioEnPublicacion">@${Usuario[i].username}</p>
+                                    <img src="../svg/${Usuario[i].ruta_imagen_pais}" alt="Bandera" width="27" class="bandera" id="IDBanderaPerfil">
+                                    <p class="d-inline text-secondary mb-0" id="IDNombreDeUsuarioEnPublicacion"> @${Usuario[i].username}</p>
                                 </div>
                                 <p class="text-secondary mb-0" id="IDFechaPublicacion">${Publicacion[i].fecha_publicacion}</p>
                             </div>
@@ -451,7 +477,7 @@ function LLenarPagina() {
                             </div>
                             <ul class="list-group list-group-flush p-0">
                                 <li class="list-group-item mt-3">
-                                    <p class="categoria-style2 d-inline-flex mb-3 fw-semibold border border-success-subtle rounded-5">${Publicacion[i].nom_categoria}</p>
+                                    <p class="categoria-style d-inline-flex mb-3 fw-semibold border border-success-subtle rounded-5 aparecer-cursor" onclick="Redireccionar('EnMismaVentana','../categorias/recetas-categoria.php?categoria_id=${Publicacion[i].id_categoria}')">${Publicacion[i].nom_categoria}</p>
                                     ${EtiquetaIndividualHTML}
                                 </li>
                                 <li class="list-group-item">
@@ -473,7 +499,7 @@ function LLenarPagina() {
                                                 <div class="align-items-center box-icons">
                                                     <img src="../svg/alarm.svg" width="25px" class="icono-item" alt="Dificultad icon">
                                                     <p class="TextoCaracteristicasPublicacion mb-0">Tiempo</p>
-                                                    <p class="tiempo">${Publicacion[i].minutos_prep} min</p>
+                                                    ${Tiempo}
                                                 </div>
                                             </div>
                                         </div>

@@ -66,7 +66,8 @@ if (!$queryResultsEtiquetas) {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Recetario</title>
-        
+        <!-- para el selct multiple -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.1.0/dist/css/multi-select-tag.css">
         <?php include '../includes/head.php'?>
         <link rel="stylesheet" href="../crearReceta/crear_receta_style.css">
         <script src="receta-imagenes.js" defer></script>
@@ -74,6 +75,9 @@ if (!$queryResultsEtiquetas) {
         <script src="receta-paises.js" defer></script>
         <script src="receta-ingredientes.js" defer></script>
         <script src="receta-agregar-elementos.js" defer></script>
+        <script src="editar-receta-select/editar-receta-select.js" defer></script>
+
+
 
     </head>
     
@@ -81,7 +85,7 @@ if (!$queryResultsEtiquetas) {
 <?php include '../includes/header.php'?>
 <?php include '../recetas/manejoGetReceta.php'?>
 
-<form class="" method="POST" id="frm-receta-editar" name="frm-receta-editar" action="form-receta-editar.php?id=<?php echo $idPublicacion; ?>" >
+<form class="" method="POST" id="frm-receta-editar" name="frm-receta-editar" action="form-receta-editar.php?id=<?php echo $idPublicacion; ?>" data-IDPublicacion="<?php echo $idPublicacion; ?>">
     <div class="contenido-principal container w-100 w-lg-75 p-5 seccion">
     <div class="text-center d-flex p-2 justify-content-center overflow-hidden">
     <div class="col-md-6 col-sm-12 d-flex flex-column mb-md-5">
@@ -260,7 +264,17 @@ if (!$queryResultsEtiquetas) {
         <div class="d-flex justify-content-center mt-3">
             <button class="boton-item" type="button" id="agregar-etiqueta">+ Agregar etiqueta</button>
         </div>
-    </div>                   
+    </div>
+
+    <div class="contenido-etiquetas container  w-100 w-lg-75 p-5  mt-5 seccion">
+        <label for="SelectEtiquetas" class="h5 form-label mt-3 ">Etiquetas</label> 
+        <div class="">
+            <select id="SelectEtiquetas" multiple >
+                <option value="">dasdas</option>
+            </select>
+        </div>
+        <small class="text-danger" id="SelectEtiquetasError"></small>
+    </div>               
 
     <div class="contenido-ingredientes container w-100 w-lg-75 ps-5 pe-4 pb-5 pt-4 mt-5 seccion">
         <div id="ingredientes">
@@ -357,6 +371,7 @@ if (!$queryResultsEtiquetas) {
         </div>
         <div>
             <button class="boton-principal" type="submit" id="btn-publicar">Guardar cambios</button>
+            <button class="boton-principal" type="button" id="btn-etiquetasxd" onclick="obtenerEtiquetasSeleccionadas()">mostrarLogEtiquetas</button>
         </div>
     </div>  
     
@@ -380,5 +395,5 @@ if (!$queryResultsEtiquetas) {
     </div>
 
 </form>
-
+<script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.1.0/dist/js/multi-select-tag.js"></script>
 <?php include '../includes/footer.php'?>  
