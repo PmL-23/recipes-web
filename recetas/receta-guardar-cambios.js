@@ -51,7 +51,19 @@ form.addEventListener("submit", function (e){
     }
 
 });
-
+// Función para obtener valores seleccionados manualmente con su texto
+function obtenerEtiquetasSeleccionadas() {
+        const selectEtiquetas = document.getElementById("SelectEtiquetas");
+        const etiquetasSeleccionadas = Array.from(selectEtiquetas.options)
+        .filter(option => option.selected)
+        .map(option => ({
+                value: option.value,
+                text: option.text
+        }));
+        console.log("Etiquetas seleccionadas son: ",etiquetasSeleccionadas);
+        
+        return etiquetasSeleccionadas;
+}
 
 /* function validarPortada() {
 let FlagValidacion = true;
