@@ -490,7 +490,7 @@ require_once('../includes/razonesReporte.php');
 
                         <input type="hidden" name="id_comentario" id="id_comentario" value="">
 
-                        <button type="submit" class="btn btn-dark" data-bs-dismiss="modal" aria-label="Close">Enviar Reporte</button>
+                        <button type="submit" class="btn btn-dark">Enviar Reporte</button>
 
                     </form>
 
@@ -532,7 +532,7 @@ require_once('../includes/razonesReporte.php');
                         <input type="hidden" name="id_publicacion_receta" value="<?php if (isset($_GET['id'])) echo $_GET['id']; ?>">
                         <input type="hidden" id="logged_in_user" value="<?php if (isset($_SESSION['nomUsuario'])) echo $_SESSION['nomUsuario']; ?>">
 
-                        <button type="submit" class="btn btn-dark" data-bs-dismiss="modal" aria-label="Close">Enviar Reporte</button>
+                        <button type="submit" class="btn btn-dark">Enviar Reporte</button>
 
                     </form>
 

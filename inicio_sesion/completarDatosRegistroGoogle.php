@@ -86,7 +86,7 @@ if (!isset($_SESSION['access_token'])) {
             <label class="form-label mt-3" for="pais">País:</label>
             <select class="select-pais form-select" id="pais" aria-label="Select pais" name="pais" required>
                 <option value="" disabled selected>Seleccione un pais</option>
-                <!-- <option value="otro">Otro país</option> -->   
+                <option value="otro">Otro país</option> 
                 <?php
                     foreach ($paises as $pais) {
                     echo '<option value="'.$pais['id_pais'].'">'.$pais['nombre'].'</option>';
