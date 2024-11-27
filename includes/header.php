@@ -27,9 +27,9 @@ if (isset($_SESSION['id'])) {
 
                 <?php
                     if (isset($_SESSION['id']) && $_SESSION['id']) {
-                        echo '<h2 class="ms-2 text-white">Bienvenido '.$_SESSION['nomCompleto'].'</h2>';
+                        echo '<h2 class="ms-2 fs-4 text-white">Bienvenido '.$_SESSION['nomCompleto'].'</h2>';
                     } else {
-                        echo '<h2 class="ms-2 text-white">Bienvenido invitado :)</h2>';
+                        echo '<h2 class="ms-2 fs-4 text-white">Bienvenido invitado :)</h2>';
                     }
                 ?>
             </div>

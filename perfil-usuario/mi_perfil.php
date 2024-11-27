@@ -72,6 +72,54 @@ try {
     echo "Error: " . $e->getMessage(); 
 }
 
+//permisos
+
+$permisoVerNotificaciones = false;
+$permisoCambiarImagen = false;
+$permisoBorrarCuenta = false;
+$permisoEditarNombre = false;
+$permisoEditarDescripcion = false;
+$permisoCambiarContraseña = false;
+
+if (Permisos::tienePermiso('Ver Notificaciones', $id_usuario)) {
+    $permisoVerNotificaciones = true;
+}
+else{
+    $permisoVerNotificaciones  = false;
+}
+if(Permisos::tienePermiso('Cambiar Imagen de Perfil', $id_usuario)) {
+    $permisoCambiarImagen = true;
+}
+else{
+    $permisoCambiarImagen = false;
+
+}
+if (Permisos::tienePermiso('Borrar Cuenta', $id_usuario)) {
+    $permisoBorrarCuenta = true;
+}
+else{
+    $permisoBorrarCuenta = false;
+}
+if (Permisos::tienePermiso('Editar Nombre de Usuario', $id_usuario)) {
+    $permisoEditarNombre = true;
+}
+else{
+    $permisoEditarNombre = false;
+}
+if (Permisos::tienePermiso('Editar Descripción', $id_usuario)) {
+    $permisoEditarDescripcion = true;
+}
+else{
+    $permisoEditarDescripcion = false;
+}
+if (Permisos::tienePermiso('Cambiar Contraseña', $id_usuario)) {
+    $permisoCambiarContraseña = true;
+}
+else{
+    $permisoCambiarContraseña = false;
+}
+
+
 
 //seccion en la que obtenemos la url actual.
 $scheme = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? "https" : "http";      

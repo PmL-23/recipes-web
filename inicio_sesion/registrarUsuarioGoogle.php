@@ -34,6 +34,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
     
     if ($resultado == null){
+
+        if ($paisUsuario == "otro") {
+            $paisUsuario = NULL;
+        }
     
         $sqlUsuario = "INSERT INTO usuarios(username, nom_completo, foto_usuario, google_id, google_email, id_pais, fecha_nacimiento) VALUES (:username, :nombre_completo, :foto_usuario, :googleID, :googleEMAIL, :pais, :fecha_nac)";
         $stmtUsuario = $conn->prepare($sqlUsuario);
