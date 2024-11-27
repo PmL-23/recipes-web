@@ -64,45 +64,43 @@ require_once('../includes/razonesReporte.php');
             <div class="row">
                 <div class="col d-flex align-items-center mt-2 mb-3">
                     <div class="contenedor-perfil d-flex">
-                        <?php if($usuarioID == $autor){?>
+                        <?php if ($usuarioID == $autor) { ?>
                             <a class="text-decoration-none text-dark" href="../perfil-usuario/mi_perfil.php">
-                            <img class="img-fluid perfil-img" src="<?php echo $fotoAutor; ?>" alt="Perfil del usuario" id="perfil-autor">
+                                <img class="img-fluid perfil-img" src="<?php echo $fotoAutor; ?>" alt="Perfil del usuario" id="perfil-autor">
                             </a>
-                        <?php }  else {?>
-                        
-                        <a class="text-decoration-none text-dark" href="../CarpetaPerfil/Perfil.php?NombreDeUsuario=<?php echo "$nombreAutor"; ?>">
-                            <img class="img-fluid perfil-img" src="<?php echo $fotoAutor; ?>" alt="Perfil del usuario" id="perfil-autor">
-                        </a>
+                        <?php } else { ?>
+
+                            <a class="text-decoration-none text-dark" href="../CarpetaPerfil/Perfil.php?NombreDeUsuario=<?php echo "$nombreAutor"; ?>">
+                                <img class="img-fluid perfil-img" src="<?php echo $fotoAutor; ?>" alt="Perfil del usuario" id="perfil-autor">
+                            </a>
                         <?php }  ?>
                     </div>
                     <div class="d-flex flex-column ms-3">
-                    <?php if($usuarioID == $autor){?>
-                        <a class="text-decoration-none text-dark" href="../perfil-usuario/mi_perfil.php">
-                            <span class="h4" id="nombre-usuario">
-                                <?php echo "@$nombreAutor"; ?>
-                            </span>
-                            <small class="" id="pais-usuario">
-                                <?php if($bandera != "")
-                                {
-                                    echo '<img src="../svg/' . $bandera . '" alt="Bandera" width="20" class="bandera" id="bandera-receta">'; 
-                                }
-                                ?>
-                            </small>
-                        </a>
-                    <?php } else { ?>
-                        <a class="text-decoration-none text-dark" href="../CarpetaPerfil/Perfil.php?NombreDeUsuario=<?php echo "$nombreAutor"; ?>">
-                            <span class="h4" id="nombre-usuario">
-                                <?php echo "@$nombreAutor"; ?>
-                            </span>
-                            <small class="" id="pais-usuario">
-                                <?php  if($bandera != "")
-                                {
-                                    echo '<img src="../svg/' . $bandera . '" alt="Bandera" width="20" class="bandera" id="bandera-receta">'; 
-                                }
-                                ?>
-                            </small>
-                        </a>
-                    <?php } ?>
+                        <?php if ($usuarioID == $autor) { ?>
+                            <a class="text-decoration-none text-dark" href="../perfil-usuario/mi_perfil.php">
+                                <span class="h4" id="nombre-usuario">
+                                    <?php echo "@$nombreAutor"; ?>
+                                </span>
+                                <small class="" id="pais-usuario">
+                                    <?php if ($bandera != "") {
+                                        echo '<img src="../svg/' . $bandera . '" alt="Bandera" width="20" class="bandera" id="bandera-receta">';
+                                    }
+                                    ?>
+                                </small>
+                            </a>
+                        <?php } else { ?>
+                            <a class="text-decoration-none text-dark" href="../CarpetaPerfil/Perfil.php?NombreDeUsuario=<?php echo "$nombreAutor"; ?>">
+                                <span class="h4" id="nombre-usuario">
+                                    <?php echo "@$nombreAutor"; ?>
+                                </span>
+                                <small class="" id="pais-usuario">
+                                    <?php if ($bandera != "") {
+                                        echo '<img src="../svg/' . $bandera . '" alt="Bandera" width="20" class="bandera" id="bandera-receta">';
+                                    }
+                                    ?>
+                                </small>
+                            </a>
+                        <?php } ?>
                     </div>
                 </div>
 
@@ -138,7 +136,7 @@ require_once('../includes/razonesReporte.php');
                             echo '<div class="d-flex">';
                             for ($i = 1; $i < count($imagenes); $i++) {
                                 echo '<div class="rounded contenedor-imagenes">';
-                                echo '<a href="#!" data-bs-toggle="modal" data-bs-target="#modalImagenGaleria-'. $i .'">';
+                                echo '<a href="#!" data-bs-toggle="modal" data-bs-target="#modalImagenGaleria-' . $i . '">';
                                 echo '<img src="' . $imagenes[$i] . '" alt="Receta" class="rounded img-fluid my-2 imagen">';
                                 echo '</a>';
                                 echo '</div>';
@@ -419,13 +417,13 @@ require_once('../includes/razonesReporte.php');
                     <p class="text-center">¿Estás seguro de que deseas eliminar esta publicación? Esta acción es irreversible.</p>
                 </div>
                 <div class="modal-footer d-flex justify-content-between">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-danger" id="confirmar-eliminar">Sí, estoy seguro</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-danger" id="confirmar-eliminar">Sí, estoy seguro</button>
                 </div>
             </div>
         </div>
     </div>
-    
+
 
 
 
@@ -614,39 +612,42 @@ require_once('../includes/razonesReporte.php');
 
     </div>
 
-
     <!-- PUBLICACIONES similares -->
     <div class="container">
-        <h1>Publicaciones relacionadas</h1>
-        <div class="row">
-            <?php foreach ($recetasRelacionadas as $receta): ?>
-                <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion">
-                    <div class="card h-100 cursor-pointer">
-                        <a href="receta-plantilla.php?id=<?= $receta['id_publicacion'] ?>">
-                            <div class="card-img-wrapper d-flex justify-content-center align-items-center">
-                                <img src="<?= $receta['imagenes'] ?>" class="card-img-top img-fluid" alt="<?= htmlspecialchars($receta['titulo'], ENT_QUOTES, 'UTF-8') ?>">
-                                <div class="overlay">
-                                    <p class="dificultad"><?= htmlspecialchars($receta['dificultad'], ENT_QUOTES, 'UTF-8') ?></p>
-                                    <p class="minutos"><?= htmlspecialchars($receta['minutos_prep'], ENT_QUOTES, 'UTF-8') ?> min</p>
+        <?php if (!empty($recetasRelacionadas)): ?>
+            <h1>Publicaciones relacionadas</h1>
+            <div class="row">
+                <?php foreach ($recetasRelacionadas as $receta): ?>
+                    <div class="col-sm-12 col-md-6 col-lg-4 mb-4 seccion">
+                        <div class="card h-100 cursor-pointer">
+                            <a href="receta-plantilla.php?id=<?= $receta['id_publicacion'] ?>">
+                                <div class="card-img-wrapper d-flex justify-content-center align-items-center">
+                                    <img src="<?= $receta['imagenes'] ?>" class="card-img-top img-fluid" alt="<?= htmlspecialchars($receta['titulo'], ENT_QUOTES, 'UTF-8') ?>">
+                                    <div class="overlay">
+                                        <p class="dificultad"><?= htmlspecialchars($receta['dificultad'], ENT_QUOTES, 'UTF-8') ?></p>
+                                        <p class="minutos"><?= htmlspecialchars($receta['minutos_prep'], ENT_QUOTES, 'UTF-8') ?> min</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
-                        <div class="card-body text-left">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h5 class="card-title receta-titulo m-0"><?= htmlspecialchars($receta['titulo'], ENT_QUOTES, 'UTF-8') ?></h5>
-                                <div class="rating d-flex mb-2">
-                                    <?php $puntuacion = (int)$receta['valoracion_puntaje']; ?>
-                                    <?php for ($i = 1; $i <= 5; $i++): ?>
-                                        <i class="bi bi-star-fill <?= $i <= $puntuacion ? 'text-warning' : 'text-secondary' ?>"></i>
-                                    <?php endfor; ?>
+                            </a>
+                            <div class="card-body text-left">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="card-title receta-titulo m-0"><?= htmlspecialchars($receta['titulo'], ENT_QUOTES, 'UTF-8') ?></h5>
+                                    <div class="rating d-flex mb-2">
+                                        <?php $puntuacion = (int)$receta['valoracion_puntaje']; ?>
+                                        <?php for ($i = 1; $i <= 5; $i++): ?>
+                                            <i class="bi bi-star-fill <?= $i <= $puntuacion ? 'text-warning' : 'text-secondary' ?>"></i>
+                                        <?php endfor; ?>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            <?php endforeach; ?>
-        </div>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
     </div>
+
+
 
     <?php include '../includes/footer.php' ?>
 </body>
