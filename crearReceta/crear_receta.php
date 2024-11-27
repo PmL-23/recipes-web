@@ -124,7 +124,7 @@ if (!$queryResultsEtiquetas) {
                         while ($categoriaRow = $queryResultsCategoria->fetch(PDO::FETCH_ASSOC)) {
                             echo '<option value="'.$categoriaRow['id_categoria'].'">'.$categoriaRow['titulo'].'</option>';
                         }
-                        ?>  
+                        ?>
                     </select>
                     <small class="text-danger" id="error-categoria"></small>
 

@@ -1,7 +1,7 @@
 //variables globales
 let id_usuario;
 let urlVariable;
-
+let Permiso_GuardarReceta;
 //objeto para el usuario
 let Usuario = [];
 
@@ -417,6 +417,17 @@ function LLenarPagina() {
             });
         }
 
+        let footerHTML = '';
+        if(Permiso_GuardarReceta == 1){
+            footerHTML = `
+        <button type="button" id="btn-favorito-${i}" class="btn btn-outline-danger me-1 favorito favorito-activo" onclick="toggleFavorito(${Publicacion[i].id_publicacion}, ${i})">
+        <i class="bi bi-heart-fill fs-5"></i>
+    </button>
+    <button type="button" class="btn btn-outline-primary bg-none" id="btnCompartir">
+        <i class="bi bi-share-fill fs-5"></i>
+    </button>`;
+        }
+
         const fragmentoHTML = `
             <div class="p-3 mt-2 col-xxl-4 col-xl-6 col-md-12 mx-auto" id="DivPublicacion${i}">
                 <div class="row">
@@ -485,14 +496,7 @@ function LLenarPagina() {
                                     </div>
                                 </div>
 <div class="d-flex justify-content-end mt-2">
-<!-- Botón de Guardar en Favoritos -->
-
-    <button type="button" id="btn-favorito-${i}" class="btn btn-outline-danger me-1 favorito favorito-activo" onclick="toggleFavorito(${Publicacion[i].id_publicacion}, ${i})">
-        <i class="bi bi-heart-fill fs-5"></i>
-    </button>
-    <button type="button" class="btn btn-outline-primary bg-none" id="btnCompartir">
-        <i class="bi bi-share-fill fs-5"></i>
-    </button>
+    ${footerHTML}
 </div>
 
                             </div>
@@ -516,6 +520,9 @@ function LLenarPagina() {
 document.addEventListener("DOMContentLoaded", async function () {
     id_usuario = document.body.getAttribute('data-IDUsuario');
     urlVariable = document.body.getAttribute('data-urlbase');
+    Permiso_GuardarReceta = document.body.getAttribute('data-Permiso_GuardarReceta');
+    
+    //console.log("el poermiso es", Permiso_GuardarReceta);
     //console.log(urlVariable);
     let promesasDOM = [];
     promesasDOM.push(TraerPublicaciones()); //si usamos un away en el for, se rompe, por eso hacemos esto

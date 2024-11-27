@@ -93,7 +93,6 @@ if ($indexPosition !== false) {
         $urlVariable = $scheme . "://" . $host . '/';
     }
 }
-
 ?>
 
 <!DOCTYPE html>

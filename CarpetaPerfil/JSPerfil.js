@@ -2,6 +2,7 @@
 let Nombre_Usuario_Perfi;
 let urlVariable;
 let SessionIDUsuario;
+let Permiso_GuardarReceta;
 
 //objeto para el usuario
 let Usuario = {
@@ -693,8 +694,7 @@ function LLenarDivPublicaciones() {
             });
         }
         let footerHTML = '';
-        //await esFavorito();
-        //if(esFavorito(Publicacion[i].id_publicacion) === true){
+if(Permiso_GuardarReceta == 1){
     if(Publicacion[i].esFavorito === true){
             footerHTML = `
             <button type="button" id="btn-favorito-${i}" class="btn btn-outline-danger me-1 favorito-activo" onclick="toggleFavorito(${Publicacion[i].id_publicacion}, ${SessionIDUsuario}, ${i})"> <i class="bi bi-heart-fill fs-5"></i></button>`; 
@@ -703,6 +703,7 @@ function LLenarDivPublicaciones() {
             footerHTML = `
             <button type="button" id="btn-favorito-${i}" class="btn btn-outline-danger me-1" onclick="toggleFavorito(${Publicacion[i].id_publicacion},${SessionIDUsuario}, ${i})"> <i class="bi bi-heart-fill fs-5"></i></button>`; 
         }
+}
         
         // Solo se ponen las etiquetas si la publicacion las tiene 
 
@@ -774,6 +775,7 @@ function LLenarDivPublicaciones() {
                                     </div>
                                 </div>
 <div class="d-flex justify-content-end mt-2">
+
 ${footerHTML}
 </div>
 
@@ -797,9 +799,12 @@ ${footerHTML}
 document.addEventListener("DOMContentLoaded", async function () {
     Nombre_Usuario_Perfi = document.body.getAttribute('data-Nombre_Usuario');
     SessionIDUsuario = document.body.getAttribute('data-Session-IDUsuario');
+    Permiso_GuardarReceta = document.body.getAttribute('data-Permiso_GuardarReceta');
+    
+    //console.log("el poermiso es", Permiso_GuardarReceta);
     
     urlVariable = document.body.getAttribute('data-url-base');
-    console.log(urlVariable);
+    //console.log(urlVariable);
 
     //si no se especifico un username valido, mostramos modal de error y lo redirigimos.
     if(Nombre_Usuario_Perfi === ""){
