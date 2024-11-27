@@ -6,22 +6,21 @@ require_once('./Scripts-Favorito/getEstadoDeFavorito.php');
 require_once('../includes/razonesReporte.php');
 
 
-    $idPublicacion = isset($_GET['id']) ? $_GET['id'] : null;
+$idPublicacion = isset($_GET['id']) ? $_GET['id'] : null;
 
-    if ($idPublicacion) {
-        $query = "SELECT id_publicacion FROM publicaciones_recetas WHERE id_publicacion = :id_publicacion";
-        $stm = $conn->prepare($query);
-        $stm->bindParam(':id_publicacion', $idPublicacion, PDO::PARAM_INT);
-        $stm->execute();
+if ($idPublicacion) {
+    $query = "SELECT id_publicacion FROM publicaciones_recetas WHERE id_publicacion = :id_publicacion";
+    $stm = $conn->prepare($query);
+    $stm->bindParam(':id_publicacion', $idPublicacion, PDO::PARAM_INT);
+    $stm->execute();
 
-        $row = $stm->fetch(PDO::FETCH_ASSOC);
+    $row = $stm->fetch(PDO::FETCH_ASSOC);
 
-        if (!$row) {
-            header('Location: ../index/index.php'); 
-            exit();
-        }
-
+    if (!$row) {
+        header('Location: ../index/index.php');
+        exit();
     }
+}
 
 ?>
 
@@ -183,7 +182,7 @@ require_once('../includes/razonesReporte.php');
                         if (!empty($etiquetas)) {
                             foreach ($etiquetas as $etiqueta) {
                                 //#=pagina de etiquetas o a buscador
-                                echo '<a class="etiqueta text-decoration-none" href="#">' . $etiqueta["titulo"] . '</a> ';
+                                echo '<a class="etiqueta-style d-inline-flex mb-3 fw-semibold border border-success-subtle rounded-5 text-decoration-none" href="#">' . $etiqueta["titulo"] . '</a> ';
                             }
                         } else {
                             echo 'No hay etiquetas';
