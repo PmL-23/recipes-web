@@ -170,7 +170,9 @@ if ($indexPosition !== false) {
                     <div class="card-img-wrapper position-relative">
                         <img src="<?= htmlspecialchars($usuario['foto_usuario']) ?>" class="card-img-top" alt="Foto de Perfil" id="imagenPerfil"><br>
                         <small class="text-danger" id="imagenError"></small>
+                        <?php if(Permisos::tienePermiso('Cambiar Imagen de Perfil', $id_usuario)) { ?>
                         <button class="notificaciones btn btn-outline-light boton-menu" id="btnCambiarImagen" aria-label="Cambiar imagen">Cambiar imagen</button>
+                        <?php } ?>
                     </div>
                     <div class="card-body">
                         <h1 class="card-title" id="usernameText">@<?php echo htmlspecialchars($usuario['username']); ?>
@@ -185,7 +187,10 @@ if ($indexPosition !== false) {
                             <button class="btn btn-secondary mt-2" onclick="cancelarEdicion()">Cancelar</button><br>
                             <small class="text-danger" id="usernameError"></small>
                         </div>
+                        <?php if (Permisos::tienePermiso('Editar nombre de usuario', $id_usuario)) { ?>
                         <h3 class="card-title">Nombre: <?php echo htmlspecialchars($usuario['nom_completo']); ?></h3>
+                        <?php } ?>
+                        <?php if (Permisos::tienePermiso('Editar nombre de usuario', $id_usuario)) { ?>
                         <p class="card-text"> Descripción: <span id="descripcionText"><?php echo htmlspecialchars($usuario['descripcion']); ?></span>
                             <button id="editDescripcionBtn" class="btn btn-sm btn-primary" onclick="editarDescripcion()"><i class="bi bi-pencil-square"></i></button>
                             <textarea id="descripcionInput" rows="3" class="form-control"></textarea>
@@ -194,8 +199,11 @@ if ($indexPosition !== false) {
                                 <button class="btn btn-secondary mt-2" onclick="cancelarEdit()">Cancelar</button><br>
                                 <small class="text-danger" id="descripcionError"></small>
                             </div>
+                        <?php } ?>
                         </p>
+                        <?php if (Permisos::tienePermiso('Borrar Cuenta', $id_usuario)) { ?>
                         <button id="borrarCuenta" type="button" class="btn btn-outline-danger">BORRAR CUENTA</button>
+                        <?php } ?>
                     </div>
                 </div>
 
