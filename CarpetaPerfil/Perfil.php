@@ -14,7 +14,6 @@ if (!isset($_GET['NombreDeUsuario'])) {
     die();
 }
 
-
 $Nombre_Usuario = $_GET['NombreDeUsuario'];
 
 
@@ -46,12 +45,40 @@ if (count($existUser)  == 0){
     $Nombre_Usuario ="";
 
 }
-/* if (count($existUser)  == 1){
-    
-} */
+$permisoGuardarReceta = false;
+$permisoReportarPerfil = false;
+$permisoSeguirUsuario = false;
+
 if (isset($_SESSION['id'])) {
     $IDSession = $_SESSION['id'];
+
+require_once('../includes/permisos.php');
+
+    if (Permisos::tienePermiso('Guardar Receta', $IDSession)) {
+        $permisoGuardarReceta = true;
+    }
+    else{
+        $permisoGuardarReceta = false;
+    }
+    if(Permisos::tienePermiso('Reportar Perfil', $IDSession)) {
+        $permisoReportarPerfil = true;
+    }
+    else{
+        $permisoReportarPerfil = false;
+
+    }
+    if (Permisos::tienePermiso('Seguir Usuario', $IDSession)) {
+        $permisoSeguirUsuario = true;
+    }
+    else{
+        $permisoSeguirUsuario = false;
+    }
+
+//var_dump($permisoSeguirUsuario);
 }
+
+
+
 //seccion en la que obtenemos la url actual.
 $scheme = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? "https" : "http";      
 $host = $_SERVER['HTTP_HOST'];
@@ -72,6 +99,7 @@ if ($indexPosition !== false) {
         $urlVariable = $scheme . "://" . $host . '/';
     }
 }
+
 ?>
 
 
@@ -86,7 +114,8 @@ if ($indexPosition !== false) {
         <?php include '../includes/head.php'?>
     </head>
     
-<body data-Nombre_Usuario="<?php echo htmlspecialchars($Nombre_Usuario); ?>" data-url-base="<?php echo htmlspecialchars($urlVariable); ?>" data-Session-IDUsuario="<?php if (isset($_SESSION['id'])) echo htmlspecialchars($IDSession); ?>">
+<body data-Nombre_Usuario="<?php echo htmlspecialchars($Nombre_Usuario); ?>" data-url-base="<?php echo htmlspecialchars($urlVariable); ?>" data-Session-IDUsuario="<?php if (isset($_SESSION['id'])) echo htmlspecialchars($IDSession); ?>"
+data-Permiso_GuardarReceta="<?php echo $permisoGuardarReceta; ?>">
 
 <?php include '../includes/header.php';
 ?>
@@ -101,164 +130,16 @@ if ($indexPosition !== false) {
             <p class="d-inline text-secondary" id="IDNombreDeUsuario"></p>
             <!-- Botón Seguir -->
             <div class="d-inline">
+                <?php if($permisoSeguirUsuario){?>
+
             <button id="btn-SeguirPerfil" class="btn btn-primary rounded-pill align-items-center gap-2">
                 <i class="bi bi-person-plus-fill"></i>
                 <span>Seguir</span>
             </button>
+            
+            <?php }?>
             </div>
 
-        <!-- Dropdown
-        <div class="btn-group">
-            <button type="button" class="btn btn-success dropdown-toggle btn-sm p-0" data-bs-toggle="dropdown" aria-expanded="false"></button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalCambiarContrasena">Cambiar Contraseña</a></li>
-                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalEditarPerfil">Editar Perfil</a></li>
-                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalCompartirPerfil">Compartir Perfil</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#modalEliminarCuenta">Eliminar Cuenta</a></li>
-            </ul>
-</div>-->
-
-        <!-- Modal Cambiar Contraseña -->
-        <div class="modal fade" id="modalCambiarContrasena" tabindex="-1" aria-labelledby="modalCambiarContrasenaLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modalCambiarContrasenaLabel">Cambiar Contraseña</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body ">
-                        <form>
-                            <div class="mb-3 ">
-                                <label for="IDContraseñaActualEnCambiarContraseña" class="form-label">Contraseña actual</label>
-                                <input type="password" class="form-control" id="IDContraseñaActualEnCambiarContraseña">
-                            </div>
-                            <div class="mb-3">
-                                <label for="IDNuevaContraseñaEnCambiarContraseña" class="form-label">Nueva contraseña</label>
-                                <input type="password" class="form-control" id="IDNuevaContraseñaEnCambiarContraseña">
-                            </div>
-                            <div class="mb-3">
-                                <label for="IDConfirmacionNuevaContraseñaEnCambiarContraseña" class="form-label">Repetir nueva contraseña</label>
-                                <input type="password" class="form-control" id="IDConfirmacionNuevaContraseñaEnCambiarContraseña">
-                            </div>
-                            <button type="submit" class="btn btn-primary" id="IDGuardarCambiosEnCambiarContraseña">Guardar cambios</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-        <!-- Modal Editar Perfil -->
-        <div class="modal fade" id="modalEditarPerfil" tabindex="-1" aria-labelledby="modalEditarPerfilLabel" aria-hidden="true">
-            <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="modalEditarPerfilLabel">Editar Perfil</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- Apartados no modificables -->
-                    <div class="mb-3">
-                    <label for="IDNombreDeUsuarioEnEditarPerfil" class="form-label ">Nombre de Usuario</label>
-                    <input type="text" id="IDNombreDeUsuarioEnEditarPerfil" class="form-control input-readonly" value="Usuario123" readonly>
-                    </div>
-                    <div class="mb-3">
-                        <label for="IDEmailEnEditarPerfil" class="form-label">Correo Electrónico</label>
-                        <input type="email" id="IDEmailEnEditarPerfil" class="form-control input-readonly" value="usuario@example.com" readonly>
-                    </div>
-                    <div class="mb-3">
-                        <label for="IDFechaNacimientoEnEditarPerfil" class="form-label">Fecha de Nacimiento</label>
-                        <input type="date" id="IDFechaNacimientoEnEditarPerfil" class="form-control input-readonly" value="2000-01-01" readonly>
-                    </div>
-                    <hr>
-                <!-- Formulario con apartados editables -->
-                <form id="PerfilUsuarioForm">
-                    <div class="mb-3">
-                        <label for="IDNombreEnEditarPerfil" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="Nombre" placeholder="Ingrese su nombre">
-                    </div>
-                    <div class="mb-3">
-                        <label for="IDApellidoEnEditarPerfil" class="form-label">Apellido</label>
-                        <input type="text" class="form-control" id="IDApellidoEnEditarPerfil" placeholder="Ingrese su apellido">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="IDFotoDePerfilEnEditarPerfil" class="form-label">Cambiar Foto de Perfil</label>
-                        <input type="file" id="IDFotoDePerfilEnEditarPerfil" class="form-control" accept="image/*" onchange="previewImage(event)">
-                    </div>
-                        <div class="mb-3">
-                            <img id="imagePreview" src="#" alt="Vista Previa" style="display:none; width: 100%; max-height: 200px; object-fit: cover;">
-                        </div>
-                    
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-                    </div>
-                    </form>
-                </div>
-            </div>
-            </div>
-        </div>
-
-
-
-        <!-- Modal Compartir Perfil -->
-        <div class="modal fade" id="modalCompartirPerfil" tabindex="-1" aria-labelledby="modalCompartirPerfilLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modalCompartirPerfilLabel">Compartir Perfil</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Copiar el enlace para compartir tu perfil:</p>
-                        <input type="text" class="form-control" value="https://RecetasDeAmerica.com/MiPerfil" readonly>
-                        <button class="btn btn-primary mt-3" onclick="CopiarEnlacePerfil()">Copiar Enlace</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal Eliminar Cuenta -->
-        <div class="modal fade" id="modalEliminarCuenta" tabindex="-1" aria-labelledby="modalEliminarCuentaLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modalEliminarCuentaLabel">Eliminar Cuenta</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <!-- Botón que abre el modal de confirmación -->
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalConfirmarEliminacion">Eliminar Cuenta</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal Confirmación de Eliminación -->
-        <div class="modal fade" id="modalConfirmarEliminacion" tabindex="-1" aria-labelledby="modalConfirmarEliminacionLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modalConfirmarEliminacionLabel">Confirmar Eliminación</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>¿Estás completamente seguro de que deseas eliminar tu cuenta?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-danger" id="IDBotonEliminarCuenta">Sí, eliminar cuenta</button>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <!-- MODAL REPORTAR PUBLICACIÓN -->
 
@@ -343,34 +224,17 @@ if ($indexPosition !== false) {
                 <p class="box p-0 d-flex justify-content-center align-items-center">Siguiendo</p>
                 <p class="boxcantidad mt-0 p-0 d-flex justify-content-center align-items-center" id="IDCantidadSeguidos"></p>
             </div>
-
+            <?php if($permisoReportarPerfil){?>
             <div class="col-2 p-0 mt-0 d-flex justify-content-center align-items-center">
                 <button type="button" class="btn btn-outline-warning bg-none" id="btn-ReportarPerfil" data-bs-toggle="modal" data-bs-target="#modalReportarUsuario">
                     <i class="bi bi-flag-fill text-black"></i>
                 </button>
             </div>
+            <?php }?>
 
         </div>
     </div>
-    <!-- espacio para cada publicacion, tendra la partes, pero todo dentro de un div
-    con un sutil borde para que parezca un bloque
-    Encabezado:
-        Foto de perfil
-        Nombre y apellido de persona 
-        Nombre de Usuario del publicador de la receta(link para entrar al perfil)
-    Body:
-        Titulo y Descripcion de la Receta
-        Carrousel de fotos de la publicación.
-        Categoria y Etiquetas
-        Ingredientes 
-        
-    Pie de Publicacion:
-        Valoracion y al lado entre parensis cantidad de valoraciones
-        Cantidad de comentarios.
-        Boton para compartir.
-        Boton para guardar en favoritos.
 
--->
 <hr class="mt-0">
 
     <div class="container-fluid row" id="IDContenedorPublicacionesPropias">

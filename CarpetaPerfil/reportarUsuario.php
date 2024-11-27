@@ -4,11 +4,7 @@ session_start();
 
 require_once('../includes/conec_db.php');
 
-/* if (!Permisos::tienePermiso('Comentar publicacion', $usuarioID)) {//validamos que tenga permiso para comentar, de lo contrario, mostramos error
-    echo("error al comentar, no tiene permiso.");
-    header('Location: ../Vistas/index.php'); //Si el usuario intento comentar y no tiene permiso, vuelvo al indice, mejorar en versiones futuras*
-    exit();
-} */
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 

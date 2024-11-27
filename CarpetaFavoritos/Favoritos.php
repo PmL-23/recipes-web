@@ -5,7 +5,30 @@ if (!isset($_SESSION['id'])) {
     header("Location: ../inicio_sesion/iniciarSesion.php");
     exit();
 }
+
 $id_usuario = $_SESSION['id'];
+
+require_once('../includes/permisos.php');
+
+    $permisoVerRecetarFavoritas;
+    if (Permisos::tienePermiso('Ver Recetas Favoritas', $id_usuario)) {
+        $permisoVerRecetarFavoritas = true;
+    }
+    else{
+        $permisoVerRecetarFavoritas = false;
+        header("Location: ../inicio_sesion/iniciarSesion.php"); 
+    }
+
+    $permisoGuardarReceta;
+    if (Permisos::tienePermiso('Guardar Receta', $id_usuario)) {
+        $permisoGuardarReceta = true;
+    }
+    else{
+        $permisoGuardarReceta = false;
+    }
+
+
+
 
 //seccion en la que obtenemos la url actual.
 $scheme = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? "https" : "http";
@@ -42,7 +65,8 @@ if ($indexPosition !== false) {
     <?php include '../includes/head.php' ?>
 </head>
 
-<body data-IDUsuario="<?php echo htmlspecialchars($id_usuario); ?>" data-urlbase="<?php echo htmlspecialchars($urlVariable); ?> " class="d-flex flex-column min-vh-100">
+<body data-IDUsuario="<?php echo htmlspecialchars($id_usuario); ?>" data-urlbase="<?php echo htmlspecialchars($urlVariable); ?> " class="d-flex flex-column min-vh-100"
+data-Permiso_GuardarReceta="<?php echo $permisoGuardarReceta; ?>">
 
     <?php include '../includes/header.php' ?>
     <?php include '../includes/conec_db.php' ?>
