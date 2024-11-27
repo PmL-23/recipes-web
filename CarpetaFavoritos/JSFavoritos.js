@@ -329,6 +329,20 @@ async function toggleFavorito(idPublicacion, index) {
             btnFavorito.classList.toggle("favorito-activo");
             console.log("disculpe las molestias, no se pudo actualizar el registro");
         }
+        else{
+            const cantRecetasFavoritas = document.getElementById("IDCantidadPublicaciones"); // Selecciona el contenedor
+            if(accion=="eliminar"){
+                CantidadPublicaciones = CantidadPublicaciones - 1;
+                cantRecetasFavoritas.textContent = '(' + (CantidadPublicaciones) + ')';
+
+            }
+            if(accion=="agregar"){
+                console.log("xd");
+                CantidadPublicaciones = CantidadPublicaciones + 1;
+                cantRecetasFavoritas.textContent = '(' + (CantidadPublicaciones) + ')';
+            }
+            
+        }
     } catch (error) {
         // Revertir visualmente si la solicitud falla
         btnFavorito.classList.toggle("favorito-activo");
@@ -436,9 +450,6 @@ function LLenarPagina() {
             footerHTML = `
         <button type="button" id="btn-favorito-${i}" class="btn btn-outline-danger me-1 favorito favorito-activo" onclick="toggleFavorito(${Publicacion[i].id_publicacion}, ${i})">
         <i class="bi bi-heart-fill fs-5"></i>
-    </button>
-    <button type="button" class="btn btn-outline-primary bg-none" id="btnCompartir">
-        <i class="bi bi-share-fill fs-5"></i>
     </button>`;
         }
 
