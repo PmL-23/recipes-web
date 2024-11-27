@@ -20,6 +20,8 @@ if (!isset($_SESSION['id'])) {
 
 require_once('../includes/conec_db.php');
 
+
+
 $categoriaQuery = "SELECT * FROM categorias ORDER BY categorias.id_categoria DESC";
 $queryResultsCategoria = $conn->prepare($categoriaQuery);
 $queryResultsCategoria->execute(); 
@@ -58,6 +60,30 @@ if (!$queryResultsEtiquetas) {
     exit();
 }
 
+
+include '../recetas/manejoGetReceta.php';
+
+
+if (isset($_SESSION['id'])) {
+    $usuarioID = $_SESSION['id'];
+
+$query = "SELECT id_publicacion, id_usuario_autor FROM publicaciones_recetas 
+WHERE id_publicacion = :id_publicacion AND id_usuario_autor = :id_usuario";
+$stm = $conn->prepare($query);
+$stm->bindParam(':id_publicacion', $idPublicacion);
+$stm->bindParam(':id_usuario', $_SESSION['id']);
+$stm->execute();
+
+$Tablaxd = $stm->fetchAll(PDO::FETCH_ASSOC);
+
+
+    if(count($Tablaxd) == 0)
+    {
+        header('Location: ../index/index.php'); 
+            exit();
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -83,7 +109,8 @@ if (!$queryResultsEtiquetas) {
     
 <body>
 <?php include '../includes/header.php'?>
-<?php include '../recetas/manejoGetReceta.php'?>
+
+
 
 <form class="" method="POST" id="frm-receta-editar" name="frm-receta-editar" action="form-receta-editar.php?id=<?php echo $idPublicacion; ?>" data-IDPublicacion="<?php echo $idPublicacion; ?>">
     <div class="contenido-principal container w-100 w-lg-75 p-5 seccion">
