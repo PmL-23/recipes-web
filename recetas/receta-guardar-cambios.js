@@ -45,10 +45,9 @@ form.addEventListener("submit", function (e){
                     .catch(error => {
                         console.error("Error:", error);
                     });
-                    
-            }
         }
-    }
+        }
+        }
 
 });
 // Función para obtener valores seleccionados manualmente con su texto

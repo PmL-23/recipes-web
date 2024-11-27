@@ -14,7 +14,9 @@ if (!isset($_GET['IDUsuario'])) {
     die();
 }
 $idusuario_ = $_GET['IDUsuario'];
-$query = "SELECT username, nom_completo, foto_usuario FROM usuarios WHERE id_usuario = :ID_Usuario";
+$query = "SELECT usuarios.username, usuarios.nom_completo, usuarios.foto_usuario,  paises.ruta_imagen_pais FROM usuarios 
+LEFT JOIN paises on usuarios.id_pais = paises.id_pais
+WHERE usuarios.id_usuario =:ID_Usuario";
 $stm = $conn->prepare($query);
 $stm->bindParam(':ID_Usuario', $idusuario_);
 $stm->execute();

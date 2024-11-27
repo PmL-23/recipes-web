@@ -423,7 +423,10 @@ const ProcesarInformacionTraerPaises = function(data, index) {
     } else {
         let i = 0;
         for (let publi of data) {
-            Publicacion[index].paises[i] = publi.ruta_imagen_pais;
+            Publicacion[index].paises[i] = {
+                ruta_imagen_pais: publi.ruta_imagen_pais,
+                id_pais: publi.id_pais
+            };
             i += 1;
         }
         
@@ -444,9 +447,6 @@ const TraerPaises = async function (IDPublicacion, index) {
     }
 }
 
-//usamos un query selector con data-background-image para obtener la imagen actual de cada
-//carrousel. Despues aplicamos estilos desde este JS, no se pudo encontrar otra solución por
-//el momento
 
 document.querySelectorAll('.slide').forEach(function (slide) {
     var imgSrc = slide.getAttribute('data-background-image');
@@ -506,12 +506,15 @@ const ProcesarInformacionTraerPublicaciones = async function(data) {
             Publicacion[CantidadPublicaciones] = {
                 id_publicacion: publi.id_publicacion,
                 id_usuario_autor: publi.id_usuario_autor,
+                id_pais: publi.id_pais,
                 titulo: publi.titulo,
                 descripcion: publi.descripcion,
                 fecha_publicacion: publi.fecha_publicacion,
                 dificultad: publi.dificultad,
                 minutos_prep: publi.minutos_prep,
+                unidad_tiempo: publi.unidad_tiempo,
                 nom_categoria: publi.nombre_categoria,
+                id_categoria: publi.id_categoria,
                 cant_comentarios: null,
                 cant_valoraciones: null,
                 prom_valoracion: null,
@@ -565,6 +568,7 @@ const ProcesarInformacionLLenarEncabezado = function(data) {
     //console.log(data);
     let IDNombreCompletoDeUsuario = document.getElementById('IDNombreCompletoDeUsuario');
     let IDNombreDeUsuario = document.getElementById('IDNombreDeUsuario');
+    let IDBanderaPerfil = document.getElementById('IDBanderaPerfil');
     let IDFotoPerfil = document.getElementById('IDFotoPerfil');
 
     //faltaria actualizar lo de los seguidores
@@ -586,11 +590,15 @@ const ProcesarInformacionLLenarEncabezado = function(data) {
             Usuario.fecha_nacimiento = usuarioBDD.fecha_nacimiento;
             Usuario.id_pais = usuarioBDD.id_pais;
             Usuario.foto_usuario = usuarioBDD.foto_usuario;
+            Usuario.ruta_imagen_pais = usuarioBDD.ruta_imagen_pais;
             // actualizamos los <p>
             IDNombreCompletoDeUsuario.textContent = Usuario.nom_completo;
             IDNombreDeUsuario.textContent = '@' + Usuario.username;
+            IDBanderaPerfil.src = '../svg/' + usuarioBDD.ruta_imagen_pais;
             IDFotoPerfil.src = Usuario.foto_usuario;
         }
+        //console.log(Usuario);
+        
     }
 }
 const LLenarEncabezado = async function () {
@@ -688,10 +696,23 @@ function LLenarDivPublicaciones() {
         let PaisesHTML = '';
         // Solo se ponen las etiquetas si la publicacion las tiene 
         if (Publicacion[i].paises && Publicacion[i].paises.length > 0) {
-            Publicacion[i].paises.forEach((ruta, s) => {
+            Publicacion[i].paises.forEach((pais, s) => {
                 PaisesHTML += `
-                    <img src="../svg/${ruta}" alt="Bandera" width="27" class="bandera" id="bandera-receta">`;
+                    <img src="../svg/${pais.ruta_imagen_pais}" alt="Bandera" width="27" class="bandera aparecer-cursor" id="bandera-receta" onclick="Redireccionar('EnMismaVentana','../html_paises/receta_pais.php?id_pais=${pais.id_pais}')">`;
             });
+        }
+
+        let Tiempo = '';
+    if(Publicacion[i].unidad_tiempo == 'horas'){
+        Tiempo = `
+            <p class="tiempo">${Publicacion[i].minutos_prep} horas</p>
+        `; 
+        }
+    //if(Publicacion[i].unidad_tiempo == "minutos"){
+    else{
+        Tiempo = `
+            <p class="tiempo">${Publicacion[i].minutos_prep} mins</p>
+        `; 
         }
         let footerHTML = '';
 if(Permiso_GuardarReceta == 1){
@@ -704,6 +725,8 @@ if(Permiso_GuardarReceta == 1){
             <button type="button" id="btn-favorito-${i}" class="btn btn-outline-danger me-1" onclick="toggleFavorito(${Publicacion[i].id_publicacion},${SessionIDUsuario}, ${i})"> <i class="bi bi-heart-fill fs-5"></i></button>`; 
         }
 }
+
+
         
         // Solo se ponen las etiquetas si la publicacion las tiene 
 
@@ -730,7 +753,7 @@ if(Permiso_GuardarReceta == 1){
                             </div>
                             <ul class="list-group list-group-flush p-0">
                                 <li class="list-group-item mt-3">
-                                    <p class="categoria-style2 d-inline-flex mb-3 fw-semibold border border-success-subtle rounded-5">${Publicacion[i].nom_categoria}</p>
+                                    <p class="categoria-style d-inline-flex mb-3 fw-semibold border border-success-subtle rounded-5 aparecer-cursor" onclick="Redireccionar('EnMismaVentana','../categorias/recetas-categoria.php?categoria_id=${Publicacion[i].id_categoria}')">${Publicacion[i].nom_categoria}</p>
                                     ${EtiquetaIndividualHTML}
                                 </li>
                                 <li class="list-group-item">
@@ -752,7 +775,7 @@ if(Permiso_GuardarReceta == 1){
                                                 <div class="align-items-center box-icons">
                                                     <img src="../svg/alarm.svg" width="25px" class="icono-item" alt="Dificultad icon">
                                                     <p class="TextoCaracteristicasPublicacion mb-0">Tiempo</p>
-                                                    <p class="tiempo">${Publicacion[i].minutos_prep} min</p>
+                                                    ${Tiempo}
                                                 </div>
                                             </div>
                                         </div>
