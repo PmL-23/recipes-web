@@ -409,5 +409,5 @@ $Tablaxd = $stm->fetchAll(PDO::FETCH_ASSOC);
     </div>
 
 </form>
-<script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.1.0/dist/js/multi-select-tag.js"></script>
+
 <?php include '../includes/footer.php'?>  

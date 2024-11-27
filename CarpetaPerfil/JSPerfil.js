@@ -175,7 +175,7 @@ const EsSeguido = async function (id_usuarioSession, id_usuarioPerfil) {
         }
         btnSeguir.addEventListener("click", () => toggleSeguir(id_usuarioSession, id_usuarioPerfil));
     } catch (error) {
-        console.log("disculpe las molestias, ocurrio un error");
+        //console.log("disculpe las molestias, ocurrio un error");
     }
 }
 
@@ -594,7 +594,12 @@ const ProcesarInformacionLLenarEncabezado = function(data) {
             // actualizamos los <p>
             IDNombreCompletoDeUsuario.textContent = Usuario.nom_completo;
             IDNombreDeUsuario.textContent = '@' + Usuario.username;
-            IDBanderaPerfil.src = '../svg/' + usuarioBDD.ruta_imagen_pais;
+            if(usuarioBDD.ruta_imagen_pais== undefined){
+                IDBanderaPerfil.classList.add("d-none");
+            }
+            else{
+                IDBanderaPerfil.src = '../svg/' + usuarioBDD.ruta_imagen_pais;
+            }
             IDFotoPerfil.src = Usuario.foto_usuario;
         }
         //console.log(Usuario);
