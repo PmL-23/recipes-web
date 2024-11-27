@@ -215,7 +215,7 @@ if (!$queryResultsEtiquetas) {
                     </div>
                 </div>
                 <div class="col-md-2 mt-md-4 d-flex justify-content-end">
-                    <button class="boton-secundario mt-4" type="button" id="quitar-ing" disabled><i class="bi bi-trash me-1"></i>Quitar</button>
+                    <button class="boton-secundario mt-4" type="button" id="quitar-ing" disabled><i class="bi bi-trash icono me-1"></i>Quitar</button>
                 </div>
             </div>
         </div>                
@@ -233,14 +233,14 @@ if (!$queryResultsEtiquetas) {
                         <small class="text-danger error-paso" id="error-paso"></small>
                     </div> 
                     <div class="d-grid d-flex justify-content-end mt-2">
-                        <button class="boton-secundario d-flex" type="button" id="quitar-paso" disabled><i class="bi bi-trash me-1"></i>Quitar</button>
+                        <button class="boton-secundario d-flex" type="button" id="quitar-paso" disabled><i class="bi bi-trash icono me-1"></i>Quitar</button>
                     </div>                
                     <div class="elementos-paso d-grid gap-2 d-md-flex justify-content-md-start">
                         <div class="contenedor-paso-img justify-content-start">
                             <img src="default-image.png" class="img-paso border rounded img-fluid img-paso-id" alt="Imagen del paso">
                             <input class="form-control mt-2 file-paso" type="file" name="imagenes_paso1[]" accept="image/*" multiple>
                             <small class="text-danger error-imagen-paso"></small>
-                            <button class="boton-secundario d-flex mt-2 d-none quitar-imagen" type="button"><i class="bi bi-trash me-1"></i>Quitar Imagen</button>         
+                            <button class="boton-secundario d-flex mt-2 d-none quitar-imagen" type="button"><i class="bi bi-trash icono me-1"></i>Quitar Imagen</button>         
                         </div>
                     </div>
 

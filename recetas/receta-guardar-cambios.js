@@ -52,19 +52,6 @@ form.addEventListener("submit", function (e){
         }
 
 });
-// Función para obtener valores seleccionados manualmente con su texto
-function obtenerEtiquetasSeleccionadas() {
-        const selectEtiquetas = document.getElementById("SelectEtiquetas");
-        const etiquetasSeleccionadas = Array.from(selectEtiquetas.options)
-        .filter(option => option.selected)
-        .map(option => ({
-                value: option.value,
-                text: option.text
-        }));
-        console.log("Etiquetas seleccionadas son: ",etiquetasSeleccionadas);
-        
-        return etiquetasSeleccionadas;
-}
 
 function validarPortada() {
         let FlagValidacion = true;
@@ -733,6 +720,8 @@ quitarPaises.forEach(quitarPais => {
 });
 
 
+
+
 let pasosEliminados = []; 
 
 const quitarPasos = document.querySelectorAll('.quitar-paso');
@@ -774,8 +763,8 @@ function eliminarPasos(id_publicacion, pasosAEliminar) {
 
 
 const quitarIng = document.querySelectorAll('.quitar-ingrediente');
-quitarIng.forEach(quitarPais => {
-        quitarPais.addEventListener('click', function() {
+quitarIng.forEach(quitarIngrediente => {
+        quitarIngrediente.addEventListener('click', function() {
         const ingContainer = this.closest('.ingrediente-container');
         const idIngReceta = this.getAttribute('data-id-ingrediente');
 
@@ -796,7 +785,39 @@ quitarIng.forEach(quitarPais => {
                         if (dataIng.success) {
                                 console.log("Ingrediente eliminado con éxito");
                         } else {
-                                console.error("Error al eliminar el país:", dataIng.message);
+                                console.error("Error al eliminar el ingrediente:", dataIng.message);
+                        }
+                        })
+                        .catch(error => console.error("Error:", error));
+                }
+
+        }
+        });
+});
+
+const quitarEtiquetas = document.querySelectorAll('.quitar-etiqueta');
+quitarEtiquetas.forEach(quitarEtiqueta => {
+        quitarEtiqueta.addEventListener('click', function() {
+        const etiquetaContainer = this.closest('.una_etiqueta');
+        const idEtiqueta = this.getAttribute('data-id-etiqueta');
+
+        etiquetaContainer.remove();
+
+        if (validar === true)
+        {
+                if (idIngReceta) {
+                        fetch('form-receta-editar.php', {
+                        method: 'POST',
+                        headers: {
+                                'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ id_etiqueta_receta: idEtiqueta })
+                        })
+                        .then(response => response.json())
+                        .then(dataEtiqueta => {
+                        if (dataEtiqueta.success) {
+                        } else {
+                                console.error("Error al eliminar el etiqueta:", dataEtiqueta.message);
                         }
                         })
                         .catch(error => console.error("Error:", error));

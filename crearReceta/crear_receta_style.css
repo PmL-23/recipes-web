@@ -89,6 +89,11 @@
         border-bottom: none;
         border-radius: 0%;
     }
+
+    .icono
+    {
+        display: none;
+    }
     .contenido-principal
     {
         border-top: none;
