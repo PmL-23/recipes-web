@@ -42,7 +42,6 @@ if ($id_pais) {
     <script src="../buscador/buscador_script.js" defer></script>
     <script src="mostrarSegunFecha.js"></script>
     <script src="../index/manejarModal.js" defer></script>
-    <script src="receta_paises.js" defer></script>
     <?php include '../includes/head.php'; ?>
 </head>
 
