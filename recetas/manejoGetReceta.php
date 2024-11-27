@@ -1,8 +1,12 @@
 <?php
 require '../includes/conec_db.php';
 
+
 if (isset($_GET['id'])) {
     $idPublicacion = $_GET['id'];
+    
+    //$Nombre_Usuario = $_GET['NombreDeUsuario'];
+
 
     $sql = "SELECT * FROM publicaciones_recetas WHERE id_publicacion = :id_get";
     $stmt = $conn->prepare($sql);

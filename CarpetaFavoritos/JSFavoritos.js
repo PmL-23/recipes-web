@@ -337,7 +337,6 @@ async function toggleFavorito(idPublicacion, index) {
 
             }
             if(accion=="agregar"){
-                console.log("xd");
                 CantidadPublicaciones = CantidadPublicaciones + 1;
                 cantRecetasFavoritas.textContent = '(' + (CantidadPublicaciones) + ')';
             }
