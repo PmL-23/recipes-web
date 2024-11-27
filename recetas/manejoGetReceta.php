@@ -42,7 +42,7 @@ if (isset($_GET['id'])) {
     $stmtImagenP->execute();
     $imagenDataP = $stmtImagenP->fetch(PDO::FETCH_ASSOC);
 
-    $bandera= $imagenDataP["ruta_imagen_pais"];
+    $bandera = $imagenDataP["ruta_imagen_pais"];
 
     if (!file_exists($fotoAutor) || $fotoAutor === 0 || empty($fotoAutor)) {
         $fotoAutor = "../fotos_usuario/default/perfil-default.jpg";
@@ -66,8 +66,7 @@ if (isset($_GET['id'])) {
     }
 
 
-    if ($unidad_tiempo === "hora")
-    {
+    if ($unidad_tiempo === "hora") {
         $minutos_prep = $minutos_prep * 60;
     }
 
@@ -134,7 +133,7 @@ if (isset($_GET['id'])) {
             $paises[] = [
                 'nombre' => htmlspecialchars($paisNombre, ENT_QUOTES, 'UTF-8'),
                 'ruta_imagen_pais' => htmlspecialchars($paisImagen, ENT_QUOTES, 'UTF-8'),
-                
+
             ];
         }
     }
@@ -221,26 +220,23 @@ if (isset($_GET['id'])) {
 
 
 
-
-
-
-    
     $primeraPalabra = strtok($titulo, ' ');
 
     $sqlRecetasRelacionadas = "
     SELECT 
-        publicaciones_recetas.id_publicacion, 
-        publicaciones_recetas.titulo, 
-        publicaciones_recetas.descripcion, 
-        publicaciones_recetas.dificultad, 
-        publicaciones_recetas.minutos_prep,
-        COALESCE(AVG(valoraciones.puntuacion), 0) AS valoracion_puntaje
+        publicaciones_recetas.*, 
+        COALESCE(AVG(valoraciones.puntuacion), 0) AS valoracion_puntaje,
+        imagenes.ruta_imagen AS imagenes
     FROM 
         publicaciones_recetas
     LEFT JOIN 
-        valoraciones ON publicaciones_recetas.id_publicacion = valoraciones.id_publicacion
+        valoraciones 
+        ON publicaciones_recetas.id_publicacion = valoraciones.id_publicacion
+    LEFT JOIN 
+        imagenes 
+        ON imagenes.id_publicacion = publicaciones_recetas.id_publicacion
     WHERE 
-        publicaciones_recetas.titulo LIKE :primeraPalabra 
+        publicaciones_recetas.titulo LIKE :primeraPalabra
         AND publicaciones_recetas.id_publicacion != :id_actual
     GROUP BY 
         publicaciones_recetas.id_publicacion
@@ -248,28 +244,9 @@ if (isset($_GET['id'])) {
 
     $stmtRecetasRelacionadas = $conn->prepare($sqlRecetasRelacionadas);
 
-    // Buscar recetas cuyo título contenga la primera palabra
     $tituloBusqueda = '%' . $primeraPalabra . '%';
     $stmtRecetasRelacionadas->bindParam(':primeraPalabra', $tituloBusqueda, PDO::PARAM_STR);
     $stmtRecetasRelacionadas->bindParam(':id_actual', $idPublicacion, PDO::PARAM_INT);
-
     $stmtRecetasRelacionadas->execute();
     $recetasRelacionadas = $stmtRecetasRelacionadas->fetchAll(PDO::FETCH_ASSOC);
-
-    // Obtener la imagen de cada receta relacionada
-    foreach ($recetasRelacionadas as &$receta) {
-        $sqlImagen = "SELECT ruta_imagen FROM imagenes WHERE id_publicacion = :id";
-        $stmtImagen = $conn->prepare($sqlImagen);
-        $stmtImagen->bindParam(':id', $receta['id_publicacion'], PDO::PARAM_INT);
-        $stmtImagen->execute();
-        $imagenesRelacionadas = $stmtImagen->fetchAll(PDO::FETCH_ASSOC);
-
-        $imagenesRelacion = [];
-        foreach ($imagenesRelacionadas as $imagen) {
-            if (!empty($imagen['ruta_imagen'])) {
-                $imagenesRelacion[] = htmlspecialchars($imagen["ruta_imagen"], ENT_QUOTES, 'UTF-8');
-            }
-        }
-        $receta['imagenes'] = empty($imagenesRelacion) ? "../html_paises/img/imgArg/default.jpg" : $imagenesRelacion[0];
-    }
 }
