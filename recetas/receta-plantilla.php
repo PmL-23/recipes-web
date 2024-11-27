@@ -648,8 +648,6 @@ require_once('../includes/razonesReporte.php');
         </div>
     </div>
 
-
-
     <?php include '../includes/footer.php' ?>
 </body>
 

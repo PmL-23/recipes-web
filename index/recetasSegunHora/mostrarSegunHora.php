@@ -18,8 +18,24 @@ function obtenerRecetasPorHora($conn)
         $etiquetaID = 21; // cena
     }
     // sql
-    $query = "SELECT publicaciones_recetas.*, valoraciones.puntuacion AS valoracion_puntaje, AVG(valoraciones.puntuacion) AS promedio_valoracion FROM publicaciones_recetas INNER JOIN etiquetas_recetas ON publicaciones_recetas.id_publicacion = etiquetas_recetas.id_publicacion INNER JOIN valoraciones ON publicaciones_recetas.id_publicacion = valoraciones.id_publicacion WHERE etiquetas_recetas.id_etiqueta = :etiquetaID GROUP BY publicaciones_recetas.id_publicacion;";
-
+    $query = "
+    SELECT 
+        publicaciones_recetas.*, 
+        valoraciones.puntuacion AS valoracion_puntaje, 
+        AVG(valoraciones.puntuacion) OVER (PARTITION BY publicaciones_recetas.id_publicacion) AS promedio_valoracion 
+    FROM 
+        publicaciones_recetas
+    INNER JOIN 
+        etiquetas_recetas 
+        ON publicaciones_recetas.id_publicacion = etiquetas_recetas.id_publicacion
+    INNER JOIN 
+        valoraciones 
+        ON publicaciones_recetas.id_publicacion = valoraciones.id_publicacion
+    WHERE 
+        etiquetas_recetas.id_etiqueta = :etiquetaID
+    GROUP BY 
+        publicaciones_recetas.id_publicacion;
+";
     $stm = $conn->prepare($query);
     $stm->bindParam(':etiquetaID', $etiquetaID, PDO::PARAM_INT);
     $stm->execute();

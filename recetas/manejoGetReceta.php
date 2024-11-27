@@ -4,7 +4,7 @@ require '../includes/conec_db.php';
 
 if (isset($_GET['id'])) {
     $idPublicacion = $_GET['id'];
-    
+
     //$Nombre_Usuario = $_GET['NombreDeUsuario'];
 
 
@@ -40,7 +40,7 @@ if (isset($_GET['id'])) {
     $fotoAutor = $autorData["foto_usuario"];
     $paisAutor = $autorData["id_pais"];
 
-    $bandera= "";
+    $bandera = "";
     if (!empty($id_pais)) {
 
         $sqlImagenP = "SELECT ruta_imagen_pais FROM paises WHERE id_pais = :id_pais";
@@ -48,16 +48,16 @@ if (isset($_GET['id'])) {
         $stmtImagenP->bindParam(':id_pais', $id_pais, PDO::PARAM_INT);
         $stmtImagenP->execute();
         $resultadoImagen = $stmtImagenP->fetch(PDO::FETCH_ASSOC);
-        
+
         if ($resultadoImagen) {
-           
-            $bandera= $resultadoImagen["ruta_imagen_pais"];
-        } 
+
+            $bandera = $resultadoImagen["ruta_imagen_pais"];
+        }
     }
 
-    
 
-    
+
+
 
     if (!file_exists($fotoAutor) || $fotoAutor === 0 || empty($fotoAutor)) {
         $fotoAutor = "../fotos_usuario/default/perfil-default.jpg";
@@ -233,11 +233,12 @@ if (isset($_GET['id'])) {
 
 
 
+   //tomo a partir de los primeros 3 
+    $claveBusqueda = substr($titulo, 0, 3);
 
-
-    $primeraPalabra = strtok($titulo, ' ');
-
-    $sqlRecetasRelacionadas = "
+    // verifico que tenga al menso 3
+    if (strlen($claveBusqueda) >= 3) {
+        $sqlRecetasRelacionadas = "
     SELECT 
         publicaciones_recetas.*, 
         COALESCE(AVG(valoraciones.puntuacion), 0) AS valoracion_puntaje,
@@ -251,17 +252,21 @@ if (isset($_GET['id'])) {
         imagenes 
         ON imagenes.id_publicacion = publicaciones_recetas.id_publicacion
     WHERE 
-        publicaciones_recetas.titulo LIKE :primeraPalabra
+        publicaciones_recetas.titulo LIKE :claveBusqueda
         AND publicaciones_recetas.id_publicacion != :id_actual
     GROUP BY 
         publicaciones_recetas.id_publicacion
-";
+    ";
 
-    $stmtRecetasRelacionadas = $conn->prepare($sqlRecetasRelacionadas);
+        $stmtRecetasRelacionadas = $conn->prepare($sqlRecetasRelacionadas);
+        $tituloBusqueda = $claveBusqueda . '%'; 
+        $stmtRecetasRelacionadas->bindParam(':claveBusqueda', $tituloBusqueda, PDO::PARAM_STR);
+        $stmtRecetasRelacionadas->bindParam(':id_actual', $idPublicacion, PDO::PARAM_INT);
+        $stmtRecetasRelacionadas->execute();
 
-    $tituloBusqueda = '%' . $primeraPalabra . '%';
-    $stmtRecetasRelacionadas->bindParam(':primeraPalabra', $tituloBusqueda, PDO::PARAM_STR);
-    $stmtRecetasRelacionadas->bindParam(':id_actual', $idPublicacion, PDO::PARAM_INT);
-    $stmtRecetasRelacionadas->execute();
-    $recetasRelacionadas = $stmtRecetasRelacionadas->fetchAll(PDO::FETCH_ASSOC);
+        $recetasRelacionadas = $stmtRecetasRelacionadas->fetchAll(PDO::FETCH_ASSOC);
+    } else {
+        $recetasRelacionadas = [];
+    }
+
 }
