@@ -35,7 +35,9 @@ if (empty($_FILES["imagen"])) {
 if (move_uploaded_file($rutaTemporal, $rutaDestino)) {
     // Si hay una imagen anterior, la elimina del filesystem
     if ($usuario && file_exists($carpetaDestino . $usuario['foto_usuario'])) {
-        unlink($carpetaDestino . $usuario['foto_usuario']);
+        if(!$usuario['foto_usuario'] === '../fotos_usuario/default/perfil-default.jpg') {
+            unlink($carpetaDestino . $usuario['foto_usuario']);
+        }
     }
 
     $sqlQuery = "UPDATE usuarios SET foto_usuario = :foto_usuario WHERE id_usuario = :id_usuario";

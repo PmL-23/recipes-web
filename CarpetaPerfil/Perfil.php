@@ -1,5 +1,6 @@
 <?php
 require_once('../includes/razonesReporte.php');
+
 session_start();
 include_once '../includes/conec_db.php';
 if (!isset($_GET['NombreDeUsuario'])) {

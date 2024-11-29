@@ -20,6 +20,8 @@ if ($idPublicacion) {
         header('Location: ../index/index.php');
         exit();
     }
+} else {
+    header('Location: ../index/index.php');
 }
 
 ?>

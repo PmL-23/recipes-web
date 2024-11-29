@@ -547,8 +547,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     urlVariable = document.body.getAttribute('data-urlbase');
     Permiso_GuardarReceta = document.body.getAttribute('data-Permiso_GuardarReceta');
     
-    //console.log("el poermiso es", Permiso_GuardarReceta);
-    //console.log(urlVariable);
+
     let promesasDOM = [];
     promesasDOM.push(TraerPublicaciones()); //si usamos un away en el for, se rompe, por eso hacemos esto
     await Promise.all(promesasDOM);
